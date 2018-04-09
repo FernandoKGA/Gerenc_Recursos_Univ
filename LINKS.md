@@ -10,3 +10,4 @@
 * [Git interativo](https://try.github.io/levels/1/challenges/1)
 * [PUSH E PULL com chaves SSH](https://gist.github.com/developius/c81f021eb5c5916013dc)
 * [Erro de conexão para SSH](https://stackoverflow.com/questions/17846529/could-not-open-a-connection-to-your-authentication-agent)
+* [Playlist YouTube do The Coding Train sobre Git](https://www.youtube.com/playlist?list=PLRqwX-V7Uu6ZF9C0YMKuns9sLDzK6zoiV)
