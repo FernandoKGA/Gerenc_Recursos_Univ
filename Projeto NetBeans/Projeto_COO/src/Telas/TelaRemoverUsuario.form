@@ -223,7 +223,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Excluir Usu&#xe1;rio"/>
+        <Property name="text" type="java.lang.String" value="EXCLUIR USU&#xc1;RIO"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
@@ -232,7 +232,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Digite o nUSP do usu&#xe1;rio"/>
+        <Property name="text" type="java.lang.String" value="Digite o nUSP do usu&#xe1;rio:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

@@ -108,7 +108,7 @@
               <Color blue="0" green="0" red="fa" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Cadastro de Recurso"/>
+            <Property name="text" type="java.lang.String" value="CADASTRO DE RECURSO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">

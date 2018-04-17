@@ -128,7 +128,7 @@ public class TelaDescadastrarRecurso extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Excluir Recurso");
+        jLabel2.setText("EXCLUIR RECURSO");
         jLabel2.setToolTipText("");
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N

@@ -193,7 +193,7 @@
           <Color blue="0" green="0" red="fa" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Listagem"/>
+        <Property name="text" type="java.lang.String" value="LISTAGEM"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
