@@ -13,7 +13,8 @@ import javax.swing.JFrame;
  */
 public class GerenciadorTelas extends JFrame{
     public static void main(String[] args) {
-        
+        TelaMenuV2 tela = new TelaMenuV2();
+        tela.setVisible(true);
     }
     
     public static void trocarTela(JFrame atual, JFrame nova){
