@@ -44,7 +44,7 @@ public class TelaCadastroRecurso extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de Recurso");
+        jLabel1.setText("CADASTRO DE RECURSO");
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("Nome do Recurso");

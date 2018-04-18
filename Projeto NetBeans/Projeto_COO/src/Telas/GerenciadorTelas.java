@@ -15,7 +15,6 @@ public class GerenciadorTelas extends JFrame{
     public static void main(String[] args) {
         Telas.TelaMenuV.main(args);
     }
-    
     public static void trocarTela(JFrame atual, JFrame nova){
         nova.setVisible(true);
         atual.setVisible(false);
