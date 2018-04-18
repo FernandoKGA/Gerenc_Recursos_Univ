@@ -8,8 +8,8 @@ public class Usuario {
     private String nome;
     private int nUSP; //poderia ser short por questão de tamanho
     private int telefone; //poderia ser short por questão de tamanho
-    private String cargo;
-    private String curso;
+    private Cargos cargo;
+    private Cursos curso;
     
     private enum Cargos{
         ALUNO, PROFESSOR, COORDENADOR
@@ -28,6 +28,9 @@ public class Usuario {
         Usuario u = new Usuario();
         u.setNome(nome);
         u.setNUSP(nUSP);
+        u.setTelefone(telefone);
+        u.setCurso(curso);
+        u.setCargo(cargo);
     }
     
     //getters e setters
@@ -40,10 +43,10 @@ public class Usuario {
     public int getTelefone(){
         return this.telefone;
     }
-    public String getCurso(){
+    public Cursos getCurso(){
         return this.curso;
     }
-    public String getCargo(){
+    public Cargos getCargo(){
         return this.cargo;
     }
     
@@ -69,7 +72,7 @@ public class Usuario {
     public void setCurso(String a){
         for(Cursos cursos : Cursos.values()){
             if(cursos.toString().equalsIgnoreCase(a)){
-                this.curso = a;
+                this.curso = cursos;
             }
         }
     }
@@ -77,7 +80,7 @@ public class Usuario {
     public void setCargo(String a){
         for(Cargos cargos : Cargos.values()){
             if(cargos.toString().equalsIgnoreCase(a)){
-                this.cargo = a;
+                this.cargo = cargos;
             }
         }
     }
