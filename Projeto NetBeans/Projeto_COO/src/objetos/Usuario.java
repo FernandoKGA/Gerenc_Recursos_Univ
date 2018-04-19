@@ -4,30 +4,32 @@
  * and open the template in the editor.
  */
 package objetos;
+
 public class Usuario {
     private String nome;
-    private int nUSP; //poderia ser short por questão de tamanho
-    private int telefone; //poderia ser short por questão de tamanho
+    private int nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
+    private String email;
+    private int telefone; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private Cargos cargo;
     private Cursos curso;
     
-    private enum Cargos{
-        ALUNO, PROFESSOR, COORDENADOR
-    }
-    
     /*Fico na dúvida se precisa ser o nome inteiro ou se vai ser só uma sigla. 
-      A principio, vou fazer como sigla, e depois eu penso em como vou alterar*/
+    A principio, vou fazer como sigla, e depois eu penso em como vou alterar*/
+
+    private enum Cargos{
+        ALUNO_GRAD, ALUNO_POS_GRAD, PROFESSOR, COORDENADOR, REITOR, SECRETARIO, BIBLIOTECARIO }
+
     private enum Cursos{
-        BIOTEC, LCN, EFS, GERONTO, GA, GPP, LZT, MKT, OBS, SI, TM
-    }
+        SI, MKT, GPP, OBS, GA, BTC, EFS, LZT, LCN, GER, TM }
 
     public Usuario(){
     }
     
-    public Usuario(String nome, int nUSP, String telefone, String curso, String cargo){
+    public Usuario(String nome, int nUSP,String email, String telefone, String curso, String cargo){
         Usuario u = new Usuario();
         u.setNome(nome);
         u.setNUSP(nUSP);
+        u.setEmail(email);
         u.setTelefone(telefone);
         u.setCurso(curso);
         u.setCargo(cargo);
@@ -43,6 +45,9 @@ public class Usuario {
     public int getTelefone(){
         return this.telefone;
     }
+    public String getEmail(){
+        return this.email;
+    }
     public Cursos getCurso(){
         return this.curso;
     }
@@ -57,20 +62,25 @@ public class Usuario {
     public void setNUSP(int nUSP){
         this.nUSP = nUSP;
     }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
     
     //exige uma verificação de caracteres - não pode ter letra
     public void setTelefone(String telefone){
         if(telefone.length() != 11){
-            System.out.println("Telefone incorreto - COloque DDD + números, apenas em numerais");
+            System.out.println("Telefone incorreto - Coloque DDD + números, apenas em numerais");
         }
-        
+        else{
+            this.telefone = Integer.parseInt(telefone);
+        }
         //ainda tem verificações a fazer!
-        this.telefone = Integer.parseInt(telefone);
     }
     
-    //enums - estou tratando da forma correta? :thinking:
+    //enums - estou tratando da forma correta? :thinking:   --(Pelo o que o Freire disse a mim, sim...)
     public void setCurso(String a){
-        for(Cursos cursos : Cursos.values()){
+        for(Cursos cursos : Cursos.valuesOf()){
             if(cursos.toString().equalsIgnoreCase(a)){
                 this.curso = cursos;
             }
@@ -84,7 +94,4 @@ public class Usuario {
             }
         }
     }
-    
-    
-    
 }

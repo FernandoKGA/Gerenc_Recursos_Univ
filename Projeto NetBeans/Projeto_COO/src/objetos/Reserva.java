@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package objetos;
 
-public class Recurso {
+public class Reserva {
 
     private String nome;
     private Tipos tipo;
@@ -17,7 +12,7 @@ public class Recurso {
     private enum Predios {
         CB,I1,I3,I5,M7,A2,INCUB    } //que predios que a gente vai ter? Eita
 
-    public Recurso() {
+    public Reserva() {
     }
 
     //getters e setters
