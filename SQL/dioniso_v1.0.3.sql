@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `DIONISO` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `DIONISO`;
 -- MySQL dump 10.13  Distrib 5.7.21, for Linux (i686)
 --
--- Host: localhost    Database: PROJETO
+-- Host: localhost    Database: DIONISO
 -- ------------------------------------------------------
 -- Server version	5.7.21-0ubuntu0.17.10.1
 
@@ -16,79 +18,54 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ENTIDADE`
+-- Table structure for table `RECURSO`
 --
 
-DROP TABLE IF EXISTS `ENTIDADE`;
+DROP TABLE IF EXISTS `RECURSO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ENTIDADE` (
-  `IDENTIDADE` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `RECURSO` (
+  `IDRECURSO` int(11) NOT NULL AUTO_INCREMENT,
   `NOME` varchar(50) NOT NULL,
-  PRIMARY KEY (`IDENTIDADE`),
+  `PREDIO` enum('CB','I1','I3','I5','M7','A2','INCUB') NOT NULL,
+  `SALA` varchar(50) NOT NULL,
+  PRIMARY KEY (`IDRECURSO`),
   UNIQUE KEY `NOME` (`NOME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ENTIDADE`
+-- Dumping data for table `RECURSO`
 --
 
-LOCK TABLES `ENTIDADE` WRITE;
-/*!40000 ALTER TABLE `ENTIDADE` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ENTIDADE` ENABLE KEYS */;
+LOCK TABLES `RECURSO` WRITE;
+/*!40000 ALTER TABLE `RECURSO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `RECURSO` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `HORARIO`
+-- Table structure for table `RESERVA`
 --
 
-DROP TABLE IF EXISTS `HORARIO`;
+DROP TABLE IF EXISTS `RESERVA`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `HORARIO` (
-  `IDHORARIO` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `RESERVA` (
+  `IDRESERVA` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `HINICIO` varchar(5) NOT NULL,
   `HFIM` varchar(5) NOT NULL,
   `DATA` date NOT NULL,
-  PRIMARY KEY (`IDHORARIO`)
+  PRIMARY KEY (`IDRESERVA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `HORARIO`
+-- Dumping data for table `RESERVA`
 --
 
-LOCK TABLES `HORARIO` WRITE;
-/*!40000 ALTER TABLE `HORARIO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `HORARIO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `TELEFONE`
---
-
-DROP TABLE IF EXISTS `TELEFONE`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `TELEFONE` (
-  `IDTELEFONE` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `TIPO` enum('RES,COM,CEL') DEFAULT NULL,
-  `NUMERO` varchar(12) DEFAULT NULL,
-  `ID_USUARIO` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`IDTELEFONE`),
-  KEY `ID_USUARIO` (`ID_USUARIO`),
-  CONSTRAINT `TELEFONE_ibfk_1` FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIO` (`IDUSUARIO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `TELEFONE`
---
-
-LOCK TABLES `TELEFONE` WRITE;
-/*!40000 ALTER TABLE `TELEFONE` DISABLE KEYS */;
-/*!40000 ALTER TABLE `TELEFONE` ENABLE KEYS */;
+LOCK TABLES `RESERVA` WRITE;
+/*!40000 ALTER TABLE `RESERVA` DISABLE KEYS */;
+/*!40000 ALTER TABLE `RESERVA` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -101,13 +78,14 @@ DROP TABLE IF EXISTS `USUARIO`;
 CREATE TABLE `USUARIO` (
   `IDUSUARIO` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `NOME` varchar(50) NOT NULL,
-  `NUSP` varchar(10) NOT NULL,
+  `NUSP` varchar(11) NOT NULL,
   `EMAIL` varchar(50) NOT NULL,
-  `ID_ENTIDADE` int(10) unsigned DEFAULT NULL,
+  `CARGO` enum('ALUNO_GRAD','ALUNO_POS_GRAD','PROFESSOR','COORDENADOR','REITOR','SECRETARIO','BIBLIOTECARIO') NOT NULL,
+  `CURSO` enum('SI','MKT','GPP','OBS','GA','BTC','EFS','LZT','LCN','GER','TM') DEFAULT NULL,
+  `TELEFONE` varchar(11) NOT NULL,
   PRIMARY KEY (`IDUSUARIO`),
   UNIQUE KEY `NUSP` (`NUSP`),
-  KEY `ID_ENTIDADE` (`ID_ENTIDADE`),
-  CONSTRAINT `USUARIO_ibfk_1` FOREIGN KEY (`ID_ENTIDADE`) REFERENCES `ENTIDADE` (`IDENTIDADE`)
+  UNIQUE KEY `TELEFONE_UNIQUE` (`TELEFONE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,6 +97,10 @@ LOCK TABLES `USUARIO` WRITE;
 /*!40000 ALTER TABLE `USUARIO` DISABLE KEYS */;
 /*!40000 ALTER TABLE `USUARIO` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'PROJETO'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -129,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-08 22:56:36
+-- Dump completed on 2018-04-18 20:48:02
