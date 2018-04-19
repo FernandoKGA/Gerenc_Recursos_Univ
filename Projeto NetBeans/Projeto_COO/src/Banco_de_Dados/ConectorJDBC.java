@@ -1,11 +1,9 @@
-package basedados;
+package Banco_de_Dados;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import utilidades.Log;
 
 public abstract class ConectorJDBC {
 
@@ -34,7 +32,7 @@ public abstract class ConectorJDBC {
 
 	protected abstract String getPassword();
 
-	protected ConectorJDBC(DB db) throws BaseDadosException {
+	protected ConectorJDBC(DB db) throws Banco_de_DadosException {
 		this.db = db;
 		String dbDriver = this.db == DB.MYSQL ? MYSQL_DRIVER : POSTGRES_DRIVER;
 
@@ -42,24 +40,24 @@ public abstract class ConectorJDBC {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas no acesso ao banco de dados.");
 		}
 	}
 
-	protected void abreConexao() throws BaseDadosException {
+	protected void abreConexao() throws Banco_de_DadosException {
 		String dbURL = this.db == DB.MYSQL ? MYSQL_URL : POSTGRES_URL;
 		try {
 			con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
 					+ getDbName(), getUser(), getPassword());
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas no acesso ao banco de dados.");
 		}
 	}
 
-	protected void fechaConexao() throws BaseDadosException {
+	protected void fechaConexao() throws Banco_de_DadosException {
 		try {
 			if (rs != null) {
 				rs.close();
@@ -78,18 +76,18 @@ public abstract class ConectorJDBC {
 
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas no acesso ao banco de dados.");
 		}
 
 	}
 
-	protected void preparaComandoSQL(String sql) throws BaseDadosException {
+	protected void preparaComandoSQL(String sql) throws Banco_de_DadosException {
 		try {
 			pstmt = con.prepareStatement(sql);
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas no acesso ao banco de dados.");
 		}
 	}

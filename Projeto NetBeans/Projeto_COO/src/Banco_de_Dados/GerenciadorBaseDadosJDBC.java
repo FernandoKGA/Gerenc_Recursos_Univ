@@ -5,13 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import utilidades.Log;
-/*import beans.CD;
-import beans.Emprestimo;
-import beans.Item;
-import beans.Livro;
-*/
-import objetos.Usuario;
+import objetos.*;
 
 public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		GerenciadorBaseDados {
@@ -22,7 +16,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 	private static final String DB_NAME = "coo2018";
 	private boolean jaCriouBD;
 
-	public GerenciadorBaseDadosJDBC() throws BaseDadosException {
+	public GerenciadorBaseDadosJDBC() throws Banco_de_DadosException {
 		super(DB.MYSQL);
 
 		try {
@@ -35,7 +29,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			populaTabelas();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao tentar criar o banco de dados.");
 		}
 	}
@@ -59,7 +53,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return jaCriouBD ? DB_NAME : "";
 	}
 
-	private void insereItem(Item item) throws BaseDadosException {
+	private void insereItem(Item item) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("insert into Item (qtdTotalExemplares, qtdExemplaresDisponiveis, qtdExemplaresEmprestados, codigo) values (?, ?, ?, ?)");
 
@@ -71,14 +65,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			pstmt.execute();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao setar os parâmetros da consulta.");
 		}
 
 		fechaConexao();
 	}
 
-	public void insereUsuario(Usuario usuario) throws BaseDadosException {
+	public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("insert into Usuario (nome, codigo) values (?, ?)");
 
@@ -88,14 +82,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			pstmt.execute();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao setar os parâmetros da consulta.");
 		}
 
 		fechaConexao();
 	}
 
-	public void insereLivro(Livro livro) throws BaseDadosException {
+	public void insereLivro(Livro livro) throws Banco_de_DadosException {
 		insereItem(livro);
 		abreConexao();
 		preparaComandoSQL("insert into Livro (autores, titulo, codigo) values (?, ?, ?)");
@@ -107,14 +101,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			pstmt.execute();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao setar os parâmetros da consulta.");
 		}
 
 		fechaConexao();
 	}
 
-	public void insereCD(CD cd) throws BaseDadosException {
+	public void insereCD(CD cd) throws Banco_de_DadosException {
 		insereItem(cd);
 		abreConexao();
 		preparaComandoSQL("insert into CD (artista, album, codigo) values (?, ?, ?)");
@@ -126,7 +120,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			pstmt.execute();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao setar os parâmetros da consulta.");
 		}
 
@@ -134,7 +128,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 	}
 
 	public void insereEmprestimo(Emprestimo emprestimo)
-			throws BaseDadosException {
+			throws Banco_de_DadosException {
 		abreConexao();
 
 		try {
@@ -148,14 +142,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			pstmt.execute();
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Erro ao setar os parâmetros da consulta.");
 		}
 
 		fechaConexao();
 	}
 
-	public Item buscaItem(int codigo) throws BaseDadosException {
+	public Item buscaItem(int codigo) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("select qtdTotalExemplares, qtdExemplaresDisponiveis, qtdExemplaresEmprestados from Item where codigo="
 				+ codigo);
@@ -173,7 +167,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 
@@ -181,7 +175,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return item;
 	}
 
-	public CD buscaCD(int codigo) throws BaseDadosException {
+	public CD buscaCD(int codigo) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("select artista, album from CD where codigo="
 				+ codigo);
@@ -197,7 +191,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 
@@ -205,7 +199,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return cd;
 	}
 
-	public Livro buscaLivro(int codigo) throws BaseDadosException {
+	public Livro buscaLivro(int codigo) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("select autores, titulo from Livro where codigo="
 				+ codigo);
@@ -221,7 +215,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 
@@ -229,7 +223,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return livro;
 	}
 
-	public Usuario buscaUsuario(int codigo) throws BaseDadosException {
+	public Usuario buscaUsuario(int numeroUSP) throws Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("select nome from Usuario where codigo=" + codigo);
 		Usuario usuario = null;
@@ -243,7 +237,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 
@@ -251,7 +245,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return usuario;
 	}
 
-	public LinkedList<Usuario> listaUsuarios() throws BaseDadosException {
+	public LinkedList<Usuario> listaUsuarios() throws Banco_de_DadosException {
 		LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
 		abreConexao();
 		preparaComandoSQL("select codigo, nome from Usuario");
@@ -267,14 +261,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 		fechaConexao();
 		return usuarios;
 	}
 
-	private LinkedList<Item> listaItens() throws BaseDadosException {
+	private LinkedList<Item> listaItens() throws Banco_de_DadosException {
 		LinkedList<Item> itens = new LinkedList<Item>();
 		abreConexao();
 		preparaComandoSQL("select codigo, " + "qtdExemplaresDisponiveis, "
@@ -296,7 +290,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 
@@ -304,7 +298,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		return itens;
 	}
 
-	public LinkedList<Livro> listaLivros() throws BaseDadosException {
+	public LinkedList<Livro> listaLivros() throws Banco_de_DadosException {
 		LinkedList<Livro> livros = new LinkedList<Livro>();
 		LinkedList<Item> itens = listaItens();
 		abreConexao();
@@ -323,7 +317,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 				}
 			} catch (SQLException e) {
 				Log.gravaLog(e);
-				throw new BaseDadosException(
+				throw new Banco_de_DadosException(
 						"Problemas ao ler o resultado da consulta.");
 			}
 
@@ -334,7 +328,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 	}
 
 	@Override
-	public List<CD> listaCD() throws BaseDadosException {
+	public List<CD> listaCD() throws Banco_de_DadosException {
 		LinkedList<CD> cds = new LinkedList<CD>();
 		LinkedList<Item> itens = listaItens();
 		abreConexao();
@@ -353,7 +347,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 				}
 			} catch (SQLException e) {
 				Log.gravaLog(e);
-				throw new BaseDadosException(
+				throw new Banco_de_DadosException(
 						"Problemas ao ler o resultado da consulta.");
 			}
 		}
@@ -364,7 +358,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
 	@Override
 	public LinkedList<Emprestimo> listaEmprestimosEmAbertoDoUsuario(
-			Usuario usuario) throws BaseDadosException {
+			Usuario usuario) throws Banco_de_DadosException {
 		LinkedList<Emprestimo> emprestimos = new LinkedList<Emprestimo>();
 		abreConexao();
 
@@ -398,7 +392,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 			}
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new BaseDadosException(
+			throw new Banco_de_DadosException(
 					"Problemas ao ler o resultado da consulta.");
 		}
 		fechaConexao();
@@ -406,15 +400,15 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 	}
 
 	public void alteraEmprestimo(Emprestimo emprestimoAlterado)
-			throws BaseDadosException {
+			throws Banco_de_DadosException {
 	}
 
 	public Emprestimo buscaEmprestimo(int codigoEmprestimo)
-			throws BaseDadosException {
+			throws Banco_de_DadosException {
 		return null;
 	}
 
-	private void criaTabelaEmprestimo() throws SQLException, BaseDadosException {
+	private void criaTabelaEmprestimo() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("create table if not exists Emprestimo ("
 				+ "codigoEmprestimo  int unsigned not null auto_increment primary key,"
@@ -427,7 +421,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void criaTabelaUsuario() throws SQLException, BaseDadosException {
+	private void criaTabelaUsuario() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("create table if not exists Usuario ("
 				+ "codigo int unsigned not null primary key,"
@@ -436,7 +430,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void criaTabelaCD() throws SQLException, BaseDadosException {
+	private void criaTabelaCD() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("create table if not exists CD ("
 				+ "artista varchar(100) not null,"
@@ -447,7 +441,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void criaTabelaLivro() throws SQLException, BaseDadosException {
+	private void criaTabelaLivro() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("create table if not exists Livro ("
 				+ "autores varchar(100) not null,"
@@ -458,7 +452,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void criaTabelaItem() throws SQLException, BaseDadosException {
+	private void criaTabelaItem() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		preparaComandoSQL("create table if not exists Item ("
 				+ "codigo  int unsigned not null primary key,"
@@ -469,7 +463,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void criaBancoDeDados() throws SQLException, BaseDadosException {
+	private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
 		abreConexao();
 		jaCriouBD = true;
 		preparaComandoSQL("create database if not exists " + getDbName());
@@ -477,7 +471,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 		fechaConexao();
 	}
 
-	private void populaTabelas() throws BaseDadosException {
+	private void populaTabelas() throws Banco_de_DadosException {
 		if(buscaUsuario(1) != null) {
 			return;
 		}
