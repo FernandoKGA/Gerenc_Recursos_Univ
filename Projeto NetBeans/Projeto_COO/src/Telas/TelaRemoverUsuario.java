@@ -191,6 +191,9 @@ public class TelaRemoverUsuario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        javax.swing.JDialog dialog = new javax.swing.JDialog(jDialog1);
+        System.out.println("Telas.TelaRemoverUsuario.jButton2ActionPerformed()");
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

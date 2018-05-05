@@ -218,7 +218,6 @@ public class TelaMenuV2 extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Butto2 - "Listagem": Abre TelaListagem
         TelaListagem t = new TelaListagem();
-        GerenciadorTelas.trocarTela(this, t);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

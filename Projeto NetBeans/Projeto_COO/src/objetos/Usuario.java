@@ -7,7 +7,7 @@ package objetos;
 
 public class Usuario {
     private String nome;
-    private int nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
+    private String nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private String email;
     private int telefone; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private Cargos cargo;
@@ -25,7 +25,7 @@ public class Usuario {
     public Usuario(){
     }
     
-    public Usuario(String nome, int nUSP,String email, String telefone, String curso, String cargo){
+    public Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
         Usuario u = new Usuario();
         u.setNome(nome);
         u.setNUSP(nUSP);
@@ -39,7 +39,7 @@ public class Usuario {
     public String getNome(){
         return this.nome;
     }
-    public int getNUSP(){
+    public String getNUSP(){
         return this.nUSP;
     }
     public int getTelefone(){
@@ -48,18 +48,20 @@ public class Usuario {
     public String getEmail(){
         return this.email;
     }
-    public Cursos getCurso(){
-        return this.curso;
+    public String getCurso(){
+        return this.curso.name();
+        //Se no BD estiver SI, vai aparecer SI.
     }
-    public Cargos getCargo(){
-        return this.cargo;
+    public String getCargo(){
+        return this.cargo.name();
+        //Se no BD estiver FUNCIONARIO, vai aparecer FUNCIONARIO
     }
     
     public void setNome(String nome){
         this.nome = nome;
     }
     
-    public void setNUSP(int nUSP){
+    public void setNUSP(String nUSP){
         this.nUSP = nUSP;
     }
 
@@ -80,7 +82,7 @@ public class Usuario {
     
     //enums - estou tratando da forma correta? :thinking:   --(Pelo o que o Freire disse a mim, sim...)
     public void setCurso(String a){
-        for(Cursos cursos : Cursos.valuesOf()){
+        for(Cursos cursos : Cursos.values()){
             if(cursos.toString().equalsIgnoreCase(a)){
                 this.curso = cursos;
             }
