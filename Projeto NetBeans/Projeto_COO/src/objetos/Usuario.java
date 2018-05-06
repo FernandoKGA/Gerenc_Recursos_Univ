@@ -9,7 +9,7 @@ public class Usuario {
     private String nome;
     private String nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private String email;
-    private int telefone; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
+    private String telefone; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private Cargos cargo;
     private Cursos curso;
     
@@ -42,7 +42,7 @@ public class Usuario {
     public String getNUSP(){
         return this.nUSP;
     }
-    public int getTelefone(){
+    public String getTelefone(){
         return this.telefone;
     }
     public String getEmail(){
@@ -71,12 +71,7 @@ public class Usuario {
     
     //exige uma verificação de caracteres - não pode ter letra
     public void setTelefone(String telefone){
-        if(telefone.length() != 11){
-            System.out.println("Telefone incorreto - Coloque DDD + números, apenas em numerais");
-        }
-        else{
-            this.telefone = Integer.parseInt(telefone);
-        }
+        this.telefone = telefone;
         //ainda tem verificações a fazer!
     }
     

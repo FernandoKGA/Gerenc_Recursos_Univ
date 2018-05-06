@@ -2,50 +2,56 @@ package objetos;
 
 public class Reserva {
 
-    private String nome;
-    private Tipos tipo;
-    private Predios predio;
-
-    private enum Tipos {
-    } //Quais são os tipos mesmo?
-
-    private enum Predios {
-        CB,I1,I3,I5,M7,A2,INCUB    } //que predios que a gente vai ter? Eita
+    private int horaInicio;
+    private int horaFim;
+    private String data;
+    private int nUSP; //serve para BD
+    private int idRecurso; //serve para BD
 
     public Reserva() {
     }
 
-    //getters e setters
-    public String getNome() {
-        return nome;
+    public int getHoraInicio() {
+        return horaInicio;
     }
 
-    public Tipos getTipo() {
-        return tipo;
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public Predios getPredio() {
-        return predio;
+    public int getHoraFim() {
+        return horaFim;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setHoraFim(int horaFim) {
+        this.horaFim = horaFim;
     }
 
-    public void setTipo(String tipo) {
-        for(Tipos tipos : Tipos.values()){
-            if(tipos.toString().equalsIgnoreCase(tipo)){
-                this.tipo = tipos;
-            }
-        }
+    public String getData() {
+        return data;
     }
 
-    public void setPredio(String predio) {
-        for(Predios predios : Predios.values()){
-            if(predios.toString().equalsIgnoreCase(predio)){
-                this.predio = predios;
-            }
-        }
+    public void setData(String data) {
+        this.data = data;
     }
 
+    public int getnUSP() {
+        return nUSP;
+    }
+
+    public void setnUSP(int nUSP) {
+        this.nUSP = nUSP;
+    }
+
+    public int getIdRecurso() {
+        return idRecurso;
+    }
+
+    public void setIdRecurso(int idRecurso) {
+        this.idRecurso = idRecurso;
+    }
+    
+    
+
+    
 }

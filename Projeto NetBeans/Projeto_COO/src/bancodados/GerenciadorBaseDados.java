@@ -1,4 +1,4 @@
-package Banco_de_Dados;
+package bancodados;
 import java.util.LinkedList;
 import java.util.List;
 

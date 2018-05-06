@@ -1,4 +1,4 @@
-package Banco_de_Dados;
+package bancodados;
 
 public class Banco_de_DadosException extends Exception {
 

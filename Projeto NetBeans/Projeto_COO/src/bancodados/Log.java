@@ -1,4 +1,4 @@
-package Banco_de_Dados;
+package bancodados;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

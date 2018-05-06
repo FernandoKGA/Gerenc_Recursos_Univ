@@ -1,4 +1,4 @@
-package Banco_de_Dados;
+package bancodados;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

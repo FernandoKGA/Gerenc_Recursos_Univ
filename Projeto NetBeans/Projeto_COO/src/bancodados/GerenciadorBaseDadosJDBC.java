@@ -1,4 +1,4 @@
-package Banco_de_Dados;
+package bancodados;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getNUSP());
             pstmt.setString(3, usuario.getEmail());
-            pstmt.setInt(4, usuario.getTelefone());
+            pstmt.setString(4, usuario.getTelefone());
             pstmt.setString(5, usuario.getCurso());
             pstmt.setString(6, usuario.getCargo());
             pstmt.execute();
@@ -87,7 +87,15 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
        abreConexao();
-        preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,false)");
+        preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
+        
+        try{
+            pstmt.setInt(1, reserva.getHoraInicio());
+            pstmt.setInt(2, reserva.getHoraFim());
+        }catch (SQLException e){
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
+        }
     }
 
     public Usuario buscaUsuario(String numeroUSP) throws Banco_de_DadosException {
@@ -122,16 +130,18 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public LinkedList<Usuario> listaUsuarios() throws Banco_de_DadosException {
         LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
         abreConexao();
-        preparaComandoSQL("select codigo, nome from Usuario");
+        preparaComandoSQL("select nUSP, nome from Usuario");
 
         try {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int codigo = rs.getInt(1);
+                String NUSP = rs.getString(1);
                 String nome = rs.getString(2);
-                //Usuario usuario = new Usuario(nome, codigo);
-                //usuarios.add(usuario);
+                Usuario usuario = new Usuario();
+                usuario.setNome(nome);
+                usuario.setNUSP(NUSP);
+                usuarios.add(usuario);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
