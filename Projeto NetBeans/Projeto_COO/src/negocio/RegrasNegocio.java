@@ -34,7 +34,7 @@ public class RegrasNegocio extends RegrasNegocioException {
             baseDados.insereUsuario(u);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
-            throw new RegrasNegocioException("Não foi possível"
+            throw new RegrasNegocioException("NÃ£o foi possÃ­vel"
                     + " conectar ao Banco de Dados.");
         }
     }
@@ -50,26 +50,25 @@ public class RegrasNegocio extends RegrasNegocioException {
             baseDados.insereRecurso(rs);
         }catch(Banco_de_DadosException e){
             e.printStackTrace();
-            throw new RegrasNegocioException("Não foi possível "
+            throw new RegrasNegocioException("NÃ£o foi possÃ­vel "
                     + "conectar ao Banco de Dados.");
         }
     }
     
-    public void cadastraReserva(int horaInicio, int horaFim, String data, int nUSP,
-            int idRecurso) throws RegrasNegocioException{
+    public void cadastraReserva(int horaInicio, int horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException{
         
         try{
             Reserva r = new Reserva();
             r.setData(data);
             r.setHoraInicio(horaInicio);
             r.setHoraFim(horaFim);
-            r.setnUSP(nUSP);
-            r.setIdRecurso(idRecurso);
+            r.setUsuario(usuario);
+            r.setRecurso(recurso);
             
             baseDados.insereReserva(r);
         }catch(Banco_de_DadosException e){
             e.printStackTrace();
-            throw new RegrasNegocioException("Não foi possível conectar "
+            throw new RegrasNegocioException("NÃ£o foi possÃ­vel conectar "
                     + "ao banco de dados.");
         }
     }

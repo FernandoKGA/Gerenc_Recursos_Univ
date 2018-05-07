@@ -15,11 +15,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE DATABASE Dioniso;
+USE Dioniso;
+
 --
 -- Table structure for table `RECURSO`
 --
 
-DROP TABLE IF EXISTS `RECURSO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `RECURSO` (
@@ -33,20 +35,8 @@ CREATE TABLE `RECURSO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `RECURSO`
---
 
-LOCK TABLES `RECURSO` WRITE;
-/*!40000 ALTER TABLE `RECURSO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RECURSO` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `RESERVA`
---
-
-DROP TABLE IF EXISTS `RESERVA`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `RESERVA` (
@@ -66,20 +56,8 @@ CREATE TABLE `RESERVA` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `RESERVA`
---
 
-LOCK TABLES `RESERVA` WRITE;
-/*!40000 ALTER TABLE `RESERVA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RESERVA` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `USUARIO`
---
-
-DROP TABLE IF EXISTS `USUARIO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `USUARIO` (
@@ -97,18 +75,8 @@ CREATE TABLE `USUARIO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `USUARIO`
---
 
-LOCK TABLES `USUARIO` WRITE;
-/*!40000 ALTER TABLE `USUARIO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `USUARIO` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Dumping events for database 'DIONISO'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

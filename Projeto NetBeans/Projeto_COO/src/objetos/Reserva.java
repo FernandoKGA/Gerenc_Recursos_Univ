@@ -5,8 +5,8 @@ public class Reserva {
     private int horaInicio;
     private int horaFim;
     private String data;
-    private int nUSP; //serve para BD
-    private int idRecurso; //serve para BD
+    private Usuario usuario; //vai ser importante para o BD
+    private Recurso recurso; //vai ser importante para o BD
 
     public Reserva() {
     }
@@ -35,21 +35,23 @@ public class Reserva {
         this.data = data;
     }
 
-    public int getnUSP() {
-        return nUSP;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setnUSP(int nUSP) {
-        this.nUSP = nUSP;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public int getIdRecurso() {
-        return idRecurso;
+    public Recurso getRecurso() {
+        return recurso;
     }
 
-    public void setIdRecurso(int idRecurso) {
-        this.idRecurso = idRecurso;
+    public void setRecurso(Recurso recurso) {
+        this.recurso = recurso;
     }
+
+  
     
     
 
