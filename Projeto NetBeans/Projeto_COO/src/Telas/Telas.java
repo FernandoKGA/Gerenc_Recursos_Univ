@@ -224,6 +224,59 @@ public class Telas extends JFrame {
             array1.setVisible(true);
     }
     // - - - - - - - - - - - - - - - - - - - - -
+    
+private boolean verificaData( String s ) {
+    	
+    	// Primeiro digito do dia errado
+    	if(  s.charAt(0) != '0' && s.charAt(0) != '1' && s.charAt(0) != '2' && s.charAt(0) != '3')
+    		return false;
+
+    	// Dias maiores que 31
+		if( s.charAt(0) == '3' ) {
+			if( s.charAt(1) != '0' && s.charAt(1) != '1' ) {
+				return false;
+			}
+		}
+
+		// Dia 00
+		if( s.charAt(0) == '0' ) {
+			if( s.charAt(1) == '0' )
+				return false;
+		}
+
+		// Primeiro digito do mes incorreto
+		if( s.charAt(3) != '0' && s.charAt(3) != '1' )
+			return false;
+
+		// Mes maiores que 12
+		if( s.charAt(3) == '1' ) {
+			if( s.charAt(4) != '0' && s.charAt(4) != '1' && s.charAt(4) != '2' )
+				return false;
+		}
+
+		// Mes 00
+		if( s.charAt(3) == '0' ) {
+			if( s.charAt(4) == '0' )
+				return false;
+		}
+
+		// Dia maior que 29 para o mes 02 (Fevereiro)
+		if( s.charAt(3) == '0' && s.charAt(4) == '2' ) {
+			if( s.charAt(0) == '3' ) {
+				return false;
+			}
+		}
+
+		// Dia 31 para os meses 04 (Abril), 06 (Junho), 09 (Setembro) e 11 (Novembro)
+		if( (s.charAt(3) == '0' && (s.charAt(4) == '4' || s.charAt(4) == '6' || s.charAt(4) == '9')) || 
+				( s.charAt(3) == '1' && s.charAt(4) == '1' )) {
+			if( s.charAt(0) == '3' && s.charAt(1) == '1' ) {
+				return false;
+			}
+		}
+		
+    	return true;
+    }
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,6 +337,23 @@ public class Telas extends JFrame {
         jLabel5 = new JLabel();
         jSeparator1 = new JSeparator();
         jButton2 = new JButton();
+        jButton2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		// Verifica a data
+        		if( verificaData(jFormattedTextField1.getText()) == true ) {
+        			
+        			// Verifica o recurso / predio / numero / horario
+        			// if( ) {
+        				
+        			// }
+        			
+        		} else {
+        			// Abrir msg de erro
+        		}
+        		
+        	}
+        });
         jComboBox1 = new JComboBox<>();
         jComboBox2 = new JComboBox<>();
         jComboBox3 = new JComboBox<>();
