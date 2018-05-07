@@ -6,6 +6,7 @@
 package objetos;
 
 public class Usuario {
+    private String id_usuario;
     private String nome;
     private String nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private String email;
@@ -25,8 +26,9 @@ public class Usuario {
     public Usuario(){
     }
     
-    public Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
+    public Usuario(String id_usuario, String nome, String nUSP, String email, String telefone, String curso, String cargo){
         Usuario u = new Usuario();
+        u.setId_Usuario(id_usuario);
         u.setNome(nome);
         u.setNUSP(nUSP);
         u.setEmail(email);
@@ -35,7 +37,11 @@ public class Usuario {
         u.setCargo(cargo);
     }
     
-    //getters e setters
+    //Getters
+    public String getId_Usuario(){
+        return this.id_usuario;
+    }
+    
     public String getNome(){
         return this.nome;
     }
@@ -55,6 +61,11 @@ public class Usuario {
     public String getCargo(){
         return this.cargo.name();
         //Se no BD estiver FUNCIONARIO, vai aparecer FUNCIONARIO
+    }
+    
+    //Setters
+    public void setId_Usuario(String id_usuario){
+        this.id_usuario = id_usuario;
     }
     
     public void setNome(String nome){

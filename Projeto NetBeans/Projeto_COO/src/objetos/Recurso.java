@@ -7,10 +7,11 @@ package objetos;
 
 public class Recurso {
 
+    private String id_recurso;
     private String nome;
     private Tipos tipo;
     private Predios predio;
-
+    
     private enum Tipos {
         SALA, LABORATORIO, AUDITORIO 
     } 
@@ -21,8 +22,8 @@ public class Recurso {
 
     public Recurso() {
     }
-
-    //getters e setters
+    
+    //Getters
     public String getNome() {
         return nome;
     }
@@ -34,7 +35,12 @@ public class Recurso {
     public String getPredio() {
         return predio.name();
     }
-
+    
+    public String getId_Recurso(){
+        return this.id_recurso;
+    }
+    
+    //Setters
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -58,6 +64,10 @@ public class Recurso {
        }catch(Exception e){
            e.printStackTrace();
        }
+    }    
+    
+    public void setId_Recurso(String id_recurso){
+        this.id_recurso = id_recurso;
     }
     
     public void imprimeENUM(){
