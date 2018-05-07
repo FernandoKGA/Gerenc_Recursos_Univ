@@ -331,7 +331,7 @@ public class Telas extends JFrame {
         jButton18.setBounds(106, 106, 190, 27);
         TelaSelecaoCadastro = new JPanel();
         jButton21 = new JButton();
-        jButton21.setBounds(6, 245, 90, 27);
+        jButton21.setBounds(6, 245, 90, 30);
         jLabel39 = new JLabel();
         jLabel39.setBounds(0, 47, 400, 30);
         jLabel40 = new JLabel();
@@ -496,7 +496,7 @@ public class Telas extends JFrame {
         jComboBox14 = new JComboBox<>();
         jComboBox14.setBounds(98, 114, 122, 27);
         jScrollPane1 = new JScrollPane();
-        jScrollPane1.setBounds(20, 182, 360, 86);
+        jScrollPane1.setBounds(20, 182, 360, 55);
         jList1 = new JList<>();
         jLabel30 = new JLabel();
         jLabel30.setBounds(20, 123, 48, 17);
@@ -1313,6 +1313,18 @@ public class Telas extends JFrame {
         TelaListagem.add(jLabel31);
         TelaListagem.add(jComboBox15);
         TelaListagem.add(jLabel32);
+        
+        button = new JButton();
+        button.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		habilitaTelaMenu();
+        		desabilitaTelaListagem();
+        	}
+        });
+        button.setText("Voltar");
+        button.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        button.setBounds(145, 245, 110, 30);
+        TelaListagem.add(button);
 
         TelaDescadastrarSelecao.setPreferredSize(new Dimension(400, 300));
 
@@ -2022,5 +2034,6 @@ public class Telas extends JFrame {
     private JTextField textField;
     private JLabel label_4;
     private JTextField textField_1;
+    private JButton button;
     // End of variables declaration//GEN-END:variables
 }
