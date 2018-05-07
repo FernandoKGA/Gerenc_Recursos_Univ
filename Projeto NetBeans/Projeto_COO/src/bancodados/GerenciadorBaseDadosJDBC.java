@@ -86,12 +86,17 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
     
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
-       abreConexao();
+        abreConexao();
         preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
         
         try{
-            pstmt.setInt(1, reserva.getHoraInicio());
-            pstmt.setInt(2, reserva.getHoraFim());
+            pstmt.setString(1, reserva.getHoraInicio());
+            pstmt.setString(2, reserva.getHoraFim());
+            pstmt.setString(3, reserva.getData());
+            pstmt.setString(4, reserva.getRecurso().getId_Recurso());
+            pstmt.setString(5, reserva.getUsuario().getId_Usuario());
+            pstmt.setBoolean(6, false);
+            pstmt.execute();
         }catch (SQLException e){
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
@@ -108,6 +113,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
             if (rs.next()) {
                 //baseado na ordem do SQL
+                String id_usuario = rs.getString(0);
                 String nome = rs.getString(1);
                 String nusp = rs.getString(2);
                 String email = rs.getString(3);
@@ -115,7 +121,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 String curso = rs.getString(5);
                 String telefone = rs.getString(6);
                 //Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
-                usuario = new Usuario(nome, nusp, email, telefone, curso, cargo);
+                usuario = new Usuario(id_usuario,nome, nusp, email, telefone, curso, cargo);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -136,9 +142,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                String id_usuario = rs.getString(0);
                 String NUSP = rs.getString(1);
                 String nome = rs.getString(2);
                 Usuario usuario = new Usuario();
+                usuario.setId_Usuario(id_usuario);
                 usuario.setNome(nome);
                 usuario.setNUSP(NUSP);
                 usuarios.add(usuario);
