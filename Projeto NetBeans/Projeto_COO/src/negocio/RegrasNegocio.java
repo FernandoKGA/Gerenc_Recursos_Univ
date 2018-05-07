@@ -74,7 +74,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public void cadastraReserva(int horaInicio, int horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {
+    public void cadastraReserva(String horaInicio, String horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {
 
         try {
             Reserva r = new Reserva();

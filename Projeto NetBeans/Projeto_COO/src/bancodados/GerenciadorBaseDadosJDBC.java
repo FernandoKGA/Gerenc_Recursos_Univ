@@ -84,12 +84,12 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
         fechaConexao();
     }
-    
+
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
         abreConexao();
         preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
-        
-        try{
+
+        try {
             pstmt.setString(1, reserva.getHoraInicio());
             pstmt.setString(2, reserva.getHoraFim());
             pstmt.setString(3, reserva.getData());
@@ -97,7 +97,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             pstmt.setString(5, reserva.getUsuario().getId_Usuario());
             pstmt.setBoolean(6, false);
             pstmt.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
         }
@@ -121,7 +121,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 String curso = rs.getString(5);
                 String telefone = rs.getString(6);
                 //Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
-                usuario = new Usuario(id_usuario,nome, nusp, email, telefone, curso, cargo);
+                usuario = new Usuario(id_usuario, nome, nusp, email, telefone, curso, cargo);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -206,7 +206,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return recursos;
     }
 
-
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
         List<Reserva> reservaUsuario = null;
         try {
@@ -244,8 +243,70 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     @Override
     public List<Reserva> listaReservas() throws Banco_de_DadosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Reserva> resultado = null;
+        preparaComandoSQL("SELECT * FROM RESERVAS;");
+        try {
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Reserva r = new Reserva();
+                r.setHoraInicio(rs.getString(2)); //isso vai dar certo depois
+                r.setHoraFim(rs.getString(3));
+                r.setData(rs.getString(4));
+
+                Recurso rc = new Recurso();
+                rc.setId_Recurso(rs.getString(5));
+
+                Usuario u = new Usuario();
+                u.setId_Usuario(rs.getString(6));
+
+                r.setRecurso(rc);
+                r.setUsuario(u);
+
+                resultado.add(r);
+            }
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
+        }
+        return resultado;
     }
 
+    public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
+        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP=?");
+        try {
+            pstmt.setString(1, nUSP);
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }
+    }
+
+    public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
+        preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
+        try {
+            pstmt.setString(1, r.getNome());
+            pstmt.setString(2, r.getPredio());
+            pstmt.setString(3, r.getTipo());
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }
+    }
+    
+  public void excluirReserva(Reserva r) throws Banco_de_DadosException {
+        preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
+        try {
+            pstmt.setString(1, r.getData());
+            pstmt.setString(2, r.getHoraInicio());
+            pstmt.setString(3, r.getHoraFim());
+            pstmt.setString(4, r.getRecurso().getId_Recurso());
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }
+    }
 
 }
