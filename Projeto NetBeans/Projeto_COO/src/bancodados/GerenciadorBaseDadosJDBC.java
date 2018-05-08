@@ -49,16 +49,16 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("insert into Usuario (nome, nusp, email, telefone, tipo, curso) values (?, ?, ?, ?)");
+        preparaComandoSQL("insert into Usuario (NOME, NUSP, EMAIL, CARGO, CURSO, TELEFONE) values (?, ?, ?, ?)");
 
         try {
             //NOME
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getNUSP());
             pstmt.setString(3, usuario.getEmail());
-            pstmt.setString(4, usuario.getTelefone());
+            pstmt.setString(6, usuario.getTelefone());
             pstmt.setString(5, usuario.getCurso());
-            pstmt.setString(6, usuario.getCargo());
+            pstmt.setString(4, usuario.getCargo());
             pstmt.execute();
         } catch (SQLException e) {
             Log.gravaLog(e);

@@ -1,6 +1,9 @@
 package Telas;
 
 import bancodados.Log;
+import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import negocio.*;
 
 /*
@@ -8,12 +11,16 @@ import negocio.*;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author a10258772
  */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
+
+    private javax.swing.JComboBox<String> nComboBoxCurso = new JComboBox<String>();
+    private javax.swing.JComboBox<String> nComboBoxCargo = new JComboBox<String>();
+    private java.util.HashMap<String, String> comboMapCurso = new HashMap<String, String>();
+    private java.util.HashMap<String, String> comboMapCargo = new HashMap<String, String>();
 
     /**
      * Creates new form NovoJFrame
@@ -62,7 +69,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         textFieldTelefone.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         comboBoxCargo.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        comboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno Graduação", "Professor", "Coordenador de Curso" }));
+        comboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno", "Professor", "Coordenador" }));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("Nome");
@@ -80,7 +87,12 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jLabel6.setText("Curso");
 
         comboBoxCurso.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        comboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        comboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BTC", "LCN", "EFS", "GER", "GA", "GPP", "LZT", "MKT", "OBS", "SI", "TM", " " }));
+        comboBoxCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxCursoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel7.setText("E-mail");
@@ -180,13 +192,19 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Quando botão é clicado, tenta cadastrar usuário
-        try{
-        RegrasNegocio r = new RegrasNegocio();
-        r.cadastraUsuario(textFieldNome.getText(), textFieldNUSP.getText(), textFieldEmail.getText(), textFieldTelefone.getText(), comboBoxCurso.getSelectedItem().toString(), comboBoxCargo.getSelectedItem().toString());
-        }catch(RegrasNegocioException e){
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            String a = (String) comboBoxCargo.getSelectedItem();
+            String b = (String) comboBoxCurso.getSelectedItem();
+            r.cadastraUsuario(textFieldNome.getText(), textFieldNUSP.getText(), textFieldEmail.getText(), textFieldTelefone.getText(), b, a);
+        } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void comboBoxCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxCursoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +241,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
         });
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxCargo;

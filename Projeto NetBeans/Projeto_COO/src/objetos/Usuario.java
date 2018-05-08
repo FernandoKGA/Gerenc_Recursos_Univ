@@ -11,17 +11,12 @@ public class Usuario {
     private String nUSP; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
     private String email;
     private String telefone; //poderia ser short por questão de tamanho  --(nao temos problemas de armazenamento...)
-    private Cargos cargo;
-    private Cursos curso;
+    private String cargo;
+    private String curso;
     
     /*Fico na dúvida se precisa ser o nome inteiro ou se vai ser só uma sigla. 
     A principio, vou fazer como sigla, e depois eu penso em como vou alterar*/
 
-    private enum Cargos{
-        ALUNO_GRAD, ALUNO_POS_GRAD, PROFESSOR, COORDENADOR, REITOR, SECRETARIO, BIBLIOTECARIO }
-
-    private enum Cursos{
-        SI, MKT, GPP, OBS, GA, BTC, EFS, LZT, LCN, GER, TM }
 
     public Usuario(){
     }
@@ -66,12 +61,10 @@ public class Usuario {
         return this.email;
     }
     public String getCurso(){
-        return this.curso.name();
-        //Se no BD estiver SI, vai aparecer SI.
+        return this.curso;
     }
     public String getCargo(){
-        return this.cargo.name();
-        //Se no BD estiver FUNCIONARIO, vai aparecer FUNCIONARIO
+        return this.cargo;
     }
     
     //Setters
@@ -99,18 +92,10 @@ public class Usuario {
     
     //enums - estou tratando da forma correta? :thinking:   --(Pelo o que o Freire disse a mim, sim...)
     public void setCurso(String a){
-        for(Cursos cursos : Cursos.values()){
-            if(cursos.toString().equalsIgnoreCase(a)){
-                this.curso = cursos;
-            }
-        }
+        this.curso = a;
     }
     
     public void setCargo(String a){
-        for(Cargos cargos : Cargos.values()){
-            if(cargos.toString().equalsIgnoreCase(a)){
-                this.cargo = cargos;
-            }
-        }
+        this.cargo = a;
     }
 }
