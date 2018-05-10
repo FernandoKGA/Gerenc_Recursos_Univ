@@ -13,7 +13,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     private static final String PASSWORD = "";
     private static final String USER = "root";
     private static final String HOST = "localhost";
-    private static final String DB_NAME = "coo2018";
+    private static final String DB_NAME = "Dioniso";
     private boolean jaCriouBD;
 
     public GerenciadorBaseDadosJDBC() throws Banco_de_DadosException {
@@ -49,17 +49,17 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("insert into Usuario (NOME, NUSP, EMAIL, CARGO, CURSO, TELEFONE) values (?, ?, ?, ?)");
+        preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
         try {
-            //NOME
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getNUSP());
             pstmt.setString(3, usuario.getEmail());
-            pstmt.setString(6, usuario.getTelefone());
-            pstmt.setString(5, usuario.getCurso());
-            pstmt.setString(4, usuario.getCargo());
+            pstmt.setString(4, usuario.getTelefone());
+            pstmt.setString(5, usuario.getCargo());
+            pstmt.setString(6, usuario.getCurso());
             pstmt.execute();
+            //comentario
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
@@ -121,7 +121,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 String curso = rs.getString(5);
                 String telefone = rs.getString(6);
                 //Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
-                usuario = new Usuario(id_usuario, nome, nusp, email, telefone, curso, cargo);
+                usuario = new Usuario();
+                usuario.setCargo(cargo);
+                usuario.setId_Usuario(id_usuario);
+                usuario.setNUSP(nusp);
+                usuario.setNome(nome);
+                usuario.setCurso(curso);
+                usuario.setEmail(email);
+                usuario.setTelefone(telefone);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -272,7 +279,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP=?");
+        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP='?'");
         try {
             pstmt.setString(1, nUSP);
             rs = pstmt.executeQuery();

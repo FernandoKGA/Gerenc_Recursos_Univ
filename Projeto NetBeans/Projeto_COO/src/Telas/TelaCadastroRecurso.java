@@ -1,5 +1,11 @@
 package Telas;
 
+import bancodados.Log;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio.RegrasNegocio;
+import negocio.RegrasNegocioException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -71,13 +77,18 @@ public class TelaCadastroRecurso extends javax.swing.JFrame {
         jLabel4.setText("Identificador do Prédio");
 
         jComboBox2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "I1" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "I1", "CB", "INCUB" }));
 
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton1.setText("Cancelar");
 
         jButton2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton2.setText("Cadastrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,6 +161,19 @@ public class TelaCadastroRecurso extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String nome = jTextField1.getText();
+        String tipo = (String) jComboBox1.getSelectedItem();
+        String predio = (String) jComboBox2.getSelectedItem();
+        RegrasNegocio r;
+        try {
+            r = new RegrasNegocio();
+            r.cadastraRecurso(nome, tipo, predio);
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

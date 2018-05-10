@@ -194,9 +194,20 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         //Quando botão é clicado, tenta cadastrar usuário
         try {
             RegrasNegocio r = new RegrasNegocio();
-            String a = (String) comboBoxCargo.getSelectedItem();
-            String b = (String) comboBoxCurso.getSelectedItem();
-            r.cadastraUsuario(textFieldNome.getText(), textFieldNUSP.getText(), textFieldEmail.getText(), textFieldTelefone.getText(), b, a);
+            String nome = textFieldNome.getText();
+            System.out.println(nome);
+            String nusp = textFieldNUSP.getText();
+            System.out.println(nusp);
+            String telefone = textFieldTelefone.getText();
+            System.out.println(telefone);
+            String email = textFieldEmail.getText();
+            System.out.println(email);
+            String cargo = (String) comboBoxCargo.getSelectedItem();
+            System.out.println(cargo);
+            String curso = (String) comboBoxCurso.getSelectedItem();
+            System.out.println(curso);
+            r.cadastraUsuario(nome, nusp, email, telefone, curso, cargo);
+            System.out.println("Passou");
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }

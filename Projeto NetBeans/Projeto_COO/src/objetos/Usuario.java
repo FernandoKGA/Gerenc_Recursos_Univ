@@ -21,27 +21,6 @@ public class Usuario {
     public Usuario(){
     }
     
-    public Usuario(String nome, String nUSP, String email, String telefone, String curso, String cargo){
-        Usuario u = new Usuario();
-        u.setNome(nome);
-        u.setNUSP(nUSP);
-        u.setEmail(email);
-        u.setTelefone(telefone);
-        u.setCurso(curso);
-        u.setCargo(cargo);
-    }
-    
-    
-    public Usuario(String id_usuario, String nome, String nUSP, String email, String telefone, String curso, String cargo){
-        Usuario u = new Usuario();
-        u.setId_Usuario(id_usuario);
-        u.setNome(nome);
-        u.setNUSP(nUSP);
-        u.setEmail(email);
-        u.setTelefone(telefone);
-        u.setCurso(curso);
-        u.setCargo(cargo);
-    }
     
     //Getters
     public String getId_Usuario(){
@@ -65,9 +44,7 @@ public class Usuario {
     }
     public String getCargo(){
         return this.cargo;
-    }
-    
-    //Setters
+    }    
     public void setId_Usuario(String id_usuario){
         this.id_usuario = id_usuario;
     }

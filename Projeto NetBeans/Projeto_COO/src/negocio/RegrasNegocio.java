@@ -7,6 +7,8 @@ package negocio;
 
 import bancodados.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetos.*;
 
 /**
@@ -16,7 +18,7 @@ import objetos.*;
 public class RegrasNegocio extends RegrasNegocioException {
 
     //Conversa diretamente com o bancodados.GerenciadorBaseDados
-    private GerenciadorBaseDados baseDados;
+    private GerenciadorBaseDadosJDBC baseDados;
 
     public RegrasNegocio() throws RegrasNegocioException {
         try {
@@ -47,8 +49,14 @@ public class RegrasNegocio extends RegrasNegocioException {
     public void cadastraUsuario(String nome, String nUSP,
             String email, String telefone, String curso,
             String cargo) throws RegrasNegocioException {
-        Usuario u = new Usuario(nome, nUSP, email, telefone,
-                curso, cargo);
+        Usuario u = new Usuario();
+        u.setNome(nome);
+        u.setNUSP(nUSP);
+        u.setEmail(email);
+        u.setTelefone(telefone);
+        u.setCurso(curso);
+        u.setCargo(cargo);
+        System.out.println("Criou ususario");
         try {
             baseDados.insereUsuario(u);
         } catch (Banco_de_DadosException e) {
@@ -91,5 +99,18 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + "ao banco de dados.");
         }
     }
+    
+    public Usuario buscaUsuario(String nusp) throws Banco_de_DadosException{
+        return baseDados.buscaUsuario(nusp);
+    }
+    
+    public void excluirUsuario(String nusp) throws RegrasNegocioException {
+        try {
+            baseDados.excluirUsuario(nusp);
+        } catch (Banco_de_DadosException ex) {
+            Log.gravaLog(ex);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+        }
+    } 
 
 }

@@ -1,5 +1,13 @@
 package Telas;
 
+import bancodados.Log;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import negocio.RegrasNegocio;
+import negocio.RegrasNegocioException;
+import objetos.Usuario;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -191,9 +199,15 @@ public class TelaRemoverUsuario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        javax.swing.JDialog dialog = new javax.swing.JDialog(jDialog1);
-        System.out.println("Telas.TelaRemoverUsuario.jButton2ActionPerformed()");
-        dialog.setVisible(true);
+        String nUSP = jTextField1.getText();
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            r.excluirUsuario(nUSP);
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+            
+        } catch (Exception ex) {
+            Log.gravaLog(ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

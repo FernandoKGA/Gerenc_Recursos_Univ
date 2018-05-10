@@ -240,8 +240,7 @@ public class TelaMenuV2 extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        CADASTRO.setVisible(false);
-        MENU.setVisible(true);
+        GerenciadorTelas_UNUSED.trocarTela(this, new TelaSelecaoCadastro());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
