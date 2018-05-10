@@ -170,18 +170,16 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = null;
         try {
-            preparaComandoSQL("SELECT * FROM recurso WHERE PREDIO = '?' AND TIPO = '?'");
+            preparaComandoSQL("SELECT nome FROM recurso WHERE PREDIO = '?' AND TIPO = '?'");
             pstmt.setString(1, predio);
             pstmt.setString(2, tipo);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
-                String recTipo = rs.getString(2);
-                String recPredio = rs.getString(3);
                 Recurso r = new Recurso();
                 r.setNome(nome);
-                r.setPredio(recPredio);
-                r.setTipo(recTipo);
+                r.setPredio(predio);
+                r.setTipo(tipo);
                 recursos.add(r);
             }
         } catch (SQLException e) {
@@ -213,20 +211,42 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return recursos;
     }
 
+    public Recurso buscaRecurso(int idRecurso) throws Banco_de_DadosException {
+        Recurso r = null;
+        try {
+            preparaComandoSQL("SELECT NOME,PREDIO,TIPO FROM Recursos WHERE IDRECURSO=?");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String nome = rs.getString(1);
+                String predio = rs.getString(2);
+                String tipo = rs.getString(3);
+                r = new Recurso();
+                r.setNome(nome);
+                r.setPredio(predio);
+                r.setTipo(tipo);
+            }
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
+        }
+        return r;
+    }
+
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
         List<Reserva> reservaUsuario = null;
         try {
-            preparaComandoSQL("SELECT IDUSUARIO FROM USUARIO WHERE NUSP='" + numeroUSP + "'");
-            rs = pstmt.executeQuery();
-            int a = 0; //apenas para existir
-            while (rs.next()) {
-                a = rs.getInt(1);
-            }
-            preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO=?");
-            pstmt.setInt(1, a);
+            Usuario u = buscaUsuario(numeroUSP);
+            preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO='?'");
+            pstmt.setString(1, u.getId_Usuario());
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                //PEGAR CADA RESERVA E COLOCAR NA RESERVAUSUARIO
+                Reserva r = new Reserva();
+                r.setHoraInicio(rs.getString(2));
+                r.setHoraFim(rs.getString(3));
+                r.setData(rs.getString(4));
+                Recurso rec = buscaRecurso(rs.getInt(5));
+                r.setRecurso(rec);
+                reservaUsuario.add(r);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -301,8 +321,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }
     }
-    
-  public void excluirReserva(Reserva r) throws Banco_de_DadosException {
+
+    public void excluirReserva(Reserva r) throws Banco_de_DadosException {
         preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
         try {
             pstmt.setString(1, r.getData());
