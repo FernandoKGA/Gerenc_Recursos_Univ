@@ -47,6 +47,15 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return jaCriouBD ? DB_NAME : "";
     }
 
+    private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        jaCriouBD = true;
+        preparaComandoSQL("create database if not exists " + getDbName());
+        pstmt.execute();
+        fechaConexao();
+    }
+
+    // ---------------  USUARIO  -----------------------
     public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
@@ -66,41 +75,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
 
         fechaConexao();
-    }
-
-    public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
-        abreConexao();
-        preparaComandoSQL("insert into Recurso (nome, predio, tipo) values (?, ?, ?)");
-
-        try {
-            pstmt.setString(1, recurso.getNome());
-            pstmt.setString(2, recurso.getPredio());
-            pstmt.setString(3, recurso.getTipo());
-            pstmt.execute();
-        } catch (SQLException e) {
-            Log.gravaLog(e);
-            throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
-        }
-
-        fechaConexao();
-    }
-
-    public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
-        abreConexao();
-        preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
-
-        try {
-            pstmt.setString(1, reserva.getHoraInicio());
-            pstmt.setString(2, reserva.getHoraFim());
-            pstmt.setString(3, reserva.getData());
-            pstmt.setString(4, reserva.getRecurso().getId_Recurso());
-            pstmt.setString(5, reserva.getUsuario().getId_Usuario());
-            pstmt.setBoolean(6, false);
-            pstmt.execute();
-        } catch (SQLException e) {
-            Log.gravaLog(e);
-            throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
-        }
     }
 
     public Usuario buscaUsuario(String numeroUSP) throws Banco_de_DadosException {
@@ -166,8 +140,37 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         fechaConexao();
         return usuarios;
     }
+    
+        public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
+        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP='?'");
+        try {
+            pstmt.setString(1, nUSP);
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }
+    }
 
-    public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
+
+    // -----------------  RECURSO  -------------------------
+    public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
+        abreConexao();
+        preparaComandoSQL("insert into Recurso (nome, predio, tipo) values (?, ?, ?)");
+
+        try {
+            pstmt.setString(1, recurso.getNome());
+            pstmt.setString(2, recurso.getPredio());
+            pstmt.setString(3, recurso.getTipo());
+            pstmt.execute();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
+        }
+
+        fechaConexao();
+    }
+        public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = null;
         try {
             preparaComandoSQL("SELECT nome FROM recurso WHERE PREDIO = '?' AND TIPO = '?'");
@@ -232,6 +235,27 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return r;
     }
 
+    // ----------------------  RESERVA  --------------------------
+    public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
+        abreConexao();
+        preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
+
+        try {
+            pstmt.setString(1, reserva.getHoraInicio());
+            pstmt.setString(2, reserva.getHoraFim());
+            pstmt.setString(3, reserva.getData());
+            pstmt.setString(4, reserva.getRecurso().getId_Recurso());
+            pstmt.setString(5, reserva.getUsuario().getId_Usuario());
+            pstmt.setBoolean(6, false);
+            pstmt.execute();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
+        }
+    }
+
+
+
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
         List<Reserva> reservaUsuario = null;
         try {
@@ -253,14 +277,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("");
         }
         return reservaUsuario;
-    }
-
-    private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
-        abreConexao();
-        jaCriouBD = true;
-        preparaComandoSQL("create database if not exists " + getDbName());
-        pstmt.execute();
-        fechaConexao();
     }
 
     @Override
@@ -296,17 +312,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
         return resultado;
-    }
-
-    public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP='?'");
-        try {
-            pstmt.setString(1, nUSP);
-            rs = pstmt.executeQuery();
-        } catch (SQLException e) {
-            Log.gravaLog(e);
-            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
-        }
     }
 
     public void excluirRecurso(Recurso r) throws Banco_de_DadosException {

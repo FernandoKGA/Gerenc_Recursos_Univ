@@ -7,10 +7,6 @@ package objetos;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author informatica
- */
 public class Laboratorio extends Recurso{
     
     private String curso;
