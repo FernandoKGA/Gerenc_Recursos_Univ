@@ -57,7 +57,6 @@ public class Recurso {
        try{ 
         for(Predios predios : Predios.values()){
             if(predios.name().equalsIgnoreCase(predio)){
-                System.out.println("ACHOU!");
                 this.predio = predios;
             }
         }
