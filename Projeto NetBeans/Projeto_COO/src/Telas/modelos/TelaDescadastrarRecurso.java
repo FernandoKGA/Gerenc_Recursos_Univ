@@ -1,4 +1,4 @@
-package Telas;
+package Telas.modelos;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

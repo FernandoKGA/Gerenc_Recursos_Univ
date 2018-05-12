@@ -1,4 +1,4 @@
-package Telas;
+package Telas.modelos;
 
 import bancodados.Log;
 import java.util.HashMap;

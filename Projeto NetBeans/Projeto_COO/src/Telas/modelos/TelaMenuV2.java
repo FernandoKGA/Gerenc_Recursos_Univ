@@ -1,4 +1,4 @@
-package Telas;
+package Telas.modelos;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -44,7 +44,6 @@ public class TelaMenuV2 extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 300));
 
         MENU.setPreferredSize(new java.awt.Dimension(400, 300));
 
