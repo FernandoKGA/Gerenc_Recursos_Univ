@@ -1277,6 +1277,11 @@ public class Telas extends JFrame {
 
         BotaoCadastraRecurso.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoCadastraRecurso.setText("Cadastrar");
+        BotaoCadastraRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastraRecursoActionPerformed(evt);
+            }
+        });
 
         TF_NomeCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         TF_NomeCadRec.addActionListener(new java.awt.event.ActionListener() {
@@ -2453,8 +2458,15 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_BotaoRetFromTelaCadRecActionPerformed
 
     private void CBTipoCadRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBTipoCadRecActionPerformed
-        // TODO add your handling code here:
+        // Ativa ou desativa o ComboBox "curso" de acordo com o valor
         System.out.println("Telas.Telas.jComboBox4ActionPerformed()");
+        String tipo = CBTipoCadRec.getSelectedItem().toString();
+        System.out.println(tipo);
+        if (!(tipo.equalsIgnoreCase("LABORATÓRIO"))) {
+            CBCursoCadRec.setEnabled(false);
+        } else {
+            CBCursoCadRec.setEnabled(true);
+        }
     }//GEN-LAST:event_CBTipoCadRecActionPerformed
 
     private void TF_NomeCadRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_TF_NomeCadRecActionPerformed
@@ -2596,6 +2608,27 @@ public class Telas extends JFrame {
     private void BotaoBusca_DesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_DesmResvActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotaoBusca_DesmResvActionPerformed
+
+    private void BotaoCadastraRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraRecursoActionPerformed
+
+        String nome = TF_NomeCadRec.getText();
+        String tipo = CBTipoCadRec.getSelectedItem().toString();
+        String predio = CBPredioCadRec.getSelectedItem().toString();
+        String curso = null;
+        if(CBCursoCadRec.isEnabled()){
+            curso = CBCursoCadRec.getSelectedItem().toString();
+        }
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            if(curso == null){
+            r.cadastraRecurso(nome, tipo, predio);
+            }else{
+                //fazer método depois com Laboratorio
+            }
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+    }//GEN-LAST:event_BotaoCadastraRecursoActionPerformed
 
     /**
      * @param args the command line arguments
