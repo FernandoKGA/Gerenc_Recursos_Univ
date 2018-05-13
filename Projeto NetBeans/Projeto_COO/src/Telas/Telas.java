@@ -482,25 +482,25 @@ public class Telas extends JFrame {
         BotaoRetFromTelaListResvUsr = new javax.swing.JButton();
         BotaoBusca_ListResvUsr = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        TabelaListagemReserUsr = new javax.swing.JTable();
         TF_NUSP_ListResvUsr = new javax.swing.JTextField();
         TelaListaRecursos = new javax.swing.JPanel();
         LabelNomeTelaListRec = new javax.swing.JLabel();
         LabelPredioTelaListRec = new javax.swing.JLabel();
-        LabelRecTelaListRec = new javax.swing.JLabel();
+        LabelTipoTelaListRec = new javax.swing.JLabel();
         BotaoRetFromTelaListRec = new javax.swing.JButton();
         BotaoListaRecursos = new javax.swing.JButton();
-        CBRecursosListaRec = new javax.swing.JComboBox<>();
+        CBTiposListaRec = new javax.swing.JComboBox<>();
         CBPredioListRec = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         TelaListaUsuarios = new javax.swing.JPanel();
         LabelNomeTelaListUsr = new javax.swing.JLabel();
         LabelSubTelaListUsr = new javax.swing.JLabel();
         BotaoRetFromTelaListUsr = new javax.swing.JButton();
         BotaoListaTodosUsuarios = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         TelaDescadastrarSelecao = new javax.swing.JPanel();
         LabelNomeTelaDescSelc = new javax.swing.JLabel();
         LabelSubTelaDescSelc = new javax.swing.JLabel();
@@ -1622,10 +1622,26 @@ public class Telas extends JFrame {
             }
         });
 
-        jList3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jList3.setMaximumSize(new java.awt.Dimension(71, 200));
-        jList3.setMinimumSize(new java.awt.Dimension(71, 200));
-        jScrollPane3.setViewportView(jList3);
+        TabelaListagemReserUsr.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Data", "Predio", "Tipo", "Nome", "Horário"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TabelaListagemReserUsr);
 
         TF_NUSP_ListResvUsr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1637,13 +1653,13 @@ public class Telas extends JFrame {
         TelaListaReservasUsuarios.setLayout(TelaListaReservasUsuariosLayout);
         TelaListaReservasUsuariosLayout.setHorizontalGroup(
             TelaListaReservasUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelNomeTelaListResvUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LabelNomeTelaListResvUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
             .addGroup(TelaListaReservasUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(TelaListaReservasUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TelaListaReservasUsuariosLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                        .addGap(15, 15, 15))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(TelaListaReservasUsuariosLayout.createSequentialGroup()
                         .addComponent(LabelUsuarioListResvUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1668,9 +1684,9 @@ public class Telas extends JFrame {
                             .addComponent(BotaoBusca_ListResvUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TF_NUSP_ListResvUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)))
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(BotaoRetFromTelaListResvUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1689,8 +1705,8 @@ public class Telas extends JFrame {
         LabelPredioTelaListRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         LabelPredioTelaListRec.setText("Prédio:");
 
-        LabelRecTelaListRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        LabelRecTelaListRec.setText("Recursos:");
+        LabelTipoTelaListRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelTipoTelaListRec.setText("Tipo");
 
         BotaoRetFromTelaListRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoRetFromTelaListRec.setText("Voltar");
@@ -1714,11 +1730,11 @@ public class Telas extends JFrame {
             }
         });
 
-        CBRecursosListaRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBRecursosListaRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório", "Todos" }));
-        CBRecursosListaRec.addActionListener(new java.awt.event.ActionListener() {
+        CBTiposListaRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        CBTiposListaRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório", "Todos" }));
+        CBTiposListaRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBRecursosListaRecActionPerformed(evt);
+                CBTiposListaRecActionPerformed(evt);
             }
         });
 
@@ -1730,10 +1746,18 @@ public class Telas extends JFrame {
             }
         });
 
-        jList1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jList1.setMaximumSize(new java.awt.Dimension(71, 200));
-        jList1.setMinimumSize(new java.awt.Dimension(71, 200));
-        jScrollPane1.setViewportView(jList1);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nome"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable1);
 
         javax.swing.GroupLayout TelaListaRecursosLayout = new javax.swing.GroupLayout(TelaListaRecursos);
         TelaListaRecursos.setLayout(TelaListaRecursosLayout);
@@ -1746,21 +1770,21 @@ public class Telas extends JFrame {
                     .addGroup(TelaListaRecursosLayout.createSequentialGroup()
                         .addGroup(TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(LabelPredioTelaListRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(LabelRecTelaListRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(LabelTipoTelaListRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CBRecursosListaRec, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CBTiposListaRec, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CBPredioListRec, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TelaListaRecursosLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(BotaoRetFromTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addComponent(BotaoListaRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
                     .addGroup(TelaListaRecursosLayout.createSequentialGroup()
-                        .addGroup(TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                            .addGroup(TelaListaRecursosLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(BotaoRetFromTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BotaoListaRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(15, 15, 15))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         TelaListaRecursosLayout.setVerticalGroup(
             TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1773,11 +1797,11 @@ public class Telas extends JFrame {
                     .addComponent(CBPredioListRec, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBRecursosListaRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelRecTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                    .addComponent(CBTiposListaRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelTipoTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(TelaListaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoRetFromTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoListaRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1821,10 +1845,18 @@ public class Telas extends JFrame {
             }
         });
 
-        jList2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jList2.setMaximumSize(new java.awt.Dimension(71, 200));
-        jList2.setMinimumSize(new java.awt.Dimension(71, 200));
-        jScrollPane2.setViewportView(jList2);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nome", "nUSP", "Telefone", "E-mail", "Cargo", "Curso"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable2);
 
         javax.swing.GroupLayout TelaListaUsuariosLayout = new javax.swing.GroupLayout(TelaListaUsuarios);
         TelaListaUsuarios.setLayout(TelaListaUsuariosLayout);
@@ -1839,14 +1871,13 @@ public class Telas extends JFrame {
                         .addComponent(LabelSubTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
-                        .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                        .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
                                 .addComponent(BotaoRetFromTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(BotaoListaTodosUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(15, 15, 15))))
+                        .addGap(0, 15, Short.MAX_VALUE))))
         );
         TelaListaUsuariosLayout.setVerticalGroup(
             TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1855,13 +1886,13 @@ public class Telas extends JFrame {
                 .addComponent(LabelNomeTelaListUsr)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelSubTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoRetFromTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoListaTodosUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BotaoRetFromTelaListUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotaoListaTodosUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(99, 99, 99))
         );
 
         getContentPane().add(TelaListaUsuarios, "card8");
@@ -2394,10 +2425,10 @@ public class Telas extends JFrame {
         desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoGoTelaRemUsrActionPerformed
 
-    private void CBRecursosListaRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBRecursosListaRecActionPerformed
+    private void CBTiposListaRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBTiposListaRecActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox13ActionPerformed()");
-    }//GEN-LAST:event_CBRecursosListaRecActionPerformed
+    }//GEN-LAST:event_CBTiposListaRecActionPerformed
 
     private void BotaoGoTelaDescSelcActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaDescSelcActionPerformed
         // TODO add your handling code here:
@@ -2746,11 +2777,11 @@ public class Telas extends JFrame {
     private javax.swing.JComboBox<String> CBPredioDescRec;
     private javax.swing.JComboBox<String> CBPredioDesmResv;
     private javax.swing.JComboBox<String> CBPredioListRec;
-    private javax.swing.JComboBox<String> CBRecursosListaRec;
     private javax.swing.JComboBox<String> CBTipoCadRec;
     private javax.swing.JComboBox<String> CBTipoCadResv;
     private javax.swing.JComboBox<String> CBTipoDescRec;
     private javax.swing.JComboBox<String> CBTipoDesmResv;
+    private javax.swing.JComboBox<String> CBTiposListaRec;
     private javax.swing.JDialog DialogConfDesmResv;
     private javax.swing.JDialog DialogConfExcRec;
     private javax.swing.JDialog DialogConfExcUsr;
@@ -2799,7 +2830,6 @@ public class Telas extends JFrame {
     private javax.swing.JLabel LabelPredio_BDDiagConfDesmResv;
     private javax.swing.JLabel LabelPredio_BDDialogConfExcRec;
     private javax.swing.JLabel LabelRecDiagConfDesmResv;
-    private javax.swing.JLabel LabelRecTelaListRec;
     private javax.swing.JLabel LabelRec_BDDiagConfDesmResv;
     private javax.swing.JLabel LabelRemUsrNUSP;
     private javax.swing.JLabel LabelSubDiagConfDesmResv;
@@ -2824,6 +2854,7 @@ public class Telas extends JFrame {
     private javax.swing.JLabel LabelTipoDesmResv;
     private javax.swing.JLabel LabelTipoDiagConfDesmResv;
     private javax.swing.JLabel LabelTipoDialogConfExcRec;
+    private javax.swing.JLabel LabelTipoTelaListRec;
     private javax.swing.JLabel LabelTipo_BDDiagConfDesmResv;
     private javax.swing.JLabel LabelTipo_BDDialogConfExcRec;
     private javax.swing.JLabel LabelUserDesmResv;
@@ -2841,6 +2872,7 @@ public class Telas extends JFrame {
     private javax.swing.JTextField TF_NomeCadUsr;
     private javax.swing.JTextField TF_Nome_DescRec;
     private javax.swing.JTextField TF_TelfCadUsr;
+    private javax.swing.JTable TabelaListagemReserUsr;
     private javax.swing.JPanel TelaCadastraReserva;
     private javax.swing.JPanel TelaCadastroRecurso;
     private javax.swing.JPanel TelaCadastroUsuario;
@@ -2856,9 +2888,6 @@ public class Telas extends JFrame {
     private javax.swing.JPanel TelaSelecaoCadastro;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton10;
     private javax.swing.JRadioButton jRadioButton11;
@@ -2888,7 +2917,9 @@ public class Telas extends JFrame {
     private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
