@@ -1266,9 +1266,19 @@ public class Telas extends JFrame {
 
         CBPredioCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         CBPredioCadRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
+        CBPredioCadRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBPredioCadRecActionPerformed(evt);
+            }
+        });
 
         CBCursoCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         CBCursoCadRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "BTC", "LCN", "EFS", "GER", "GA", "GPP", "LZT", "MKT", "OBS", "SI", "TM" }));
+        CBCursoCadRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBCursoCadRecActionPerformed(evt);
+            }
+        });
 
         BotaoRetFromTelaCadRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoRetFromTelaCadRec.setText("Cancelar");
@@ -1858,7 +1868,7 @@ public class Telas extends JFrame {
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(LabelSubTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(62, Short.MAX_VALUE))
+                        .addContainerGap(84, Short.MAX_VALUE))
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ScrolListaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -2280,7 +2290,7 @@ public class Telas extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotaoGoDiagConfUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ScrolRemUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(LabelSubTelaRemUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(LabelSubTelaRemUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                 .addContainerGap())
         );
         TelaRemoverUsuarioLayout.setVerticalGroup(
@@ -2318,16 +2328,39 @@ public class Telas extends JFrame {
     private void CBNomeCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBNomeCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
+        
     }//GEN-LAST:event_CBNomeCadResvActionPerformed
 
     private void CBTipoCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBTipoCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox2ActionPerformed()");
+        String tipo = CBTipoCadResv.getSelectedItem().toString();
+        System.out.println(tipo);
+        if((tipo.equalsIgnoreCase("SELECIONE"))){
+            LabelNomeCadResv.setEnabled(false);
+            CBNomeCadResv.setEnabled(false);
+        }
+        else{
+            LabelNomeCadResv.setEnabled(true);
+            CBNomeCadResv.setEnabled(true);
+        }
     }//GEN-LAST:event_CBTipoCadResvActionPerformed
 
     private void CBPredioCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox1ActionPerformed()");
+        String tipo = CBPredioCadResv.getSelectedItem().toString();
+        System.out.println(tipo);
+        //Se eh SELECIONE, deixa os outros desativados
+        if ((tipo.equalsIgnoreCase("SELECIONE"))) {
+            LabelTipoCadResv.setEnabled(false);
+            CBTipoCadResv.setEnabled(false);
+            LabelNomeCadResv.setEnabled(false);
+            CBNomeCadResv.setEnabled(false);
+        } else {
+            LabelTipoCadResv.setEnabled(true);
+            CBTipoCadResv.setEnabled(true);
+        }
     }//GEN-LAST:event_CBPredioCadResvActionPerformed
 
     private void BotaoGoTelaRemUsrActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaRemUsrActionPerformed
@@ -2480,8 +2513,10 @@ public class Telas extends JFrame {
         String tipo = CBTipoCadRec.getSelectedItem().toString();
         System.out.println(tipo);
         if (!(tipo.equalsIgnoreCase("LABORATÓRIO"))) {
+            LabelCursoCadRec.setEnabled(false);
             CBCursoCadRec.setEnabled(false);
         } else {
+            LabelCursoCadRec.setEnabled(true);
             CBCursoCadRec.setEnabled(true);
         }
     }//GEN-LAST:event_CBTipoCadRecActionPerformed
@@ -2650,6 +2685,14 @@ public class Telas extends JFrame {
     private void BotaoListUsrRemUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListUsrRemUsrActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotaoListUsrRemUsrActionPerformed
+
+    private void CBCursoCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadRecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBCursoCadRecActionPerformed
+
+    private void CBPredioCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioCadRecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBPredioCadRecActionPerformed
 
     /**
      * @param args the command line arguments
