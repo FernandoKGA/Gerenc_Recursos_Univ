@@ -92,10 +92,15 @@ public class Telas extends JFrame {
 
     private void habilitaTelaCadastraReserva() {
         TelaCadastraReserva.setVisible(true);
+        desabilitaComponentesCadResv();
         Component[] array = TelaCadastraReserva.getComponents();
         for (Component array1 : array) {
             array1.setVisible(true);
         }
+    }
+    
+    private void desabilitaRBCadastraReserva(){
+        
     }
     // - - - - - - - - - - - - - - - - - - - - -
 
@@ -420,19 +425,19 @@ public class Telas extends JFrame {
         LabelNomeCadResv = new javax.swing.JLabel();
         LabelUsuarioCadResv = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton10 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton12 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         jRadioButton8 = new javax.swing.JRadioButton();
         jRadioButton9 = new javax.swing.JRadioButton();
+        jRadioButton10 = new javax.swing.JRadioButton();
         jRadioButton11 = new javax.swing.JRadioButton();
+        jRadioButton12 = new javax.swing.JRadioButton();
         jRadioButton13 = new javax.swing.JRadioButton();
         jRadioButton14 = new javax.swing.JRadioButton();
-        jRadioButton15 = new javax.swing.JRadioButton();
         SeparadorCadResv = new javax.swing.JSeparator();
         CBPredioCadResv = new javax.swing.JComboBox<>();
         CBTipoCadResv = new javax.swing.JComboBox<>();
@@ -1032,36 +1037,36 @@ public class Telas extends JFrame {
             }
         });
 
-        jRadioButton10.setText("09:00 - 10:00");
-        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButton2.setText("09:00 - 10:00");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton10ActionPerformed(evt);
+                jRadioButton2ActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("10:00 - 11:00");
+        jRadioButton3.setText("10:00 - 11:00");
 
-        jRadioButton3.setText("11:00 - 12:00");
+        jRadioButton4.setText("11:00 - 12:00");
 
-        jRadioButton4.setText("12:00 - 13:00");
+        jRadioButton5.setText("12:00 - 13:00");
 
-        jRadioButton5.setText("13:00 - 14:00");
+        jRadioButton6.setText("13:00 - 14:00");
 
-        jRadioButton12.setText("14:00 - 15:00");
+        jRadioButton7.setText("14:00 - 15:00");
 
-        jRadioButton7.setText("15:00 - 16:00");
+        jRadioButton8.setText("15:00 - 16:00");
 
-        jRadioButton8.setText("16:00 - 17:00");
+        jRadioButton9.setText("16:00 - 17:00");
 
-        jRadioButton9.setText("17:00 - 18:00");
+        jRadioButton10.setText("17:00 - 18:00");
 
         jRadioButton11.setText("18:00 - 19:00");
 
-        jRadioButton13.setText("19:00 - 20:00");
+        jRadioButton12.setText("19:00 - 20:00");
 
-        jRadioButton14.setText("20:00 - 21:00");
+        jRadioButton13.setText("20:00 - 21:00");
 
-        jRadioButton15.setText("21:00 - 22:00");
+        jRadioButton14.setText("21:00 - 22:00");
 
         SeparadorCadResv.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -1081,6 +1086,7 @@ public class Telas extends JFrame {
             }
         });
 
+        CBNomeCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "219" }));
         CBNomeCadResv.setPreferredSize(new java.awt.Dimension(70, 20));
         CBNomeCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1144,23 +1150,23 @@ public class Telas extends JFrame {
                             .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jRadioButton2)
+                                        .addComponent(jRadioButton3)
                                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jRadioButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jRadioButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jRadioButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jRadioButton10)
+                                            .addComponent(jRadioButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jRadioButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jRadioButton2)
                                     .addComponent(jRadioButton1))
                                 .addGap(18, 18, 18)
                                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton8)
                                     .addComponent(jRadioButton9)
-                                    .addComponent(jRadioButton7)
+                                    .addComponent(jRadioButton10)
+                                    .addComponent(jRadioButton8)
                                     .addComponent(jRadioButton11)
+                                    .addComponent(jRadioButton12)
                                     .addComponent(jRadioButton13)
-                                    .addComponent(jRadioButton14)
-                                    .addComponent(jRadioButton15)))
+                                    .addComponent(jRadioButton14)))
                             .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                                 .addComponent(LabelUsuarioCadResv)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1201,10 +1207,6 @@ public class Telas extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton10)
                             .addComponent(jRadioButton8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1213,19 +1215,23 @@ public class Telas extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton11))
+                            .addComponent(jRadioButton10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton13))
+                            .addComponent(jRadioButton11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton5)
-                            .addComponent(jRadioButton14))
+                            .addComponent(jRadioButton12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton12)
-                            .addComponent(jRadioButton15)))
+                            .addComponent(jRadioButton6)
+                            .addComponent(jRadioButton13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton7)
+                            .addComponent(jRadioButton14)))
                     .addComponent(SeparadorCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2320,15 +2326,21 @@ public class Telas extends JFrame {
         System.out.println("Telas.Telas.jRadioButton1ActionPerformed()");
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jRadioButton10ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
+    private void jRadioButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jRadioButton10ActionPerformed()");
-    }//GEN-LAST:event_jRadioButton10ActionPerformed
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void CBNomeCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBNomeCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
-        
+        String tipo = CBNomeCadResv.getSelectedItem().toString();
+        if((tipo.equalsIgnoreCase("SELECIONE"))){
+            desabilitaRadioButtonCadResv();
+        }
+        else{
+            habilitaRadioButtonCadResv();
+        }
     }//GEN-LAST:event_CBNomeCadResvActionPerformed
 
     private void CBTipoCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBTipoCadResvActionPerformed
@@ -2345,7 +2357,46 @@ public class Telas extends JFrame {
             CBNomeCadResv.setEnabled(true);
         }
     }//GEN-LAST:event_CBTipoCadResvActionPerformed
-
+    private void habilitaRadioButtonCadResv(){
+        Component[] array = TelaCadastraReserva.getComponents();
+        TF_NUSPCadResv.setEnabled(true);
+        LabelUsuarioCadResv.setEnabled(true);
+        BotaoCadastraReserva.setEnabled(true);
+        for(Component cp: array){
+            if(cp instanceof JRadioButton){
+                cp.setEnabled(true);
+            }
+        }
+    }
+    
+    private void desabilitaRadioButtonCadResv(){
+        Component[] array = TelaCadastraReserva.getComponents();
+        TF_NUSPCadResv.setEnabled(false);
+        LabelUsuarioCadResv.setEnabled(false);
+        BotaoCadastraReserva.setEnabled(false);
+        for(Component cp: array){
+            if(cp instanceof JRadioButton){
+                cp.setEnabled(false);
+            }
+        }
+    }
+    
+    private void desabilitaComponentesCadResv(){
+        Component[] array = TelaCadastraReserva.getComponents();
+        TF_NUSPCadResv.setEnabled(false);
+        LabelUsuarioCadResv.setEnabled(false);
+        BotaoCadastraReserva.setEnabled(false);
+        CBTipoCadResv.setEnabled(false);
+        LabelTipoCadResv.setEnabled(false);
+        CBNomeCadResv.setEnabled(false);
+        LabelNomeCadResv.setEnabled(false);
+        for(Component cp : array){
+            if(cp instanceof JRadioButton){
+                cp.setEnabled(false);
+            }
+        }
+    }
+    
     private void CBPredioCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox1ActionPerformed()");
@@ -2357,6 +2408,7 @@ public class Telas extends JFrame {
             CBTipoCadResv.setEnabled(false);
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
+            
         } else {
             LabelTipoCadResv.setEnabled(true);
             CBTipoCadResv.setEnabled(true);
@@ -2381,14 +2433,6 @@ public class Telas extends JFrame {
         habilitaTelaDescadastrarSelecao();
         desabilitaTelaMenu();
     }//GEN-LAST:event_BotaoGoTelaDescSelcActionPerformed
-
-    private void jRadioButton6ActionPerformed(ActionEvent evt) {
-
-    }
-
-    private void jRadioButton24ActionPerformed(ActionEvent evt) {
-
-    }
 
     private void BotaoGoTelaListSelcActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListSelcActionPerformed
         //Butto2 - "Listagem": Abre TelaListaSelecao
@@ -2894,11 +2938,11 @@ public class Telas extends JFrame {
     private javax.swing.JRadioButton jRadioButton12;
     private javax.swing.JRadioButton jRadioButton13;
     private javax.swing.JRadioButton jRadioButton14;
-    private javax.swing.JRadioButton jRadioButton15;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JRadioButton jRadioButton9;
