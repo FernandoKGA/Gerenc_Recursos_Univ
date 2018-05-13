@@ -207,6 +207,60 @@ public class Telas extends JFrame {
     }
     // - - - - - - - - - - - - - - - - -
 
+    // - - - - - Tela Listagem Reservas por Usuario - - - - - 
+    private void desabilitaTelaListaReservasUsuarios() {
+        TelaListaReservasUsuarios.setVisible(false);
+        Component[] array = TelaListaReservasUsuarios.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+
+    private void habilitaTelaListaReservasUsuarios() {
+        TelaListaReservasUsuarios.setVisible(true);
+        Component[] array = TelaListaReservasUsuarios.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    // - - - - - - - - - - - - - - - - -
+
+    // - - - - - Tela Listagem Usuarios - - - - - 
+    private void desabilitaTelaListaUsuarios() {
+        TelaListaUsuarios.setVisible(false);
+        Component[] array = TelaListaUsuarios.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+
+    private void habilitaTelaListaUsuarios() {
+        TelaListaUsuarios.setVisible(true);
+        Component[] array = TelaListaUsuarios.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    // - - - - - - - - - - - - - - - - -
+
+    // - - - - - Tela Listagem Recursos - - - - - 
+    private void desabilitaTelaListaRecursos() {
+        TelaListaRecursos.setVisible(false);
+        Component[] array = TelaListaRecursos.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+
+    private void habilitaTelaListaRecursos() {
+        TelaListaRecursos.setVisible(true);
+        Component[] array = TelaListaRecursos.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    // - - - - - - - - - - - - - - - - -
+
     // - - - - - Tela Remover Usuario - - - - - 
     private void desabilitaTelaRemoverUsuario() {
         TelaRemoverUsuario.setVisible(false);
@@ -2352,14 +2406,14 @@ public class Telas extends JFrame {
         desabilitaTelaMenu();
     }//GEN-LAST:event_BotaoGoTelaDescSelcActionPerformed
 
-    private void jRadioButton6ActionPerformed(ActionEvent evt){
-    
+    private void jRadioButton6ActionPerformed(ActionEvent evt) {
+
     }
-    
-    private void jRadioButton24ActionPerformed(ActionEvent evt){
-    
+
+    private void jRadioButton24ActionPerformed(ActionEvent evt) {
+
     }
-    
+
     private void BotaoGoTelaListSelcActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListSelcActionPerformed
         //Butto2 - "Listagem": Abre TelaListaSelecao
         System.out.println("BotaoGoTelaListaSelecao");
@@ -2421,13 +2475,11 @@ public class Telas extends JFrame {
         habilitaTelaSelecaoCadastro();
         desabilitaTelaCadastroUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     private void BotaoRetFromTelaListRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListRecActionPerformed
         // TODO add your handling code here:
-        habilitaTelaMenu();
-        desabilitaTelaListaSelecao();
-        System.out.println("BotaoRetFromTelaListaSelecao");
-
+        desabilitaTelaListaRecursos();
+        habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListRecActionPerformed
 
     private void BotaoGoTelaDescRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaDescRecActionPerformed
@@ -2532,7 +2584,7 @@ public class Telas extends JFrame {
             //r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
-            
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -2549,16 +2601,26 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_TF_NUSP_DesmResvActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
-        // TODO add your handling code here:
-        
+
+        System.out.println("BotaoGoTelaListResvUsr");
+        habilitaTelaListaReservasUsuarios();
+        desabilitaTelaListaSelecao();
+
     }//GEN-LAST:event_BotaoGoTelaListResvUsrActionPerformed
 
     private void BotaoGoTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListUsrActionPerformed
-        // TODO add your handling code here:
+
+        System.out.println("BotaoGoTelaListUsr");
+        habilitaTelaListaUsuarios();
+        desabilitaTelaListaSelecao();
+
     }//GEN-LAST:event_BotaoGoTelaListUsrActionPerformed
 
     private void BotaoGoTelaListRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListRecActionPerformed
-        // TODO add your handling code here:
+
+        System.out.println("BotaoGoTelaListRec");
+        habilitaTelaListaRecursos();
+        desabilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoGoTelaListRecActionPerformed
 
     private void BotaoRetFromTelaListSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListSelcActionPerformed
@@ -2580,11 +2642,13 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_BotaoListaTodosUsuariosActionPerformed
 
     private void BotaoRetFromTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListUsrActionPerformed
-        // TODO add your handling code here:
+        desabilitaTelaListaUsuarios();
+        habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListUsrActionPerformed
 
     private void BotaoRetFromTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListResvUsrActionPerformed
-        // TODO add your handling code here:
+        desabilitaTelaListaReservasUsuarios();
+        habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListResvUsrActionPerformed
 
     private void BotaoBusca_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_ListResvUsrActionPerformed
