@@ -1392,10 +1392,11 @@ public class Telas extends JFrame {
         LabelCursoTelaCadUsr.setText("Curso");
 
         CBCargoCadUsr.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCargoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno Graduação", "Professor", "Coordenador de Curso" }));
+        CBCargoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno", "Coordenador", "Professor" }));
 
         CBCursoCadUsr.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BTC", "LCN", "EFS", "GER", "GA", "GPP", "LZT", "MKT", "oBS", "SI", "TM" }));
+        CBCursoCadUsr.setToolTipText("");
         CBCursoCadUsr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBCursoCadUsrActionPerformed(evt);
@@ -2612,7 +2613,13 @@ public class Telas extends JFrame {
         try {
             RegrasNegocio r = new RegrasNegocio();
             System.out.println("BotaoCadastrarUsuario");
-            //r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
+            String nome = TF_NomeCadUsr.getText();
+            String nUSP = TF_NUSPCadUsr.getText();
+            String email = TF_EmailCadUsr.getText();
+            String telefone = TF_TelfCadUsr.getText();
+            String curso = CBCursoCadUsr.getSelectedItem().toString();
+            String cargo = CBCargoCadUsr.getSelectedItem().toString();
+            r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
 
