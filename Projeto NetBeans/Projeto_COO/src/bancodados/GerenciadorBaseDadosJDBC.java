@@ -1,61 +1,129 @@
 package bancodados;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import objetos.*;
+import bancodados.Propriedades_BD;
+import java.io.IOException;
 
 public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         GerenciadorBaseDados {
 
-    private static final String PASSWORD = "";
-    private static final String USER = "root";
-    private static final String HOST = "localhost";
-    private static final String DB_NAME = "Dioniso";
-    private boolean jaCriouBD;
+    private static Propriedades_BD prop;
+    private static String bancodados = "Dioniso";
+    private boolean jaCriouBD = false;
 
     public GerenciadorBaseDadosJDBC() throws Banco_de_DadosException {
         super(DB.MYSQL);
 
         try {
+            prop = new Propriedades_BD();
             criaBancoDeDados();
-        } catch (SQLException e) {
+            criaTabelaUsuario();
+            criaTabelaRecurso();
+            criaTabelaReserva();
+        }
+        catch (IOException e){
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Erro na leitura"
+                    + " do arquivo de propriedades!");
+        }
+        catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException(
                     "Erro ao tentar criar o banco de dados.");
         }
     }
 
+    @Override
     protected String getUser() {
-        return USER;
+        return prop.getUser();
     }
 
     @Override
     protected String getPassword() {
-        return PASSWORD;
+        return prop.getPassword();
     }
 
     @Override
     protected String getDbHost() {
-        return HOST;
+        return prop.getHost();
     }
 
     @Override
     protected String getDbName() {
-        return jaCriouBD ? DB_NAME : "";
+        return jaCriouBD ? bancodados: "";
     }
 
+    //-----------CRIACAO DO BANCO-----------
     private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
-        abreConexao();
+        abreConexaoSemBD();
         jaCriouBD = true;
-        preparaComandoSQL("create database if not exists " + getDbName());
-        pstmt.execute();
+        String wtf = getDbName();
+        String query = String.format("CREATE DATABASE IF NOT EXISTS %s",wtf);
+        preparaComandoSQL(query);
+        pstmt.executeUpdate();
         fechaConexao();
     }
 
+    private void criaTabelaUsuario() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `USUARIO` ("
+                + " `IDUSUARIO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
+                + " `NOME` varchar(50) NOT NULL," 
+                + " `NUSP` varchar(11) NOT NULL,"
+                + " `EMAIL` varchar(50) NOT NULL,"
+                + " `CARGO` VARCHAR(20) NOT NULL,"
+                + " `CURSO` VARCHAR(3) NOT NULL,"
+                + " `TELEFONE` varchar(11) NOT NULL,"
+                + " PRIMARY KEY (`IDUSUARIO`),"
+                + " UNIQUE KEY `NUSP` (`NUSP`),"
+                + " UNIQUE KEY `TELEFONE_UNIQUE` (`TELEFONE`)," 
+                + " UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`))";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaRecurso() throws SQLException, Banco_de_DadosException{
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `RECURSO` ("
+                + "`IDRECURSO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
+                + "`NOME` varchar(50) NOT NULL,"
+                + "`PREDIO` varchar(50) NOT NULL,"
+                + "`TIPO` varchar(50) NOT NULL,"
+                + "`CURSO` varchar(50),"
+                + "PRIMARY KEY (`IDRECURSO`),"
+                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`))";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaReserva() throws SQLException, Banco_de_DadosException{
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `RESERVA` ("
+                + "`IDRESERVA` int(10) unsigned NOT NULL AUTO_INCREMENT,"
+                + "`HINICIO` varchar(5) NOT NULL,"
+                + "`HFIM` varchar(5) NOT NULL,"
+                + "`DATA` date NOT NULL,"
+                + "`ID_RECURSO` int(10) unsigned NOT NULL,"
+                + "`ID_USUARIO` int(10) unsigned NOT NULL,"
+                + "`FINALIZADA` tinyint(4) NOT NULL,"
+                + "PRIMARY KEY (`IDRESERVA`),"
+                + "UNIQUE KEY `IDRESERVA_UNIQUE` (`IDRESERVA`),"
+                + "KEY `ID_RECURSO_idx` (`ID_RECURSO`),"
+                + "KEY `ID_USUARIO_idx` (`ID_USUARIO`),"
+                + "CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `RECURSO` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                + "CONSTRAINT `fk_ID_USUARIO_1` FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIO` (`IDUSUARIO`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
     // ---------------  USUARIO  -----------------------
     public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();

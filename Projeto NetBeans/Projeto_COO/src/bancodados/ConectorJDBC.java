@@ -48,12 +48,25 @@ public abstract class ConectorJDBC {
 	protected void abreConexao() throws Banco_de_DadosException {
 		String dbURL = this.db == DB.MYSQL ? MYSQL_URL : POSTGRES_URL;
 		try {
+                    System.out.println("como abre conex "+getDbName()+"\n");
 			con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
 					+ getDbName(), getUser(), getPassword());
 		} catch (SQLException e) {
 			Log.gravaLog(e);
 			throw new Banco_de_DadosException(
 					"Problemas no acesso ao banco de dados.");
+		}
+	}
+        
+        protected void abreConexaoSemBD() throws Banco_de_DadosException {
+            String dbURL = this.db == DB.MYSQL ? MYSQL_URL : POSTGRES_URL;
+            try {
+            	con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
+				+ "", getUser(), getPassword());
+            } catch (SQLException e) {
+            	Log.gravaLog(e);
+		throw new Banco_de_DadosException(
+				"Problemas no acesso ao banco de dados.");
 		}
 	}
 
