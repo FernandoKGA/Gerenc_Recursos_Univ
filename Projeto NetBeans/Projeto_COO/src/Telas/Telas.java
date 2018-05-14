@@ -32,9 +32,16 @@ import javax.swing.AbstractListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
 import negocio.*;
+import objetos.Recurso;
+import objetos.Reserva;
 
 /**
  *
@@ -98,9 +105,8 @@ public class Telas extends JFrame {
             array1.setVisible(true);
         }
     }
-    
-    // - - - - - - - - - - - - - - - - - - - - -
 
+    // - - - - - - - - - - - - - - - - - - - - -
     // - - - - - Tela Cadastro Recurso - - - - - 
     private void desabilitaTelaCadastroRecurso() {
         TelaCadastroRecurso.setVisible(false);
@@ -115,7 +121,7 @@ public class Telas extends JFrame {
         Component[] array = TelaCadastroRecurso.getComponents();
         CBCursoCadRec.setEnabled(false);
         LabelCursoCadRec.setEnabled(false);
-        for (Component array1 : array){
+        for (Component array1 : array) {
             array1.setVisible(true);
         }
     }
@@ -300,6 +306,15 @@ public class Telas extends JFrame {
         }
     }
     // - - - - - - - - - - - - - - - - - - - - -
+
+    private void limpaCampos_CadUsuario() {
+        TF_NomeCadUsr.setText("");
+        TF_NUSPCadUsr.setText("");
+        TF_EmailCadUsr.setText("");
+        TF_TelfCadUsr.setText("");
+        CBCursoCadUsr.setSelectedIndex(0);
+        CBCargoCadUsr.setSelectedIndex(0);
+    }
 
     private boolean verificaData(String s) {
 
@@ -2334,10 +2349,9 @@ public class Telas extends JFrame {
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
         String tipo = CBNomeCadResv.getSelectedItem().toString();
-        if((tipo.equalsIgnoreCase("SELECIONE"))){
+        if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             desabilitaRadioButtonCadResv();
-        }
-        else{
+        } else {
             habilitaRadioButtonCadResv();
         }
     }//GEN-LAST:event_CBNomeCadResvActionPerformed
@@ -2347,40 +2361,39 @@ public class Telas extends JFrame {
         System.out.println("Telas.Telas.jComboBox2ActionPerformed()");
         String tipo = CBTipoCadResv.getSelectedItem().toString();
         System.out.println(tipo);
-        if((tipo.equalsIgnoreCase("SELECIONE"))){
+        if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
-        }
-        else{
+        } else {
             LabelNomeCadResv.setEnabled(true);
             CBNomeCadResv.setEnabled(true);
         }
     }//GEN-LAST:event_CBTipoCadResvActionPerformed
-    private void habilitaRadioButtonCadResv(){
+    private void habilitaRadioButtonCadResv() {
         Component[] array = TelaCadastraReserva.getComponents();
         TF_NUSPCadResv.setEnabled(true);
         LabelUsuarioCadResv.setEnabled(true);
         BotaoCadastraReserva.setEnabled(true);
-        for(Component cp: array){
-            if(cp instanceof JRadioButton){
+        for (Component cp : array) {
+            if (cp instanceof JRadioButton) {
                 cp.setEnabled(true);
             }
         }
     }
-    
-    private void desabilitaRadioButtonCadResv(){
+
+    private void desabilitaRadioButtonCadResv() {
         Component[] array = TelaCadastraReserva.getComponents();
         TF_NUSPCadResv.setEnabled(false);
         LabelUsuarioCadResv.setEnabled(false);
         BotaoCadastraReserva.setEnabled(false);
-        for(Component cp: array){
-            if(cp instanceof JRadioButton){
+        for (Component cp : array) {
+            if (cp instanceof JRadioButton) {
                 cp.setEnabled(false);
             }
         }
     }
-    
-    private void desabilitaComponentesCadResv(){
+
+    private void desabilitaComponentesCadResv() {
         Component[] array = TelaCadastraReserva.getComponents();
         TF_NUSPCadResv.setEnabled(false);
         LabelUsuarioCadResv.setEnabled(false);
@@ -2389,13 +2402,13 @@ public class Telas extends JFrame {
         LabelTipoCadResv.setEnabled(false);
         CBNomeCadResv.setEnabled(false);
         LabelNomeCadResv.setEnabled(false);
-        for(Component cp : array){
-            if(cp instanceof JRadioButton){
+        for (Component cp : array) {
+            if (cp instanceof JRadioButton) {
                 cp.setEnabled(false);
             }
         }
     }
-    
+
     private void CBPredioCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox1ActionPerformed()");
@@ -2407,7 +2420,7 @@ public class Telas extends JFrame {
             CBTipoCadResv.setEnabled(false);
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
-            
+
         } else {
             LabelTipoCadResv.setEnabled(true);
             CBTipoCadResv.setEnabled(true);
@@ -2491,6 +2504,7 @@ public class Telas extends JFrame {
     private void jButton5ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastraUsuario");
+        limpaCampos_CadUsuario();
         habilitaTelaSelecaoCadastro();
         desabilitaTelaCadastroUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -2611,6 +2625,8 @@ public class Telas extends JFrame {
             String curso = CBCursoCadUsr.getSelectedItem().toString();
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
+            JOptionPane.showMessageDialog(null, "Usuário Cadstrado com sucesso!");
+            limpaCampos_CadUsuario();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
 
@@ -2677,7 +2693,23 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_BotaoRetFromTelaListResvUsrActionPerformed
 
     private void BotaoBusca_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_ListResvUsrActionPerformed
-        // TODO add your handling code here:
+        try {
+            //Tenta criar uma List baseado no nUSP
+            RegrasNegocio r = new RegrasNegocio();
+            List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
+            DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
+            //equivalente a clearTable();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for (Reserva res : lista) {
+                String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
+                Recurso rec = res.getRecurso();
+                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), horarios});
+            }
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+        }
     }//GEN-LAST:event_BotaoBusca_ListResvUsrActionPerformed
 
     private void TF_NUSP_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NUSP_ListResvUsrActionPerformed
@@ -2710,14 +2742,14 @@ public class Telas extends JFrame {
         String tipo = CBTipoCadRec.getSelectedItem().toString();
         String predio = CBPredioCadRec.getSelectedItem().toString();
         String curso = null;
-        if(CBCursoCadRec.isEnabled()){
+        if (CBCursoCadRec.isEnabled()) {
             curso = CBCursoCadRec.getSelectedItem().toString();
         }
         try {
             RegrasNegocio r = new RegrasNegocio();
-            if(curso == null){
-            r.cadastraRecurso(nome, tipo, predio);
-            }else{
+            if (curso == null) {
+                r.cadastraRecurso(nome, tipo, predio);
+            } else {
                 //fazer método depois com Laboratorio
             }
         } catch (RegrasNegocioException e) {

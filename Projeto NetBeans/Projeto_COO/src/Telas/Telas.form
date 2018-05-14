@@ -1108,9 +1108,6 @@
                 <StringItem index="7" value="INCUB"/>
               </StringArray>
             </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[70, 20]"/>
-            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CBPredioCadResvActionPerformed"/>
@@ -1147,9 +1144,6 @@
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="219"/>
               </StringArray>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[70, 20]"/>
             </Property>
           </Properties>
           <Events>
@@ -2245,7 +2239,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Component id="LabelSubTelaListUsr" min="-2" pref="258" max="-2" attributes="0"/>
-                          <EmptySpace pref="84" max="32767" attributes="0"/>
+                          <EmptySpace pref="62" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">

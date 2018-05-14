@@ -28,16 +28,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public List<Usuario> listaUsuarios() throws RegrasNegocioException {
-        try {
-            return baseDados.listaUsuarios();
-        } catch (Banco_de_DadosException e) {
-            e.printStackTrace();
-            throw new RegrasNegocioException("Não foi possível"
-                    + " conectar ao Banco de Dados.");
-        }
-    }
-
+    // ------------- USUARIO -----------------------
     public void cadastraUsuario(String nome, String nUSP,
             String email, String telefone, String curso,
             String cargo) throws RegrasNegocioException {
@@ -57,6 +48,38 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + " conectar ao Banco de Dados.");
         }
     }
+
+    public List<Usuario> listaUsuarios() throws RegrasNegocioException {
+        try {
+            return baseDados.listaUsuarios();
+        } catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+
+    public Usuario buscaUsuario(String nusp) throws RegrasNegocioException {
+        try {
+            return baseDados.buscaUsuario(nusp);
+        } catch (Banco_de_DadosException ex) {
+            Log.gravaLog(ex);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+        }
+    }
+
+    public void excluirUsuario(String nusp) throws RegrasNegocioException {
+        try {
+            baseDados.excluirUsuario(nusp);
+        } catch (Banco_de_DadosException ex) {
+            Log.gravaLog(ex);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+        }
+    }
+    
+    // ---------------------------- FIM USUARIO ----------------------------
+    
+    // ---------------------------- RECURSO ----------------------------
 
     public void cadastraRecurso(String nome, String tipo, String predio)
             throws RegrasNegocioException {
@@ -92,23 +115,18 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public Usuario buscaUsuario(String nusp) throws RegrasNegocioException {
-        try {
-            return baseDados.buscaUsuario(nusp);
-        } catch (Banco_de_DadosException ex) {
-            Log.gravaLog(ex);
-            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
-        }
-    }
+    // ---------------------------- FIM RECURSO ----------------------------
 
-    public void excluirUsuario(String nusp) throws RegrasNegocioException {
+    // ---------------------------- RESERVA ----------------------------
+    
+    public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws RegrasNegocioException{
         try {
-            baseDados.excluirUsuario(nusp);
+            return baseDados.listaReservasDoUsuario(numeroUSP);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
-    }
+    } 
 
     //Métodos derivados diretamente das Regras de Negócio
     public boolean verificaCoordenador(String curso, String cargo) throws RegrasNegocioException {
@@ -120,21 +138,21 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
         return true;
     }
-    
-    public boolean permiteAluguelTipo(Usuario u, Recurso r){
+
+    public boolean permiteAluguelTipo(Usuario u, Recurso r) {
         String cargoUsu = u.getCargo();
         String tipoRec = r.getTipo();
-        
-        if(cargoUsu.equalsIgnoreCase("ALUNO")){
-            if(tipoRec.equalsIgnoreCase("LABORATORIO") || tipoRec.equalsIgnoreCase("AUDITORIO")){
+
+        if (cargoUsu.equalsIgnoreCase("ALUNO")) {
+            if (tipoRec.equalsIgnoreCase("LABORATORIO") || tipoRec.equalsIgnoreCase("AUDITORIO")) {
                 return false; //porque a regra diz que laboratórios são reservados a professores.
             }
             return true;
-        }else if(cargoUsu.equalsIgnoreCase("PROFESSOR")){
-            if(r instanceof Laboratorio){
+        } else if (cargoUsu.equalsIgnoreCase("PROFESSOR")) {
+            if (r instanceof Laboratorio) {
                 //Isso aqui é possível de fazer? Fica o questionamento
                 String curso = ((Laboratorio) r).getCurso();
-                if(curso.equalsIgnoreCase(u.getCurso())){
+                if (curso.equalsIgnoreCase(u.getCurso())) {
                     return true;
                 }
                 return false;
@@ -143,23 +161,25 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
         return true; //quando o cargoUsu é igual a COORDENADOR
     }
-    
-    public boolean permiteAluguelNumero(Usuario u) throws RegrasNegocioException{
+
+    public boolean permiteAluguelNumero(Usuario u) throws RegrasNegocioException {
         //Este método só é necessário para verificação para Usuários e Professores.
         String cargo = u.getCargo();
-        if(cargo.equalsIgnoreCase("COORDENADOR")){
+        if (cargo.equalsIgnoreCase("COORDENADOR")) {
             return true;
         }
-        try{
-        List<Reserva> a = baseDados.listaReservasDoUsuario(u.getNUSP());
-        if(a != null) //estamos fazendo dessa forma pela forma que estamos iniciando
-            return true;
-        return false;
-        }catch(Banco_de_DadosException e){
+        try {
+            List<Reserva> a = baseDados.listaReservasDoUsuario(u.getNUSP());
+            if (a != null) //estamos fazendo dessa forma pela forma que estamos iniciando
+            {
+                return true;
+            }
+            return false;
+        } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
-        
+
     }
 
 }

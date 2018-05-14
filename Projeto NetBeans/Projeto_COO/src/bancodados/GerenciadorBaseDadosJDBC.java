@@ -87,17 +87,17 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
             if (rs.next()) {
                 //baseado na ordem do SQL
-                String id_usuario = rs.getString(0);
-                String nome = rs.getString(1);
-                String nusp = rs.getString(2);
-                String email = rs.getString(3);
-                String cargo = rs.getString(4);
-                String curso = rs.getString(5);
-                String telefone = rs.getString(6);
-                //Usuario(String nome, String nUSP,String email, String telefone, String curso, String cargo){
+                String id_usuario = rs.getString(1);
+                String nome = rs.getString(2);
+                String nusp = rs.getString(3);
+                String email = rs.getString(4);
+                String cargo = rs.getString(5);
+                String curso = rs.getString(6);
+                String telefone = rs.getString(7);
                 usuario = new Usuario();
                 usuario.setCargo(cargo);
                 usuario.setId_Usuario(id_usuario);
+                System.out.println("ID USUARIO: " + id_usuario);
                 usuario.setNUSP(nusp);
                 usuario.setNome(nome);
                 usuario.setCurso(curso);
@@ -140,8 +140,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         fechaConexao();
         return usuarios;
     }
-    
-        public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
+
+    public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
         preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP='?'");
         try {
             pstmt.setString(1, nUSP);
@@ -151,7 +151,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }
     }
-
 
     // -----------------  RECURSO  -------------------------
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
@@ -170,7 +169,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
         fechaConexao();
     }
-        public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
+
+    public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = null;
         try {
             preparaComandoSQL("SELECT nome FROM recurso WHERE PREDIO = '?' AND TIPO = '?'");
@@ -254,23 +254,23 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
     }
 
-
-
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
         List<Reserva> reservaUsuario = null;
         try {
             Usuario u = buscaUsuario(numeroUSP);
-            preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO='?'");
-            pstmt.setString(1, u.getId_Usuario());
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Reserva r = new Reserva();
-                r.setHoraInicio(rs.getString(2));
-                r.setHoraFim(rs.getString(3));
-                r.setData(rs.getString(4));
-                Recurso rec = buscaRecurso(rs.getInt(5));
-                r.setRecurso(rec);
-                reservaUsuario.add(r);
+            if (u.getId_Usuario() != null) {
+                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = '?'");
+                pstmt.setString(1, u.getId_Usuario());
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    Reserva r = new Reserva();
+                    r.setHoraInicio(rs.getString(2));
+                    r.setHoraFim(rs.getString(3));
+                    r.setData(rs.getString(4));
+                    Recurso rec = buscaRecurso(rs.getInt(5));
+                    r.setRecurso(rec);
+                    reservaUsuario.add(r);
+                }
             }
         } catch (SQLException e) {
             Log.gravaLog(e);

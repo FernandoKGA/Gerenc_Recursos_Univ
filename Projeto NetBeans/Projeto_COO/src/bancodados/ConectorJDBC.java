@@ -87,8 +87,7 @@ public abstract class ConectorJDBC {
 			pstmt = con.prepareStatement(sql);
 		} catch (SQLException e) {
 			Log.gravaLog(e);
-			throw new Banco_de_DadosException(
-					"Problemas no acesso ao banco de dados.");
+			throw new Banco_de_DadosException("Problemas no acesso ao banco de dados.");
 		}
 	}
 }
