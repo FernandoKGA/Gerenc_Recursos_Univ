@@ -1,5 +1,6 @@
 package bancodados;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -199,9 +200,10 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     public List<Recurso> listaRecursos() throws Banco_de_DadosException {
-        List<Recurso> recursos = null;
+        List<Recurso> recursos = new ArrayList<Recurso>();
         try {
-            preparaComandoSQL("SELECT * FROM Recursos");
+            abreConexao();
+            preparaComandoSQL("SELECT * FROM RECURSO");
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
@@ -213,6 +215,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 r.setTipo(recTipo);
                 recursos.add(r);
             }
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
@@ -223,7 +226,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public Recurso buscaRecurso(int idRecurso) throws Banco_de_DadosException {
         Recurso r = null;
         try {
-            preparaComandoSQL("SELECT NOME,PREDIO,TIPO FROM Recursos WHERE IDRECURSO=?");
+            preparaComandoSQL("SELECT NOME,PREDIO,TIPO FROM RECURSO WHERE IDRECURSO=?");
+            pstmt.setInt(1, idRecurso);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1);
@@ -261,12 +265,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
-        List<Reserva> reservaUsuario = null;
+        List<Reserva> reservaUsuario = new ArrayList<Reserva>();
         try {
+            abreConexao();
             Usuario u = buscaUsuario(numeroUSP);
             if (u.getId_Usuario() != null) {
-                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = '?'");
-                pstmt.setString(1, u.getId_Usuario());
+                int idu = Integer.parseInt(u.getId_Usuario());
+                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ?");
+                pstmt.setInt(1, idu);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Reserva r = new Reserva();
@@ -278,6 +284,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                     reservaUsuario.add(r);
                 }
             }
+            //fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("");

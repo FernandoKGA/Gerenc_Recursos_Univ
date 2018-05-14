@@ -2674,7 +2674,23 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_CBPredioListaRecActionPerformed
 
     private void BotaoListaRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecursosActionPerformed
-        // TODO add your handling code here:
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Recurso> lista = r.listaRecurso();
+            if (lista != null) {
+                DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
+                //equivalente a clearTable();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                for (Recurso rec : lista) {
+                    model.addRow(new Object[]{rec.getNome()});
+                }
+            }
+        } catch (RegrasNegocioException ex) {
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_BotaoListaRecursosActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed
@@ -2688,7 +2704,7 @@ public class Telas extends JFrame {
             }
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
-                usu.getEmail(), usu.getCargo(), usu.getCurso()});
+                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
             }
         } catch (RegrasNegocioException ex) {
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);

@@ -84,7 +84,12 @@ public abstract class ConectorJDBC {
 
 	protected void preparaComandoSQL(String sql) throws Banco_de_DadosException {
 		try {
+                    abreConexao();
+                    if(con != null){
 			pstmt = con.prepareStatement(sql);
+                    }else{
+                        System.out.println("FODEU");
+                    }
 		} catch (SQLException e) {
 			Log.gravaLog(e);
 			throw new Banco_de_DadosException("Problemas no acesso ao banco de dados.");
