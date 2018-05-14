@@ -95,12 +95,14 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
     
-    public List<Recurso> listaRecurso() throws RegrasNegocioException{
+
+    public List<Recurso> listaRecursos() throws RegrasNegocioException {
         try {
             return baseDados.listaRecursos();
-        } catch (Banco_de_DadosException ex) {
-           Log.gravaLog(ex);
-           throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+        } catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
         }
     }
     // ---------------------------- FIM RECURSO ----------------------------
