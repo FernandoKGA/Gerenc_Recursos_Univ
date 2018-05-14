@@ -2676,7 +2676,7 @@ public class Telas extends JFrame {
     private void BotaoListaRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecursosActionPerformed
         try {
             RegrasNegocio r = new RegrasNegocio();
-            List<Recurso> lista = r.listaRecurso();
+            List<Recurso> lista = r.listaRecursos();
             if (lista != null) {
                 DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
                 //equivalente a clearTable();
