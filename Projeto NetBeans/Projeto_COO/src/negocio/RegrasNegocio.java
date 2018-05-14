@@ -76,11 +76,10 @@ public class RegrasNegocio extends RegrasNegocioException {
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
     }
-    
+
     // ---------------------------- FIM USUARIO ----------------------------
     
     // ---------------------------- RECURSO ----------------------------
-
     public void cadastraRecurso(String nome, String tipo, String predio)
             throws RegrasNegocioException {
         Recurso rs = new Recurso();
@@ -97,6 +96,18 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
+    public List<Recurso> listaRecursos() throws RegrasNegocioException {
+        try {
+            return baseDados.listaRecursos();
+        } catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    // ---------------------------- FIM RECURSO ----------------------------
+
+    // ---------------------------- RESERVA ----------------------------
     public void cadastraReserva(String horaInicio, String horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {
 
         try {
@@ -115,18 +126,14 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    // ---------------------------- FIM RECURSO ----------------------------
-
-    // ---------------------------- RESERVA ----------------------------
-    
-    public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws RegrasNegocioException{
+    public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws RegrasNegocioException {
         try {
             return baseDados.listaReservasDoUsuario(numeroUSP);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
-    } 
+    }
 
     //Métodos derivados diretamente das Regras de Negócio
     public boolean verificaCoordenador(String curso, String cargo) throws RegrasNegocioException {
