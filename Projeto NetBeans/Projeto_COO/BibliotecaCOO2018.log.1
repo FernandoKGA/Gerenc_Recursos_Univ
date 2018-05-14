@@ -2,46 +2,76 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-05-07T23:44:03</date>
-  <millis>1525747443450</millis>
+  <date>2018-05-13T23:20:33</date>
+  <millis>1526264433859</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>java.lang.NullPointerException</message>
+  <message>java.sql.SQLException: Column Index out of range, 3 &gt; 2. </message>
   <exception>
-    <message>java.lang.NullPointerException</message>
+    <message>java.sql.SQLException: Column Index out of range, 3 &gt; 2. </message>
     <frame>
-      <class>bancodados.ConectorJDBC</class>
-      <method>preparaComandoSQL</method>
-      <line>87</line>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>964</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>897</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>886</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>860</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>checkColumnBounds</method>
+      <line>767</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>getStringInternal</method>
+      <line>5231</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>getString</method>
+      <line>5153</line>
     </frame>
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
-      <method>excluirUsuario</method>
-      <line>282</line>
+      <method>listaUsuarios</method>
+      <line>128</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>excluirUsuario</method>
-      <line>109</line>
+      <method>listaUsuarios</method>
+      <line>54</line>
     </frame>
     <frame>
-      <class>Telas.TelaRemoverUsuario</class>
-      <method>jButton2ActionPerformed</method>
-      <line>205</line>
+      <class>Telas.Telas</class>
+      <method>BotaoListaTodosUsuariosActionPerformed</method>
+      <line>2685</line>
     </frame>
     <frame>
-      <class>Telas.TelaRemoverUsuario</class>
-      <method>access$000</method>
-      <line>21</line>
+      <class>Telas.Telas</class>
+      <method>access$3900</method>
+      <line>51</line>
     </frame>
     <frame>
-      <class>Telas.TelaRemoverUsuario$1</class>
+      <class>Telas.Telas$41</class>
       <method>actionPerformed</method>
-      <line>150</line>
+      <line>1864</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -223,3 +253,4 @@
     </frame>
   </exception>
 </record>
+</log>

@@ -117,19 +117,25 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public LinkedList<Usuario> listaUsuarios() throws Banco_de_DadosException {
         LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
         abreConexao();
-        preparaComandoSQL("select nUSP, nome from Usuario");
+        preparaComandoSQL("select * from Usuario");
 
         try {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                String id_usuario = rs.getString(0);
-                String NUSP = rs.getString(1);
-                String nome = rs.getString(2);
+                String NUSP = rs.getString(2);
+                String nome = rs.getString(3);
+                String telefone = rs.getString(4);
+                String email = rs.getString(5);
+                String cargo = rs.getString(6);
+                String curso = rs.getString(7);
                 Usuario usuario = new Usuario();
-                usuario.setId_Usuario(id_usuario);
                 usuario.setNome(nome);
                 usuario.setNUSP(NUSP);
+                usuario.setTelefone(telefone);
+                usuario.setEmail(email);
+                usuario.setCargo(cargo);
+                usuario.setCurso(curso);
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {

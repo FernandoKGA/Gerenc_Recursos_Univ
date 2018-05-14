@@ -42,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
 import negocio.*;
 import objetos.Recurso;
 import objetos.Reserva;
+import objetos.Usuario;
 
 /**
  *
@@ -995,7 +996,7 @@ public class Telas extends JFrame {
             .addComponent(LabelTelaCadSelc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TelaSelecaoCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelSubTelaCadSelc, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(LabelSubTelaCadSelc, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(TelaSelecaoCadastroLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -1085,7 +1086,6 @@ public class Telas extends JFrame {
         SeparadorCadResv.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         CBPredioCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
-        CBPredioCadResv.setPreferredSize(new java.awt.Dimension(70, 20));
         CBPredioCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioCadResvActionPerformed(evt);
@@ -1101,7 +1101,6 @@ public class Telas extends JFrame {
         });
 
         CBNomeCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "219" }));
-        CBNomeCadResv.setPreferredSize(new java.awt.Dimension(70, 20));
         CBNomeCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBNomeCadResvActionPerformed(evt);
@@ -1872,7 +1871,7 @@ public class Telas extends JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "nUSP", "Telefone", "E-mail", "Cargo", "Curso"
+                "nUSP", "Nome", "E-mail", "Cargo", "Curso", "Telefone"
             }
         ));
         ScrolListaUsr.setViewportView(TabelaListaUsr);
@@ -1888,7 +1887,7 @@ public class Telas extends JFrame {
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(LabelSubTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(84, Short.MAX_VALUE))
+                        .addContainerGap(62, Short.MAX_VALUE))
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ScrolListaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -2679,7 +2678,22 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_BotaoListaRecursosActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed
-        // TODO add your handling code here:
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Usuario> lista = r.listaUsuarios();
+            DefaultTableModel model = (DefaultTableModel) TabelaListaUsr.getModel();
+            //equivalente a clearTable();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for (Usuario usu : lista) {
+                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
+                usu.getEmail(), usu.getCargo(), usu.getCurso()});
+            }
+        } catch (RegrasNegocioException ex) {
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_BotaoListaTodosUsuariosActionPerformed
 
     private void BotaoRetFromTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListUsrActionPerformed
