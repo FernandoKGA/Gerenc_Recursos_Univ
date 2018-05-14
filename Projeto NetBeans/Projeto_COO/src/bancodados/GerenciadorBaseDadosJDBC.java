@@ -25,13 +25,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             criaTabelaUsuario();
             criaTabelaRecurso();
             criaTabelaReserva();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro na leitura"
                     + " do arquivo de propriedades!");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException(
                     "Erro ao tentar criar o banco de dados.");
@@ -55,7 +53,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     @Override
     protected String getDbName() {
-        return jaCriouBD ? bancodados: "";
+        return jaCriouBD ? bancodados : "";
     }
 
     //-----------CRIACAO DO BANCO-----------
@@ -63,7 +61,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         abreConexaoSemBD();
         jaCriouBD = true;
         String wtf = getDbName();
-        String query = String.format("CREATE DATABASE IF NOT EXISTS %s",wtf);
+        String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
         preparaComandoSQL(query);
         pstmt.executeUpdate();
         fechaConexao();
@@ -73,7 +71,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         abreConexao();
         String query = "CREATE TABLE IF NOT EXISTS `USUARIO` ("
                 + " `IDUSUARIO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
-                + " `NOME` varchar(50) NOT NULL," 
+                + " `NOME` varchar(50) NOT NULL,"
                 + " `NUSP` varchar(11) NOT NULL,"
                 + " `EMAIL` varchar(50) NOT NULL,"
                 + " `CARGO` VARCHAR(20) NOT NULL,"
@@ -81,14 +79,14 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 + " `TELEFONE` varchar(11) NOT NULL,"
                 + " PRIMARY KEY (`IDUSUARIO`),"
                 + " UNIQUE KEY `NUSP` (`NUSP`),"
-                + " UNIQUE KEY `TELEFONE_UNIQUE` (`TELEFONE`)," 
+                + " UNIQUE KEY `TELEFONE_UNIQUE` (`TELEFONE`),"
                 + " UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`))";
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
     }
-    
-    private void criaTabelaRecurso() throws SQLException, Banco_de_DadosException{
+
+    private void criaTabelaRecurso() throws SQLException, Banco_de_DadosException {
         abreConexao();
         String query = "CREATE TABLE IF NOT EXISTS `RECURSO` ("
                 + "`IDRECURSO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
@@ -102,8 +100,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         pstmt.execute();
         fechaConexao();
     }
-    
-    private void criaTabelaReserva() throws SQLException, Banco_de_DadosException{
+
+    private void criaTabelaReserva() throws SQLException, Banco_de_DadosException {
         abreConexao();
         String query = "CREATE TABLE IF NOT EXISTS `RESERVA` ("
                 + "`IDRESERVA` int(10) unsigned NOT NULL AUTO_INCREMENT,"
@@ -123,7 +121,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         pstmt.execute();
         fechaConexao();
     }
-    
+
     // ---------------  USUARIO  -----------------------
     public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
@@ -311,6 +309,26 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
         }
         return r;
+    }
+
+    // ------------------- VARIAÇÃO PARA RECURSO - LABORATÓRIO -----------------
+    public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException{
+        try{
+        abreConexao();
+        preparaComandoSQL("insert into Recurso (nome, predio, tipo, curso) values (?, ?, ?, ?)");
+
+            pstmt.setString(1, l.getNome());
+            pstmt.setString(2, l.getPredio());
+            pstmt.setString(3, l.getTipo()); //que obviamente vai ser LABORATORIO
+            System.out.println(l.getCurso());
+            pstmt.setString(4, l.getCurso());
+            pstmt.execute();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
+        }
+
+        fechaConexao();
     }
 
     // ----------------------  RESERVA  --------------------------

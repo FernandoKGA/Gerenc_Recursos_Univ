@@ -316,21 +316,28 @@ public class Telas extends JFrame {
         CBCursoCadUsr.setSelectedIndex(0);
         CBCargoCadUsr.setSelectedIndex(0);
     }
-    
+
     //validadores-------------------------------------------------
-    private boolean verificaNumero(String txt){
-        if(taVazio(txt))return false;
-        try{
+    private boolean verificaNumero(String txt) {
+        if (taVazio(txt)) {
+            return false;
+        }
+        try {
             int v = Integer.parseInt(txt);
             return true;
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
-    private boolean taVazio(String txt){
-        if(txt == null || txt.length() == 0) return true;
-        else return false;
+
+    private boolean taVazio(String txt) {
+        if (txt == null || txt.length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
     private boolean verificaData(String s) {
 
         // Primeiro digito do dia errado
@@ -2799,13 +2806,14 @@ public class Telas extends JFrame {
         String curso = null;
         if (CBCursoCadRec.isEnabled()) {
             curso = CBCursoCadRec.getSelectedItem().toString();
+            System.out.println(curso);
         }
         try {
             RegrasNegocio r = new RegrasNegocio();
             if (curso == null) {
                 r.cadastraRecurso(nome, tipo, predio);
             } else {
-                //fazer método depois com Laboratorio
+                r.cadastraLaboratorio(nome, tipo, predio, curso);
             }
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);

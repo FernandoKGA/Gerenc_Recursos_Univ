@@ -19,10 +19,4 @@ public class Laboratorio extends Recurso{
         this.curso = curso;
     }
     
-    public boolean verificaLaboratorio(Laboratorio l, Usuario u){
-        //vai fazer um método que faz esse processo na RegrasNegocio
-        //return RegrasNegocio.verificaLaboratorio(l, u); 
-        return true;
-    }
-    
 }
