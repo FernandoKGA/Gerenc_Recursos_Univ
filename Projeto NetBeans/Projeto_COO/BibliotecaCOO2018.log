@@ -2,59 +2,51 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-05-13T17:18:04</date>
-  <millis>1526242684769</millis>
+  <date>2018-05-13T21:08:31</date>
+  <millis>1526256511506</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
-  <thread>14</thread>
-  <message>com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
+  <thread>12</thread>
+  <message>java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: NO)</message>
   <exception>
-    <message>com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
-    <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance0</method>
-    </frame>
-    <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance</method>
-      <line>62</line>
-    </frame>
-    <frame>
-      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
-      <method>newInstance</method>
-      <line>45</line>
-    </frame>
-    <frame>
-      <class>java.lang.reflect.Constructor</class>
-      <method>newInstance</method>
-      <line>423</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.Util</class>
-      <method>handleNewInstance</method>
-      <line>425</line>
-    </frame>
+    <message>java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: NO)</message>
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
-      <method>createCommunicationsException</method>
-      <line>989</line>
+      <method>createSQLException</method>
+      <line>964</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.MysqlIO</class>
-      <method>&lt;init&gt;</method>
-      <line>341</line>
+      <method>checkErrorPacket</method>
+      <line>3973</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>checkErrorPacket</method>
+      <line>3909</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>checkErrorPacket</method>
+      <line>873</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>proceedHandshakeWithPluggableAuthentication</method>
+      <line>1710</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>doHandshake</method>
+      <line>1226</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.ConnectionImpl</class>
       <method>coreConnect</method>
-      <line>2203</line>
+      <line>2205</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.ConnectionImpl</class>
@@ -143,7 +135,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>Telas.Telas</class>
       <method>BotaoCadastraRecursoActionPerformed</method>
-      <line>2651</line>
+      <line>2717</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
@@ -153,7 +145,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>Telas.Telas$22</class>
       <method>actionPerformed</method>
-      <line>1295</line>
+      <line>1300</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -198,7 +190,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2238</line>
+      <line>2237</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -208,7 +200,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2296</line>
+      <line>2295</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -218,22 +210,22 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>retargetMouseEvent</method>
-      <line>4897</line>
+      <line>4889</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>processMouseEvent</method>
-      <line>4534</line>
+      <line>4526</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>dispatchEvent</method>
-      <line>4475</line>
+      <line>4467</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2282</line>
+      <line>2281</line>
     </frame>
     <frame>
       <class>java.awt.Window</class>
@@ -336,14 +328,14 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
   </exception>
 </record>
 <record>
-  <date>2018-05-13T17:18:04</date>
-  <millis>1526242684832</millis>
+  <date>2018-05-13T21:08:31</date>
+  <millis>1526256511610</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
-  <thread>14</thread>
+  <thread>12</thread>
   <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
   <exception>
     <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
@@ -355,7 +347,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>Telas.Telas</class>
       <method>BotaoCadastraRecursoActionPerformed</method>
-      <line>2651</line>
+      <line>2717</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
@@ -365,7 +357,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>Telas.Telas$22</class>
       <method>actionPerformed</method>
-      <line>1295</line>
+      <line>1300</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -410,7 +402,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2238</line>
+      <line>2237</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -420,7 +412,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2296</line>
+      <line>2295</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -430,22 +422,22 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>retargetMouseEvent</method>
-      <line>4897</line>
+      <line>4889</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>processMouseEvent</method>
-      <line>4534</line>
+      <line>4526</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>dispatchEvent</method>
-      <line>4475</line>
+      <line>4467</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2282</line>
+      <line>2281</line>
     </frame>
     <frame>
       <class>java.awt.Window</class>

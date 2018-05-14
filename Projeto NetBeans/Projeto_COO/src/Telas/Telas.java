@@ -99,9 +99,6 @@ public class Telas extends JFrame {
         }
     }
     
-    private void desabilitaRBCadastraReserva(){
-        
-    }
     // - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - Tela Cadastro Recurso - - - - - 
@@ -116,7 +113,9 @@ public class Telas extends JFrame {
     private void habilitaTelaCadastroRecurso() {
         TelaCadastroRecurso.setVisible(true);
         Component[] array = TelaCadastroRecurso.getComponents();
-        for (Component array1 : array) {
+        CBCursoCadRec.setEnabled(false);
+        LabelCursoCadRec.setEnabled(false);
+        for (Component array1 : array){
             array1.setVisible(true);
         }
     }
