@@ -551,14 +551,14 @@ public class Telas extends JFrame {
         TelaDescadastrarRecurso = new javax.swing.JPanel();
         LabelNomeTelaDescRec = new javax.swing.JLabel();
         LabelSubTelaDescRec = new javax.swing.JLabel();
+        LabelPredioTelaExcluirRec = new javax.swing.JLabel();
+        LabelTipoTelaExcluirRec = new javax.swing.JLabel();
         BotaoRetFromDescRec = new javax.swing.JButton();
         BotaoGoDiagConfRec = new javax.swing.JButton();
         CBTiposExcluirRec = new javax.swing.JComboBox<>();
         CBPredioExcluirRec = new javax.swing.JComboBox<>();
         ScrolExcluirRec = new javax.swing.JScrollPane();
-        TabelaExcluirUsr = new javax.swing.JTable();
-        LabelPredioTelaExcluirRec = new javax.swing.JLabel();
-        LabelTipoTelaExcluirRec = new javax.swing.JLabel();
+        TabelaExcluirRec = new javax.swing.JTable();
         TelaRemoverUsuario = new javax.swing.JPanel();
         LabelSubTelaRemUsr = new javax.swing.JLabel();
         LabelNomeTelaRemUsr = new javax.swing.JLabel();
@@ -1159,7 +1159,7 @@ public class Telas extends JFrame {
                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
-                        .addComponent(LabelTelaCadResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(LabelTelaCadResv, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
                     .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
@@ -1501,7 +1501,7 @@ public class Telas extends JFrame {
                 .addGap(53, 53, 53))
             .addGroup(TelaCadastroUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TelaCadastroUsuarioLayout.setVerticalGroup(
@@ -2154,6 +2154,12 @@ public class Telas extends JFrame {
         LabelSubTelaDescRec.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelSubTelaDescRec.setText("Remoção de Recurso do Sistema Dioniso");
 
+        LabelPredioTelaExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelPredioTelaExcluirRec.setText("Prédio:");
+
+        LabelTipoTelaExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelTipoTelaExcluirRec.setText("Tipo:");
+
         BotaoRetFromDescRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoRetFromDescRec.setText("Cancelar");
         BotaoRetFromDescRec.addActionListener(new java.awt.event.ActionListener() {
@@ -2173,7 +2179,7 @@ public class Telas extends JFrame {
         });
 
         CBTiposExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBTiposExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório", "Todos" }));
+        CBTiposExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório" }));
         CBTiposExcluirRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBTiposExcluirRecActionPerformed(evt);
@@ -2188,31 +2194,30 @@ public class Telas extends JFrame {
             }
         });
 
-        TabelaExcluirUsr.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaExcluirRec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nome"
             }
-        ));
-        ScrolExcluirRec.setViewportView(TabelaExcluirUsr);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
 
-        LabelPredioTelaExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        LabelPredioTelaExcluirRec.setText("Prédio:");
-
-        LabelTipoTelaExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        LabelTipoTelaExcluirRec.setText("Tipo:");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ScrolExcluirRec.setViewportView(TabelaExcluirRec);
 
         javax.swing.GroupLayout TelaDescadastrarRecursoLayout = new javax.swing.GroupLayout(TelaDescadastrarRecurso);
         TelaDescadastrarRecurso.setLayout(TelaDescadastrarRecursoLayout);
         TelaDescadastrarRecursoLayout.setHorizontalGroup(
             TelaDescadastrarRecursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(LabelNomeTelaDescRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(LabelSubTelaDescRec, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addComponent(LabelSubTelaDescRec, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(TelaDescadastrarRecursoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(LabelPredioTelaExcluirRec)
@@ -2432,6 +2437,16 @@ public class Telas extends JFrame {
             }
         }
     }
+        
+    private void desabilitaComponentesExcRec() {
+        CBTiposExcluirRec.setEnabled(false);
+        LabelTipoTelaExcluirRec.setEnabled(false);
+        TabelaExcluirRec.setEnabled(false);
+        ScrolExcluirRec.setEnabled(false);
+    }
+        
+        
+
 
     private void CBPredioCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
         // TODO add your handling code here:
@@ -2550,6 +2565,7 @@ public class Telas extends JFrame {
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaDescadastrarRecurso");
         habilitaTelaDescadastrarRecurso();
+        desabilitaComponentesExcRec();
         desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoGoTelaDescRecActionPerformed
 
@@ -2793,11 +2809,31 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_TF_NomeCadUsrActionPerformed
 
     private void CBTiposExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTiposExcluirRecActionPerformed
-        // TODO add your handling code here:
+        //ComboBox Tipo Excluir Recurso
+        String campo = CBPredioExcluirRec.getSelectedItem().toString();
+        if((campo.equalsIgnoreCase("SELECIONE"))){
+            ScrolExcluirRec.setEnabled(false);
+            TabelaExcluirRec.setEnabled(false);
+        }
+        else{
+            ScrolExcluirRec.setEnabled(true);
+            TabelaExcluirRec.setEnabled(true);
+        }
     }//GEN-LAST:event_CBTiposExcluirRecActionPerformed
 
     private void CBPredioExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioExcluirRecActionPerformed
-        // TODO add your handling code here:
+        //ComboBox Predio Excluir Recurso
+        String campo = CBPredioExcluirRec.getSelectedItem().toString();
+        if((campo.equalsIgnoreCase("SELECIONE"))){
+            CBTiposExcluirRec.setEnabled(false);
+            LabelTipoTelaExcluirRec.setEnabled(false);
+            ScrolExcluirRec.setEnabled(false);
+            TabelaExcluirRec.setEnabled(false);
+        }
+        else{
+            CBTiposExcluirRec.setEnabled(true);
+            LabelTipoTelaExcluirRec.setEnabled(true);
+        }
     }//GEN-LAST:event_CBPredioExcluirRecActionPerformed
 
     private void TF_NUSP_DesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NUSP_DesmResvActionPerformed
@@ -3061,7 +3097,7 @@ public class Telas extends JFrame {
     private javax.swing.JTextField TF_NomeCadUsr;
     private javax.swing.JTextField TF_TelfCadUsr;
     private javax.swing.JTable TabelaDesmResv;
-    private javax.swing.JTable TabelaExcluirUsr;
+    private javax.swing.JTable TabelaExcluirRec;
     private javax.swing.JTable TabelaListaRec;
     private javax.swing.JTable TabelaListaReserUsr;
     private javax.swing.JTable TabelaListaUsr;
