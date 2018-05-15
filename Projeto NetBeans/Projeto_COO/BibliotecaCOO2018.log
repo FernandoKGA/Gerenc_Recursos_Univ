@@ -4,6 +4,8 @@
 <record>
   <date>2018-05-14T21:00:13</date>
   <millis>1526342413633</millis>
+  <date>2018-05-14T18:24:41</date>
+  <millis>1526333081398</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
@@ -328,7 +330,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2237</line>
+      <line>2236</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -338,7 +340,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2295</line>
+      <line>2294</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -378,7 +380,7 @@
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEventImpl</method>
-      <line>760</line>
+      <line>758</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
@@ -402,22 +404,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>80</line>
+      <line>76</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>90</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>733</line>
+      <line>86</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
       <method>run</method>
       <line>731</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>729</line>
     </frame>
     <frame>
       <class>java.security.AccessController</class>
@@ -426,17 +428,17 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>80</line>
+      <line>76</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEvent</method>
-      <line>730</line>
+      <line>728</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
       <method>pumpOneEventForFilters</method>
-      <line>205</line>
+      <line>201</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
@@ -540,7 +542,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2237</line>
+      <line>2236</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -550,7 +552,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2295</line>
+      <line>2294</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -590,7 +592,7 @@
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEventImpl</method>
-      <line>760</line>
+      <line>758</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
@@ -614,22 +616,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>80</line>
+      <line>76</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>90</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>733</line>
+      <line>86</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
       <method>run</method>
       <line>731</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>729</line>
     </frame>
     <frame>
       <class>java.security.AccessController</class>
@@ -638,17 +640,17 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>80</line>
+      <line>76</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEvent</method>
-      <line>730</line>
+      <line>728</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
       <method>pumpOneEventForFilters</method>
-      <line>205</line>
+      <line>201</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>

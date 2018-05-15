@@ -94,7 +94,6 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + "conectar ao Banco de Dados.");
         }
     }
-    
 
     public List<Recurso> listaRecursos() throws RegrasNegocioException {
         try {
@@ -106,6 +105,23 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
     // ---------------------------- FIM RECURSO ----------------------------
+
+    public void cadastraLaboratorio(String nome, String tipo, String predio, String curso)
+            throws RegrasNegocioException {
+        Laboratorio lb = new Laboratorio();
+        lb.setNome(nome);
+        lb.setTipo(tipo);
+        lb.setPredio(predio);
+        lb.setCurso(curso);
+
+        try {
+            baseDados.insereLaboratorio(lb);
+        } catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível "
+                    + "conectar ao Banco de Dados.");
+        }
+    }
 
     // ---------------------------- RESERVA ----------------------------
     public void cadastraReserva(String horaInicio, String horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {

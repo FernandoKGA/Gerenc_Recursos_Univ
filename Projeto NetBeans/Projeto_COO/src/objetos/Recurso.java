@@ -13,7 +13,7 @@ public class Recurso {
     private Predios predio;
     
     private enum Tipos {
-        SALA, LABORATORIO, AUDITORIO 
+        SALA, LABORATÓRIO, AUDITÓRIO 
     } 
 
     private enum Predios {
