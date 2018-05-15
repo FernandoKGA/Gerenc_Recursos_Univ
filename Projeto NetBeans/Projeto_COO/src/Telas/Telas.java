@@ -39,6 +39,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 import negocio.*;
 import objetos.Recurso;
 import objetos.Reserva;
@@ -597,6 +599,11 @@ public class Telas extends JFrame {
         BotaoDescUsr.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoDescUsr.setText("Confirmar");
         BotaoDescUsr.setActionCommand("Sim");
+        BotaoDescUsr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoDescUsrActionPerformed(evt);
+            }
+        });
 
         BotaoRetFromDiagConfExcUsr.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoRetFromDiagConfExcUsr.setText("Cancelar");
@@ -1010,7 +1017,7 @@ public class Telas extends JFrame {
             .addComponent(LabelTelaCadSelc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TelaSelecaoCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelSubTelaCadSelc, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addComponent(LabelSubTelaCadSelc, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(TelaSelecaoCadastroLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -1162,25 +1169,20 @@ public class Telas extends JFrame {
                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CBPredioCadResv, 0, 142, Short.MAX_VALUE)
+                                    .addComponent(CBTipoCadResv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CBNomeCadResv, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                                         .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CBPredioCadResv, 0, 171, Short.MAX_VALUE)
-                                            .addComponent(CBTipoCadResv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(CBNomeCadResv, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
-                                                .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(LabelNomeCadResv)
-                                                    .addComponent(LabelTipoCadResv))
-                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(LabelNomeCadResv)
+                                            .addComponent(LabelTipoCadResv)
                                             .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
                                                 .addComponent(LabelDataCadResv)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(FTF_DataCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(TelaCadastraReservaLayout.createSequentialGroup()
-                                        .addComponent(LabelPredioCadResv)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addComponent(FTF_DataCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(LabelPredioCadResv))
+                                        .addGap(0, 5, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(SeparadorCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(TelaCadastraReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1504,7 +1506,7 @@ public class Telas extends JFrame {
                 .addGap(53, 53, 53))
             .addGroup(TelaCadastroUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TelaCadastroUsuarioLayout.setVerticalGroup(
@@ -1599,7 +1601,7 @@ public class Telas extends JFrame {
         TelaListaSelecaoLayout.setHorizontalGroup(
             TelaListaSelecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TelaListaSelecaoLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(TelaListaSelecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(BotaoGoTelaListRec, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(BotaoGoTelaListResvUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1718,7 +1720,7 @@ public class Telas extends JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TelaListaRecursosLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(BotaoRetFromTelaListRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                         .addComponent(BotaoListaRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
                     .addGroup(TelaListaRecursosLayout.createSequentialGroup()
@@ -1813,7 +1815,7 @@ public class Telas extends JFrame {
         TelaListaReservasUsuarios.setLayout(TelaListaReservasUsuariosLayout);
         TelaListaReservasUsuariosLayout.setHorizontalGroup(
             TelaListaReservasUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelNomeTelaListResvUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(LabelNomeTelaListResvUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
             .addGroup(TelaListaReservasUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(TelaListaReservasUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1912,7 +1914,7 @@ public class Telas extends JFrame {
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(LabelSubTelaListUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(62, Short.MAX_VALUE))
+                        .addContainerGap(84, Short.MAX_VALUE))
                     .addGroup(TelaListaUsuariosLayout.createSequentialGroup()
                         .addGroup(TelaListaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ScrolListaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1994,7 +1996,7 @@ public class Telas extends JFrame {
         TelaDescadastrarSelecaoLayout.setHorizontalGroup(
             TelaDescadastrarSelecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TelaDescadastrarSelecaoLayout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addGroup(TelaDescadastrarSelecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(BotaoGoTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(BotaoGoTelaRemUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2075,17 +2077,14 @@ public class Telas extends JFrame {
 
         TabelaDesmResv.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Data", "Predio", "Tipo", "Nome", "Horário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2098,7 +2097,7 @@ public class Telas extends JFrame {
         TelaDesmarcarReserva.setLayout(TelaDesmarcarReservaLayout);
         TelaDesmarcarReservaLayout.setHorizontalGroup(
             TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
             .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BotaoRetFromDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2218,7 +2217,7 @@ public class Telas extends JFrame {
         TelaDescadastrarRecursoLayout.setHorizontalGroup(
             TelaDescadastrarRecursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(LabelNomeTelaDescRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(LabelSubTelaDescRec, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(LabelSubTelaDescRec, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
             .addGroup(TelaDescadastrarRecursoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(LabelPredioTelaExcluirRec)
@@ -2300,15 +2299,21 @@ public class Telas extends JFrame {
 
         TabelaRemUsr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "nUSP", "Telefone", "E-mail", "Cargo", "Curso"
+                "nUSP", "Nome", "E-mail", "Cargo", "Curso", "Telefone"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TabelaRemUsr.getTableHeader().setReorderingAllowed(false);
         ScrolRemUsr.setViewportView(TabelaRemUsr);
 
         BotaoListUsrRemUsr.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -2334,7 +2339,7 @@ public class Telas extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotaoGoDiagConfUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ScrolRemUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(LabelSubTelaRemUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
+                    .addComponent(LabelSubTelaRemUsr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                 .addContainerGap())
         );
         TelaRemoverUsuarioLayout.setVerticalGroup(
@@ -2488,6 +2493,13 @@ public class Telas extends JFrame {
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jButton20ActionPerformed()");
         DialogConfExcUsr.setVisible(true);
+        Object coluna_nome = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),1);
+        String nome = (String) coluna_nome;
+        Object coluna_email = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),2);
+        String email = (String) coluna_email;
+        LabelNome_BDDiagConfExcUsr.setText(nome);
+        LabelEmail_BDDiagConfExcUsr.setText(email);
+        
     }//GEN-LAST:event_BotaoGoDiagConfUsrActionPerformed
 
     private void BotaoGoTelaCadUsrActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadUsrActionPerformed
@@ -2649,7 +2661,7 @@ public class Telas extends JFrame {
             String curso = CBCursoCadUsr.getSelectedItem().toString();
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
-            JOptionPane.showMessageDialog(null, "Usuário Cadstrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
             limpaCampos_CadUsuario();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
@@ -2734,7 +2746,6 @@ public class Telas extends JFrame {
         } catch (RegrasNegocioException ex) {
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_BotaoListaTodosUsuariosActionPerformed
 
     private void BotaoRetFromTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListUsrActionPerformed
@@ -2814,6 +2825,20 @@ public class Telas extends JFrame {
 
     private void BotaoListUsrRemUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListUsrRemUsrActionPerformed
         // TODO add your handling code here:
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Usuario> lista = r.listaUsuarios();
+            DefaultTableModel model = (DefaultTableModel) TabelaRemUsr.getModel();
+            //equivalente a clearTable();
+            TabelaRemUsr.setRowSorter(new TableRowSorter(model));
+            model.setNumRows(0);
+            for (Usuario usu : lista) {
+                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
+                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
+            }
+        } catch (RegrasNegocioException ex) {
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotaoListUsrRemUsrActionPerformed
 
     private void CBCursoCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadRecActionPerformed
@@ -2823,6 +2848,31 @@ public class Telas extends JFrame {
     private void CBPredioCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioCadRecActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBPredioCadRecActionPerformed
+
+    private void BotaoDescUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescUsrActionPerformed
+        //Botao de exclusao de usuario na Dialog
+        Object valor_nUSP = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),0);
+        String nUSP = (String) valor_nUSP;
+        try{
+            RegrasNegocio r = new RegrasNegocio();
+            System.out.println(nUSP);
+            r.excluirUsuario(nUSP);
+            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            DialogConfExcUsr.setVisible(false);
+        }
+        catch(RegrasNegocioException ex){
+            Log.gravaLog(ex);
+            try{
+                RegrasNegocio r = new RegrasNegocio();
+                Usuario usr = r.buscaUsuario(nUSP);
+                if(usr == null) JOptionPane.showMessageDialog(null, "Usuário não encontrado!");
+            }
+            catch(RegrasNegocioException e){
+                Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, e);
+            }
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BotaoDescUsrActionPerformed
 
     /**
      * @param args the command line arguments

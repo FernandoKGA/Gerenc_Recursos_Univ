@@ -148,7 +148,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     public Usuario buscaUsuario(String numeroUSP) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("select * from Usuario where NUSP='" + numeroUSP + "'");
+        preparaComandoSQL("select * from USUARIO where NUSP='" + numeroUSP + "'");
         Usuario usuario = null;
 
         try {
@@ -186,7 +186,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public LinkedList<Usuario> listaUsuarios() throws Banco_de_DadosException {
         LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
         abreConexao();
-        preparaComandoSQL("select * from Usuario");
+        preparaComandoSQL("select * from USUARIO");
 
         try {
             rs = pstmt.executeQuery();
@@ -217,20 +217,22 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM USUARIO WHERE NUSP='?'");
+        String query = String.format("DELETE FROM USUARIO WHERE "
+                + "NUSP = '%s' ",nUSP);
+        System.out.println(query);        
         try {
-            pstmt.setString(1, nUSP);
-            rs = pstmt.executeQuery();
+            preparaComandoSQL(query);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             Log.gravaLog(e);
-            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+            throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
     }
 
     // -----------------  RECURSO  -------------------------
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("insert into Recurso (nome, predio, tipo) values (?, ?, ?)");
+        preparaComandoSQL("insert into RECURSO (NOME, PREDIO, TIPO) values (?, ?, ?)");
 
         try {
             pstmt.setString(1, recurso.getNome());
@@ -248,7 +250,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = null;
         try {
-            preparaComandoSQL("SELECT nome FROM recurso WHERE PREDIO = '?' AND TIPO = '?'");
+            preparaComandoSQL("SELECT NOME FROM RECURSO WHERE PREDIO = '?' AND TIPO = '?'");
             pstmt.setString(1, predio);
             pstmt.setString(2, tipo);
             rs = pstmt.executeQuery();
@@ -316,7 +318,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     // ----------------------  RESERVA  --------------------------
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("INSERT INTO RESERVA(hinicio, hfim, data, id_recurso, id_usuario, finalizada) VALUES(?,?,?,?,?,?)");
+        preparaComandoSQL("INSERT INTO RESERVA(HINICIO, HFIM, DATA, ID_RECURSO, ID_USUARIO, FINALIZADA) VALUES(?,?,?,?,?,?)");
 
         try {
             pstmt.setString(1, reserva.getHoraInicio());
