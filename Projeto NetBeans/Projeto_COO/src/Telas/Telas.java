@@ -320,24 +320,12 @@ public class Telas extends JFrame {
     }
 
     //validadores-------------------------------------------------
-    private boolean verificaNumero(String txt) {
-        if (taVazio(txt)) {
-            return false;
-        }
-        try {
-            int v = Integer.parseInt(txt);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private boolean CbVazia(JComboBox j) {
+        return j.getSelectedItem().toString().equals("Selecione");
     }
 
-    private boolean taVazio(String txt) {
-        if (txt == null || txt.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean taVazio(JTextField txt) {
+        return txt.getText().trim().isEmpty();
     }
 
     private boolean verificaData(String s) {
@@ -2500,13 +2488,13 @@ public class Telas extends JFrame {
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jButton20ActionPerformed()");
         DialogConfExcUsr.setVisible(true);
-        Object coluna_nome = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),1);
+        Object coluna_nome = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 1);
         String nome = (String) coluna_nome;
-        Object coluna_email = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),2);
+        Object coluna_email = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 2);
         String email = (String) coluna_email;
         LabelNome_BDDiagConfExcUsr.setText(nome);
         LabelEmail_BDDiagConfExcUsr.setText(email);
-        
+
     }//GEN-LAST:event_BotaoGoDiagConfUsrActionPerformed
 
     private void BotaoGoTelaCadUsrActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadUsrActionPerformed
@@ -2658,21 +2646,26 @@ public class Telas extends JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        try {
-            RegrasNegocio r = new RegrasNegocio();
-            System.out.println("BotaoCadastrarUsuario");
-            String nome = TF_NomeCadUsr.getText();
-            String nUSP = TF_NUSPCadUsr.getText();
-            String email = TF_EmailCadUsr.getText();
-            String telefone = TF_TelfCadUsr.getText();
-            String curso = CBCursoCadUsr.getSelectedItem().toString();
-            String cargo = CBCargoCadUsr.getSelectedItem().toString();
-            r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
-            JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
-            limpaCampos_CadUsuario();
-        } catch (RegrasNegocioException e) {
-            Log.gravaLog(e);
+        if (!taVazio(TF_NomeCadUsr) && !taVazio(TF_NUSPCadUsr) && !taVazio(TF_TelfCadUsr)
+                && !taVazio(TF_EmailCadUsr) && !CbVazia(CBCargoCadUsr) && !CbVazia(CBCursoCadUsr)) {
+            try {
+                RegrasNegocio r = new RegrasNegocio();
+                System.out.println("BotaoCadastrarUsuario");
+                String nome = TF_NomeCadUsr.getText();
+                String nUSP = TF_NUSPCadUsr.getText();
+                String email = TF_EmailCadUsr.getText();
+                String telefone = TF_TelfCadUsr.getText();
+                String curso = CBCursoCadUsr.getSelectedItem().toString();
+                String cargo = CBCargoCadUsr.getSelectedItem().toString();
+                r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
+                JOptionPane.showMessageDialog(null, "Usuário Cadstrado com sucesso!");
+                limpaCampos_CadUsuario();
+            } catch (RegrasNegocioException e) {
+                Log.gravaLog(e);
 
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo(s) vazios(s)");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -2681,7 +2674,13 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_CBCursoCadUsrActionPerformed
 
     private void BotaoCadastraReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraReservaActionPerformed
-        // TODO add your handling code here:
+        if (!taVazio(TF_NUSPCadResv) && !CbVazia(CBPredioCadResv) && !CbVazia(CBTipoCadResv)
+                && !CbVazia(CBNomeCadResv)) {
+            //codigo que cadastra reserva
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo(s) vazios(s)");
+        }
+
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
@@ -2819,15 +2818,21 @@ public class Telas extends JFrame {
             curso = CBCursoCadRec.getSelectedItem().toString();
             System.out.println(curso);
         }
-        try {
-            RegrasNegocio r = new RegrasNegocio();
-            if (curso == null) {
-                r.cadastraRecurso(nome, tipo, predio);
-            } else {
-                r.cadastraLaboratorio(nome, tipo, predio, curso);
+        if (!taVazio(TF_NomeCadRec) && !CbVazia(CBTipoCadRec) && !CbVazia(CBPredioCadRec)) {
+            try {
+                RegrasNegocio r = new RegrasNegocio();
+                if (curso == null) {
+                    r.cadastraRecurso(nome, tipo, predio);
+                } else if (!CbVazia(CBCursoCadRec)) {
+                    r.cadastraLaboratorio(nome, tipo, predio, curso);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Campo(s) vazios(s)");
+                }
+            } catch (RegrasNegocioException e) {
+                Log.gravaLog(e);
             }
-        } catch (RegrasNegocioException e) {
-            Log.gravaLog(e);
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo(s) vazios(s)");
         }
     }//GEN-LAST:event_BotaoCadastraRecursoActionPerformed
 
@@ -2859,23 +2864,23 @@ public class Telas extends JFrame {
 
     private void BotaoDescUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescUsrActionPerformed
         //Botao de exclusao de usuario na Dialog
-        Object valor_nUSP = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(),0);
+        Object valor_nUSP = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 0);
         String nUSP = (String) valor_nUSP;
-        try{
+        try {
             RegrasNegocio r = new RegrasNegocio();
             System.out.println(nUSP);
             r.excluirUsuario(nUSP);
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
             DialogConfExcUsr.setVisible(false);
-        }
-        catch(RegrasNegocioException ex){
+        } catch (RegrasNegocioException ex) {
             Log.gravaLog(ex);
-            try{
+            try {
                 RegrasNegocio r = new RegrasNegocio();
                 Usuario usr = r.buscaUsuario(nUSP);
-                if(usr == null) JOptionPane.showMessageDialog(null, "Usuário não encontrado!");
-            }
-            catch(RegrasNegocioException e){
+                if (usr == null) {
+                    JOptionPane.showMessageDialog(null, "Usuário não encontrado!");
+                }
+            } catch (RegrasNegocioException e) {
                 Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, e);
             }
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
