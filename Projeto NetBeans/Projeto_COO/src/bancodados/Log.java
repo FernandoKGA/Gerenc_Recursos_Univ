@@ -13,7 +13,7 @@ public class Log {
 	public static void gravaLog(Exception e) {
 		try {
 			if (logFileHandler == null) {
-				logFileHandler = new FileHandler("BibliotecaCOO2018.log");
+				logFileHandler = new FileHandler("Dioniso.log");
 				LOGGER.addHandler(logFileHandler);
 			}
 		} catch (SecurityException | IOException ex) {

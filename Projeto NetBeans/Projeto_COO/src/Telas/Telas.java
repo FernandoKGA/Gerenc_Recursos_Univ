@@ -1166,7 +1166,7 @@ public class Telas extends JFrame {
             }
         });
 
-        CBNomeCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "219" }));
+        CBNomeCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
         CBNomeCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBNomeCadResvActionPerformed(evt);
@@ -2450,9 +2450,9 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void CBNomeCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBNomeCadResvActionPerformed
-        // TODO add your handling code here:
+        // ComboBox Nome Cadastro Reserva
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
-        String tipo = CBNomeCadResv.getSelectedItem().toString();
+        String tipo = CBNomeCadResv.getSelectedItem().toString();     
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             desabilitaRadioButtonCadResv();
         } else {
@@ -2463,14 +2463,54 @@ public class Telas extends JFrame {
     private void CBTipoCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBTipoCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox2ActionPerformed()");
+        String predio = CBPredioCadResv.getSelectedItem().toString();
         String tipo = CBTipoCadResv.getSelectedItem().toString();
         System.out.println(tipo);
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
-        } else {
+            LabelPredioCadResv.setEnabled(true);
+            CBPredioCadResv.setEnabled(true);
+            //Gambis
+            desabilitaComponentesCadResv();
+            LabelTipoCadResv.setEnabled(true);
+            CBTipoCadResv.setEnabled(true);
+        } else {            
             LabelNomeCadResv.setEnabled(true);
             CBNomeCadResv.setEnabled(true);
+            LabelPredioCadResv.setEnabled(false);
+            CBPredioCadResv.setEnabled(false);
+            try{
+                RegrasNegocio r = new RegrasNegocio();
+                List<Recurso> lista = r.listaRecursos(predio, tipo);
+                String slc = CBNomeCadResv.getItemAt(0);
+                
+                if(lista.isEmpty()){
+                    LabelNomeCadResv.setEnabled(false);
+                    CBNomeCadResv.setEnabled(false);
+                    JOptionPane.showMessageDialog(null,"Não há"
+                        + " recursos com esses parâmetros.");
+                    for(int i=1; i < CBNomeCadResv.getItemCount();i++)
+                            CBNomeCadResv.removeItemAt(i);
+                }
+                else{
+                    if(CBNomeCadResv.getItemCount() == 1){
+                        for(Recurso rec : lista){
+                            CBNomeCadResv.addItem(rec.getNome());
+                        }
+                    }
+                    else{
+                        for(int i=1; i <= CBNomeCadResv.getItemCount();i++)
+                            CBNomeCadResv.removeItemAt(i);
+                        for(Recurso rec : lista){
+                            CBNomeCadResv.addItem(rec.getNome());
+                        }
+                    }
+                }
+            }
+            catch(RegrasNegocioException e){
+                Log.gravaLog(e);
+            }
         }
     }//GEN-LAST:event_CBTipoCadResvActionPerformed
     private void habilitaRadioButtonCadResv() {
@@ -2797,7 +2837,22 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_CBCursoCadUsrActionPerformed
 
     private void BotaoCadastraReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraReservaActionPerformed
-        // TODO add your handling code here:
+        //Botao Cadastra Reserva
+        String data = FTF_DataCadResv.getText();
+        String predio = CBPredioCadResv.getSelectedItem().toString();
+        String tipo = CBTipoCadResv.getSelectedItem().toString();
+        String nome = CBNomeCadResv.getSelectedItem().toString();
+        String usuario = TF_NUSPCadResv.getText();
+        Component[] array = TelaCadastraReserva.getComponents();
+        int RBSelec = 0;  //RadioButtons Selecionados
+        for (Component cp : array) {
+            if (cp instanceof JRadioButton) {
+                if(((JRadioButton) cp).isSelected()){
+                    System.out.println(((JRadioButton)cp).getName());
+                    RBSelec++;
+                }
+            }
+        }
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
