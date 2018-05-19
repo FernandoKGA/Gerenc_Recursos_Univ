@@ -519,6 +519,9 @@
             <Property name="text" type="java.lang.String" value="Confirmar"/>
             <Property name="actionCommand" type="java.lang.String" value="Sim"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoDescRecActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BotaoRetFromDiagConfExcRec">
           <Properties>
@@ -2830,7 +2833,7 @@
                   <Component id="LabelPredioTelaExcluirRec" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="CBPredioExcluirRec" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace pref="78" max="32767" attributes="0"/>
+                  <EmptySpace pref="56" max="32767" attributes="0"/>
                   <Component id="LabelTipoTelaExcluirRec" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="CBTiposExcluirRec" min="-2" max="-2" attributes="0"/>

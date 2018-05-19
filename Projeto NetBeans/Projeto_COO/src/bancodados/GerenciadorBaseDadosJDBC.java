@@ -13,8 +13,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         GerenciadorBaseDados {
 
     private static Propriedades_BD prop;
-    private static String bancodados = "Dioniso";
-    private boolean jaCriouBD = false;
+    private static final String bancodados = "Dioniso";
+    private boolean jaCriouBD;
 
     public GerenciadorBaseDadosJDBC() throws Banco_de_DadosException {
         super(DB.MYSQL);
@@ -58,12 +58,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     //-----------CRIACAO DO BANCO-----------
     private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
-        abreConexaoSemBD();
+        abreConexao();
         jaCriouBD = true;
         String wtf = getDbName();
         String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
         preparaComandoSQL(query);
-        pstmt.executeUpdate();
         fechaConexao();
     }
 
@@ -245,15 +244,18 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         fechaConexao();
     }
 
+    @Override
     public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
-        List<Recurso> recursos = null;
+        List<Recurso> recursos = new LinkedList<>();
         try {
-            preparaComandoSQL("SELECT NOME FROM RECURSO WHERE PREDIO = '?' AND TIPO = '?'");
+            preparaComandoSQL("SELECT NOME FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
+            System.out.println(predio);
             pstmt.setString(1, predio);
             pstmt.setString(2, tipo);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
+                System.out.println(nome);
                 Recurso r = new Recurso();
                 r.setNome(nome);
                 r.setPredio(predio);
@@ -267,6 +269,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return recursos;
     }
 
+    @Override
     public List<Recurso> listaRecursos() throws Banco_de_DadosException {
         List<Recurso> recursos = new ArrayList<Recurso>();
         try {
@@ -312,6 +315,19 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
         return r;
     }
+    
+    public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
+        preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
+        try {
+            pstmt.setString(1, r.getNome());
+            pstmt.setString(2, r.getPredio());
+            pstmt.setString(3, r.getTipo());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }
+    }
 
     // ------------------- VARIAÇÃO PARA RECURSO - LABORATÓRIO -----------------
     public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException{
@@ -332,7 +348,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
         fechaConexao();
     }
-
+    // -------------------- FIM DO RECURSO -----------------------
     // ----------------------  RESERVA  --------------------------
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
         abreConexao();
@@ -415,18 +431,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return resultado;
     }
 
-    public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
-        try {
-            pstmt.setString(1, r.getNome());
-            pstmt.setString(2, r.getPredio());
-            pstmt.setString(3, r.getTipo());
-            rs = pstmt.executeQuery();
-        } catch (SQLException e) {
-            Log.gravaLog(e);
-            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
-        }
-    }
+    
 
     public void excluirReserva(Reserva r) throws Banco_de_DadosException {
         preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
