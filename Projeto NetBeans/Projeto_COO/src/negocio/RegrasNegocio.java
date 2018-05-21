@@ -170,8 +170,18 @@ public class RegrasNegocio extends RegrasNegocioException {
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
     }
+    
+    public void atualizaReservas() throws RegrasNegocioException {
+        try {
+            baseDados.atualizaReservas();
+        } catch (Banco_de_DadosException ex) {
+            Log.gravaLog(ex);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+        }
+    }
 
     // ---------------------------- FIM RESERVA ----------------------------
+    
     //Métodos derivados diretamente das Regras de Negócio
     public boolean verificaCoordenador(String curso, String cargo) throws RegrasNegocioException {
         List<Usuario> a = listaUsuarios();

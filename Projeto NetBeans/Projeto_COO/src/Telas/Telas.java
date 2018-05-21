@@ -46,6 +46,7 @@ import objetos.Reserva;
 import objetos.Usuario;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.TableRowSorter;
 
@@ -332,6 +333,15 @@ public class Telas extends JFrame {
 
     // - - - - - - - - - - - - - - - - - - - -
     // Validadores
+    
+    private boolean taVazio(String txt) {
+        if (txt == null || txt.length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     private boolean verificaNumero(String txt) {
         if (taVazio(txt)) {
             return false;
@@ -339,19 +349,29 @@ public class Telas extends JFrame {
         //for(int i=0;i<txt.length();i++){
         //  if(!Character.isDigit(txt.charAt(i))) return false;   
         //}
-        if (txt.matches("[0-9]+")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean taVazio(String txt) {
-        if (txt == null || txt.length() == 0) {
-            return true;
-        } else {
+        if (!txt.matches("[0-9]+")) {
             return false;
         }
+
+        return true;
+    }
+    
+    private boolean verificaNUSP(String nUSP){
+        if (taVazio(nUSP)) {
+            return false;
+        }
+        //for(int i=0;i<txt.length();i++){
+        //  if(!Character.isDigit(txt.charAt(i))) return false;   
+        //}
+        if (nUSP.length() != 7 && nUSP.length() != 8) {
+            JOptionPane.showMessageDialog(null, "Número USP inválido!\nDeve ter 7 ou 8 números.");
+            return false;
+        }
+        if (!nUSP.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Número USP inválido!");
+            return false;
+        }
+        return true;
     }
 
     private boolean verificaTexto(String txt) {
@@ -375,7 +395,6 @@ public class Telas extends JFrame {
     }
 
     private boolean verificaData(String s) {
-
         // Primeiro digito do dia errado
         if (s.charAt(0) != '0' && s.charAt(0) != '1' && s.charAt(0) != '2' && s.charAt(0) != '3') {
             return false;
@@ -429,6 +448,15 @@ public class Telas extends JFrame {
             }
         }
 
+        return true;
+    }
+    
+    private boolean comparaDataAtual(String data, String data_ftf){
+        if(((int)data_ftf.charAt(0)) < ((int)data.charAt(0)))   return false;
+        if(((int)data_ftf.charAt(1)) < ((int)data.charAt(1)))   return false;
+        if(((int)data_ftf.charAt(3)) < ((int)data.charAt(3)))   return false;
+        if(((int)data_ftf.charAt(4)) < ((int)data.charAt(4)))   return false;
+        
         return true;
     }
 
@@ -2835,10 +2863,6 @@ public class Telas extends JFrame {
 
             String nUSP = TF_NUSPCadUsr.getText();
             if (!verificaNumero(nUSP)) {
-                JOptionPane.showMessageDialog(null, "Número USP inválido!");
-                return;
-            } else if (nUSP.length() != 7 && nUSP.length() != 8) {
-                JOptionPane.showMessageDialog(null, "Número USP inválido!\nDeve ter 7 ou 8 números.");
                 return;
             }
 
@@ -2873,27 +2897,65 @@ public class Telas extends JFrame {
         String predio = CBPredioCadResv.getSelectedItem().toString();
         String tipo = CBTipoCadResv.getSelectedItem().toString();
         String nome = CBNomeCadResv.getSelectedItem().toString();
-        String usuario = TF_NUSPCadResv.getText();
+        String nUSP = TF_NUSPCadResv.getText();
+        //Recurso rec = (Recurso) CBNomeCadResv.getSelectedItem();
         Component[] array = TelaCadastraReserva.getComponents();
+        ArrayList<String> horarios = new ArrayList<>();
         int RBSelec = 0;  //RadioButtons Selecionados
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
                 if(((JRadioButton) cp).isSelected()){
                     System.out.println(((JRadioButton)cp).getName());
+                    System.out.println(((JRadioButton)cp).getText());
+                    horarios.add(((JRadioButton)cp).getText());
                     RBSelec++;
                 }
             }
         }
-        if(verificaData(data_ftf)){
-            Date data_agora = new Date();
-            String data = (String) new SimpleDateFormat("dd/MM/yyyy  HH:mm").format(data_agora);
-            System.out.println(data);
-            System.out.println(predio);
-            System.out.println(tipo);
-            System.out.println(nome);
-            System.out.println(usuario);
+        if(!taVazio(data_ftf)){
+            if (verificaData(data_ftf)) {
+                Date data_agora = new Date();
+                String ano_mes_dia = (String) new SimpleDateFormat("yyyy-MM-dd").format(data_agora);
+                String data = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
+                if (comparaDataAtual(data, data_ftf)) {
+                    if (verificaNUSP(nUSP)) {
+                        try {
+                            RegrasNegocio r = new RegrasNegocio();
+                            Usuario usuario = r.buscaUsuario(nUSP);
+                            //System.out.println(rec.getId_Recurso());
+                            //System.out.println(rec.getNome());
+                            //System.out.println(rec.getPredio());
+                            //System.out.println(rec.getTipo());
+                            if (usuario != null) {
+                                Reserva resv = new Reserva();
+                                System.out.println(ano_mes_dia);
+                                System.out.println(data);
+                                System.out.println(predio);
+                                System.out.println(tipo);
+                                System.out.println(nome);
+                                System.out.println(nUSP);
+                                r.atualizaReservas();
+                            } else{
+                                JOptionPane.showMessageDialog(null, "Usuário não"
+                                        + " encontrado!");
+                            }
+                        }
+                        catch (RegrasNegocioException e) {
+                            Log.gravaLog(e);
+                        }
+                        
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data anterior à de hoje!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Data não existe.");
+            }
         }
-        else{}
+        else{
+            JOptionPane.showMessageDialog(null,"Data não foi inserida.");
+        }
+        
         
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 

@@ -11,6 +11,15 @@ public class Reserva {
     public Reserva() {
     }
     
+    public Reserva(String horaInicio, String horaFim, String data,
+            Usuario usuario, Recurso recurso){
+        this.horaInicio = horaInicio;
+        this.horaFim = horaFim;
+        this.data = data;
+        this.usuario = usuario;
+        this.recurso = recurso;
+    }
+    
     //Getters
     public String getHoraInicio() {
         return horaInicio;

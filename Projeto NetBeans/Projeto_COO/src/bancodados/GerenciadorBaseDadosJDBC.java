@@ -8,6 +8,8 @@ import java.util.List;
 import objetos.*;
 import bancodados.Propriedades_BD;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         GerenciadorBaseDados {
@@ -294,7 +296,31 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return recursos;
     }
 
-    public Recurso buscaRecurso(int idRecurso) throws Banco_de_DadosException {
+    public Recurso buscaRecurso(String nome, String predio, String tipo) throws Banco_de_DadosException {
+        Recurso r = null;
+        try {
+            preparaComandoSQL("SELECT IDRECURSO FROM RECURSO "
+                    + "WHERE NOME=? AND PREDIO=? AND TIPO=?");
+            pstmt.setString(1, nome);
+            pstmt.setString(2, predio);
+            pstmt.setString(3, tipo);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String idrecurso = rs.getString(1);
+                r = new Recurso();
+                r.setNome(nome);
+                r.setPredio(predio);
+                r.setTipo(tipo);
+                r.setId_Recurso(idrecurso);
+            }
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
+        }
+        return r;
+    }
+    
+    public Recurso buscaRecursoID(int idRecurso) throws Banco_de_DadosException {
         Recurso r = null;
         try {
             preparaComandoSQL("SELECT NOME,PREDIO,TIPO FROM RECURSO WHERE IDRECURSO=?");
@@ -350,9 +376,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
     // -------------------- FIM DO RECURSO -----------------------
     // ----------------------  RESERVA  --------------------------
+    @Override
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("INSERT INTO RESERVA(HINICIO, HFIM, DATA, ID_RECURSO, ID_USUARIO, FINALIZADA) VALUES(?,?,?,?,?,?)");
+        preparaComandoSQL("INSERT INTO RESERVA(HINICIO, HFIM, DATA, "
+                + "ID_RECURSO, ID_USUARIO, FINALIZADA) VALUES(?,?,?,?,?,?)");
 
         try {
             pstmt.setString(1, reserva.getHoraInicio());
@@ -368,8 +396,9 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
     }
 
+    @Override
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws Banco_de_DadosException {
-        List<Reserva> reservaUsuario = new ArrayList<Reserva>();
+        List<Reserva> reservaUsuario = new ArrayList<>();
         try {
             abreConexao();
             Usuario u = buscaUsuario(numeroUSP);
@@ -383,7 +412,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    Recurso rec = buscaRecurso(rs.getInt(5));
+                    Recurso rec = buscaRecursoID(rs.getInt(5));
                     r.setRecurso(rec);
                     reservaUsuario.add(r);
                 }
@@ -431,10 +460,9 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return resultado;
     }
 
-    
-
     public void excluirReserva(Reserva r) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
+        preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? "
+                + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
         try {
             pstmt.setString(1, r.getData());
             pstmt.setString(2, r.getHoraInicio());
@@ -446,5 +474,25 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }
     }
-
+    
+    public void atualizaReservas() throws Banco_de_DadosException {
+        Date data_agora = new Date();
+        String data = (String) new SimpleDateFormat("yyyy-MM-dd HH:mm").format(data_agora);
+        String ano_mes_dia = data.substring(0, 10);
+        String hora = data.substring(11,data.length());
+        System.out.println(data);
+        System.out.println(ano_mes_dia);
+        System.out.println(hora);
+        /*try {
+            preparaComandoSQL("UPDATE RESERVA SET FINALIZADA=TRUE "
+                + "WHERE DATA=? AND HINICIO=? AND HFIM=?");
+            pstmt.setString(1, dia_mes);
+            pstmt.setString(2, hora);
+            pstmt.setString(3,hora);
+            int i = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
+        }*/
+    }
 }
