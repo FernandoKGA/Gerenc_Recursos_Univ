@@ -45,6 +45,8 @@ import objetos.Recurso;
 import objetos.Reserva;
 import objetos.Usuario;
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -1112,6 +1114,7 @@ public class Telas extends JFrame {
         LabelUsuarioCadResv.setText("Usuário:");
 
         jRadioButton1.setText("08:00 - 09:00");
+        jRadioButton1.setName("jRadioButton1"); // NOI18N
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -1119,6 +1122,7 @@ public class Telas extends JFrame {
         });
 
         jRadioButton2.setText("09:00 - 10:00");
+        jRadioButton2.setName("jRadioButton2"); // NOI18N
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -1126,28 +1130,55 @@ public class Telas extends JFrame {
         });
 
         jRadioButton3.setText("10:00 - 11:00");
+        jRadioButton3.setName("jRadioButton3"); // NOI18N
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         jRadioButton4.setText("11:00 - 12:00");
+        jRadioButton4.setName("jRadioButton4"); // NOI18N
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
 
         jRadioButton5.setText("12:00 - 13:00");
+        jRadioButton5.setName("jRadioButton5"); // NOI18N
 
         jRadioButton6.setText("13:00 - 14:00");
+        jRadioButton6.setName("jRadioButton6"); // NOI18N
 
         jRadioButton7.setText("14:00 - 15:00");
+        jRadioButton7.setName("jRadioButton7"); // NOI18N
 
         jRadioButton8.setText("15:00 - 16:00");
+        jRadioButton8.setName("jRadioButton8"); // NOI18N
 
         jRadioButton9.setText("16:00 - 17:00");
+        jRadioButton9.setName("jRadioButton9"); // NOI18N
 
         jRadioButton10.setText("17:00 - 18:00");
+        jRadioButton10.setName("jRadioButton10"); // NOI18N
 
         jRadioButton11.setText("18:00 - 19:00");
+        jRadioButton11.setName("jRadioButton11"); // NOI18N
 
         jRadioButton12.setText("19:00 - 20:00");
+        jRadioButton12.setName("jRadioButton12"); // NOI18N
+        jRadioButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton12ActionPerformed(evt);
+            }
+        });
 
         jRadioButton13.setText("20:00 - 21:00");
+        jRadioButton13.setName("jRadioButton13"); // NOI18N
 
         jRadioButton14.setText("21:00 - 22:00");
+        jRadioButton14.setName("jRadioButton14"); // NOI18N
 
         SeparadorCadResv.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -1555,7 +1586,7 @@ public class Telas extends JFrame {
                 .addGap(53, 53, 53))
             .addGroup(TelaCadastroUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(LabelTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TelaCadastroUsuarioLayout.setVerticalGroup(
@@ -2838,7 +2869,7 @@ public class Telas extends JFrame {
 
     private void BotaoCadastraReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraReservaActionPerformed
         //Botao Cadastra Reserva
-        String data = FTF_DataCadResv.getText();
+        String data_ftf = FTF_DataCadResv.getText();
         String predio = CBPredioCadResv.getSelectedItem().toString();
         String tipo = CBTipoCadResv.getSelectedItem().toString();
         String nome = CBNomeCadResv.getSelectedItem().toString();
@@ -2853,6 +2884,17 @@ public class Telas extends JFrame {
                 }
             }
         }
+        if(verificaData(data_ftf)){
+            Date data_agora = new Date();
+            String data = (String) new SimpleDateFormat("dd/MM/yyyy  HH:mm").format(data_agora);
+            System.out.println(data);
+            System.out.println(predio);
+            System.out.println(tipo);
+            System.out.println(nome);
+            System.out.println(usuario);
+        }
+        else{}
+        
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
@@ -3156,6 +3198,18 @@ public class Telas extends JFrame {
             JOptionPane.showMessageDialog(null, "Recurso não encontrado!");
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, e);        }
     }//GEN-LAST:event_BotaoDescRecActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton12ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1030,6 +1030,7 @@
         <Component class="javax.swing.JRadioButton" name="jRadioButton1">
           <Properties>
             <Property name="text" type="java.lang.String" value="08:00 - 09:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton1" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
@@ -1038,6 +1039,7 @@
         <Component class="javax.swing.JRadioButton" name="jRadioButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="09:00 - 10:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton2" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton2ActionPerformed"/>
@@ -1046,61 +1048,82 @@
         <Component class="javax.swing.JRadioButton" name="jRadioButton3">
           <Properties>
             <Property name="text" type="java.lang.String" value="10:00 - 11:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton3" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton4">
           <Properties>
             <Property name="text" type="java.lang.String" value="11:00 - 12:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton4" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton4ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton5">
           <Properties>
             <Property name="text" type="java.lang.String" value="12:00 - 13:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton6">
           <Properties>
             <Property name="text" type="java.lang.String" value="13:00 - 14:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton7">
           <Properties>
             <Property name="text" type="java.lang.String" value="14:00 - 15:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton8">
           <Properties>
             <Property name="text" type="java.lang.String" value="15:00 - 16:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton9">
           <Properties>
             <Property name="text" type="java.lang.String" value="16:00 - 17:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton9" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton10">
           <Properties>
             <Property name="text" type="java.lang.String" value="17:00 - 18:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton10" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton11">
           <Properties>
             <Property name="text" type="java.lang.String" value="18:00 - 19:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton11" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton12">
           <Properties>
             <Property name="text" type="java.lang.String" value="19:00 - 20:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton12" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton12ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton13">
           <Properties>
             <Property name="text" type="java.lang.String" value="20:00 - 21:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton13" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton14">
           <Properties>
             <Property name="text" type="java.lang.String" value="21:00 - 22:00"/>
+            <Property name="name" type="java.lang.String" value="jRadioButton14" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="SeparadorCadResv">
@@ -1500,7 +1523,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="LabelTelaCadUsr" pref="388" max="32767" attributes="0"/>
+                  <Component id="LabelTelaCadUsr" pref="402" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
