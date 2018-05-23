@@ -217,8 +217,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     public void excluirUsuario(String nUSP) throws Banco_de_DadosException {
         String query = String.format("DELETE FROM USUARIO WHERE "
-                + "NUSP = '%s' ",nUSP);
-        System.out.println(query);        
+                + "NUSP = '%s' ", nUSP);
+        System.out.println(query);
         try {
             preparaComandoSQL(query);
             pstmt.executeUpdate();
@@ -319,7 +319,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
         return r;
     }
-    
+
     public Recurso buscaRecursoID(int idRecurso) throws Banco_de_DadosException {
         Recurso r = null;
         try {
@@ -341,7 +341,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         }
         return r;
     }
-    
+
     public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
         preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
         try {
@@ -356,10 +356,10 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     // ------------------- VARIAÇÃO PARA RECURSO - LABORATÓRIO -----------------
-    public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException{
-        try{
-        abreConexao();
-        preparaComandoSQL("insert into Recurso (nome, predio, tipo, curso) values (?, ?, ?, ?)");
+    public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException {
+        try {
+            abreConexao();
+            preparaComandoSQL("insert into Recurso (nome, predio, tipo, curso) values (?, ?, ?, ?)");
 
             pstmt.setString(1, l.getNome());
             pstmt.setString(2, l.getPredio());
@@ -374,6 +374,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
         fechaConexao();
     }
+
     // -------------------- FIM DO RECURSO -----------------------
     // ----------------------  RESERVA  --------------------------
     @Override
@@ -474,12 +475,12 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }
     }
-    
+
     public void atualizaReservas() throws Banco_de_DadosException {
         Date data_agora = new Date();
         String data = (String) new SimpleDateFormat("yyyy-MM-dd HH:mm").format(data_agora);
         String ano_mes_dia = data.substring(0, 10);
-        String hora = data.substring(11,data.length());
+        String hora = data.substring(11, data.length());
         System.out.println(data);
         System.out.println(ano_mes_dia);
         System.out.println(hora);
@@ -494,5 +495,28 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }*/
+    }
+
+    public boolean verificaCoordenador(String curso) throws Banco_de_DadosException {
+        try {
+            abreConexao();
+            preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
+                    + "'COORDENADOR'");
+            pstmt.setString(1, curso);
+            rs = pstmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    int quantidade = rs.getInt(1);
+                    if (quantidade >= 2) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException();
+        }
     }
 }

@@ -2878,9 +2878,22 @@ public class Telas extends JFrame {
 
             String curso = CBCursoCadUsr.getSelectedItem().toString();
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
-            r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
-            JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
-            limpaCampos_CadUsuario();
+            if(cargo.equalsIgnoreCase("COORDENADOR")){
+                if(!r.verificaCoordenador(curso)){   //Retorna true para caso tenham dois, e assim cai no else
+                    r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
+                    JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
+                    limpaCampos_CadUsuario();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Já existem dois "
+                            + "coordenadores deste curso!");
+                }
+            }
+            else{
+                r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
+                JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
+                limpaCampos_CadUsuario();
+            }
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
 
