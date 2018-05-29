@@ -189,15 +189,17 @@ public class RegrasNegocio extends RegrasNegocioException {
     // ---------------------------- FIM RESERVA ----------------------------
     
     //Métodos derivados diretamente das Regras de Negócio
-    public boolean verificaCoordenador(String curso, String cargo) throws RegrasNegocioException {
+    public boolean verificaCoordenador(String curso) throws RegrasNegocioException {
         List<Usuario> a = listaUsuarios();
-        for (Usuario user : a) {
-            if (user.getCargo().equals(cargo) && user.getCurso().equals(curso)) {
-                return false;
-            }
+        try{
+            return baseDados.verificaCoordenador(curso);
         }
-        return true;
+        catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException(e);
+        }
     }
+    
 
     public boolean permiteAluguelTipo(Usuario u, Recurso r) {
         String cargoUsu = u.getCargo();
