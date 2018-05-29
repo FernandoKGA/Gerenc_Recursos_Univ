@@ -255,6 +255,7 @@ public class Telas extends JFrame {
     private void habilitaTelaListaUsuarios() {
         TelaListaUsuarios.setVisible(true);
         Component[] array = TelaListaUsuarios.getComponents();
+        listaUsuario();
         for (Component array1 : array) {
             array1.setVisible(true);
         }
@@ -273,6 +274,7 @@ public class Telas extends JFrame {
     private void habilitaTelaListaRecursos() {
         TelaListaRecursos.setVisible(true);
         Component[] array = TelaListaRecursos.getComponents();
+        listaRecursos();
         for (Component array1 : array) {
             array1.setVisible(true);
         }
@@ -323,8 +325,8 @@ public class Telas extends JFrame {
         CBCursoCadUsr.setSelectedIndex(0);
         CBCargoCadUsr.setSelectedIndex(0);
     }
-    
-    private void limpaCampos_CadRecurso(){
+
+    private void limpaCampos_CadRecurso() {
         TF_NomeCadRec.setText("");
         CBTipoCadRec.setSelectedIndex(0);
         CBPredioCadRec.setSelectedIndex(0);
@@ -333,7 +335,6 @@ public class Telas extends JFrame {
 
     // - - - - - - - - - - - - - - - - - - - -
     // Validadores
-    
     private boolean taVazio(String txt) {
         if (txt == null || txt.length() == 0) {
             return true;
@@ -341,7 +342,7 @@ public class Telas extends JFrame {
             return false;
         }
     }
-    
+
     private boolean verificaNumero(String txt) {
         if (taVazio(txt)) {
             return false;
@@ -355,8 +356,8 @@ public class Telas extends JFrame {
 
         return true;
     }
-    
-    private boolean verificaNUSP(String nUSP){
+
+    private boolean verificaNUSP(String nUSP) {
         if (taVazio(nUSP)) {
             return false;
         }
@@ -382,14 +383,14 @@ public class Telas extends JFrame {
         return s.matches("[a-z]+");
     }
 
-    private boolean verificaTextoNumeros(String txt){
+    private boolean verificaTextoNumeros(String txt) {
         String s = txt.toLowerCase();
-        s = s.replaceAll(" ","");
+        s = s.replaceAll(" ", "");
         s = removeAcentos(s);
-        
+
         return s.matches("[0-z]+");
     }
-    
+
     private String removeAcentos(String txt) {
         return Normalizer.normalize(txt, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
     }
@@ -450,14 +451,60 @@ public class Telas extends JFrame {
 
         return true;
     }
-    
-    private boolean comparaDataAtual(String data, String data_ftf){
-        if(((int)data_ftf.charAt(0)) < ((int)data.charAt(0)))   return false;
-        if(((int)data_ftf.charAt(1)) < ((int)data.charAt(1)))   return false;
-        if(((int)data_ftf.charAt(3)) < ((int)data.charAt(3)))   return false;
-        if(((int)data_ftf.charAt(4)) < ((int)data.charAt(4)))   return false;
-        
+
+    private boolean comparaDataAtual(String data, String data_ftf) {
+        if (((int) data_ftf.charAt(0)) < ((int) data.charAt(0))) {
+            return false;
+        }
+        if (((int) data_ftf.charAt(1)) < ((int) data.charAt(1))) {
+            return false;
+        }
+        if (((int) data_ftf.charAt(3)) < ((int) data.charAt(3))) {
+            return false;
+        }
+        if (((int) data_ftf.charAt(4)) < ((int) data.charAt(4))) {
+            return false;
+        }
+
         return true;
+    }
+
+    //metodos de listagem------------------------------------
+    private void listaUsuario() {
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Usuario> lista = r.listaUsuarios();
+            DefaultTableModel model = (DefaultTableModel) TabelaListaUsr.getModel();
+            //equivalente a clearTable();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for (Usuario usu : lista) {
+                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
+                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
+            }
+        } catch (RegrasNegocioException ex) {
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void listaRecursos() {
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Recurso> lista = r.listaRecursos();
+            if (lista != null) {
+                DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
+                //equivalente a clearTable();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                for (Recurso rec : lista) {
+                    model.addRow(new Object[]{rec.getNome()});
+                }
+            }
+        } catch (RegrasNegocioException ex) {
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -2511,7 +2558,7 @@ public class Telas extends JFrame {
     private void CBNomeCadResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_CBNomeCadResvActionPerformed
         // ComboBox Nome Cadastro Reserva
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
-        String tipo = CBNomeCadResv.getSelectedItem().toString();     
+        String tipo = CBNomeCadResv.getSelectedItem().toString();
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             desabilitaRadioButtonCadResv();
         } else {
@@ -2534,40 +2581,39 @@ public class Telas extends JFrame {
             desabilitaComponentesCadResv();
             LabelTipoCadResv.setEnabled(true);
             CBTipoCadResv.setEnabled(true);
-        } else {            
+        } else {
             LabelNomeCadResv.setEnabled(true);
             CBNomeCadResv.setEnabled(true);
             LabelPredioCadResv.setEnabled(false);
             CBPredioCadResv.setEnabled(false);
-            try{
+            try {
                 RegrasNegocio r = new RegrasNegocio();
                 List<Recurso> lista = r.listaRecursos(predio, tipo);
                 String slc = CBNomeCadResv.getItemAt(0);
-                
-                if(lista.isEmpty()){
+
+                if (lista.isEmpty()) {
                     LabelNomeCadResv.setEnabled(false);
                     CBNomeCadResv.setEnabled(false);
-                    JOptionPane.showMessageDialog(null,"Não há"
-                        + " recursos com esses parâmetros.");
-                    for(int i=1; i < CBNomeCadResv.getItemCount();i++)
+                    JOptionPane.showMessageDialog(null, "Não há"
+                            + " recursos com esses parâmetros.");
+                    for (int i = 1; i < CBNomeCadResv.getItemCount(); i++) {
+                        CBNomeCadResv.removeItemAt(i);
+                    }
+                } else {
+                    if (CBNomeCadResv.getItemCount() == 1) {
+                        for (Recurso rec : lista) {
+                            CBNomeCadResv.addItem(rec.getNome());
+                        }
+                    } else {
+                        for (int i = 1; i <= CBNomeCadResv.getItemCount(); i++) {
                             CBNomeCadResv.removeItemAt(i);
-                }
-                else{
-                    if(CBNomeCadResv.getItemCount() == 1){
-                        for(Recurso rec : lista){
+                        }
+                        for (Recurso rec : lista) {
                             CBNomeCadResv.addItem(rec.getNome());
                         }
                     }
-                    else{
-                        for(int i=1; i <= CBNomeCadResv.getItemCount();i++)
-                            CBNomeCadResv.removeItemAt(i);
-                        for(Recurso rec : lista){
-                            CBNomeCadResv.addItem(rec.getNome());
-                        }
-                    }
                 }
-            }
-            catch(RegrasNegocioException e){
+            } catch (RegrasNegocioException e) {
                 Log.gravaLog(e);
             }
         }
@@ -2829,11 +2875,10 @@ public class Telas extends JFrame {
     private void BotaoGoDiagConfRecActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoDiagConfRecActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jButton8ActionPerformed()");
-        if(TabelaExcluirRec.getSelectedRow() == (-1)){
-            JOptionPane.showMessageDialog(null,"Selecione um recurso para "
+        if (TabelaExcluirRec.getSelectedRow() == (-1)) {
+            JOptionPane.showMessageDialog(null, "Selecione um recurso para "
                     + "excluir.");
-        }
-        else{
+        } else {
             DialogConfExcRec.setVisible(true);
             System.out.println(TabelaExcluirRec.getSelectedRow());
             Object coluna_nome = TabelaExcluirRec.getValueAt(TabelaExcluirRec.getSelectedRow(), 0);
@@ -2878,18 +2923,16 @@ public class Telas extends JFrame {
 
             String curso = CBCursoCadUsr.getSelectedItem().toString();
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
-            if(cargo.equalsIgnoreCase("COORDENADOR")){
-                if(!r.verificaCoordenador(curso)){   //Retorna true para caso tenham dois, e assim cai no else
+            if (cargo.equalsIgnoreCase("COORDENADOR")) {
+                if (!r.verificaCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else
                     r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
                     JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
                     limpaCampos_CadUsuario();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Já existem dois "
                             + "coordenadores deste curso!");
                 }
-            }
-            else{
+            } else {
                 r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
                 JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
                 limpaCampos_CadUsuario();
@@ -2917,15 +2960,15 @@ public class Telas extends JFrame {
         int RBSelec = 0;  //RadioButtons Selecionados
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
-                if(((JRadioButton) cp).isSelected()){
-                    System.out.println(((JRadioButton)cp).getName());
-                    System.out.println(((JRadioButton)cp).getText());
-                    horarios.add(((JRadioButton)cp).getText());
+                if (((JRadioButton) cp).isSelected()) {
+                    System.out.println(((JRadioButton) cp).getName());
+                    System.out.println(((JRadioButton) cp).getText());
+                    horarios.add(((JRadioButton) cp).getText());
                     RBSelec++;
                 }
             }
         }
-        if(!taVazio(data_ftf)){
+        if (!taVazio(data_ftf)) {
             if (verificaData(data_ftf)) {
                 Date data_agora = new Date();
                 String ano_mes_dia = (String) new SimpleDateFormat("yyyy-MM-dd").format(data_agora);
@@ -2948,15 +2991,14 @@ public class Telas extends JFrame {
                                 System.out.println(nome);
                                 System.out.println(nUSP);
                                 r.atualizaReservas();
-                            } else{
+                            } else {
                                 JOptionPane.showMessageDialog(null, "Usuário não"
                                         + " encontrado!");
                             }
-                        }
-                        catch (RegrasNegocioException e) {
+                        } catch (RegrasNegocioException e) {
                             Log.gravaLog(e);
                         }
-                        
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Data anterior à de hoje!");
@@ -2964,12 +3006,11 @@ public class Telas extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Data não existe.");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Data não foi inserida.");
         }
-        else{
-            JOptionPane.showMessageDialog(null,"Data não foi inserida.");
-        }
-        
-        
+
+
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
@@ -3006,41 +3047,12 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_CBPredioListaRecActionPerformed
 
     private void BotaoListaRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecursosActionPerformed
-        try {
-            RegrasNegocio r = new RegrasNegocio();
-            List<Recurso> lista = r.listaRecursos();
-            if (lista != null) {
-                DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
-                //equivalente a clearTable();
-                while (model.getRowCount() > 0) {
-                    model.removeRow(0);
-                }
-                for (Recurso rec : lista) {
-                    model.addRow(new Object[]{rec.getNome()});
-                }
-            }
-        } catch (RegrasNegocioException ex) {
-            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listaRecursos();
 
     }//GEN-LAST:event_BotaoListaRecursosActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed
-        try {
-            RegrasNegocio r = new RegrasNegocio();
-            List<Usuario> lista = r.listaUsuarios();
-            DefaultTableModel model = (DefaultTableModel) TabelaListaUsr.getModel();
-            //equivalente a clearTable();
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
-            }
-            for (Usuario usu : lista) {
-                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
-                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
-            }
-        } catch (RegrasNegocioException ex) {
-            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listaUsuario();
 
     }//GEN-LAST:event_BotaoListaTodosUsuariosActionPerformed
 
@@ -3135,7 +3147,7 @@ public class Telas extends JFrame {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;
             }
-            
+
             if (tipo.equalsIgnoreCase("SELECIONE")) {
                 JOptionPane.showMessageDialog(null, "Selecione um tipo!");
                 return;
@@ -3151,7 +3163,7 @@ public class Telas extends JFrame {
                 JOptionPane.showMessageDialog(null, "Cadastrou Recurso com sucesso!");
                 limpaCampos_CadRecurso();
             } else {
-                if(curso.equalsIgnoreCase("SELECIONE")){
+                if (curso.equalsIgnoreCase("SELECIONE")) {
                     JOptionPane.showMessageDialog(null, "Selecione um curso!");
                     return;
                 }
@@ -3173,16 +3185,17 @@ public class Telas extends JFrame {
             //equivalente a clearTable();
             TabelaRemUsr.setRowSorter(new TableRowSorter(model));
             model.setNumRows(0);
-            if (lista.isEmpty()) JOptionPane.showMessageDialog(null,"Não há "
-                    + "usuários a serem listados.");
-            else{
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Não há "
+                        + "usuários a serem listados.");
+            } else {
                 for (Usuario usu : lista) {
                     model.addRow(new Object[]{usu.getNome(), usu.getNUSP(),
-                    usu.getTelefone(), usu.getEmail(),
-                    usu.getCargo(), usu.getCurso()});
+                        usu.getTelefone(), usu.getEmail(),
+                        usu.getCargo(), usu.getCurso()});
                 }
             }
-            
+
         } catch (RegrasNegocioException ex) {
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -3206,14 +3219,13 @@ public class Telas extends JFrame {
             String predio = CBPredioExcluirRec.getSelectedItem().toString();
             String tipo = CBTiposExcluirRec.getSelectedItem().toString();
             RegrasNegocio r = new RegrasNegocio();
-            List<Recurso> lista = r.listaRecursos(predio,tipo);
+            List<Recurso> lista = r.listaRecursos(predio, tipo);
             if (lista.isEmpty()) {
                 DefaultTableModel model = (DefaultTableModel) TabelaExcluirRec.getModel();
                 model.setNumRows(0);
                 JOptionPane.showMessageDialog(null, "Não há recursos para "
                         + "serem listados.");
-            }
-            else{
+            } else {
                 DefaultTableModel model = (DefaultTableModel) TabelaExcluirRec.getModel();
                 TabelaExcluirRec.setRowSorter(new TableRowSorter(model));
                 //equivalente a clearTable();
@@ -3258,7 +3270,7 @@ public class Telas extends JFrame {
 
     private void BotaoDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescRecActionPerformed
         // Botao Descadastra Recurso
-        try{
+        try {
             RegrasNegocio r = new RegrasNegocio();
             Recurso rec = new Recurso();
             rec.setNome(LabelNome_BDDialogConfExcRec.getText());
@@ -3267,11 +3279,11 @@ public class Telas extends JFrame {
             r.excluirRecurso(rec);
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
             DialogConfExcRec.setVisible(false);
-        }
-        catch(RegrasNegocioException e){
+        } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
             JOptionPane.showMessageDialog(null, "Recurso não encontrado!");
-            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, e);        }
+            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, e);
+        }
     }//GEN-LAST:event_BotaoDescRecActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
