@@ -6,10 +6,13 @@
 package negocio;
 
 import bancodados.*;
+import bancodados.dao.*;
+import bancodados.dao.jdbc.usuarioDAO_JDBC;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetos.*;
+
 
 /**
  *
@@ -19,10 +22,13 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     //Conversa diretamente com o bancodados.GerenciadorBaseDados
     private GerenciadorBaseDadosJDBC baseDados;
+    private usuarioDAO usuariodao;
 
     public RegrasNegocio() throws RegrasNegocioException {
         try {
             baseDados = new GerenciadorBaseDadosJDBC();
+            usuariodao = new usuarioDAO_JDBC();
+            
         } catch (Banco_de_DadosException e) {
             throw new RegrasNegocioException(e);
         }
@@ -41,7 +47,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         u.setCargo(cargo);
         System.out.println("Criou ususario");
         try {
-            baseDados.insereUsuario(u);
+            usuariodao.insere(u);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -51,7 +57,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Usuario> listaUsuarios() throws RegrasNegocioException {
         try {
-            return baseDados.listaUsuarios();
+            return usuariodao.lista();
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -61,7 +67,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public Usuario buscaUsuario(String nusp) throws RegrasNegocioException {
         try {
-            return baseDados.buscaUsuario(nusp);
+            return usuariodao.busca(nusp);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
@@ -70,7 +76,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void excluirUsuario(String nusp) throws RegrasNegocioException {
         try {
-            baseDados.excluirUsuario(nusp);
+            usuariodao.excluir(nusp);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");

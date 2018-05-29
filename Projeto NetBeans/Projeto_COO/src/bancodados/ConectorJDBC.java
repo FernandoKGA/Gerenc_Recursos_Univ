@@ -44,6 +44,10 @@ public abstract class ConectorJDBC {
 					"Problemas no acesso ao banco de dados.");
 		}
 	}
+        
+        protected ConectorJDBC() throws Banco_de_DadosException{
+         //versão simples para uso no ConectorDaoJDBC    
+        }
 
 	protected void abreConexao() throws Banco_de_DadosException {
 		String dbURL = this.db == DB.MYSQL ? MYSQL_URL : POSTGRES_URL;

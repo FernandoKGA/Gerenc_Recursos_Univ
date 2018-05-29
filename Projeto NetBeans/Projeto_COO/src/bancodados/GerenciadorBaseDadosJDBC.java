@@ -6,7 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import objetos.*;
-import bancodados.Propriedades_BD;
+import bancodados.dao.*;
+import bancodados.dao.jdbc.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -124,7 +125,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     // ---------------  USUARIO  -----------------------
-    public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
+    /*public void insereUsuario(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
@@ -226,7 +227,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
-    }
+    }*/
 
     // -----------------  RECURSO  -------------------------
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
@@ -401,7 +402,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         List<Reserva> reservaUsuario = new ArrayList<>();
         try {
             abreConexao();
-            Usuario u = buscaUsuario(numeroUSP);
+            usuarioDAO usuariodao = new usuarioDAO_JDBC();
+            Usuario u = usuariodao.busca(numeroUSP);
             if (u.getId_Usuario() != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
                 preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ?");
