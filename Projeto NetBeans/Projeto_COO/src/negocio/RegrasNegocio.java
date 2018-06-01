@@ -8,11 +8,10 @@ package negocio;
 import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.usuarioDAO_JDBC;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import objetos.*;
-
 
 /**
  *
@@ -28,7 +27,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         try {
             baseDados = new GerenciadorBaseDadosJDBC();
             usuariodao = new usuarioDAO_JDBC();
-            
+
         } catch (Banco_de_DadosException e) {
             throw new RegrasNegocioException(e);
         }
@@ -110,10 +109,10 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + " conectar ao Banco de Dados.");
         }
     }
-    
-    public List<Recurso> listaRecursos(String predio, String tipo) throws RegrasNegocioException{
+
+    public List<Recurso> listaRecursos(String predio, String tipo) throws RegrasNegocioException {
         try {
-            return baseDados.listaRecursos(predio,tipo);
+            return baseDados.listaRecursos(predio, tipo);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -137,7 +136,7 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + "conectar ao Banco de Dados.");
         }
     }
-    
+
     public void excluirRecurso(Recurso r) throws RegrasNegocioException {
         try {
             baseDados.excluirRecurso(r);
@@ -148,7 +147,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
     // ---------------------------- FIM RECURSO ----------------------------
-    
+
     // ---------------------------- RESERVA ----------------------------
     public void cadastraReserva(String horaInicio, String horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {
 
@@ -168,15 +167,99 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
+    public boolean cadastraReserva(ArrayList<String> horarios, String data_ftf,
+            Recurso rec, Usuario usuario) throws RegrasNegocioException {
+        List<Reserva> listaReservasDiaRec;
+        ArrayList<String> listaHorariosConcatenados;
+        try {
+            if (permiteAluguelTipo(usuario, rec)) {
+                if (permiteAluguelNumResvMensal(usuario, data_ftf)) {
+                    //VERIFICAR SE OS HORARIOS TEM MESMO FORMATO E MESMO TAMANHO PARA COMPARAR
+                    listaReservasDiaRec = baseDados.buscaReservasDiaRec(data_ftf, rec);
+                    listaHorariosConcatenados = concatenaHorarios(listaReservasDiaRec);
+                    for(String hora : horarios){
+                        for(String h_concat : listaHorariosConcatenados){
+                            if(hora.equalsIgnoreCase(h_concat)){
+                                JOptionPane.showMessageDialog(null,"Existe uma "
+                                        + "reserva no mesmo horário das: "+hora);
+                                return false;
+                            }
+                        }
+                    }
+                    //Reserva reserva = new Reserva();
+                    //baseDados.insereReserva(reserva);
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Este usuário chegou "
+                            + "ao limite da cota mensal do mês indicado na data.");
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário de cargo "
+                        + usuario.getCargo() + " não pode alugar recurso do tipo "
+                        + rec.getTipo() + "!");
+                return false;
+            }
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar "
+                    + "ao banco de dados.");
+        }
+    }
+
+    public List<Reserva> buscaReservasDiaRec(String data_ftf, Recurso rec)
+            throws RegrasNegocioException {
+        try {
+            return baseDados.buscaReservasDiaRec(data_ftf, rec);
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar "
+                    + "ao banco de dados.");
+        }
+    }
+
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws RegrasNegocioException {
         try {
             return baseDados.listaReservasDoUsuario(numeroUSP);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
-            throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
+            throw new RegrasNegocioException("Não foi possível conectar ao banco"
+                    + " de dados.");
         }
     }
-    
+
+    public List<Reserva> listaReservasMensaisDoUsuario(String numeroUSP,
+            String mes) throws RegrasNegocioException {
+
+        try {
+            return baseDados.listaReservasMensaisDoUsuario(numeroUSP, mes);
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco"
+                    + " de dados.");
+        }
+    }
+
+    public List<Reserva> listaReservas() throws RegrasNegocioException {
+        try {
+            return baseDados.listaReservas();
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco"
+                    + " de dados.");
+        }
+    }
+
+    public void excluirReserva(Reserva r) throws RegrasNegocioException {
+        try {
+            baseDados.excluirReserva(r);
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco"
+                    + " de dados.");
+        }
+    }
+
     public void atualizaReservas() throws RegrasNegocioException {
         try {
             baseDados.atualizaReservas();
@@ -187,19 +270,19 @@ public class RegrasNegocio extends RegrasNegocioException {
     }
 
     // ---------------------------- FIM RESERVA ----------------------------
-    
-    //Métodos derivados diretamente das Regras de Negócio
-    public boolean verificaCoordenador(String curso) throws RegrasNegocioException {
-        List<Usuario> a = listaUsuarios();
-        try{
-            return baseDados.verificaCoordenador(curso);
-        }
-        catch (Banco_de_DadosException e) {
+    //---------------------------Regras de Negócio---------------------------
+    public boolean verificaQuantCoordenador(String curso) throws RegrasNegocioException {
+        /*
+            Caso existam dois coordenadores no curso, retorna true.
+            Contrário, false.
+         */
+        try {
+            return baseDados.verificaQuantCoordenador(curso);
+        } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException(e);
         }
     }
-    
 
     public boolean permiteAluguelTipo(Usuario u, Recurso r) {
         String cargoUsu = u.getCargo();
@@ -224,24 +307,50 @@ public class RegrasNegocio extends RegrasNegocioException {
         return true; //quando o cargoUsu é igual a COORDENADOR
     }
 
-    public boolean permiteAluguelNumero(Usuario u) throws RegrasNegocioException {
-        //Este método só é necessário para verificação para Usuários e Professores.
+    public boolean permiteAluguelNumResvMensal(Usuario u, String data_ftf) throws RegrasNegocioException {
+        //Este método só é necessário para verificação para Alunos
+        int numMaxResvMensal = 5;
         String cargo = u.getCargo();
-        if (cargo.equalsIgnoreCase("COORDENADOR")) {
+        if (cargo.equalsIgnoreCase("COORDENADOR")
+                || cargo.equalsIgnoreCase("PROFESSOR")) {
             return true;
         }
         try {
-            List<Reserva> a = baseDados.listaReservasDoUsuario(u.getNUSP());
+            List<Reserva> a = baseDados.listaReservasMensaisDoUsuario(u.getNUSP(), data_ftf);
             if (a != null) //estamos fazendo dessa forma pela forma que estamos iniciando
             {
-                return true;
+                if (a.size() < numMaxResvMensal) {
+                    return true;
+                } else {
+                    return false;  //Se tiver 5 ou mais reservas.
+                }
             }
-            return false;
+            return true; //Caso nao tenha nenhuma reserva no mes.
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
-
+    }
+    
+    public boolean verificaHorasConsecutivas(ArrayList<String> horarios){
+        for(String hora : horarios){
+        
+        }
+        return false;
     }
 
+    //-----------------Auxiliares----------------------
+    private ArrayList<String> concatenaHorarios(List<Reserva> listaReservasDiaRec) {
+        ArrayList<String> listaHorariosConcatenados = new ArrayList<>();
+        if (!listaReservasDiaRec.isEmpty()) {
+            for (Reserva resv : listaReservasDiaRec) {
+                String h_inicio = resv.getHoraInicio();
+                String h_fim = resv.getHoraFim();
+                String concat = h_inicio + " - " + h_fim;
+                listaHorariosConcatenados.add(concat);
+            }
+            return listaHorariosConcatenados;
+        }
+        return null;
+    }
 }

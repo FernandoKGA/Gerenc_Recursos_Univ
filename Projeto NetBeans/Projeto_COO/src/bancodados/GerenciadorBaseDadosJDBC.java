@@ -17,11 +17,10 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     private static Propriedades_BD prop;
     private static final String bancodados = "Dioniso";
-    private boolean jaCriouBD;
+    private static boolean jaCriouBD;
 
     public GerenciadorBaseDadosJDBC() throws Banco_de_DadosException {
         super(DB.MYSQL);
-
         try {
             prop = new Propriedades_BD();
             criaBancoDeDados();
@@ -56,16 +55,17 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     @Override
     protected String getDbName() {
-        return jaCriouBD ? bancodados : "";
+        return jaCriouBD ? prop.getDb_name() : "";
     }
 
     //-----------CRIACAO DO BANCO-----------
     private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
-        abreConexao();
+        abreConexaoSemBD();
         jaCriouBD = true;
         String wtf = getDbName();
         String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
         preparaComandoSQL(query);
+        pstmt.execute();
         fechaConexao();
     }
 
@@ -228,8 +228,32 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
     }*/
+    @Override
+    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException {
+        try {
+            abreConexao();
+            preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
+                    + "'COORDENADOR'");
+            pstmt.setString(1, curso);
+            rs = pstmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    int quantidade = rs.getInt(1);
+                    if (quantidade >= 2) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException();
+        }
+    }
 
     // -----------------  RECURSO  -------------------------
+    @Override
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
         abreConexao();
         preparaComandoSQL("insert into RECURSO (NOME, PREDIO, TIPO) values (?, ?, ?)");
@@ -274,7 +298,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     @Override
     public List<Recurso> listaRecursos() throws Banco_de_DadosException {
-        List<Recurso> recursos = new ArrayList<Recurso>();
+        List<Recurso> recursos = new ArrayList<>();
         try {
             abreConexao();
             preparaComandoSQL("SELECT * FROM RECURSO");
@@ -297,6 +321,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return recursos;
     }
 
+    @Override
     public Recurso buscaRecurso(String nome, String predio, String tipo) throws Banco_de_DadosException {
         Recurso r = null;
         try {
@@ -321,6 +346,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return r;
     }
 
+    @Override
     public Recurso buscaRecursoID(int idRecurso) throws Banco_de_DadosException {
         Recurso r = null;
         try {
@@ -343,6 +369,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return r;
     }
 
+    @Override
     public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
         preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
         try {
@@ -357,6 +384,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     // ------------------- VARIAÇÃO PARA RECURSO - LABORATÓRIO -----------------
+    @Override
     public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException {
         try {
             abreConexao();
@@ -368,6 +396,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             System.out.println(l.getCurso());
             pstmt.setString(4, l.getCurso());
             pstmt.execute();
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
@@ -380,11 +409,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     // ----------------------  RESERVA  --------------------------
     @Override
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
-        abreConexao();
-        preparaComandoSQL("INSERT INTO RESERVA(HINICIO, HFIM, DATA, "
-                + "ID_RECURSO, ID_USUARIO, FINALIZADA) VALUES(?,?,?,?,?,?)");
 
         try {
+            abreConexao();
+            preparaComandoSQL("INSERT INTO RESERVA(HINICIO, HFIM, DATA, "
+                    + "ID_RECURSO, ID_USUARIO, FINALIZADA) VALUES(?,?,?,?,?,?)");
             pstmt.setString(1, reserva.getHoraInicio());
             pstmt.setString(2, reserva.getHoraFim());
             pstmt.setString(3, reserva.getData());
@@ -392,6 +421,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             pstmt.setString(5, reserva.getUsuario().getId_Usuario());
             pstmt.setBoolean(6, false);
             pstmt.execute();
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao definir os parâmetros da query.");
@@ -420,7 +450,41 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                     reservaUsuario.add(r);
                 }
             }
-            //fechaConexao();
+            fechaConexao();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("");
+        }
+        return reservaUsuario;
+    }
+
+    @Override
+    public List<Reserva> listaReservasMensaisDoUsuario(String numeroUSP,
+            String data_ftf) throws Banco_de_DadosException {
+        List<Reserva> reservaUsuario = new ArrayList<>();
+
+        try {
+            abreConexao();
+            usuarioDAO usuariodao = new usuarioDAO_JDBC();
+            Usuario u = usuariodao.busca(numeroUSP);
+            if (u.getId_Usuario() != null) {
+                int idu = Integer.parseInt(u.getId_Usuario());
+                preparaComandoSQL("SELECT COUNT(idreserva) FROM RESERVA WHERE "
+                        + "ID_USUARIO = ? AND DATA = MONTH(?)");
+                pstmt.setInt(1, idu);
+                pstmt.setString(2, data_ftf);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    Reserva r = new Reserva();
+                    r.setHoraInicio(rs.getString(2));
+                    r.setHoraFim(rs.getString(3));
+                    r.setData(rs.getString(4));
+                    Recurso rec = buscaRecursoID(rs.getInt(5));
+                    r.setRecurso(rec);
+                    reservaUsuario.add(r);
+                }
+            }
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("");
@@ -434,10 +498,43 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }
 
     @Override
+    public List<Reserva> buscaReservasDiaRec(String data_ftf, Recurso rec)
+            throws Banco_de_DadosException {
+        List<Reserva> listaReservasDiaRecurso = new ArrayList<>();
+        try {
+            abreConexao();
+            preparaComandoSQL("SELECT * FROM RESERVA WHERE DATA = ? AND ID_RECURSO = ?");
+            pstmt.setString(1, data_ftf);
+            pstmt.setString(2, rec.getId_Recurso());
+            rs = pstmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Reserva r = new Reserva();
+                    r.setHoraInicio(rs.getString(2));
+                    r.setHoraFim(rs.getString(3));
+                    r.setData(rs.getString(4));
+                    usuarioDAO usuariodao = new usuarioDAO_JDBC();
+                    Usuario u = usuariodao.busca(rs.getString(6));
+                    r.setUsuario(u);
+                    r.setRecurso(rec);
+                    listaReservasDiaRecurso.add(r);
+                }
+            }
+            fechaConexao();
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas ao fazer a consulta no"
+                    + "banco de dados.");
+        }
+        return listaReservasDiaRecurso;
+    }
+
+    @Override
     public List<Reserva> listaReservas() throws Banco_de_DadosException {
         List<Reserva> resultado = null;
-        preparaComandoSQL("SELECT * FROM RESERVAS;");
         try {
+            abreConexao();
+            preparaComandoSQL("SELECT * FROM RESERVAS;");
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Reserva r = new Reserva();
@@ -456,6 +553,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
                 resultado.add(r);
             }
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
@@ -463,21 +561,25 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         return resultado;
     }
 
+    @Override
     public void excluirReserva(Reserva r) throws Banco_de_DadosException {
-        preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? "
-                + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
         try {
+            abreConexao();
+            preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? "
+                    + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
             pstmt.setString(1, r.getData());
             pstmt.setString(2, r.getHoraInicio());
             pstmt.setString(3, r.getHoraFim());
             pstmt.setString(4, r.getRecurso().getId_Recurso());
             rs = pstmt.executeQuery();
+            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }
     }
 
+    @Override
     public void atualizaReservas() throws Banco_de_DadosException {
         Date data_agora = new Date();
         String data = (String) new SimpleDateFormat("yyyy-MM-dd HH:mm").format(data_agora);
@@ -497,28 +599,5 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }*/
-    }
-
-    public boolean verificaCoordenador(String curso) throws Banco_de_DadosException {
-        try {
-            abreConexao();
-            preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
-                    + "'COORDENADOR'");
-            pstmt.setString(1, curso);
-            rs = pstmt.executeQuery();
-            if (rs != null) {
-                while (rs.next()) {
-                    int quantidade = rs.getInt(1);
-                    if (quantidade >= 2) {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            return false;
-        } catch (SQLException e) {
-            Log.gravaLog(e);
-            throw new Banco_de_DadosException();
-        }
     }
 }

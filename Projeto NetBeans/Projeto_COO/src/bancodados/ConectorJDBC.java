@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class ConectorJDBC {
+public abstract class ConectorJDBC{
 
 	protected enum DB {
 		MYSQL, POSTGRES;
@@ -31,6 +31,10 @@ public abstract class ConectorJDBC {
 	protected abstract String getUser();
 
 	protected abstract String getPassword();
+        
+        protected DB getDB(){
+            return this.db;
+        }
 
 	protected ConectorJDBC(DB db) throws Banco_de_DadosException {
 		this.db = db;
@@ -48,11 +52,17 @@ public abstract class ConectorJDBC {
         protected ConectorJDBC() throws Banco_de_DadosException{
          //versão simples para uso no ConectorDaoJDBC    
         }
+        
+        protected void setaDB(DB db){
+            this.db = db;
+        }
 
 	protected void abreConexao() throws Banco_de_DadosException {
+            System.out.println(db);
 		String dbURL = this.db == DB.MYSQL ? MYSQL_URL : POSTGRES_URL;
 		try {
-                    System.out.println("como abre conex "+getDbName()+"\n");
+                    System.out.println("como abre conex "+getDbName());
+                    System.out.println("url: "+dbURL);
 			con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
 					+ getDbName(), getUser(), getPassword());
 		} catch (SQLException e) {

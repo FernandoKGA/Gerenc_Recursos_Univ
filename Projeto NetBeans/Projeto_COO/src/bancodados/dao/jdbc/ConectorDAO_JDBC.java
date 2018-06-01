@@ -1,11 +1,10 @@
 package bancodados.dao.jdbc;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 
 import bancodados.Banco_de_DadosException;
 import bancodados.ConectorJDBC;
+import bancodados.Propriedades_BD;
 
 public class ConectorDAO_JDBC extends ConectorJDBC {
 
@@ -17,17 +16,16 @@ public class ConectorDAO_JDBC extends ConectorJDBC {
     protected static boolean jaCriouBD;
 
     public ConectorDAO_JDBC() throws Banco_de_DadosException {
-        Properties props = new Properties();
-        FileInputStream file;
         try {
-            file = new FileInputStream("database_config.properties");
-            props.load(file);
-            PASSWORD = props.getProperty("password");
-            HOST = props.getProperty("host");
-            USER = props.getProperty("user");
-            DB_NAME = props.getProperty("dbName");
-            DATABASE = props.getProperty("database").equals("mysql") ? DB.MYSQL
-                    : DB.POSTGRES;
+            Propriedades_BD propriedades_bd = new Propriedades_BD();
+            PASSWORD = propriedades_bd.getPassword();
+            USER = propriedades_bd.getUser();
+            HOST = propriedades_bd.getHost();
+            DB_NAME = propriedades_bd.getDb_name();
+            DATABASE = propriedades_bd.getDatabase();
+            if(DATABASE.equals("mysql")) setaDB(DATABASE);
+            else setaDB(DATABASE);
+            
         } catch (IOException e) {
             throw new Banco_de_DadosException(
                     "Problemas ao tentar ler o arquivo database_config.properties");
@@ -51,9 +49,10 @@ public class ConectorDAO_JDBC extends ConectorJDBC {
 
     @Override
     protected String getDbName() {
-        return jaCriouBD ? DB_NAME : "";
+        return DB_NAME;
     }
-
+    
+    @Override
     protected DB getDB() {
         return DATABASE;
     }

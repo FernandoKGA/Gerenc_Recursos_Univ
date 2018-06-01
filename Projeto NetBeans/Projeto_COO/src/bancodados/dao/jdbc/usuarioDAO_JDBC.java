@@ -18,7 +18,9 @@ import objetos.Usuario;
  */
 public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
     
-    public usuarioDAO_JDBC() throws Banco_de_DadosException{}
+    public usuarioDAO_JDBC() throws Banco_de_DadosException{
+        super();
+    }
 
     @Override
     public void insere(Usuario usuario) throws Banco_de_DadosException {

@@ -453,20 +453,33 @@ public class Telas extends JFrame {
     }
 
     private boolean comparaDataAtual(String data, String data_ftf) {
-        if (((int) data_ftf.charAt(0)) < ((int) data.charAt(0))) {
-            return false;
-        }
-        if (((int) data_ftf.charAt(1)) < ((int) data.charAt(1))) {
-            return false;
-        }
         if (((int) data_ftf.charAt(3)) < ((int) data.charAt(3))) {
             return false;
         }
         if (((int) data_ftf.charAt(4)) < ((int) data.charAt(4))) {
             return false;
+        } else {
+            if (((int) data_ftf.charAt(4)) == ((int) data.charAt(4))) {
+                if (((int) data_ftf.charAt(0)) < ((int) data.charAt(0))) {
+                    return false;
+                }
+                if (((int) data_ftf.charAt(1)) < ((int) data.charAt(1))) {
+                    return false;
+                }
+            }
         }
-
         return true;
+    }
+
+    private String transformaData(String data_ftf) {
+        String mes = data_ftf.substring(3, 5); //string do mes
+        String dia = data_ftf.substring(0, 2); //string do dia
+        Date agora = new Date();
+        String ano = (String) new SimpleDateFormat("yyyy-").format(agora);
+        ano = ano.concat(mes) + "-"; //concatena
+        ano = ano.concat(dia);  //concatena
+        data_ftf = ano;  //coloca em data_ftf
+        return data_ftf;
     }
 
     //metodos de listagem------------------------------------
@@ -476,9 +489,8 @@ public class Telas extends JFrame {
             List<Usuario> lista = r.listaUsuarios();
             DefaultTableModel model = (DefaultTableModel) TabelaListaUsr.getModel();
             //equivalente a clearTable();
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
-            }
+            model.setNumRows(0);
+            TabelaListaUsr.setRowSorter(new TableRowSorter(model));
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
                     usu.getEmail(), usu.getCargo(), usu.getCurso()});
@@ -495,9 +507,40 @@ public class Telas extends JFrame {
             if (lista != null) {
                 DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
                 //equivalente a clearTable();
-                while (model.getRowCount() > 0) {
-                    model.removeRow(0);
-                }
+                model.setNumRows(0);
+                TabelaListaRec.setRowSorter(new TableRowSorter(model));
+                /*if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
+                    if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
+                        if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
+                            //Se for um especifico
+                            if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
+                                //Se for um especifico
+                                for (Recurso rec : lista) {
+                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())
+                                            && rec.getTipo().equals(CBTiposListaRec.getSelectedItem().toString())) {
+                                        model.addRow(new Object[]{rec.getNome()});
+                                    }
+                                }
+                            } else {
+                                for (Recurso rec : lista) {
+                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())) {
+                                        model.addRow(new Object[]{rec.getNome()});
+                                    }
+                                }
+                            }
+                        } else {
+                            for (Recurso rec : lista) {
+                                model.addRow(new Object[]{rec.getNome()});
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione um tipo!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione um prédio!");
+                }*/
+                
+                //Verificar se essa tela precisa mesmo lista todos na hora que entra!
                 for (Recurso rec : lista) {
                     model.addRow(new Object[]{rec.getNome()});
                 }
@@ -1835,7 +1878,7 @@ public class Telas extends JFrame {
         });
 
         CBPredioListaRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBPredioListaRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
+        CBPredioListaRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB", "TODOS" }));
         CBPredioListaRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioListaRecActionPerformed(evt);
@@ -1850,9 +1893,16 @@ public class Telas extends JFrame {
                 "Nome"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -2924,7 +2974,7 @@ public class Telas extends JFrame {
             String curso = CBCursoCadUsr.getSelectedItem().toString();
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             if (cargo.equalsIgnoreCase("COORDENADOR")) {
-                if (!r.verificaCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else
+                if (!r.verificaQuantCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else
                     r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
                     JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
                     limpaCampos_CadUsuario();
@@ -2957,49 +3007,63 @@ public class Telas extends JFrame {
         //Recurso rec = (Recurso) CBNomeCadResv.getSelectedItem();
         Component[] array = TelaCadastraReserva.getComponents();
         ArrayList<String> horarios = new ArrayList<>();
-        int RBSelec = 0;  //RadioButtons Selecionados
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
                 if (((JRadioButton) cp).isSelected()) {
                     System.out.println(((JRadioButton) cp).getName());
                     System.out.println(((JRadioButton) cp).getText());
                     horarios.add(((JRadioButton) cp).getText());
-                    RBSelec++;
                 }
             }
         }
         if (!taVazio(data_ftf)) {
             if (verificaData(data_ftf)) {
                 Date data_agora = new Date();
-                String ano_mes_dia = (String) new SimpleDateFormat("yyyy-MM-dd").format(data_agora);
-                String data = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
-                if (comparaDataAtual(data, data_ftf)) {
+                String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
+                if (comparaDataAtual(data_atual, data_ftf)) {
+                    data_ftf = transformaData(data_ftf);
                     if (verificaNUSP(nUSP)) {
-                        try {
-                            RegrasNegocio r = new RegrasNegocio();
-                            Usuario usuario = r.buscaUsuario(nUSP);
-                            //System.out.println(rec.getId_Recurso());
-                            //System.out.println(rec.getNome());
-                            //System.out.println(rec.getPredio());
-                            //System.out.println(rec.getTipo());
-                            if (usuario != null) {
-                                Reserva resv = new Reserva();
-                                System.out.println(ano_mes_dia);
-                                System.out.println(data);
-                                System.out.println(predio);
-                                System.out.println(tipo);
-                                System.out.println(nome);
-                                System.out.println(nUSP);
-                                r.atualizaReservas();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Usuário não"
-                                        + " encontrado!");
+                        if (horarios.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Selecione um ou"
+                                    + " mais horários!");
+                        } else {
+                            try {
+                                Recurso recurso = null;
+                                RegrasNegocio r = new RegrasNegocio();
+                                Usuario usuario = r.buscaUsuario(nUSP);
+                                List<Recurso> lista = r.listaRecursos(predio, tipo);
+                                for (Recurso rec : lista) {
+                                    if (rec.getNome().equals(nome)) {
+                                        /*
+                                        Acha o recurso igual pelo nome pois
+                                        nao tem como puxar do ComboBox de Tipo.
+                                         */
+                                        recurso = rec;
+                                    }
+                                }
+                                if (usuario != null && recurso != null) {
+                                    System.out.println(data_atual);
+                                    System.out.println(data_ftf);
+                                    System.out.println(predio);
+                                    System.out.println(tipo);
+                                    System.out.println(nome);
+                                    System.out.println(nUSP);
+                                    /*if(r.cadastraReserva(horarios, data_ftf, recurso, usuario)){
+                                        JOptionPane.showMessageDialog(null,"Reserva "
+                                        +"cadastrada com sucesso!");
+                                    }
+                                    */
+                                    r.atualizaReservas();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Usuário não"
+                                            + " encontrado!");
+                                }
+                            } catch (RegrasNegocioException e) {
+                                Log.gravaLog(e);
                             }
-                        } catch (RegrasNegocioException e) {
-                            Log.gravaLog(e);
                         }
-
                     }
+                    //Verifica nUSP ja tem JOptions nele.
                 } else {
                     JOptionPane.showMessageDialog(null, "Data anterior à de hoje!");
                 }
@@ -3048,7 +3112,6 @@ public class Telas extends JFrame {
 
     private void BotaoListaRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecursosActionPerformed
         listaRecursos();
-
     }//GEN-LAST:event_BotaoListaRecursosActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed

@@ -8,16 +8,18 @@ package bancodados;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
+import bancodados.ConectorJDBC.DB;
 /**
  *
  * @author Fernando Karchiloff
  */
 public class Propriedades_BD  {
+    
     private String password;
     private String user;
     private String host;
     private String db_name;
+    private DB database;
     public Propriedades_BD() throws IOException {
 	Properties propriedades = new Properties();
 	FileInputStream file = new FileInputStream(
@@ -27,6 +29,8 @@ public class Propriedades_BD  {
         setUser(propriedades.getProperty("USER"));
         setHost(propriedades.getProperty("HOST"));
         setDb_name(propriedades.getProperty("DB_NAME"));
+        setDatabase(propriedades.getProperty("DATABASE").equals("mysql") ? 
+                DB.MYSQL : DB.POSTGRES);
     }
 
     /**
@@ -83,6 +87,14 @@ public class Propriedades_BD  {
      */
     private void setDb_name(String db_name) {
         this.db_name = db_name;
+    }
+    
+    public DB getDatabase(){
+        return this.database;
+    }
+    
+    private void setDatabase(DB database){
+        this.database = database;
     }
     
 }
