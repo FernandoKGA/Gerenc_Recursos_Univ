@@ -469,7 +469,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Usuario u = usuariodao.busca(numeroUSP);
             if (u.getId_Usuario() != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
-                preparaComandoSQL("SELECT COUNT(idreserva) FROM RESERVA WHERE "
+                preparaComandoSQL("SELECT * FROM RESERVA WHERE "
                         + "ID_USUARIO = ? AND DATA = MONTH(?)");
                 pstmt.setInt(1, idu);
                 pstmt.setString(2, data_ftf);

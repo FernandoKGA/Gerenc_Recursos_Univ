@@ -2,86 +2,106 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-05-31T17:19:41</date>
-  <millis>1527797981059</millis>
+  <date>2018-06-02T17:37:06</date>
+  <millis>1527971826762</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>java.sql.SQLException: No suitable driver found for jdbc:postgresql://localhost/</message>
+  <message>java.sql.SQLException: Column Index out of range, 2 &gt; 1. </message>
   <exception>
-    <message>java.sql.SQLException: No suitable driver found for jdbc:postgresql://localhost/</message>
+    <message>java.sql.SQLException: Column Index out of range, 2 &gt; 1. </message>
     <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
-      <line>689</line>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>964</line>
     </frame>
     <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
-      <line>247</line>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>897</line>
     </frame>
     <frame>
-      <class>bancodados.ConectorJDBC</class>
-      <method>abreConexaoSemBD</method>
-      <line>78</line>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>886</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createSQLException</method>
+      <line>860</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>checkColumnBounds</method>
+      <line>767</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>getStringInternal</method>
+      <line>5231</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ResultSetImpl</class>
+      <method>getString</method>
+      <line>5153</line>
     </frame>
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
-      <method>criaBancoDeDados</method>
-      <line>63</line>
-    </frame>
-    <frame>
-      <class>bancodados.GerenciadorBaseDadosJDBC</class>
-      <method>&lt;init&gt;</method>
-      <line>26</line>
+      <method>listaReservasMensaisDoUsuario</method>
+      <line>479</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>&lt;init&gt;</method>
-      <line>29</line>
+      <method>temResvMesmoHorarioUsuario</method>
+      <line>351</line>
+    </frame>
+    <frame>
+      <class>negocio.RegrasNegocio</class>
+      <method>cadastraReserva</method>
+      <line>179</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
-      <method>CBTipoCadResvActionPerformed</method>
-      <line>2587</line>
+      <method>BotaoCadastraReservaActionPerformed</method>
+      <line>3051</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
-      <method>access$1800</method>
+      <method>access$2100</method>
       <line>57</line>
     </frame>
     <frame>
-      <class>Telas.Telas$19</class>
+      <class>Telas.Telas$22</class>
       <method>actionPerformed</method>
-      <line>1268</line>
+      <line>1340</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>fireActionEvent</method>
-      <line>1258</line>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+      <line>2022</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>setSelectedItem</method>
-      <line>586</line>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+      <line>2348</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>setSelectedIndex</method>
-      <line>622</line>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+      <line>402</line>
     </frame>
     <frame>
-      <class>javax.swing.plaf.basic.BasicComboPopup$Handler</class>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
+      <line>259</line>
+    </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
       <method>mouseReleased</method>
-      <line>861</line>
-    </frame>
-    <frame>
-      <class>java.awt.AWTEventMulticaster</class>
-      <method>mouseReleased</method>
-      <line>290</line>
+      <line>252</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -92,11 +112,6 @@
       <class>javax.swing.JComponent</class>
       <method>processMouseEvent</method>
       <line>3324</line>
-    </frame>
-    <frame>
-      <class>javax.swing.plaf.basic.BasicComboPopup$1</class>
-      <method>processMouseEvent</method>
-      <line>510</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -244,61 +259,71 @@
   </exception>
 </record>
 <record>
-  <date>2018-05-31T17:19:41</date>
-  <millis>1527797981090</millis>
+  <date>2018-06-02T17:37:06</date>
+  <millis>1527971826777</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
+  <message>bancodados.Banco_de_DadosException: </message>
   <exception>
-    <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
+    <message>bancodados.Banco_de_DadosException: </message>
+    <frame>
+      <class>bancodados.GerenciadorBaseDadosJDBC</class>
+      <method>listaReservasMensaisDoUsuario</method>
+      <line>490</line>
+    </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>&lt;init&gt;</method>
-      <line>33</line>
+      <method>temResvMesmoHorarioUsuario</method>
+      <line>351</line>
+    </frame>
+    <frame>
+      <class>negocio.RegrasNegocio</class>
+      <method>cadastraReserva</method>
+      <line>179</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
-      <method>CBTipoCadResvActionPerformed</method>
-      <line>2587</line>
+      <method>BotaoCadastraReservaActionPerformed</method>
+      <line>3051</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
-      <method>access$1800</method>
+      <method>access$2100</method>
       <line>57</line>
     </frame>
     <frame>
-      <class>Telas.Telas$19</class>
+      <class>Telas.Telas$22</class>
       <method>actionPerformed</method>
-      <line>1268</line>
+      <line>1340</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>fireActionEvent</method>
-      <line>1258</line>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+      <line>2022</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>setSelectedItem</method>
-      <line>586</line>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+      <line>2348</line>
     </frame>
     <frame>
-      <class>javax.swing.JComboBox</class>
-      <method>setSelectedIndex</method>
-      <line>622</line>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+      <line>402</line>
     </frame>
     <frame>
-      <class>javax.swing.plaf.basic.BasicComboPopup$Handler</class>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
+      <line>259</line>
+    </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
       <method>mouseReleased</method>
-      <line>861</line>
-    </frame>
-    <frame>
-      <class>java.awt.AWTEventMulticaster</class>
-      <method>mouseReleased</method>
-      <line>290</line>
+      <line>252</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -311,9 +336,221 @@
       <line>3324</line>
     </frame>
     <frame>
-      <class>javax.swing.plaf.basic.BasicComboPopup$1</class>
+      <class>java.awt.Component</class>
+      <method>processEvent</method>
+      <line>6298</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>processEvent</method>
+      <line>2238</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+      <line>4889</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2296</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4711</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>retargetMouseEvent</method>
+      <line>4897</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
       <method>processMouseEvent</method>
-      <line>510</line>
+      <line>4534</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>dispatchEvent</method>
+      <line>4475</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2282</line>
+    </frame>
+    <frame>
+      <class>java.awt.Window</class>
+      <method>dispatchEventImpl</method>
+      <line>2746</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4711</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEventImpl</method>
+      <line>760</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>access$500</method>
+      <line>97</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$3</class>
+      <method>run</method>
+      <line>709</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$3</class>
+      <method>run</method>
+      <line>703</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>80</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>90</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>733</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>731</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>80</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEvent</method>
+      <line>730</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpOneEventForFilters</method>
+      <line>205</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForFilter</method>
+      <line>116</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForHierarchy</method>
+      <line>105</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>101</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>93</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>run</method>
+      <line>82</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2018-06-02T17:37:06</date>
+  <millis>1527971826887</millis>
+  <sequence>2</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>bancodados.Log</class>
+  <method>gravaLog</method>
+  <thread>14</thread>
+  <message>negocio.RegrasNegocioException: Não foi possível conectar ao banco de dados.</message>
+  <exception>
+    <message>negocio.RegrasNegocioException: Não foi possível conectar ao banco de dados.</message>
+    <frame>
+      <class>negocio.RegrasNegocio</class>
+      <method>temResvMesmoHorarioUsuario</method>
+      <line>365</line>
+    </frame>
+    <frame>
+      <class>negocio.RegrasNegocio</class>
+      <method>cadastraReserva</method>
+      <line>179</line>
+    </frame>
+    <frame>
+      <class>Telas.Telas</class>
+      <method>BotaoCadastraReservaActionPerformed</method>
+      <line>3051</line>
+    </frame>
+    <frame>
+      <class>Telas.Telas</class>
+      <method>access$2100</method>
+      <line>57</line>
+    </frame>
+    <frame>
+      <class>Telas.Telas$22</class>
+      <method>actionPerformed</method>
+      <line>1340</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+      <line>2022</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+      <line>2348</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+      <line>402</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
+      <line>259</line>
+    </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
+      <method>mouseReleased</method>
+      <line>252</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processMouseEvent</method>
+      <line>6533</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processMouseEvent</method>
+      <line>3324</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>

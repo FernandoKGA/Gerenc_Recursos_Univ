@@ -9,6 +9,7 @@ import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.usuarioDAO_JDBC;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import objetos.*;
@@ -170,25 +171,35 @@ public class RegrasNegocio extends RegrasNegocioException {
     public boolean cadastraReserva(ArrayList<String> horarios, String data_ftf,
             Recurso rec, Usuario usuario) throws RegrasNegocioException {
         List<Reserva> listaReservasDiaRec;
-        ArrayList<String> listaHorariosConcatenados;
         try {
             if (permiteAluguelTipo(usuario, rec)) {
+                //Verifica o cargo do usuario para alugar
                 if (permiteAluguelNumResvMensal(usuario, data_ftf)) {
-                    //VERIFICAR SE OS HORARIOS TEM MESMO FORMATO E MESMO TAMANHO PARA COMPARAR
-                    listaReservasDiaRec = baseDados.buscaReservasDiaRec(data_ftf, rec);
-                    listaHorariosConcatenados = concatenaHorarios(listaReservasDiaRec);
-                    for(String hora : horarios){
-                        for(String h_concat : listaHorariosConcatenados){
-                            if(hora.equalsIgnoreCase(h_concat)){
-                                JOptionPane.showMessageDialog(null,"Existe uma "
-                                        + "reserva no mesmo horário das: "+hora);
-                                return false;
+                    //Verifica se o usuario pode alugar
+                    if (!temResvMesmoHorarioUsuario(horarios, usuario, data_ftf)) {
+                        //Verifica se o usuario ja tem reservas nesse horario
+                        listaReservasDiaRec = baseDados.buscaReservasDiaRec(data_ftf, rec);
+                        //Puxa se tem reservas desse recurso
+                        if (listaReservasDiaRec != null) {
+                            if (!temResvMesmoHorarioRecurso(horarios, listaReservasDiaRec)) {
+                                //Se tem reservas para aquele recurso, verifica por aqui
+                                verificaHorasConsecutivas(horarios);
+                                return true;
                             }
+                        } else {
+                            //Se não tem reserva naquele dia daquele recurso
+                            verificaHorasConsecutivas(horarios);
+                            return true;
                         }
+                    } else {
+                        //Mensagem eh mostrada na funcao temResvMesmoHorarioUsuario
+                        return false;
                     }
+                    //VERIFICAR SE OS HORARIOS TEM MESMO FORMATO E MESMO TAMANHO PARA COMPARAR
+                    //Usar o horarios para separar as reservas
+                    //Como verificar mais do que uma sequencia de duas reservas
                     //Reserva reserva = new Reserva();
                     //baseDados.insereReserva(reserva);
-                    return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Este usuário chegou "
                             + "ao limite da cota mensal do mês indicado na data.");
@@ -205,6 +216,7 @@ public class RegrasNegocio extends RegrasNegocioException {
             throw new RegrasNegocioException("Não foi possível conectar "
                     + "ao banco de dados.");
         }
+        return false; //Nao permite cadastramento qualquer problema de excessao
     }
 
     public List<Reserva> buscaReservasDiaRec(String data_ftf, Recurso rec)
@@ -229,10 +241,9 @@ public class RegrasNegocio extends RegrasNegocioException {
     }
 
     public List<Reserva> listaReservasMensaisDoUsuario(String numeroUSP,
-            String mes) throws RegrasNegocioException {
-
+            String ano_mes_dia) throws RegrasNegocioException {
         try {
-            return baseDados.listaReservasMensaisDoUsuario(numeroUSP, mes);
+            return baseDados.listaReservasMensaisDoUsuario(numeroUSP, ano_mes_dia);
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco"
@@ -331,10 +342,75 @@ public class RegrasNegocio extends RegrasNegocioException {
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
         }
     }
-    
-    public boolean verificaHorasConsecutivas(ArrayList<String> horarios){
-        for(String hora : horarios){
-        
+
+    public boolean temResvMesmoHorarioUsuario(ArrayList<String> horarios, Usuario usr,
+            String ano_mes_dia) throws RegrasNegocioException {
+        List<Reserva> listaMensal;
+        ArrayList<String> horariosConcatenados;
+        try {
+            listaMensal = baseDados.listaReservasMensaisDoUsuario(usr.getNUSP(), ano_mes_dia);
+            horariosConcatenados = concatenaHorarios(listaMensal);
+            if (horariosConcatenados != null) {
+                for (String hora : horarios) {
+                    for (String h_resv : horariosConcatenados) {
+                        if (hora.equalsIgnoreCase(h_resv)) {
+                            JOptionPane.showMessageDialog(null, "Usuário já tem reserva"
+                                    + " no horário: " + hora);
+                            return true; //Quando tem no mesmo horário
+                        }
+                    }
+                }
+                return false;
+            }
+            return false;
+        } catch (Banco_de_DadosException e) {
+            Log.gravaLog(e);
+            throw new RegrasNegocioException("Não foi possível conectar ao banco"
+                    + " de dados.");
+        }
+    }
+
+    public boolean temResvMesmoHorarioRecurso(ArrayList<String> horarios,
+            List<Reserva> listaReservasDiaRec) {
+        ArrayList<String> listaHorariosConcatenados;
+        listaHorariosConcatenados = concatenaHorarios(listaReservasDiaRec);
+        if (listaHorariosConcatenados != null) {
+            for (String hora : horarios) {
+                for (String h_concat : listaHorariosConcatenados) {
+                    if (hora.equalsIgnoreCase(h_concat)) {
+                        JOptionPane.showMessageDialog(null, "Existe uma "
+                                + "reserva no mesmo horário das: " + hora);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean verificaHorasConsecutivas(ArrayList<String> horarios) {
+        String array[] = new String[horarios.size()];
+        for(int i=0;i < array.length; i++){
+            array[i] = horarios.get(i);
+        }
+        int max = array.length;
+        for (int i=1; i < max; i++) {
+            String sk = horarios.get(i);
+            String s = sk.substring(0, 2);
+            int h = Integer.parseInt(s); //aux - h[i]
+            int j = i;
+            String jfk = horarios.get(j-1);
+            String jf = horarios.get(j-1).substring(0, 2);
+            int aux_jf = Integer.parseInt(jf); //hor[j-1]
+            while((j > 0) && (h < aux_jf)) {
+                horarios.set(j, jfk);
+                j--;
+            }
+            horarios.set(j,sk);
+        }
+        for (String hora : horarios) {
+            System.out.println(hora);
         }
         return false;
     }

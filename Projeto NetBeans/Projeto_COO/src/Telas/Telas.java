@@ -3048,11 +3048,11 @@ public class Telas extends JFrame {
                                     System.out.println(tipo);
                                     System.out.println(nome);
                                     System.out.println(nUSP);
-                                    /*if(r.cadastraReserva(horarios, data_ftf, recurso, usuario)){
+                                    if(r.cadastraReserva(horarios, data_ftf, recurso, usuario)){
                                         JOptionPane.showMessageDialog(null,"Reserva "
                                         +"cadastrada com sucesso!");
                                     }
-                                    */
+                                    
                                     r.atualizaReservas();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuário não"
