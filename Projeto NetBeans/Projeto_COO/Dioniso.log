@@ -2,66 +2,95 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-06-02T17:37:06</date>
-  <millis>1527971826762</millis>
+  <date>2018-06-03T13:52:14</date>
+  <millis>1528044734667</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>java.sql.SQLException: Column Index out of range, 2 &gt; 1. </message>
+  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'ID_RECURSO' cannot be null</message>
   <exception>
-    <message>java.sql.SQLException: Column Index out of range, 2 &gt; 1. </message>
+    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'ID_RECURSO' cannot be null</message>
     <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>964</line>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance0</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance</method>
+      <line>62</line>
+    </frame>
+    <frame>
+      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
+      <method>newInstance</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Constructor</class>
+      <method>newInstance</method>
+      <line>423</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>handleNewInstance</method>
+      <line>425</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>getInstance</method>
+      <line>408</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
       <method>createSQLException</method>
-      <line>897</line>
+      <line>935</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>886</line>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>checkErrorPacket</method>
+      <line>3973</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>860</line>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>checkErrorPacket</method>
+      <line>3909</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ResultSetImpl</class>
-      <method>checkColumnBounds</method>
-      <line>767</line>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>sendCommand</method>
+      <line>2527</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ResultSetImpl</class>
-      <method>getStringInternal</method>
-      <line>5231</line>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>sqlQueryDirect</method>
+      <line>2680</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ResultSetImpl</class>
-      <method>getString</method>
-      <line>5153</line>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>execSQL</method>
+      <line>2501</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeInternal</method>
+      <line>1858</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>execute</method>
+      <line>1197</line>
     </frame>
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
-      <method>listaReservasMensaisDoUsuario</method>
-      <line>479</line>
-    </frame>
-    <frame>
-      <class>negocio.RegrasNegocio</class>
-      <method>temResvMesmoHorarioUsuario</method>
-      <line>351</line>
+      <method>insereReserva</method>
+      <line>423</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
       <method>cadastraReserva</method>
-      <line>179</line>
+      <line>220</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
@@ -259,31 +288,26 @@
   </exception>
 </record>
 <record>
-  <date>2018-06-02T17:37:06</date>
-  <millis>1527971826777</millis>
+  <date>2018-06-03T13:52:14</date>
+  <millis>1528044734667</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>bancodados.Banco_de_DadosException: </message>
+  <message>bancodados.Banco_de_DadosException: Erro ao definir os parâmetros da query.</message>
   <exception>
-    <message>bancodados.Banco_de_DadosException: </message>
+    <message>bancodados.Banco_de_DadosException: Erro ao definir os parâmetros da query.</message>
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
-      <method>listaReservasMensaisDoUsuario</method>
-      <line>490</line>
-    </frame>
-    <frame>
-      <class>negocio.RegrasNegocio</class>
-      <method>temResvMesmoHorarioUsuario</method>
-      <line>351</line>
+      <method>insereReserva</method>
+      <line>427</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
       <method>cadastraReserva</method>
-      <line>179</line>
+      <line>220</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>
@@ -481,8 +505,8 @@
   </exception>
 </record>
 <record>
-  <date>2018-06-02T17:37:06</date>
-  <millis>1527971826887</millis>
+  <date>2018-06-03T13:52:14</date>
+  <millis>1528044734714</millis>
   <sequence>2</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
@@ -494,13 +518,8 @@
     <message>negocio.RegrasNegocioException: Não foi possível conectar ao banco de dados.</message>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>temResvMesmoHorarioUsuario</method>
-      <line>365</line>
-    </frame>
-    <frame>
-      <class>negocio.RegrasNegocio</class>
       <method>cadastraReserva</method>
-      <line>179</line>
+      <line>253</line>
     </frame>
     <frame>
       <class>Telas.Telas</class>

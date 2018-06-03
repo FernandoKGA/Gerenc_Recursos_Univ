@@ -275,16 +275,18 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = new LinkedList<>();
         try {
-            preparaComandoSQL("SELECT NOME FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
+            preparaComandoSQL("SELECT NOME,IDRECURSO FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
             System.out.println(predio);
             pstmt.setString(1, predio);
             pstmt.setString(2, tipo);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
+                String idrecurso = rs.getString(2); //idrecurso
                 System.out.println(nome);
                 Recurso r = new Recurso();
                 r.setNome(nome);
+                r.setId_Recurso(idrecurso);
                 r.setPredio(predio);
                 r.setTipo(tipo);
                 recursos.add(r);

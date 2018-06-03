@@ -3033,11 +3033,15 @@ public class Telas extends JFrame {
                                 Usuario usuario = r.buscaUsuario(nUSP);
                                 List<Recurso> lista = r.listaRecursos(predio, tipo);
                                 for (Recurso rec : lista) {
-                                    if (rec.getNome().equals(nome)) {
+                                    if (rec.getNome().equalsIgnoreCase(nome)) {
                                         /*
                                         Acha o recurso igual pelo nome pois
                                         nao tem como puxar do ComboBox de Tipo.
                                          */
+                                        System.out.println(rec.getId_Recurso());
+                                        System.out.println(rec.getNome());
+                                        System.out.println(rec.getPredio());
+                                        System.out.println(rec.getTipo());
                                         recurso = rec;
                                     }
                                 }

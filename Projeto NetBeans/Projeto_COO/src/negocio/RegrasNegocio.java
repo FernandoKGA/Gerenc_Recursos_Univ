@@ -9,6 +9,7 @@ import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.usuarioDAO_JDBC;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -150,7 +151,8 @@ public class RegrasNegocio extends RegrasNegocioException {
     // ---------------------------- FIM RECURSO ----------------------------
 
     // ---------------------------- RESERVA ----------------------------
-    public void cadastraReserva(String horaInicio, String horaFim, String data, Usuario usuario, Recurso recurso) throws RegrasNegocioException {
+    public void cadastraReserva(String horaInicio, String horaFim, String data,
+            Usuario usuario, Recurso recurso) throws RegrasNegocioException {
 
         try {
             Reserva r = new Reserva();
@@ -180,22 +182,66 @@ public class RegrasNegocio extends RegrasNegocioException {
                         //Verifica se o usuario ja tem reservas nesse horario
                         listaReservasDiaRec = baseDados.buscaReservasDiaRec(data_ftf, rec);
                         //Puxa se tem reservas desse recurso
-                        if (listaReservasDiaRec != null) {
+                        System.out.println(listaReservasDiaRec);
+                        if (!listaReservasDiaRec.isEmpty()) {
                             if (!temResvMesmoHorarioRecurso(horarios, listaReservasDiaRec)) {
                                 //Se tem reservas para aquele recurso, verifica por aqui
-                                verificaHorasConsecutivas(horarios);
-                                return true;
+                                //Entra caso nao tenha
+                                if (verificaHorasConsecutivas(horarios)) {
+                                    //Limita QUALQUER usuario de selecionar mais de 2 horas
+                                    horarios = ordenaHorarios(horarios);
+                                    System.out.println("esta printando(com resv)");
+                                    for (String hora : horarios) {
+                                        String h_inicio = hora.substring(0, 5);
+                                        System.out.println(h_inicio);
+                                        String h_fim = hora.substring(8, hora.length());
+                                        System.out.println(h_fim);
+                                        Reserva resv = new Reserva();
+                                        resv.setData(data_ftf);
+                                        resv.setHoraInicio(h_inicio);
+                                        resv.setHoraFim(h_fim);
+                                        resv.setRecurso(rec);
+                                        resv.setUsuario(usuario);
+                                        baseDados.insereReserva(resv);
+                                    }
+                                    baseDados.atualizaReservas();
+                                    return true;
+                                } else {
+                                    return false;
+                                }
                             }
+                            //Joga para o return de fora.
                         } else {
                             //Se não tem reserva naquele dia daquele recurso
-                            verificaHorasConsecutivas(horarios);
-                            return true;
+                            if (verificaHorasConsecutivas(horarios)) {
+                                //Limita QUALQUER usuario de selecionar mais de 2 horas
+                                horarios = ordenaHorarios(horarios);
+                                System.out.println("esta printando (sem resv)");
+                                for (String hora : horarios) {
+                                    String h_inicio = hora.substring(0, 5);
+                                    System.out.println(h_inicio);
+                                    String h_fim = hora.substring(8, hora.length());
+                                    System.out.println(h_fim);
+                                    Reserva resv = new Reserva();
+                                    resv.setData(data_ftf);
+                                    resv.setHoraInicio(h_inicio);
+                                    resv.setHoraFim(h_fim);
+                                    resv.setRecurso(rec);
+                                    resv.setUsuario(usuario);
+                                    baseDados.insereReserva(resv);
+                                }
+                                baseDados.atualizaReservas();
+                                return true;
+                            } else {
+                                baseDados.atualizaReservas();
+                                return false;
+                            }
                         }
                     } else {
                         //Mensagem eh mostrada na funcao temResvMesmoHorarioUsuario
+                        baseDados.atualizaReservas();
                         return false;
                     }
-                    //VERIFICAR SE OS HORARIOS TEM MESMO FORMATO E MESMO TAMANHO PARA COMPARAR
                     //Usar o horarios para separar as reservas
                     //Como verificar mais do que uma sequencia de duas reservas
                     //Reserva reserva = new Reserva();
@@ -203,12 +249,14 @@ public class RegrasNegocio extends RegrasNegocioException {
                 } else {
                     JOptionPane.showMessageDialog(null, "Este usuário chegou "
                             + "ao limite da cota mensal do mês indicado na data.");
+                    baseDados.atualizaReservas();
                     return false;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário de cargo "
                         + usuario.getCargo() + " não pode alugar recurso do tipo "
                         + rec.getTipo() + "!");
+                baseDados.atualizaReservas();
                 return false;
             }
         } catch (Banco_de_DadosException e) {
@@ -390,27 +438,25 @@ public class RegrasNegocio extends RegrasNegocioException {
     }
 
     public boolean verificaHorasConsecutivas(ArrayList<String> horarios) {
-        String array[] = new String[horarios.size()];
-        for(int i=0;i < array.length; i++){
-            array[i] = horarios.get(i);
-        }
-        int max = array.length;
-        for (int i=1; i < max; i++) {
-            String sk = horarios.get(i);
-            String s = sk.substring(0, 2);
-            int h = Integer.parseInt(s); //aux - h[i]
-            int j = i;
-            String jfk = horarios.get(j-1);
-            String jf = horarios.get(j-1).substring(0, 2);
-            int aux_jf = Integer.parseInt(jf); //hor[j-1]
-            while((j > 0) && (h < aux_jf)) {
-                horarios.set(j, jfk);
-                j--;
+        int[] horas = ordenaHorariosParaComparar(horarios);
+        if (horas != null) {
+            int i = 0;
+            int h_con = 1;
+            while ((i < horas.length - 1) && (h_con < 4)) {
+                if ((horas[i] + 1) == horas[i + 1]) {
+                    h_con++;
+                } else {
+                    h_con = 1;
+                }
+                i++;
             }
-            horarios.set(j,sk);
-        }
-        for (String hora : horarios) {
-            System.out.println(hora);
+            if (h_con >= 3) {
+                JOptionPane.showMessageDialog(null, "Mais de 2 horas consecutivas "
+                        + "selecionadas.");
+                return false;
+            } else {
+                return true;
+            }
         }
         return false;
     }
@@ -426,6 +472,74 @@ public class RegrasNegocio extends RegrasNegocioException {
                 listaHorariosConcatenados.add(concat);
             }
             return listaHorariosConcatenados;
+        }
+        return null;
+    }
+
+    private int[] ordenaHorariosParaComparar(ArrayList<String> horarios) {
+        if (horarios != null) {
+            int array[] = new int[horarios.size()];
+            String array_string[] = new String[horarios.size()];
+            for (int i = 0; i < array.length; i++) {
+                String sk = horarios.get(i);
+                String s = sk.substring(0, 2);
+                int h = Integer.parseInt(s);
+                array[i] = h;
+                array_string[i] = sk;
+            }
+            int max = array.length;
+            for (int i = 1; i < max; i++) {
+                int aux = array[i];
+                String aux_string = array_string[i];
+                int j = i;
+                while ((j > 0) && (aux < array[j - 1])) {
+                    array[j] = array[j - 1];
+                    array_string[j] = array_string[j - 1];
+                    j--;
+                }
+                array[j] = aux;
+                array_string[j] = aux_string;
+            }
+            ArrayList<String> lista_ordenada = new ArrayList<>();
+            for (int i = 0; i < horarios.size(); i++) {
+                lista_ordenada.add(i, array_string[i]);
+            }
+            horarios = lista_ordenada;
+            return array;
+        }
+        return null;
+    }
+
+    private ArrayList<String> ordenaHorarios(ArrayList<String> horarios) {
+        if (horarios != null) {
+            int array[] = new int[horarios.size()];
+            String array_string[] = new String[horarios.size()];
+            for (int i = 0; i < array.length; i++) {
+                String sk = horarios.get(i);
+                String s = sk.substring(0, 2);
+                int h = Integer.parseInt(s);
+                array[i] = h;
+                array_string[i] = sk;
+            }
+            int max = array.length;
+            for (int i = 1; i < max; i++) {
+                int aux = array[i];
+                String aux_string = array_string[i];
+                int j = i;
+                while ((j > 0) && (aux < array[j - 1])) {
+                    array[j] = array[j - 1];
+                    array_string[j] = array_string[j - 1];
+                    j--;
+                }
+                array[j] = aux;
+                array_string[j] = aux_string;
+            }
+            ArrayList<String> lista_ordenada = new ArrayList<>();
+            for (int i = 0; i < horarios.size(); i++) {
+                lista_ordenada.add(i, array_string[i]);
+            }
+            horarios = lista_ordenada;
+            return horarios;
         }
         return null;
     }
