@@ -283,7 +283,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
                 String idrecurso = rs.getString(2); //idrecurso
-                System.out.println(nome);
                 Recurso r = new Recurso();
                 r.setNome(nome);
                 r.setId_Recurso(idrecurso);
@@ -306,11 +305,11 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             preparaComandoSQL("SELECT * FROM RECURSO");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                String nome = rs.getString(1); //nome
-                String recTipo = rs.getString(2);
-                String recPredio = rs.getString(3);
+                String recNome = rs.getString(2); //nome
+                String recPredio = rs.getString(3); //predio
+                String recTipo = rs.getString(4);  //tipo
                 Recurso r = new Recurso();
-                r.setNome(nome);
+                r.setNome(recNome);
                 r.setPredio(recPredio);
                 r.setTipo(recTipo);
                 recursos.add(r);

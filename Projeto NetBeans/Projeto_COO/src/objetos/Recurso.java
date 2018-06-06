@@ -29,7 +29,8 @@ public class Recurso {
     }
 
     public String getTipo() {
-        return tipo.name();
+        System.out.println(tipo);
+        return tipo.toString();
     }
 
     public String getPredio() {
@@ -48,6 +49,7 @@ public class Recurso {
     public void setTipo(String tipo) {
         for(Tipos tipos : Tipos.values()){
             if(tipos.name().equalsIgnoreCase(tipo)){
+                System.out.println(tipos);
                 this.tipo = tipos;
             }
         }
