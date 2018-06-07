@@ -336,6 +336,14 @@ public class Telas extends JFrame {
         CBPredioCadRec.setSelectedIndex(0);
         CBCursoCadRec.setSelectedIndex(0);
     }
+    
+    private void limpaCampos_CadReserva(){
+        TF_NUSPCadResv.setText("");
+        FTF_DataCadResv.setText("");
+        CBPredioCadResv.setSelectedIndex(0);
+        CBTipoCadResv.setSelectedIndex(0);
+        CBNomeCadResv.setSelectedIndex(0);
+    }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Validadores
@@ -1408,6 +1416,11 @@ public class Telas extends JFrame {
             ex.printStackTrace();
         }
         FTF_DataCadResv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        FTF_DataCadResv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FTF_DataCadResvActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout TelaCadastraReservaLayout = new javax.swing.GroupLayout(TelaCadastraReserva);
         TelaCadastraReserva.setLayout(TelaCadastraReservaLayout);
@@ -2709,6 +2722,7 @@ public class Telas extends JFrame {
 
     private void desabilitaComponentesCadResv() {
         Component[] array = TelaCadastraReserva.getComponents();
+        limpaCampos_CadReserva();
         TF_NUSPCadResv.setEnabled(false);
         LabelUsuarioCadResv.setEnabled(false);
         BotaoCadastraReserva.setEnabled(false);
@@ -3401,6 +3415,10 @@ public class Telas extends JFrame {
     private void BotaoGoTelaCadCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotaoGoTelaCadCursoActionPerformed
+
+    private void FTF_DataCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_DataCadResvActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FTF_DataCadResvActionPerformed
 
     /**
      * @param args the command line arguments
