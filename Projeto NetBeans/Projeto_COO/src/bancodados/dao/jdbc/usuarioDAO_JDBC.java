@@ -10,6 +10,7 @@ import bancodados.Log;
 import bancodados.dao.usuarioDAO;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import objetos.Usuario;
 
 /**
@@ -28,6 +29,7 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
         try {
+            if((busca(usuario.getNUSP())) == null){
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getNUSP());
             pstmt.setString(3, usuario.getEmail());
@@ -35,6 +37,10 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
             pstmt.setString(5, usuario.getCargo());
             pstmt.setString(6, usuario.getCurso());
             pstmt.execute();
+            }else{
+                JOptionPane.showMessageDialog(null, "Esse Número USP já foi cadastrado!");
+                return;
+            }
             //comentario
         } catch (SQLException e) {
             Log.gravaLog(e);
