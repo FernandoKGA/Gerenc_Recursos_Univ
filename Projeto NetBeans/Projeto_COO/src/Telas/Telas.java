@@ -48,6 +48,7 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JTable;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -255,7 +256,7 @@ public class Telas extends JFrame {
     private void habilitaTelaListaUsuarios() {
         TelaListaUsuarios.setVisible(true);
         Component[] array = TelaListaUsuarios.getComponents();
-        listaUsuario();
+        listaUsuario(TabelaListaUsr);
         for (Component array1 : array) {
             array1.setVisible(true);
         }
@@ -293,6 +294,7 @@ public class Telas extends JFrame {
     private void habilitaTelaRemoverUsuario() {
         TelaRemoverUsuario.setVisible(true);
         Component[] array = TelaRemoverUsuario.getComponents();
+        listaUsuario(TabelaRemUsr);
         for (Component array1 : array) {
             array1.setVisible(true);
         }
@@ -495,14 +497,14 @@ public class Telas extends JFrame {
     }
 
     //metodos de listagem------------------------------------
-    private void listaUsuario() {
+    private void listaUsuario(JTable tb) {
         try {
             RegrasNegocio r = new RegrasNegocio();
             List<Usuario> lista = r.listaUsuarios();
-            DefaultTableModel model = (DefaultTableModel) TabelaListaUsr.getModel();
+            DefaultTableModel model = (DefaultTableModel) tb.getModel();
             //equivalente a clearTable();
             model.setNumRows(0);
-            TabelaListaUsr.setRowSorter(new TableRowSorter(model));
+            tb.setRowSorter(new TableRowSorter(model));
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
                     usu.getEmail(), usu.getCargo(), usu.getCurso()});
@@ -3139,7 +3141,7 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_BotaoListaRecursosActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed
-        listaUsuario();
+        listaUsuario(TabelaListaUsr);
 
     }//GEN-LAST:event_BotaoListaTodosUsuariosActionPerformed
 
@@ -3284,27 +3286,7 @@ public class Telas extends JFrame {
 
     private void BotaoListUsrRemUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListUsrRemUsrActionPerformed
         // TODO add your handling code here:
-        try {
-            RegrasNegocio r = new RegrasNegocio();
-            List<Usuario> lista = r.listaUsuarios();
-            DefaultTableModel model = (DefaultTableModel) TabelaRemUsr.getModel();
-            //equivalente a clearTable();
-            TabelaRemUsr.setRowSorter(new TableRowSorter(model));
-            model.setNumRows(0);
-            if (lista.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Não há "
-                        + "usuários a serem listados.");
-            } else {
-                for (Usuario usu : lista) {
-                    model.addRow(new Object[]{usu.getNome(), usu.getNUSP(),
-                        usu.getTelefone(), usu.getEmail(),
-                        usu.getCargo(), usu.getCurso()});
-                }
-            }
-
-        } catch (RegrasNegocioException ex) {
-            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listaUsuario(TabelaRemUsr);
     }//GEN-LAST:event_BotaoListUsrRemUsrActionPerformed
 
     private void CBCursoCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadRecActionPerformed
