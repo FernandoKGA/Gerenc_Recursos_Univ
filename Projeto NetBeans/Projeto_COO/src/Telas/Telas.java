@@ -3219,6 +3219,7 @@ public class Telas extends JFrame {
                 Recurso rec = res.getRecurso();
                 model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(),rec.getNome(), horarios});
             }
+            r.atualizaReservas();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }

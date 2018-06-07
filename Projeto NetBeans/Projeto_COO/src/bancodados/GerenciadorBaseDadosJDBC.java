@@ -438,7 +438,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Usuario u = usuariodao.busca(numeroUSP);
             if (u != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
-                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ? AND DATA > NOW()");
+                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ? AND DATA >= NOW()");
                 pstmt.setInt(1, idu);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
@@ -567,11 +567,12 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         try {
             abreConexao();
             preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? "
-                    + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
+                    + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=? AND ID_USUARIO=?");
             pstmt.setString(1, r.getData());
             pstmt.setString(2, r.getHoraInicio());
             pstmt.setString(3, r.getHoraFim());
             pstmt.setString(4, r.getRecurso().getId_Recurso());
+            pstmt.setString(5, r.getUsuario().getId_Usuario());
             rs = pstmt.executeQuery();
             fechaConexao();
         } catch (SQLException e) {
@@ -584,21 +585,15 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     public void atualizaReservas() throws Banco_de_DadosException {
         Date data_agora = new Date();
         String data = (String) new SimpleDateFormat("yyyy-MM-dd HH:mm").format(data_agora);
-        String ano_mes_dia = data.substring(0, 10);
         String hora = data.substring(11, data.length());
-        System.out.println(data);
-        System.out.println(ano_mes_dia);
-        System.out.println(hora);
-        /*try {
+        try {
             preparaComandoSQL("UPDATE RESERVA SET FINALIZADA=TRUE "
-                + "WHERE DATA=? AND HINICIO=? AND HFIM=?");
-            pstmt.setString(1, dia_mes);
-            pstmt.setString(2, hora);
-            pstmt.setString(3,hora);
-            int i = pstmt.executeUpdate();
+                + "WHERE DATA < NOW() AND HINICIO < ?");
+            pstmt.setString(1, hora);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
-        }*/
+        }
     }
 }
