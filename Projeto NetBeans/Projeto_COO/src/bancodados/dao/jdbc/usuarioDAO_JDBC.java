@@ -47,9 +47,10 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
     @Override
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("select * from USUARIO where NUSP='" + numeroUSP + "'");
+        preparaComandoSQL("select * from USUARIO where NUSP= ?");
         Usuario usuario = null;
         try {
+            pstmt.setString(1, numeroUSP);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {

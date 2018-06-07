@@ -436,9 +436,9 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             abreConexao();
             usuarioDAO usuariodao = new usuarioDAO_JDBC();
             Usuario u = usuariodao.busca(numeroUSP);
-            if (u.getId_Usuario() != null) {
+            if (u != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
-                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ?");
+                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ? AND DATA > NOW()");
                 pstmt.setInt(1, idu);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {

@@ -3202,7 +3202,26 @@ public class Telas extends JFrame {
     }//GEN-LAST:event_TF_NUSP_DesmResvActionPerformed
 
     private void BotaoBusca_DesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_DesmResvActionPerformed
-        // TODO add your handling code here:
+        // Botao Buscar Reservas do Usuario para excluir
+        List<Reserva> listaReservas = null;
+        try{
+            RegrasNegocio r = new RegrasNegocio();
+            String numeroUSP = TF_NUSP_DesmResv.getSelectedText();
+            listaReservas = r.listaReservasDoUsuario(numeroUSP);
+            System.out.println("Sua lista esta vazia: "+listaReservas.isEmpty());
+            DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
+            //equivalente a clearTable();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for (Reserva res : listaReservas) {
+                String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
+                Recurso rec = res.getRecurso();
+                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(),rec.getNome(), horarios});
+            }
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
     }//GEN-LAST:event_BotaoBusca_DesmResvActionPerformed
 
     private void BotaoCadastraRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraRecursoActionPerformed
