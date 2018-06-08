@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-06-07T23:04:34</date>
-  <millis>1528423474761</millis>
+  <date>2018-06-08T08:06:43</date>
+  <millis>1528456003301</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
@@ -40,18 +40,13 @@
     </frame>
     <frame>
       <class>com.mysql.jdbc.ResultSetImpl</class>
-      <method>getStringInternal</method>
-      <line>5230</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ResultSetImpl</class>
-      <method>getString</method>
-      <line>5153</line>
+      <method>getInt</method>
+      <line>2472</line>
     </frame>
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
       <method>listaReservasDoUsuario</method>
-      <line>457</line>
+      <line>452</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
@@ -254,8 +249,8 @@
   </exception>
 </record>
 <record>
-  <date>2018-06-07T23:04:34</date>
-  <millis>1528423474776</millis>
+  <date>2018-06-08T08:06:43</date>
+  <millis>1528456003316</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
@@ -268,7 +263,7 @@
     <frame>
       <class>bancodados.GerenciadorBaseDadosJDBC</class>
       <method>listaReservasDoUsuario</method>
-      <line>470</line>
+      <line>474</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
@@ -471,8 +466,8 @@
   </exception>
 </record>
 <record>
-  <date>2018-06-07T23:04:34</date>
-  <millis>1528423474792</millis>
+  <date>2018-06-08T08:06:43</date>
+  <millis>1528456003426</millis>
   <sequence>2</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>

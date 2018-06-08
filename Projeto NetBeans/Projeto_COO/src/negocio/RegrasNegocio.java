@@ -190,7 +190,6 @@ public class RegrasNegocio extends RegrasNegocioException {
                                 if (verificaHorasConsecutivas(horarios)) {
                                     //Limita QUALQUER usuario de selecionar mais de 2 horas
                                     horarios = ordenaHorarios(horarios);
-                                    System.out.println("esta printando(com resv)");
                                     for (String hora : horarios) {
                                         String h_inicio = hora.substring(0, 5);
                                         System.out.println(h_inicio);
@@ -216,7 +215,7 @@ public class RegrasNegocio extends RegrasNegocioException {
                             if (verificaHorasConsecutivas(horarios)) {
                                 //Limita QUALQUER usuario de selecionar mais de 2 horas
                                 horarios = ordenaHorarios(horarios);
-                                System.out.println("esta printando (sem resv)");
+                                
                                 for (String hora : horarios) {
                                     String h_inicio = hora.substring(0, 5);
                                     System.out.println(h_inicio);

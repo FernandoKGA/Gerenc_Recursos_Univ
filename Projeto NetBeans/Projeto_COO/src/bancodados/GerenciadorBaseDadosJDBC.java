@@ -401,7 +401,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             pstmt.setString(1, l.getNome());
             pstmt.setString(2, l.getPredio());
             pstmt.setString(3, l.getTipo()); //que obviamente vai ser LABORATORIO
-            System.out.println(l.getCurso());
             pstmt.setString(4, l.getCurso());
             pstmt.execute();
             fechaConexao();
@@ -446,21 +445,24 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             System.out.println(u.getNUSP());
             if (u != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
-                preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ? "
-                        + "AND DATA >= DATE(NOW()) AND FINALIZADA = FALSE");
+                preparaComandoSQL("SELECT IDRESERVA,HINICIO,HFIM,DATA,ID_RECURSO,NOME,PREDIO,TIPO,CURSO,FINALIZADA "
+                        + "FROM RESERVA INNER JOIN RECURSO ON RESERVA.ID_RECURSO=RECURSO.IDRECURSO "
+                        + "WHERE ID_USUARIO = ? AND DATA >= DATE(NOW()) AND FINALIZADA = FALSE;");
                 pstmt.setInt(1, idu);
                 rs = pstmt.executeQuery();
-                int i=0;
                 while (rs.next()) {
                     Reserva r = new Reserva();
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    Recurso rec = buscaRecursoID(rs.getInt(5));
+                    Recurso rec = new Recurso();
+                    rec.setId_Recurso(rs.getString(5));
+                    rec.setNome(rs.getString(6));
+                    rec.setPredio(rs.getString(7));
+                    rec.setTipo(rs.getString(8));
                     r.setRecurso(rec);
                     r.setUsuario(u);
                     reservaUsuario.add(r);
-                    System.out.println(++i);
                 }
             }
             fechaConexao();
@@ -483,8 +485,10 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Usuario u = usuariodao.busca(numeroUSP);
             if (u.getId_Usuario() != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
-                preparaComandoSQL("SELECT * FROM RESERVA WHERE "
-                        + "ID_USUARIO = ? AND DATA = MONTH(?)");
+                preparaComandoSQL("SELECT IDRESERVA,HINICIO,HFIM,DATA,ID_RECURSO,NOME,PREDIO,TIPO,CURSO,FINALIZADA "
+                        + "FROM RESERVA INNER JOIN RECURSO"
+                        + " ON RESERVA.ID_RECURSO=RECURSO.IDRECURSO "
+                        + "WHERE ID_USUARIO = ? AND DATA >= ? AND FINALIZADA = FALSE;");
                 pstmt.setInt(1, idu);
                 pstmt.setString(2, data_ftf);
                 rs = pstmt.executeQuery();
@@ -493,8 +497,13 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    Recurso rec = buscaRecursoID(rs.getInt(5));
+                    Recurso rec = new Recurso();
+                    rec.setId_Recurso(rs.getString(5));
+                    rec.setNome(rs.getString(6));
+                    rec.setPredio(rs.getString(7));
+                    rec.setTipo(rs.getString(8));   
                     r.setRecurso(rec);
+                    r.setUsuario(u);
                     reservaUsuario.add(r);
                 }
             }

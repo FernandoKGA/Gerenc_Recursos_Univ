@@ -324,6 +324,7 @@ public class Telas extends JFrame {
     // Validadores
     private boolean taVazio(String txt) {
         if (txt == null || txt.length() == 0) {
+            JOptionPane.showMessageDialog(null,"Campo não preenchido.");
             return true;
         } else {
             return false;
@@ -478,6 +479,9 @@ public class Telas extends JFrame {
             //equivalente a clearTable();
             model.setNumRows(0);
             tb.setRowSorter(new TableRowSorter(model));
+            int col_size = tb.getColumnCount();
+            tb.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tb.getColumnModel().getColumn(col_size - 2).setPreferredWidth(48);
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
                     usu.getEmail(), usu.getCargo(), usu.getCurso()});
@@ -1039,6 +1043,7 @@ public class Telas extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Dioniso");
+        setLocation(new java.awt.Point(0, 0));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         TelaMenu.setMaximumSize(new java.awt.Dimension(400, 300));
@@ -2930,13 +2935,13 @@ public class Telas extends JFrame {
             String recurso_show = (String) recurso;
             Object hora = TabelaDesmResv.getValueAt(row, 4);
             String hora_show = (String) hora;
-            
+
             LabelData_BDDiagConfDesmResv.setText(data_show);
             LabelPredio_BDDiagConfDesmResv.setText(predio_show);
             LabelTipo_BDDiagConfDesmResv.setText(tipo_show);
             LabelRec_BDDiagConfDesmResv.setText(recurso_show);
             LabelHora_BDDiagConfDesmResv.setText(hora_show);
-            
+
             TabelaDesmResv.setEnabled(false);
             DialogConfDesmResv.setVisible(true);
         }
@@ -3036,8 +3041,6 @@ public class Telas extends JFrame {
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
                 if (((JRadioButton) cp).isSelected()) {
-                    System.out.println(((JRadioButton) cp).getName());
-                    System.out.println(((JRadioButton) cp).getText());
                     horarios.add(((JRadioButton) cp).getText());
                 }
             }
@@ -3047,12 +3050,17 @@ public class Telas extends JFrame {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
                 if (comparaDataAtual(data_atual, data_ftf)) {
+                    String data_ftf_antique = data_ftf;
                     data_ftf = transformaData(data_ftf);
                     if (verificaNUSP(nUSP)) {
                         if (horarios.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Selecione um ou"
                                     + " mais horários!");
                         } else {
+                            System.out.println("data_atual "+data_atual);
+                            System.out.println("data_ftf "+data_ftf);
+                            System.out.println("data_ftf_antique "+data_ftf_antique);
+                            
                             try {
                                 Recurso recurso = null;
                                 RegrasNegocio r = new RegrasNegocio();
@@ -3064,16 +3072,10 @@ public class Telas extends JFrame {
                                         Acha o recurso igual pelo nome pois
                                         nao tem como puxar do ComboBox de Tipo.
                                          */
-                                        System.out.println(rec.getId_Recurso());
-                                        System.out.println(rec.getNome());
-                                        System.out.println(rec.getPredio());
-                                        System.out.println(rec.getTipo());
                                         recurso = rec;
                                     }
                                 }
                                 if (usuario != null && recurso != null) {
-                                    System.out.println(data_atual);
-                                    System.out.println(data_ftf);
                                     System.out.println(predio);
                                     System.out.println(tipo);
                                     System.out.println(nome);
@@ -3159,16 +3161,19 @@ public class Telas extends JFrame {
         try {
             //Tenta criar uma List baseado no nUSP
             RegrasNegocio r = new RegrasNegocio();
-            List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
-            DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
-            //equivalente a clearTable();
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
-            }
-            for (Reserva res : lista) {
-                String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
-                Recurso rec = res.getRecurso();
-                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+            String nUSP = TF_NUSP_ListResvUsr.getText();
+            if (verificaNUSP(nUSP)) {
+                List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
+                DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
+                //equivalente a clearTable();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                for (Reserva res : lista) {
+                    String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
+                    Recurso rec = res.getRecurso();
+                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                }
             }
         } catch (RegrasNegocioException ex) {
             Log.gravaLog(ex);
@@ -3224,19 +3229,20 @@ public class Telas extends JFrame {
             RegrasNegocio r = new RegrasNegocio();
             //NAO USAR .getSelectedText()!!!!!!!
             String numeroUSP = TF_NUSP_DesmResv.getText();
-            listaReservas = r.listaReservasDoUsuario(numeroUSP);
-            DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
-            int last_col = TabelaDesmResv.getColumnCount() - 1;
-            //Dá espaco para os horarios aparecerem corretamente e nao precisarem ser editados
-            TabelaDesmResv.getColumnModel().getColumn(last_col).setPreferredWidth(90);
-            //equivalente a clearTable();
-            model.setNumRows(0);
-            for (Reserva res : listaReservas) {
-                String horarios = res.getHoraInicio() + " - " + res.getHoraFim();
-                Recurso rec = res.getRecurso();
-                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+            if (verificaNUSP(numeroUSP)) {
+                listaReservas = r.listaReservasDoUsuario(numeroUSP);
+                DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
+                int last_col = TabelaDesmResv.getColumnCount() - 1;
+                //Dá espaco para os horarios aparecerem corretamente e nao precisarem ser editados
+                TabelaDesmResv.getColumnModel().getColumn(last_col).setPreferredWidth(90);
+                //equivalente a clearTable();
+                model.setNumRows(0);
+                for (Reserva res : listaReservas) {
+                    String horarios = res.getHoraInicio() + " - " + res.getHoraFim();
+                    Recurso rec = res.getRecurso();
+                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                }
             }
-            
             r.atualizaReservas();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
@@ -3413,26 +3419,26 @@ public class Telas extends JFrame {
         String recurso_nome = LabelRec_BDDiagConfDesmResv.getText();
         //String LabelRec_BDDiagConfDesmResv.getText();
         String hora = LabelHora_BDDiagConfDesmResv.getText();
-        try{
+        try {
             RegrasNegocio r = new RegrasNegocio();
             String numeroUSP = TF_NUSP_DesmResv.getText();
             List<Reserva> lista_reserva = r.listaReservasDoUsuario(numeroUSP);
-            System.out.println(TF_NUSP_DesmResv.getText());
-            System.out.println(lista_reserva.get(0).getUsuario());
             //Gambiarra para achar a reserva (como fazer isso melhor???)
-            for(Reserva reserva: lista_reserva){
-                if((data.equalsIgnoreCase(reserva.getData())) 
+            for (Reserva reserva : lista_reserva) {
+                if ((data.equalsIgnoreCase(reserva.getData()))
                         && (predio.equalsIgnoreCase(reserva.getRecurso().getPredio()))
                         && (tipo.equalsIgnoreCase(reserva.getRecurso().getTipo()))
                         && (recurso_nome.equalsIgnoreCase(reserva.getRecurso().getNome()))
                         && (hora.substring(0, 5).equalsIgnoreCase(reserva.getHoraInicio()))
                         && (hora.substring(8, hora.length()).equalsIgnoreCase(reserva.getHoraFim()))
-                        && (TF_NUSP_DesmResv.getText().equalsIgnoreCase(reserva.getUsuario().getNUSP()))){
+                        && (numeroUSP.equalsIgnoreCase(reserva.getUsuario().getNUSP()))) {
                     r.excluirReserva(reserva);
-                    System.out.println("exclui truta");
+                    JOptionPane.showMessageDialog(null,"Desmarcou com sucesso!");
                 }
             }
-            
+            r.atualizaReservas();
+            TabelaDesmResv.setEnabled(true);
+            DialogConfDesmResv.setVisible(false);
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }
