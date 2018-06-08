@@ -17,9 +17,9 @@ import objetos.Usuario;
  *
  * @author Lucas
  */
-public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
-    
-    public usuarioDAO_JDBC() throws Banco_de_DadosException{
+public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
+
+    public usuarioDAO_JDBC() throws Banco_de_DadosException {
         super();
     }
 
@@ -29,15 +29,15 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
         try {
-            if((busca(usuario.getNUSP())) == null){
-            pstmt.setString(1, usuario.getNome());
-            pstmt.setString(2, usuario.getNUSP());
-            pstmt.setString(3, usuario.getEmail());
-            pstmt.setString(4, usuario.getTelefone());
-            pstmt.setString(5, usuario.getCargo());
-            pstmt.setString(6, usuario.getCurso());
-            pstmt.execute();
-            }else{
+            if ((busca(usuario.getNUSP())) == null) {
+                pstmt.setString(1, usuario.getNome());
+                pstmt.setString(2, usuario.getNUSP());
+                pstmt.setString(3, usuario.getEmail());
+                pstmt.setString(4, usuario.getTelefone());
+                pstmt.setString(5, usuario.getCargo());
+                pstmt.setString(6, usuario.getCurso());
+                pstmt.execute();
+            } else {
                 JOptionPane.showMessageDialog(null, "Esse Número USP já foi cadastrado!");
                 return;
             }
@@ -52,15 +52,17 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
 
     @Override
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException {
-        abreConexao();
-        preparaComandoSQL("select * from USUARIO where NUSP= ?");
+
         Usuario usuario = null;
         try {
+            abreConexao();
+            preparaComandoSQL("SELECT * FROM USUARIO WHERE NUSP=?");
             pstmt.setString(1, numeroUSP);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 //baseado na ordem do SQL
+
                 String id_usuario = rs.getString(1);
                 String nome = rs.getString(2);
                 String nusp = rs.getString(3);
@@ -77,6 +79,8 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
                 usuario.setCurso(curso);
                 usuario.setEmail(email);
                 usuario.setTelefone(telefone);
+
+                return usuario;
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -126,7 +130,6 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
     public void excluir(String nUSP) throws Banco_de_DadosException {
         String query = String.format("DELETE FROM USUARIO WHERE "
                 + "NUSP = '%s' ", nUSP);
-        System.out.println(query);
         try {
             preparaComandoSQL(query);
             pstmt.executeUpdate();
