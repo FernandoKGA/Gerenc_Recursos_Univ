@@ -2680,7 +2680,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="LabelNomeTelaDesmResv" alignment="0" pref="422" max="32767" attributes="0"/>
+              <Component id="LabelNomeTelaDesmResv" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="BotaoRetFromDesmResv" min="-2" max="-2" attributes="0"/>
@@ -2700,7 +2700,7 @@
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ScrolDesmResv" pref="402" max="32767" attributes="0"/>
+                      <Component id="ScrolDesmResv" pref="388" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
