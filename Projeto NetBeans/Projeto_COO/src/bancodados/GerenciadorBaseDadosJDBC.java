@@ -442,7 +442,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             abreConexao();
             usuarioDAO usuariodao = new usuarioDAO_JDBC();
             Usuario u = usuariodao.busca(numeroUSP);
-            System.out.println(u.getNUSP());
             if (u != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
                 preparaComandoSQL("SELECT IDRESERVA,HINICIO,HFIM,DATA,ID_RECURSO,NOME,PREDIO,TIPO,CURSO,FINALIZADA "

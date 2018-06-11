@@ -2632,7 +2632,6 @@ public class Telas extends JFrame {
         System.out.println("Telas.Telas.jComboBox2ActionPerformed()");
         String predio = CBPredioCadResv.getSelectedItem().toString();
         String tipo = CBTipoCadResv.getSelectedItem().toString();
-        System.out.println(tipo);
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
@@ -2734,7 +2733,6 @@ public class Telas extends JFrame {
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox1ActionPerformed()");
         String tipo = CBPredioCadResv.getSelectedItem().toString();
-        System.out.println(tipo);
         //Se eh SELECIONE, deixa os outros desativados
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
             LabelTipoCadResv.setEnabled(false);
@@ -2783,7 +2781,6 @@ public class Telas extends JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um usuário para excluir.");
         } else {
             DialogConfExcUsr.setVisible(true);
-            System.out.println(TabelaRemUsr.getSelectedRow());
             Object coluna_nome = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 1);
             String nome = (String) coluna_nome;
             Object coluna_email = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 2);
@@ -2896,7 +2893,6 @@ public class Telas extends JFrame {
         // Ativa ou desativa o ComboBox "curso" de acordo com o valor
         System.out.println("Telas.Telas.jComboBox4ActionPerformed()");
         String tipo = CBTipoCadRec.getSelectedItem().toString();
-        System.out.println(tipo);
         if (!(tipo.equalsIgnoreCase("LABORATÓRIO"))) {
             LabelCursoCadRec.setEnabled(false);
             CBCursoCadRec.setEnabled(false);
@@ -2961,7 +2957,6 @@ public class Telas extends JFrame {
                     + "excluir.");
         } else {
             DialogConfExcRec.setVisible(true);
-            System.out.println(TabelaExcluirRec.getSelectedRow());
             Object coluna_nome = TabelaExcluirRec.getValueAt(TabelaExcluirRec.getSelectedRow(), 0);
             String nome = (String) coluna_nome;
             LabelNome_BDDialogConfExcRec.setText(nome);
@@ -3049,6 +3044,7 @@ public class Telas extends JFrame {
             if (verificaData(data_ftf)) {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
+                String hora = data_atual.substring(8,data_atual.length());
                 if (comparaDataAtual(data_atual, data_ftf)) {
                     String data_ftf_antique = data_ftf;
                     data_ftf = transformaData(data_ftf);
@@ -3076,15 +3072,10 @@ public class Telas extends JFrame {
                                     }
                                 }
                                 if (usuario != null && recurso != null) {
-                                    System.out.println(predio);
-                                    System.out.println(tipo);
-                                    System.out.println(nome);
-                                    System.out.println(nUSP);
-                                    if (r.cadastraReserva(horarios, data_ftf, recurso, usuario)) {
+                                    if (r.cadastraReserva(horarios, data_ftf, hora, recurso, usuario)) {
                                         JOptionPane.showMessageDialog(null, "Reserva "
                                                 + "cadastrada com sucesso!");
                                     }
-
                                     r.atualizaReservas();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuário não"
@@ -3105,8 +3096,6 @@ public class Telas extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Data não foi inserida.");
         }
-
-
     }//GEN-LAST:event_BotaoCadastraReservaActionPerformed
 
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
@@ -3256,7 +3245,6 @@ public class Telas extends JFrame {
         String curso = null;
         if (CBCursoCadRec.isEnabled()) {
             curso = CBCursoCadRec.getSelectedItem().toString();
-            System.out.println(curso);
         }
         try {
             RegrasNegocio r = new RegrasNegocio();
@@ -3328,9 +3316,6 @@ public class Telas extends JFrame {
                 //equivalente a clearTable();
                 model.setNumRows(0);
                 for (Recurso rec : lista) {
-                    System.out.println(rec.getNome());
-                    System.out.println(rec.getPredio());
-                    System.out.println(rec.getTipo());
                     model.addRow(new Object[]{rec.getNome()});
                 }
             }
@@ -3346,7 +3331,6 @@ public class Telas extends JFrame {
         String nUSP = (String) valor_nUSP;
         try {
             RegrasNegocio r = new RegrasNegocio();
-            System.out.println(nUSP);
             r.excluirUsuario(nUSP);
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
             DialogConfExcUsr.setVisible(false);

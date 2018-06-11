@@ -10,8 +10,11 @@ import bancodados.dao.*;
 import bancodados.dao.jdbc.usuarioDAO_JDBC;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import objetos.*;
 
@@ -46,7 +49,6 @@ public class RegrasNegocio extends RegrasNegocioException {
         u.setTelefone(telefone);
         u.setCurso(curso);
         u.setCargo(cargo);
-        System.out.println("Criou ususario");
         try {
             usuariodao.insere(u);
         } catch (Banco_de_DadosException e) {
@@ -171,7 +173,7 @@ public class RegrasNegocio extends RegrasNegocioException {
     }
 
     public boolean cadastraReserva(ArrayList<String> horarios, String data_ftf,
-            Recurso rec, Usuario usuario) throws RegrasNegocioException {
+            String hora_ftf, Recurso rec, Usuario usuario) throws RegrasNegocioException {
         List<Reserva> listaReservasDiaRec;
         try {
             if (permiteAluguelTipo(usuario, rec)) {
@@ -182,14 +184,17 @@ public class RegrasNegocio extends RegrasNegocioException {
                         //Verifica se o usuario ja tem reservas nesse horario
                         listaReservasDiaRec = baseDados.buscaReservasDiaRec(data_ftf, rec);
                         //Puxa se tem reservas desse recurso
-                        System.out.println(listaReservasDiaRec);
                         if (!listaReservasDiaRec.isEmpty()) {
                             if (!temResvMesmoHorarioRecurso(horarios, listaReservasDiaRec)) {
                                 //Se tem reservas para aquele recurso, verifica por aqui
                                 //Entra caso nao tenha
                                 if (verificaHorasConsecutivas(horarios)) {
                                     //Limita QUALQUER usuario de selecionar mais de 2 horas
+                                    System.out.println(data_ftf);
                                     horarios = ordenaHorarios(horarios);
+                                    if(verificaHorarioMesmoDia(horarios,data_ftf)){
+                                        System.out.println("msm dia");
+                                    }
                                     for (String hora : horarios) {
                                         String h_inicio = hora.substring(0, 5);
                                         System.out.println(h_inicio);
@@ -458,6 +463,14 @@ public class RegrasNegocio extends RegrasNegocioException {
             }
         }
         return false;
+    }
+    
+    private boolean verificaHorarioMesmoDia(ArrayList<String> horarios, String data_ftf){
+        Date data_agora = new Date();
+        String data = (String) new SimpleDateFormat("HH:mm").format(data_agora);
+        System.out.println("data_ftf: "+data_ftf);
+        System.out.println("hora :"+data);
+        return true;
     }
 
     //-----------------Auxiliares----------------------
