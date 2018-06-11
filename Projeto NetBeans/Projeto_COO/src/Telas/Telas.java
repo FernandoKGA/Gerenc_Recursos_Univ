@@ -24,15 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author Administrador
- */
+
 public class Telas extends JFrame {
 
-    /**
-     * Creates new form Telas
-     */
     public Telas() {
         initComponents();
         iniciaTelas();
@@ -2322,7 +2316,7 @@ public class Telas extends JFrame {
         TelaDesmarcarReserva.setLayout(TelaDesmarcarReservaLayout);
         TelaDesmarcarReservaLayout.setHorizontalGroup(
             TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BotaoRetFromDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2340,7 +2334,7 @@ public class Telas extends JFrame {
             .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(ScrolDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                    .addComponent(ScrolDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         TelaDesmarcarReservaLayout.setVerticalGroup(
