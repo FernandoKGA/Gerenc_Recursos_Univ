@@ -52,15 +52,17 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
 
     @Override
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException {
-        abreConexao();
-        preparaComandoSQL("select * from USUARIO where NUSP= ?");
+
         Usuario usuario = null;
         try {
+            abreConexao();
+            preparaComandoSQL("SELECT * FROM USUARIO WHERE NUSP=?");
             pstmt.setString(1, numeroUSP);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 //baseado na ordem do SQL
+
                 String id_usuario = rs.getString(1);
                 String nome = rs.getString(2);
                 String nusp = rs.getString(3);
@@ -77,6 +79,8 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
                 usuario.setCurso(curso);
                 usuario.setEmail(email);
                 usuario.setTelefone(telefone);
+
+                return usuario;
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -126,7 +130,6 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
     public void excluir(String nUSP) throws Banco_de_DadosException {
         String query = String.format("DELETE FROM USUARIO WHERE "
                 + "NUSP = '%s' ", nUSP);
-        System.out.println(query);
         try {
             preparaComandoSQL(query);
             pstmt.executeUpdate();

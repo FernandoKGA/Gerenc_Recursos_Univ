@@ -2,44 +2,19 @@ package Telas;
 
 import bancodados.Log;
 import java.awt.Component;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
-import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.EventQueue;
-import java.awt.Dimension;
-import java.awt.CardLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.AbstractListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import java.text.ParseException;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import javax.swing.table.TableRowSorter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableModel;
-import java.lang.Character;
 import negocio.*;
 import objetos.Recurso;
 import objetos.Reserva;
@@ -48,18 +23,10 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JTable;
-import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author Administrador
- */
+
 public class Telas extends JFrame {
 
-    /**
-     * Creates new form Telas
-     */
     public Telas() {
         initComponents();
         iniciaTelas();
@@ -338,8 +305,8 @@ public class Telas extends JFrame {
         CBPredioCadRec.setSelectedIndex(0);
         CBCursoCadRec.setSelectedIndex(0);
     }
-    
-    private void limpaCampos_CadReserva(){
+
+    private void limpaCampos_CadReserva() {
         TF_NUSPCadResv.setText("");
         FTF_DataCadResv.setText("");
         CBPredioCadResv.setSelectedIndex(0);
@@ -351,6 +318,7 @@ public class Telas extends JFrame {
     // Validadores
     private boolean taVazio(String txt) {
         if (txt == null || txt.length() == 0) {
+            JOptionPane.showMessageDialog(null,"Campo não preenchido.");
             return true;
         } else {
             return false;
@@ -505,6 +473,9 @@ public class Telas extends JFrame {
             //equivalente a clearTable();
             model.setNumRows(0);
             tb.setRowSorter(new TableRowSorter(model));
+            int col_size = tb.getColumnCount();
+            tb.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tb.getColumnModel().getColumn(col_size - 2).setPreferredWidth(48);
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
                     usu.getEmail(), usu.getCargo(), usu.getCurso()});
@@ -524,7 +495,7 @@ public class Telas extends JFrame {
                 model.setNumRows(0);
                 TabelaListaRec.setRowSorter(new TableRowSorter(model));
                 for (Recurso rec : lista) {
-                    model.addRow(new Object[]{rec.getNome(),rec.getPredio(),rec.getTipo()});
+                    model.addRow(new Object[]{rec.getNome(), rec.getPredio(), rec.getTipo()});
                 }
                 /*if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
                     if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
@@ -556,9 +527,8 @@ public class Telas extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um prédio!");
                 }*/
-                
+
                 //Verificar se essa tela precisa mesmo lista todos na hora que entra!
-                
             }
         } catch (RegrasNegocioException ex) {
             Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
@@ -876,6 +846,11 @@ public class Telas extends JFrame {
         BotaoDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoDesmResv.setText("Confirmar");
         BotaoDesmResv.setActionCommand("Sim");
+        BotaoDesmResv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoDesmResvActionPerformed(evt);
+            }
+        });
 
         BotaoRetFromDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         BotaoRetFromDiagConfDesmResv.setText("Cancelar");
@@ -1062,6 +1037,7 @@ public class Telas extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Dioniso");
+        setLocation(new java.awt.Point(0, 0));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         TelaMenu.setMaximumSize(new java.awt.Dimension(400, 300));
@@ -2333,31 +2309,32 @@ public class Telas extends JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TabelaDesmResv.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         ScrolDesmResv.setViewportView(TabelaDesmResv);
 
         javax.swing.GroupLayout TelaDesmarcarReservaLayout = new javax.swing.GroupLayout(TelaDesmarcarReserva);
         TelaDesmarcarReserva.setLayout(TelaDesmarcarReservaLayout);
         TelaDesmarcarReservaLayout.setHorizontalGroup(
             TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BotaoRetFromDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotaoGoDiagConfResv)
                 .addGap(18, 18, 18))
+            .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LabelUsuarioTelaDesmResv)
+                .addGap(18, 18, 18)
+                .addComponent(TF_NUSP_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(BotaoBusca_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(ScrolDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
-                            .addComponent(LabelUsuarioTelaDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(TF_NUSP_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BotaoBusca_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(14, 14, 14)))
+                    .addComponent(ScrolDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         TelaDesmarcarReservaLayout.setVerticalGroup(
@@ -2365,22 +2342,20 @@ public class Telas extends JFrame {
             .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(LabelNomeTelaDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(218, 218, 218)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BotaoBusca_DesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TF_NUSP_DesmResv)
+                        .addComponent(LabelUsuarioTelaDesmResv)))
+                .addGap(180, 180, 180)
                 .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoRetFromDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoGoDiagConfResv))
                 .addContainerGap())
             .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
-                    .addGap(52, 52, 52)
-                    .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(LabelUsuarioTelaDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(TelaDesmarcarReservaLayout.createSequentialGroup()
-                            .addGroup(TelaDesmarcarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(BotaoBusca_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TF_NUSP_DesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)))
-                    .addGap(11, 11, 11)
+                    .addGap(99, 99, 99)
                     .addComponent(ScrolDesmResv, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(52, Short.MAX_VALUE)))
         );
@@ -2939,7 +2914,31 @@ public class Telas extends JFrame {
     private void BotaoGoDiagConfResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoGoDiagConfResvActionPerformed
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jButton14ActionPerformed()");
-        DialogConfDesmResv.setVisible(true);
+        if (TabelaDesmResv.getSelectedRow() == (-1)) {
+            JOptionPane.showMessageDialog(null, "Selecione uma reserva para "
+                    + "excluir.");
+        } else {
+            int row = TabelaDesmResv.getSelectedRow();
+            Object data = TabelaDesmResv.getValueAt(row, 0);
+            String data_show = (String) data;
+            Object predio = TabelaDesmResv.getValueAt(row, 1);
+            String predio_show = (String) predio;
+            Object tipo = TabelaDesmResv.getValueAt(row, 2);
+            String tipo_show = (String) tipo;
+            Object recurso = TabelaDesmResv.getValueAt(row, 3);
+            String recurso_show = (String) recurso;
+            Object hora = TabelaDesmResv.getValueAt(row, 4);
+            String hora_show = (String) hora;
+
+            LabelData_BDDiagConfDesmResv.setText(data_show);
+            LabelPredio_BDDiagConfDesmResv.setText(predio_show);
+            LabelTipo_BDDiagConfDesmResv.setText(tipo_show);
+            LabelRec_BDDiagConfDesmResv.setText(recurso_show);
+            LabelHora_BDDiagConfDesmResv.setText(hora_show);
+
+            TabelaDesmResv.setEnabled(false);
+            DialogConfDesmResv.setVisible(true);
+        }
     }//GEN-LAST:event_BotaoGoDiagConfResvActionPerformed
 
     private void BotaoRetFromDiagConfDesmResvActionPerformed(ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDiagConfDesmResvActionPerformed
@@ -3036,8 +3035,6 @@ public class Telas extends JFrame {
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
                 if (((JRadioButton) cp).isSelected()) {
-                    System.out.println(((JRadioButton) cp).getName());
-                    System.out.println(((JRadioButton) cp).getText());
                     horarios.add(((JRadioButton) cp).getText());
                 }
             }
@@ -3047,12 +3044,17 @@ public class Telas extends JFrame {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
                 if (comparaDataAtual(data_atual, data_ftf)) {
+                    String data_ftf_antique = data_ftf;
                     data_ftf = transformaData(data_ftf);
                     if (verificaNUSP(nUSP)) {
                         if (horarios.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Selecione um ou"
                                     + " mais horários!");
                         } else {
+                            System.out.println("data_atual "+data_atual);
+                            System.out.println("data_ftf "+data_ftf);
+                            System.out.println("data_ftf_antique "+data_ftf_antique);
+                            
                             try {
                                 Recurso recurso = null;
                                 RegrasNegocio r = new RegrasNegocio();
@@ -3064,25 +3066,19 @@ public class Telas extends JFrame {
                                         Acha o recurso igual pelo nome pois
                                         nao tem como puxar do ComboBox de Tipo.
                                          */
-                                        System.out.println(rec.getId_Recurso());
-                                        System.out.println(rec.getNome());
-                                        System.out.println(rec.getPredio());
-                                        System.out.println(rec.getTipo());
                                         recurso = rec;
                                     }
                                 }
                                 if (usuario != null && recurso != null) {
-                                    System.out.println(data_atual);
-                                    System.out.println(data_ftf);
                                     System.out.println(predio);
                                     System.out.println(tipo);
                                     System.out.println(nome);
                                     System.out.println(nUSP);
-                                    if(r.cadastraReserva(horarios, data_ftf, recurso, usuario)){
-                                        JOptionPane.showMessageDialog(null,"Reserva "
-                                        +"cadastrada com sucesso!");
+                                    if (r.cadastraReserva(horarios, data_ftf, recurso, usuario)) {
+                                        JOptionPane.showMessageDialog(null, "Reserva "
+                                                + "cadastrada com sucesso!");
                                     }
-                                    
+
                                     r.atualizaReservas();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuário não"
@@ -3159,16 +3155,19 @@ public class Telas extends JFrame {
         try {
             //Tenta criar uma List baseado no nUSP
             RegrasNegocio r = new RegrasNegocio();
-            List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
-            DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
-            //equivalente a clearTable();
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
-            }
-            for (Reserva res : lista) {
-                String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
-                Recurso rec = res.getRecurso();
-                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(),rec.getNome(), horarios});
+            String nUSP = TF_NUSP_ListResvUsr.getText();
+            if (verificaNUSP(nUSP)) {
+                List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
+                DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
+                //equivalente a clearTable();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                for (Reserva res : lista) {
+                    String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
+                    Recurso rec = res.getRecurso();
+                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                }
             }
         } catch (RegrasNegocioException ex) {
             Log.gravaLog(ex);
@@ -3220,21 +3219,25 @@ public class Telas extends JFrame {
     private void BotaoBusca_DesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_DesmResvActionPerformed
         // Botao Buscar Reservas do Usuario para excluir
         List<Reserva> listaReservas = null;
-        try{
+        try {
             RegrasNegocio r = new RegrasNegocio();
-            String numeroUSP = TF_NUSP_DesmResv.getSelectedText();
-            listaReservas = r.listaReservasDoUsuario(numeroUSP);
-            System.out.println("Sua lista esta vazia: "+listaReservas.isEmpty());
-            DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
-            //equivalente a clearTable();
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
+            //NAO USAR .getSelectedText()!!!!!!!
+            String numeroUSP = TF_NUSP_DesmResv.getText();
+            if (verificaNUSP(numeroUSP)) {
+                listaReservas = r.listaReservasDoUsuario(numeroUSP);
+                DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
+                int last_col = TabelaDesmResv.getColumnCount() - 1;
+                //Dá espaco para os horarios aparecerem corretamente e nao precisarem ser editados
+                TabelaDesmResv.getColumnModel().getColumn(last_col).setPreferredWidth(90);
+                //equivalente a clearTable();
+                model.setNumRows(0);
+                for (Reserva res : listaReservas) {
+                    String horarios = res.getHoraInicio() + " - " + res.getHoraFim();
+                    Recurso rec = res.getRecurso();
+                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                }
             }
-            for (Reserva res : listaReservas) {
-                String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
-                Recurso rec = res.getRecurso();
-                model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(),rec.getNome(), horarios});
-            }
+            r.atualizaReservas();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }
@@ -3401,6 +3404,39 @@ public class Telas extends JFrame {
     private void FTF_DataCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_DataCadResvActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FTF_DataCadResvActionPerformed
+
+    private void BotaoDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesmResvActionPerformed
+        // Botao que Confirma a desmarcação da reserva
+        String data = LabelData_BDDiagConfDesmResv.getText();
+        String predio = LabelPredio_BDDiagConfDesmResv.getText();
+        String tipo = LabelTipo_BDDiagConfDesmResv.getText();
+        String recurso_nome = LabelRec_BDDiagConfDesmResv.getText();
+        //String LabelRec_BDDiagConfDesmResv.getText();
+        String hora = LabelHora_BDDiagConfDesmResv.getText();
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            String numeroUSP = TF_NUSP_DesmResv.getText();
+            List<Reserva> lista_reserva = r.listaReservasDoUsuario(numeroUSP);
+            //Gambiarra para achar a reserva (como fazer isso melhor???)
+            for (Reserva reserva : lista_reserva) {
+                if ((data.equalsIgnoreCase(reserva.getData()))
+                        && (predio.equalsIgnoreCase(reserva.getRecurso().getPredio()))
+                        && (tipo.equalsIgnoreCase(reserva.getRecurso().getTipo()))
+                        && (recurso_nome.equalsIgnoreCase(reserva.getRecurso().getNome()))
+                        && (hora.substring(0, 5).equalsIgnoreCase(reserva.getHoraInicio()))
+                        && (hora.substring(8, hora.length()).equalsIgnoreCase(reserva.getHoraFim()))
+                        && (numeroUSP.equalsIgnoreCase(reserva.getUsuario().getNUSP()))) {
+                    r.excluirReserva(reserva);
+                    JOptionPane.showMessageDialog(null,"Desmarcou com sucesso!");
+                }
+            }
+            r.atualizaReservas();
+            TabelaDesmResv.setEnabled(true);
+            DialogConfDesmResv.setVisible(false);
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+    }//GEN-LAST:event_BotaoDesmResvActionPerformed
 
     /**
      * @param args the command line arguments
