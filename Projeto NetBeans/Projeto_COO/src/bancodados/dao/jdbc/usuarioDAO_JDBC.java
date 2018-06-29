@@ -17,9 +17,9 @@ import objetos.Usuario;
  *
  * @author Lucas
  */
-public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
-    
-    public usuarioDAO_JDBC() throws Banco_de_DadosException{
+public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
+
+    public usuarioDAO_JDBC() throws Banco_de_DadosException {
         super();
     }
 
@@ -29,15 +29,15 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
         try {
-            if((busca(usuario.getNUSP())) == null){
-            pstmt.setString(1, usuario.getNome());
-            pstmt.setString(2, usuario.getNUSP());
-            pstmt.setString(3, usuario.getEmail());
-            pstmt.setString(4, usuario.getTelefone());
-            pstmt.setString(5, usuario.getCargo());
-            pstmt.setString(6, usuario.getCurso());
-            pstmt.execute();
-            }else{
+            if ((busca(usuario.getNUSP())) == null) {
+                pstmt.setString(1, usuario.getNome());
+                pstmt.setString(2, usuario.getNUSP());
+                pstmt.setString(3, usuario.getEmail());
+                pstmt.setString(4, usuario.getTelefone());
+                pstmt.setString(5, usuario.getCargo());
+                pstmt.setString(6, usuario.getCurso());
+                pstmt.execute();
+            } else {
                 JOptionPane.showMessageDialog(null, "Esse Número USP já foi cadastrado!");
                 return;
             }
@@ -133,6 +133,30 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO{
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
+        }
+    }
+
+    @Override
+    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException {
+        try {
+            abreConexao();
+            preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
+                    + "'COORDENADOR'");
+            pstmt.setString(1, curso);
+            rs = pstmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    int quantidade = rs.getInt(1);
+                    if (quantidade >= 2) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException();
         }
     }
 

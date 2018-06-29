@@ -6,7 +6,8 @@
 package bancodados.dao;
 
 import bancodados.Banco_de_DadosException;
-import java.util.LinkedList;
+import java.util.List;
+import objetos.Recurso;
 import objetos.Reserva;
 
 /**
@@ -15,9 +16,12 @@ import objetos.Reserva;
  */
 public interface reservaDAO {
     public void insere(Reserva reserva) throws Banco_de_DadosException;
-    //public Reserva busca(String ) throws Banco_de_DadosException;
-    public LinkedList<Reserva> lista() throws Banco_de_DadosException;
-    public LinkedList<Reserva> listaPorUsuario(String nUSP) throws Banco_de_DadosException;
+    public List<Reserva> lista() throws Banco_de_DadosException;
+    public List<Reserva> listaPorUsuario(String nUSP) throws Banco_de_DadosException;
     public void excluir(Reserva reserva) throws Banco_de_DadosException;
-    
+    //Lista todas as reservas ativas do mês para o Usuario
+    public List<Reserva> listaMensais(String numeroUSP, String data_ftf) throws Banco_de_DadosException;
+    //Lista todas as reservas ativas no dia para um Recurso
+    public List<Reserva> buscaDia(String data_ftf, Recurso rec) throws Banco_de_DadosException;
+    public void atualiza() throws Banco_de_DadosException;
 }

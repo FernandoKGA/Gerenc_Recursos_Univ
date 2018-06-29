@@ -227,7 +227,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
-    }*/
+    }
     @Override
     public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException {
         try {
@@ -250,7 +250,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException();
         }
-    }
+    }*/
 
     // -----------------  RECURSO  -------------------------
     @Override
@@ -408,7 +408,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
 
     // -------------------- FIM DO RECURSO -----------------------
     // ----------------------  RESERVA  --------------------------
-    @Override
+    /*@Override
     public void insereReserva(Reserva reserva) throws Banco_de_DadosException {
 
         try {
@@ -589,7 +589,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         System.out.println(data);
         System.out.println(ano_mes_dia);
         System.out.println(hora);
-        /*try {
+        try {
             preparaComandoSQL("UPDATE RESERVA SET FINALIZADA=TRUE "
                 + "WHERE DATA=? AND HINICIO=? AND HFIM=?");
             pstmt.setString(1, dia_mes);
@@ -600,5 +600,5 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
         }*/
-    }
+    
 }
