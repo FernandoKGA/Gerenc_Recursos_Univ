@@ -139,4 +139,28 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
         }
     }
 
+    @Override
+    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException {
+        try {
+            abreConexao();
+            preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
+                    + "'COORDENADOR'");
+            pstmt.setString(1, curso);
+            rs = pstmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    int quantidade = rs.getInt(1);
+                    if (quantidade >= 2) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException();
+        }
+    }
+
 }

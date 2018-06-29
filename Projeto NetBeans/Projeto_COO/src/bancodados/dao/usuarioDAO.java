@@ -18,4 +18,5 @@ public interface usuarioDAO {
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException;
     public LinkedList<Usuario> lista() throws Banco_de_DadosException;
     public void excluir(String nUSP) throws Banco_de_DadosException;
+    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException;
 }
