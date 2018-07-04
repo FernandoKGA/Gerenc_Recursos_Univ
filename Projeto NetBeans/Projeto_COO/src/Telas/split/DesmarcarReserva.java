@@ -45,7 +45,7 @@ public class DesmarcarReserva extends javax.swing.JPanel {
         TabelaDesmResv.setEnabled(false);
     }
     
-    public void habilitaVisibilidadeTelaDesmResv(){
+    public void desabilitaVisibilidadeTelaDesmResv(){
         this.setVisible(false);
         Component[] array = this.getComponents();
         for (Component array1 : array) {
@@ -53,7 +53,7 @@ public class DesmarcarReserva extends javax.swing.JPanel {
         }
     }
     
-    public void desabilitaVisibilidadeTelaDesmResv(){
+    public void habilitaVisibilidadeTelaDesmResv(){
         this.setVisible(true);
         Component[] array = this.getComponents();
         for (Component array1 : array) {

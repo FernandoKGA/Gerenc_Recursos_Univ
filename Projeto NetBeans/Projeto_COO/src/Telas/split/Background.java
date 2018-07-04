@@ -1,14 +1,21 @@
 package Telas.split;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 
-public class Background extends javax.swing.JFrame {
+public class Background extends JFrame {
     
+    private List<JPanel> paineis = new LinkedList<>();
     private Container background;
+    private Dimension tamanhoJanela = new java.awt.Dimension(420,340);
 
     public Background() {
         initComponents();
@@ -16,13 +23,48 @@ public class Background extends javax.swing.JFrame {
     }
     
     private void iniciaTelas() {
+        
+        //Opcoes do Container
+        background = getContentPane();
+        background.setPreferredSize(tamanhoJanela);
+        background.setMaximumSize(tamanhoJanela);
+        background.setMinimumSize(tamanhoJanela);
+        background.setLayout(new java.awt.CardLayout());
+        
+        //Opcoes do JFrame
+        this.setPreferredSize(tamanhoJanela);
+        this.setMinimumSize(tamanhoJanela);
+        this.setMaximumSize(tamanhoJanela);
+        this.setResizable(false);
+        this.setTitle("Dioniso");
+        
+        //Colocando as telas.
         background.add(TelaMenu);
+        
+        background.add(TelaSelecaoCadastro);
+        background.add(TelaCadastroUsuario);
+        background.add(TelaCadastroRecurso);
+        background.add(TelaCadastraReserva);
+        
+        background.add(TelaListaSelecao);
+        background.add(TelaListaUsuarios);
+        background.add(TelaListaReservasUsuarios);
+        background.add(TelaListaRecursos);
+        
+        background.add(TelaDescadastrarSelecao);
+        background.add(TelaDescadastraUsuario);
+        background.add(TelaDescadastrarRecurso);
+        background.add(TelaDesmarcarReserva);
+        
         habilitaTelaMenu();
         desabilitaTelaSelecaoCadastro();
         desabilitaTelaCadastraReserva();
         desabilitaTelaCadastroRecurso();
         desabilitaTelaCadastroUsuario();
         desabilitaTelaListaSelecao();
+        desabilitaTelaListaRecursos();
+        desabilitaTelaListaReservasUsuarios();
+        desabilitaTelaListaUsuarios();
         desabilitaTelaDescadastrarRecurso();
         desabilitaTelaDescadastrarSelecao();
         desabilitaTelaDescadastrarUsuario();
@@ -337,17 +379,7 @@ public class Background extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(new java.awt.CardLayout());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
