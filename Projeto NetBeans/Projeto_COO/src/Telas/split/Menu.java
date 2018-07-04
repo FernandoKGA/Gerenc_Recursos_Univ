@@ -5,17 +5,39 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+
 /**
  *
  * @author Denise
  */
 public class Menu extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form Menu
+     * @param back
      */
-    public Menu() {
+    public Menu(Background back) {
+        this.back = back;
         initComponents();
+    }
+    
+    public void habilitaVisibilidadeTelaMenu(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaMenu(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
     }
 
     /**
@@ -105,22 +127,22 @@ public class Menu extends javax.swing.JPanel {
     private void BotaoGoTelaCadSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadSelcActionPerformed
         //Button  1 - "Cadastrar": Abre TelaSelecaoCadastro
         System.out.println("BotaoGoTelaSelecaoCadastro");
-        habilitaTelaSelecaoCadastro();
-        desabilitaTelaMenu();
+        back.habilitaTelaSelecaoCadastro();
+        back.desabilitaTelaMenu();
     }//GEN-LAST:event_BotaoGoTelaCadSelcActionPerformed
 
     private void BotaoGoTelaListSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListSelcActionPerformed
         //Butto2 - "Listagem": Abre TelaListaSelecao
         System.out.println("BotaoGoTelaListaSelecao");
-        habilitaTelaListaSelecao();
-        desabilitaTelaMenu();
+        back.habilitaTelaListaSelecao();
+        back.desabilitaTelaMenu();
     }//GEN-LAST:event_BotaoGoTelaListSelcActionPerformed
 
     private void BotaoGoTelaDescSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaDescSelcActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaDescadastrarSelecao");
-        habilitaTelaDescadastrarSelecao();
-        desabilitaTelaMenu();
+        back.habilitaTelaDescadastrarSelecao();
+        back.desabilitaTelaMenu();
     }//GEN-LAST:event_BotaoGoTelaDescSelcActionPerformed
 
 

@@ -177,7 +177,7 @@ public class RegrasNegocio extends RegrasNegocioException {
     }
 
     public boolean cadastraReserva(ArrayList<String> horarios, String data_ftf,
-            String hora_ftf, Recurso rec, Usuario usuario) throws RegrasNegocioException {
+            Recurso rec, Usuario usuario) throws RegrasNegocioException {
         List<Reserva> listaReservasDiaRec;
         try {
             if (permiteAluguelTipo(usuario, rec)) {

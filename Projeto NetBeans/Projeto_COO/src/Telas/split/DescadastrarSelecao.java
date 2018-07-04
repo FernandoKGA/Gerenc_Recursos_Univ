@@ -5,19 +5,40 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+
 /**
  *
  * @author Denise
  */
 public class DescadastrarSelecao extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form DescadastrarSelecao
+     * @param back
      */
-    public DescadastrarSelecao() {
+    public DescadastrarSelecao(Background back) {
+        this.back = back;
         initComponents();
     }
-
+    
+    public void habilitaVisibilidadeTelaDescSelecao(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaDescSelecao(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,30 +140,30 @@ public class DescadastrarSelecao extends javax.swing.JPanel {
     private void BotaoGoTelaRemUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaRemUsrActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaRemoverUsuario");
-        habilitaTelaRemoverUsuario();
-        desabilitaTelaDescadastrarSelecao();
+        back.habilitaTelaDescadastrarUsuario();
+        back.desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoGoTelaRemUsrActionPerformed
 
     private void BotaoGoTelaDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaDescRecActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaDescadastrarRecurso");
-        habilitaTelaDescadastrarRecurso();
-        desabilitaComponentesExcRec();
-        desabilitaTelaDescadastrarSelecao();
+        back.habilitaTelaDescadastrarRecurso();
+        back.TelaDescadastrarRecurso.desabilitaComponentesDescRec();  //Ajustar tela descadastra recurso
+        back.desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoGoTelaDescRecActionPerformed
 
     private void BotaoGoTelaDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaDesmResvActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaDesmarcarReserva");
-        habilitaTelaDesmarcarReserva();
-        desabilitaTelaDescadastrarSelecao();
+        back.habilitaTelaDesmarcarReserva();
+        back.desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoGoTelaDesmResvActionPerformed
 
     private void BotaoRetFromDescSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDescSelcActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDescadastrarSelecao");
-        habilitaTelaMenu();
-        desabilitaTelaDescadastrarSelecao();
+        back.habilitaTelaMenu();
+        back.desabilitaTelaDescadastrarSelecao();
     }//GEN-LAST:event_BotaoRetFromDescSelcActionPerformed
 
 

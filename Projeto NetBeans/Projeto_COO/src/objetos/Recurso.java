@@ -11,6 +11,7 @@ public class Recurso {
     private String nome;
     private Tipos tipo;
     private Predios predio;
+    private String curso;
     
     private enum Tipos {
         SALA, LABORATÓRIO, AUDITÓRIO 
@@ -40,7 +41,15 @@ public class Recurso {
         return this.id_recurso;
     }
     
+    public String getCurso() {
+        return curso;
+    }
+    
     //Setters
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+    
     public void setNome(String nome) {
         this.nome = nome;
     }

@@ -5,19 +5,45 @@
  */
 package Telas.split;
 
+import bancodados.Log;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import negocio.*;
+import objetos.*;
+
 /**
  *
  * @author Denise
  */
 public class ListaReservasUsuarios extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form ListaReservasUsuarios
+     * @param back
      */
-    public ListaReservasUsuarios() {
+    public ListaReservasUsuarios(Background back) {
+        this.back = back;
         initComponents();
     }
+    
+    public void habilitaVisibilidadeTelaListaResvUsr(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
 
+    public void desabilitaVisibilidadeTelaListaResvUsr(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,8 +159,8 @@ public class ListaReservasUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoRetFromTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListResvUsrActionPerformed
-        desabilitaTelaListaReservasUsuarios();
-        habilitaTelaListaSelecao();
+        back.desabilitaTelaListaReservasUsuarios();
+        back.habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListResvUsrActionPerformed
 
     private void BotaoBusca_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_ListResvUsrActionPerformed
@@ -142,7 +168,7 @@ public class ListaReservasUsuarios extends javax.swing.JPanel {
             //Tenta criar uma List baseado no nUSP
             RegrasNegocio r = new RegrasNegocio();
             String nUSP = TF_NUSP_ListResvUsr.getText();
-            if (verificaNUSP(nUSP)) {
+            if (back.verificaNUSP(nUSP)) {
                 List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
                 DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
                 //equivalente a clearTable();

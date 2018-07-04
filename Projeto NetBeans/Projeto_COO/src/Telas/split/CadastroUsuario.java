@@ -5,17 +5,57 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import negocio.*;
+import objetos.*;
+import bancodados.Log;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import javax.swing.JRadioButton;
+
+
 /**
  *
  * @author Denise
  */
 public class CadastroUsuario extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form CadastraUsuario
      */
-    public CadastroUsuario() {
+    public CadastroUsuario(Background back) {
+        this.back = back;
         initComponents();
+    }
+    
+    public void desabilitaVisibilidadeTelaCadUsr(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
+    public void habilitaVisibilidadeTelaCadUsr(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    private void limpaCampos_CadUsuario() {
+        TF_NomeCadUsr.setText("");
+        TF_NUSPCadUsr.setText("");
+        TF_EmailCadUsr.setText("");
+        TF_TelfCadUsr.setText("");
+        CBCursoCadUsr.setSelectedIndex(0);
+        CBCargoCadUsr.setSelectedIndex(0);
     }
 
     /**
@@ -198,8 +238,8 @@ public class CadastroUsuario extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastraUsuario");
         limpaCampos_CadUsuario();
-        habilitaTelaSelecaoCadastro();
-        desabilitaTelaCadastroUsuario();
+        back.habilitaTelaSelecaoCadastro();
+        back.desabilitaTelaCadastroUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -208,19 +248,19 @@ public class CadastroUsuario extends javax.swing.JPanel {
             RegrasNegocio r = new RegrasNegocio();
             System.out.println("BotaoCadastrarUsuario");
             String nome = TF_NomeCadUsr.getText();
-            if (!verificaTexto(nome)) {
+            if (!back.verificaTexto(nome)) {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;
             }
 
             String nUSP = TF_NUSPCadUsr.getText();
-            if (!verificaNumero(nUSP)) {
+            if (!back.verificaNumero(nUSP)) {
                 return;
             }
 
             String email = TF_EmailCadUsr.getText();
             String telefone = TF_TelfCadUsr.getText();
-            if (!verificaNumero(telefone)) {
+            if (!back.verificaNumero(telefone)) {
                 JOptionPane.showMessageDialog(null, "Telefone inválido!\nDeve ter 10 ou 11 números.");
                 return;
             } else if (telefone.length() != 10 && telefone.length() != 11) {

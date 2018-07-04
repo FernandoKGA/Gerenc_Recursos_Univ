@@ -5,19 +5,60 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import negocio.*;
+import objetos.*;
+import bancodados.Log;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Denise
  */
 public class DescadastrarRecurso extends javax.swing.JPanel {
 
+    private final Background back;
+    private final DialogConfExcRec dialog;
+    
     /**
      * Creates new form DescadastrarRecurso
+     * @param back
      */
-    public DescadastrarRecurso() {
+    public DescadastrarRecurso(Background back) {
+        this.back = back;
+        this.dialog = new DialogConfExcRec(back,true);
         initComponents();
     }
+    
+    
+    public void desabilitaVisibilidadeTelaDescRec(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
 
+    public void habilitaVisibilidadeTelaDescRec(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaComponentesDescRec() {
+        CBTiposExcluirRec.setEnabled(false);
+        LabelTipoTelaExcluirRec.setEnabled(false);
+        TabelaExcluirRec.setEnabled(false);
+        ScrolExcluirRec.setEnabled(false);
+        BotaoListaRecExcRec.setEnabled(false);
+        BotaoGoDiagConfRec.setEnabled(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,8 +219,8 @@ public class DescadastrarRecurso extends javax.swing.JPanel {
     private void BotaoRetFromDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDescRecActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDescadastrarRecurso");
-        habilitaTelaDescadastrarSelecao();
-        desabilitaTelaDescadastrarRecurso();
+        back.habilitaTelaDescadastrarSelecao();
+        back.desabilitaTelaDescadastrarRecurso();
     }//GEN-LAST:event_BotaoRetFromDescRecActionPerformed
 
     private void BotaoGoDiagConfRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoDiagConfRecActionPerformed
@@ -189,13 +230,13 @@ public class DescadastrarRecurso extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Selecione um recurso para "
                 + "excluir.");
         } else {
-            DialogConfExcRec.setVisible(true);
+            dialog.habilitaVisibilidadeDialogConfExcRec();
             System.out.println(TabelaExcluirRec.getSelectedRow());
             Object coluna_nome = TabelaExcluirRec.getValueAt(TabelaExcluirRec.getSelectedRow(), 0);
             String nome = (String) coluna_nome;
-            LabelNome_BDDialogConfExcRec.setText(nome);
-            LabelPredio_BDDialogConfExcRec.setText(CBPredioExcluirRec.getSelectedItem().toString());
-            LabelTipo_BDDialogConfExcRec.setText(CBTiposExcluirRec.getSelectedItem().toString());
+            dialog.setLabelNome_BDDialogConfExcRec(nome);
+            dialog.setLabelPredio_BDDialogConfExcRec(CBPredioExcluirRec.getSelectedItem().toString());
+            dialog.setLabelTipo_BDDialogConfExcRec(CBTiposExcluirRec.getSelectedItem().toString());
         }
     }//GEN-LAST:event_BotaoGoDiagConfRecActionPerformed
 
@@ -224,7 +265,7 @@ public class DescadastrarRecurso extends javax.swing.JPanel {
                 }
             }
         } catch (RegrasNegocioException ex) {
-            Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+            Log.gravaLog(ex);   //Pode gerar erro...
         }
     }//GEN-LAST:event_BotaoListaRecExcRecActionPerformed
 

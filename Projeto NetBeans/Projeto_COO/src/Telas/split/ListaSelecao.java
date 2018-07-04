@@ -5,19 +5,40 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+
 /**
  *
  * @author Denise
  */
 public class ListaSelecao extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form ListaSelecao
      */
-    public ListaSelecao() {
+    public ListaSelecao(Background back) {
+        this.back = back;
         initComponents();
     }
 
+    public void habilitaVisibilidadeTelaListaSelecao(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaListaSelecao(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,28 +140,28 @@ public class ListaSelecao extends javax.swing.JPanel {
     private void BotaoGoTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListResvUsrActionPerformed
 
         System.out.println("BotaoGoTelaListResvUsr");
-        habilitaTelaListaReservasUsuarios();
-        desabilitaTelaListaSelecao();
+        back.habilitaTelaListaReservasUsuarios();
+        back.desabilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoGoTelaListResvUsrActionPerformed
 
     private void BotaoGoTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListUsrActionPerformed
 
         System.out.println("BotaoGoTelaListUsr");
-        habilitaTelaListaUsuarios();
-        desabilitaTelaListaSelecao();
+        back.habilitaTelaListaUsuarios();
+        back.desabilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoGoTelaListUsrActionPerformed
 
     private void BotaoGoTelaListRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaListRecActionPerformed
 
         System.out.println("BotaoGoTelaListRec");
-        habilitaTelaListaRecursos();
-        desabilitaTelaListaSelecao();
+        back.habilitaTelaListaRecursos();
+        back.desabilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoGoTelaListRecActionPerformed
 
     private void BotaoRetFromTelaListSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListSelcActionPerformed
         // TODO add your handling code here:
-        desabilitaTelaListaSelecao();
-        habilitaTelaMenu();
+        back.desabilitaTelaListaSelecao();
+        back.habilitaTelaMenu();
     }//GEN-LAST:event_BotaoRetFromTelaListSelcActionPerformed
 
 

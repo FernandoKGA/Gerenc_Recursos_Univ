@@ -5,19 +5,99 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+import negocio.*;
+import bancodados.Log;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import objetos.*;
+
 /**
  *
  * @author Denise
  */
 public class ListaRecursos extends javax.swing.JPanel {
 
+    private Background back;
+    
     /**
      * Creates new form ListaRecursos
+     * @param back
      */
-    public ListaRecursos() {
+    public ListaRecursos(Background back) {
+        this.back = back;
         initComponents();
     }
+    
+    private void listaRecursos() {
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Recurso> lista = r.listaRecursos();
+            if (lista != null) {
+                DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
+                //equivalente a clearTable();
+                model.setNumRows(0);
+                TabelaListaRec.setRowSorter(new TableRowSorter(model));
+                for (Recurso rec : lista) {
+                    model.addRow(new Object[]{rec.getNome(), rec.getPredio(), rec.getTipo()});
+                }
+                /*if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
+                    if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
+                        if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
+                            //Se for um especifico
+                            if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
+                                //Se for um especifico
+                                for (Recurso rec : lista) {
+                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())
+                                            && rec.getTipo().equals(CBTiposListaRec.getSelectedItem().toString())) {
+                                        model.addRow(new Object[]{rec.getNome()});
+                                    }
+                                }
+                            } else {
+                                for (Recurso rec : lista) {
+                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())) {
+                                        model.addRow(new Object[]{rec.getNome()});
+                                    }
+                                }
+                            }
+                        } else {
+                            for (Recurso rec : lista) {
+                                model.addRow(new Object[]{rec.getNome()});
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione um tipo!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione um prédio!");
+                }*/
 
+                //Verificar se essa tela precisa mesmo lista todos na hora que entra!
+            }
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+        }
+    }
+
+    
+    public void habilitaVisibilidadeTelaListaRecursos(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        listaRecursos();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+
+    public void desabilitaVisibilidadeTelaListaRecursos(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,8 +193,8 @@ public class ListaRecursos extends javax.swing.JPanel {
 
     private void BotaoRetFromTelaListRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListRecActionPerformed
         // TODO add your handling code here:
-        desabilitaTelaListaRecursos();
-        habilitaTelaListaSelecao();
+        back.desabilitaTelaListaRecursos();
+        back.habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListRecActionPerformed
 
     private void BotaoListaRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecursosActionPerformed

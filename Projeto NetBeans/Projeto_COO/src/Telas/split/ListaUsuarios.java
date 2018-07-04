@@ -6,17 +6,67 @@
 
 package Telas.split;
 
+import bancodados.Log;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import negocio.RegrasNegocio;
+import negocio.RegrasNegocioException;
+import objetos.Usuario;
+
 /**
  *
  * @author Denise
  */
 public class ListaUsuarios extends javax.swing.JPanel {
 
-    /** Creates new form ListaUsuarios */
-    public ListaUsuarios() {
+    private final Background back;
+    
+    /** Creates new form ListaUsuarios
+     * @param back */
+    public ListaUsuarios(Background back) {
+        this.back = back;
         initComponents();
     }
+    
+    private void listaUsuario(JTable tb) {
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Usuario> lista = r.listaUsuarios();
+            DefaultTableModel model = (DefaultTableModel) tb.getModel();
+            //equivalente a clearTable();
+            model.setNumRows(0);
+            tb.setRowSorter(new TableRowSorter(model));
+            int col_size = tb.getColumnCount();
+            tb.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tb.getColumnModel().getColumn(col_size - 2).setPreferredWidth(48);
+            for (Usuario usu : lista) {
+                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
+                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
+            }
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+        }
+    }
 
+    public void habilitaVisibilidadeTelaListaUsuarios(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        listaUsuario(TabelaListaUsr);
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaListaUsuarios(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -121,8 +171,8 @@ public class ListaUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoRetFromTelaListUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListUsrActionPerformed
-        desabilitaTelaListaUsuarios();
-        habilitaTelaListaSelecao();
+        back.desabilitaTelaListaUsuarios();
+        back.habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListUsrActionPerformed
 
     private void BotaoListaTodosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaTodosUsuariosActionPerformed

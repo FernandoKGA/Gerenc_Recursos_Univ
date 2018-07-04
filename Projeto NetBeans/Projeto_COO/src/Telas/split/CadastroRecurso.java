@@ -5,6 +5,17 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import negocio.*;
+import objetos.*;
+import bancodados.Log;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author Denise
@@ -14,10 +25,39 @@ public class CadastroRecurso extends javax.swing.JPanel {
     /**
      * Creates new form CadastraRecurso
      */
-    public CadastroRecurso() {
+    
+    private final Background back;
+    
+    public CadastroRecurso(Background back) {
+        this.back = back;
         initComponents();
     }
 
+    public void desabilitaVisibilidadeTelaCadRec(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
+    public void habilitaVisibilidadeTelaCadRec(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        CBCursoCadRec.setEnabled(false);
+        LabelCursoCadRec.setEnabled(false);
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    private void limpaCampos_CadRecurso() {
+        TF_NomeCadRec.setText("");
+        CBTipoCadRec.setSelectedIndex(0);
+        CBPredioCadRec.setSelectedIndex(0);
+        CBCursoCadRec.setSelectedIndex(0);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,8 +226,8 @@ public class CadastroRecurso extends javax.swing.JPanel {
     private void BotaoRetFromTelaCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaCadRecActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastroRecurso");
-        habilitaTelaSelecaoCadastro();
-        desabilitaTelaCadastroRecurso();
+        back.habilitaTelaSelecaoCadastro();
+        back.desabilitaTelaCadastroRecurso();
     }//GEN-LAST:event_BotaoRetFromTelaCadRecActionPerformed
 
     private void BotaoCadastraRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraRecursoActionPerformed
@@ -201,7 +241,7 @@ public class CadastroRecurso extends javax.swing.JPanel {
         }
         try {
             RegrasNegocio r = new RegrasNegocio();
-            if (!verificaTextoNumeros(nome)) {
+            if (!back.verificaTextoNumeros(nome)) {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;
             }

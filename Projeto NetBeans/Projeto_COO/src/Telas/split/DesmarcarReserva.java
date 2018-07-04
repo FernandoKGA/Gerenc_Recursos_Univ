@@ -5,19 +5,61 @@
  */
 package Telas.split;
 
+import bancodados.Log;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import negocio.*;
+import objetos.*;
+
 /**
  *
  * @author Denise
  */
 public class DesmarcarReserva extends javax.swing.JPanel {
 
+    private final Background back;
+    private final DialogConfExcResv dialog;
+    
     /**
      * Creates new form DesmarcarReserva
+     * @param back
      */
-    public DesmarcarReserva() {
+    public DesmarcarReserva(Background back) {
+        this.back = back;
+        this.dialog = new DialogConfExcResv(back,true);
+        dialog.setPai(this);  //Vazamento???
         initComponents();
     }
 
+    public String getTF_NUSP_DesmResv(){
+        return this.TF_NUSP_DesmResv.getText();
+    }
+    
+    public void habilitaTabelaDesmResv(){
+        TabelaDesmResv.setEnabled(true);
+    }
+    
+    public void desabilitaTabelaDesmResv(){
+        TabelaDesmResv.setEnabled(false);
+    }
+    
+    public void habilitaVisibilidadeTelaDesmResv(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaDesmResv(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +197,7 @@ public class DesmarcarReserva extends javax.swing.JPanel {
             RegrasNegocio r = new RegrasNegocio();
             //NAO USAR .getSelectedText()!!!!!!!
             String numeroUSP = TF_NUSP_DesmResv.getText();
-            if (verificaNUSP(numeroUSP)) {
+            if (back.verificaNUSP(numeroUSP)) {
                 listaReservas = r.listaReservasDoUsuario(numeroUSP);
                 DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
                 int last_col = TabelaDesmResv.getColumnCount() - 1;
@@ -194,22 +236,23 @@ public class DesmarcarReserva extends javax.swing.JPanel {
             Object hora = TabelaDesmResv.getValueAt(row, 4);
             String hora_show = (String) hora;
 
-            LabelData_BDDiagConfDesmResv.setText(data_show);
-            LabelPredio_BDDiagConfDesmResv.setText(predio_show);
-            LabelTipo_BDDiagConfDesmResv.setText(tipo_show);
-            LabelRec_BDDiagConfDesmResv.setText(recurso_show);
-            LabelHora_BDDiagConfDesmResv.setText(hora_show);
+            //Insercao na Dialog
+            dialog.setLabelData_BDDiagConfDesmResv(data_show);
+            dialog.setLabelPredio_BDDiagConfDesmResv(predio_show);
+            dialog.setLabelTipo_BDDiagConfDesmResv(tipo_show);
+            dialog.setLabelRec_BDDiagConfDesmResv(recurso_show);
+            dialog.setLabelHora_BDDiagConfDesmResv(hora_show);
 
             TabelaDesmResv.setEnabled(false);
-            DialogConfDesmResv.setVisible(true);
+            dialog.habilitaVisibilidadeDialogConfExcResv();
         }
     }//GEN-LAST:event_BotaoGoDiagConfResvActionPerformed
 
     private void BotaoRetFromDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDesmResvActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDesmarcarReserva");
-        habilitaTelaDescadastrarSelecao();
-        desabilitaTelaDesmarcarReserva();
+        back.habilitaTelaDescadastrarSelecao();
+        back.desabilitaTelaDesmarcarReserva();
     }//GEN-LAST:event_BotaoRetFromDesmResvActionPerformed
 
 

@@ -3066,7 +3066,7 @@ public class Telas extends JFrame {
                                     }
                                 }
                                 if (usuario != null && recurso != null) {
-                                    if (r.cadastraReserva(horarios, data_ftf, hora, recurso, usuario)) {
+                                    if (r.cadastraReserva(horarios, data_ftf, recurso, usuario)) {
                                         JOptionPane.showMessageDialog(null, "Reserva "
                                                 + "cadastrada com sucesso!");
                                     }

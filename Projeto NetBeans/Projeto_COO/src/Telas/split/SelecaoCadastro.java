@@ -5,17 +5,45 @@
  */
 package Telas.split;
 
+import java.awt.Component;
+
 /**
  *
  * @author Denise
  */
 public class SelecaoCadastro extends javax.swing.JPanel {
 
+    private final Background back;
+    
     /**
      * Creates new form SelecaoCadastro
+     * @param back
      */
-    public SelecaoCadastro() {
+    public SelecaoCadastro(Background back) {
+        this.back = back;
         initComponents();
+    }
+    
+    public void habilitaVisibilidadeTelaSelecaoCadastro(){
+        this.setVisible(true);
+        
+        //Temporário enquanto não existem as telas.
+        BotaoGoTelaCadPredio.setEnabled(false);
+        BotaoGoTelaCadTipo.setEnabled(false);
+        BotaoGoTelaCadCurso.setEnabled(false);
+        
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaSelecaoCadastro(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
     }
 
     /**
@@ -179,29 +207,29 @@ public class SelecaoCadastro extends javax.swing.JPanel {
     private void BotaoGoTelaCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaCadastraReserva");
-        habilitaTelaCadastraReserva();
-        desabilitaTelaSelecaoCadastro();
+        back.habilitaTelaCadastraReserva();
+        back.desabilitaTelaSelecaoCadastro();
     }//GEN-LAST:event_BotaoGoTelaCadResvActionPerformed
 
     private void BotaoGoTelaCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadUsrActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaCadastroUsuario");
-        habilitaTelaCadastroUsuario();
-        desabilitaTelaSelecaoCadastro();
+        back.habilitaTelaCadastroUsuario();
+        back.desabilitaTelaSelecaoCadastro();
     }//GEN-LAST:event_BotaoGoTelaCadUsrActionPerformed
 
     private void BotaoGoTelaCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadRecActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoGoTelaCadastroRecurso");
-        habilitaTelaCadastroRecurso();
-        desabilitaTelaSelecaoCadastro();
+        back.habilitaTelaCadastroRecurso();
+        back.desabilitaTelaSelecaoCadastro();
     }//GEN-LAST:event_BotaoGoTelaCadRecActionPerformed
 
     private void BotaoRetFromCadSelcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromCadSelcActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaSelecaoCadastro");
-        habilitaTelaMenu();
-        desabilitaTelaSelecaoCadastro();
+        back.habilitaTelaMenu();
+        back.desabilitaTelaSelecaoCadastro();
     }//GEN-LAST:event_BotaoRetFromCadSelcActionPerformed
 
     private void BotaoGoTelaCadPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadPredioActionPerformed

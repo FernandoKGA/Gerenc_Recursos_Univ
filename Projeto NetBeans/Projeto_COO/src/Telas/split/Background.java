@@ -1,294 +1,334 @@
 package Telas.split;
 
-import java.awt.Component;
-
+import java.awt.Container;
+import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class Background extends javax.swing.JFrame {
+    
+    private Container background;
 
     public Background() {
         initComponents();
+        iniciaTelas();
     }
     
-    CadastraReserva TelaCadastraReserva = new CadastraReserva();
-    Menu TelaMenu = new Menu();
-    CadastroRecurso TelaCadastroRecurso = new CadastroRecurso();
-    CadastroUsuario TelaCadastroUsuario = new CadastroUsuario();
-    DescadastrarRecurso TelaDescadastrarRecurso = new DescadastrarRecurso();
-    DescadastrarSelecao TelaDescadastrarSelecao = new DescadastrarSelecao();
-    DesmarcarReserva TelaDesmarcarReserva = new DesmarcarReserva();
-    ListaSelecao TelaListaSelecao = new ListaSelecao();
-    ListaReservasUsuarios TelaListaReservasUsuarios = new ListaReservasUsuarios();
-    ListaUsuarios TelaListaUsuarios = new ListaUsuarios();
-    ListaRecursos TelaListaRecursos = new ListaRecursos();
-    RemoverUsuario TelaRemoverUsuario = new RemoverUsuario();
-    SelecaoCadastro TelaSelecaoCadastro = new SelecaoCadastro();
+    private void iniciaTelas() {
+        background.add(TelaMenu);
+        habilitaTelaMenu();
+        desabilitaTelaSelecaoCadastro();
+        desabilitaTelaCadastraReserva();
+        desabilitaTelaCadastroRecurso();
+        desabilitaTelaCadastroUsuario();
+        desabilitaTelaListaSelecao();
+        desabilitaTelaDescadastrarRecurso();
+        desabilitaTelaDescadastrarSelecao();
+        desabilitaTelaDescadastrarUsuario();
+        desabilitaTelaDesmarcarReserva();
+    }
+    
+    Menu TelaMenu = new Menu(this);
+    
+    SelecaoCadastro TelaSelecaoCadastro = new SelecaoCadastro(this);
+    CadastraReserva TelaCadastraReserva = new CadastraReserva(this);
+    CadastroRecurso TelaCadastroRecurso = new CadastroRecurso(this);
+    CadastroUsuario TelaCadastroUsuario = new CadastroUsuario(this);
+    
+    DescadastrarSelecao TelaDescadastrarSelecao = new DescadastrarSelecao(this);
+    DescadastrarRecurso TelaDescadastrarRecurso = new DescadastrarRecurso(this);
+    DesmarcarReserva TelaDesmarcarReserva = new DesmarcarReserva(this);
+    DescadastrarUsuario TelaDescadastraUsuario = new DescadastrarUsuario(this);
+    
+    ListaSelecao TelaListaSelecao = new ListaSelecao(this);
+    ListaReservasUsuarios TelaListaReservasUsuarios = new ListaReservasUsuarios(this);
+    ListaUsuarios TelaListaUsuarios = new ListaUsuarios(this);
+    ListaRecursos TelaListaRecursos = new ListaRecursos(this);
+    
+    
+    //-------------------------
+    //Validadores
+    public boolean taVazio(String txt) {
+        if (txt == null || txt.length() == 0) {
+            JOptionPane.showMessageDialog(null,"Campo não preenchido.");
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-     // - - - - - - - - - - - - - - - - - - - -
+    public boolean verificaNumero(String txt) {
+        if (taVazio(txt)) {
+            return false;
+        }
+        //for(int i=0;i<txt.length();i++){
+        //  if(!Character.isDigit(txt.charAt(i))) return false;   
+        //}
+        if (!txt.matches("[0-9]+")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean verificaNUSP(String nUSP) {
+        if (taVazio(nUSP)) {
+            return false;
+        }
+        //for(int i=0;i<txt.length();i++){
+        //  if(!Character.isDigit(txt.charAt(i))) return false;   
+        //}
+        if (nUSP.length() != 7 && nUSP.length() != 8) {
+            JOptionPane.showMessageDialog(null, "Número USP inválido!\nDeve ter 7 ou 8 números.");
+            return false;
+        }
+        if (!nUSP.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Número USP inválido!");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean verificaTexto(String txt) {
+        String s = txt.toLowerCase();
+        s = s.replaceAll(" ", "");
+        s = removeAcentos(s);
+
+        return s.matches("[a-z]+");
+    }
+
+    public boolean verificaTextoNumeros(String txt) {
+        String s = txt.toLowerCase();
+        s = s.replaceAll(" ", "");
+        s = removeAcentos(s);
+
+        return s.matches("[0-z]+");
+    }
+
+    public String removeAcentos(String txt) {
+        return Normalizer.normalize(txt, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
+
+    public boolean verificaData(String s) {
+        // Primeiro digito do dia errado
+        if (s.charAt(0) != '0' && s.charAt(0) != '1' && s.charAt(0) != '2' && s.charAt(0) != '3') {
+            return false;
+        }
+
+        // Dias maiores que 31
+        if (s.charAt(0) == '3') {
+            if (s.charAt(1) != '0' && s.charAt(1) != '1') {
+                return false;
+            }
+        }
+
+        // Dia 00
+        if (s.charAt(0) == '0') {
+            if (s.charAt(1) == '0') {
+                return false;
+            }
+        }
+
+        // Primeiro digito do mes incorreto
+        if (s.charAt(3) != '0' && s.charAt(3) != '1') {
+            return false;
+        }
+
+        // Mes maiores que 12
+        if (s.charAt(3) == '1') {
+            if (s.charAt(4) != '0' && s.charAt(4) != '1' && s.charAt(4) != '2') {
+                return false;
+            }
+        }
+
+        // Mes 00
+        if (s.charAt(3) == '0') {
+            if (s.charAt(4) == '0') {
+                return false;
+            }
+        }
+
+        // Dia maior que 29 para o mes 02 (Fevereiro)
+        if (s.charAt(3) == '0' && s.charAt(4) == '2') {
+            if (s.charAt(0) == '3') {
+                return false;
+            }
+        }
+
+        // Dia 31 para os meses 04 (Abril), 06 (Junho), 09 (Setembro) e 11 (Novembro)
+        if ((s.charAt(3) == '0' && (s.charAt(4) == '4' || s.charAt(4) == '6' || s.charAt(4) == '9'))
+                || (s.charAt(3) == '1' && s.charAt(4) == '1')) {
+            if (s.charAt(0) == '3' && s.charAt(1) == '1') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean comparaDataAtual(String data, String data_ftf) {
+        if (((int) data_ftf.charAt(3)) < ((int) data.charAt(3))) {
+            return false;
+        }
+        if (((int) data_ftf.charAt(4)) < ((int) data.charAt(4))) {
+            return false;
+        } else {
+            if (((int) data_ftf.charAt(4)) == ((int) data.charAt(4))) {
+                if (((int) data_ftf.charAt(0)) < ((int) data.charAt(0))) {
+                    return false;
+                }
+                if (((int) data_ftf.charAt(1)) < ((int) data.charAt(1))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public String transformaData(String data_ftf) {
+        String mes = data_ftf.substring(3, 5); //string do mes
+        String dia = data_ftf.substring(0, 2); //string do dia
+        Date agora = new Date();
+        String ano = (String) new SimpleDateFormat("yyyy-").format(agora);
+        ano = ano.concat(mes) + "-"; //concatena
+        ano = ano.concat(dia);  //concatena
+        data_ftf = ano;  //coloca em data_ftf
+        return data_ftf;
+    }
+    
+    
+    // - - - - - - - - - - - - - - - - - - - -
     // Tela Menu 
     public void desabilitaTelaMenu() {
-        TelaMenu.setVisible(false);
-        Component[] array = TelaMenu.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaMenu.desabilitaVisibilidadeTelaMenu();
     }
 
     public void habilitaTelaMenu() {
-        TelaMenu.setVisible(true);
-        Component[] array = TelaMenu.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaMenu.habilitaVisibilidadeTelaMenu();
+    }
+    
+    // - - - - - - - - - - - - - - - - - - - -
+    //Metodos auxiliares
+    
+    // - - - - - - - - - - - - - - - - - - - -
+    // Tela Selecao Cadastro
+    public void desabilitaTelaSelecaoCadastro() {
+        TelaSelecaoCadastro.desabilitaVisibilidadeTelaSelecaoCadastro();
     }
 
+    public void habilitaTelaSelecaoCadastro() {
+        TelaSelecaoCadastro.habilitaVisibilidadeTelaSelecaoCadastro();
+    }
+    
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastra Reserva
     public void desabilitaTelaCadastraReserva() {
-        TelaCadastraReserva.setVisible(false);
-        Component[] array = TelaCadastraReserva.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaCadastraReserva.desabilitaVisibilidadeTelaCadResv();
     }
 
     public void habilitaTelaCadastraReserva() {
-        desabilitaComponentesCadResv();
-        Component[] array = TelaCadastraReserva.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaCadastraReserva.habilitaVisibilidadeTelaCadResv();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastro Recurso
     public void desabilitaTelaCadastroRecurso() {
-        TelaCadastroRecurso.setVisible(false);
-        Component[] array = TelaCadastroRecurso.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaCadastroRecurso.desabilitaVisibilidadeTelaCadRec();
     }
 
     public void habilitaTelaCadastroRecurso() {
-        TelaCadastroRecurso.setVisible(true);
-        Component[] array = TelaCadastroRecurso.getComponents();
-        CBCursoCadRec.setEnabled(false);
-        LabelCursoCadRec.setEnabled(false);
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaCadastroRecurso.habilitaVisibilidadeTelaCadRec();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastro Usuario
     public void desabilitaTelaCadastroUsuario() {
-        TelaCadastroUsuario.setVisible(false);
-        Component[] array = TelaCadastroUsuario.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaCadastroUsuario.desabilitaVisibilidadeTelaCadUsr();
     }
 
     public void habilitaTelaCadastroUsuario() {
-        TelaCadastroUsuario.setVisible(true);
-        Component[] array = TelaCadastroUsuario.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaCadastroUsuario.habilitaVisibilidadeTelaCadUsr();
+    }
+    
+    // - - - - - - - - - - - - - - - - - - - -
+    // Tela Descadastrar Selecao
+    public void desabilitaTelaDescadastrarSelecao() {
+        TelaDescadastrarSelecao.desabilitaVisibilidadeTelaDescSelecao();
+    }
+
+    public void habilitaTelaDescadastrarSelecao() {
+        TelaDescadastrarSelecao.habilitaVisibilidadeTelaDescSelecao();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Descadastrar Recurso
     public void desabilitaTelaDescadastrarRecurso() {
-        TelaDescadastrarRecurso.setVisible(false);
-        Component[] array = TelaDescadastrarRecurso.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaDescadastrarRecurso.desabilitaVisibilidadeTelaDescRec();
     }
 
     public void habilitaTelaDescadastrarRecurso() {
-        TelaDescadastrarRecurso.setVisible(true);
-        Component[] array = TelaDescadastrarRecurso.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaDescadastrarRecurso.habilitaVisibilidadeTelaDescRec();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
-    // Tela Descadastrar Selecao
-    public void desabilitaTelaDescadastrarSelecao() {
-        TelaDescadastrarSelecao.setVisible(false);
-        Component[] array = TelaDescadastrarSelecao.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+    // Tela Descadastra Usuario
+    public void desabilitaTelaDescadastrarUsuario() {
+        TelaDescadastraUsuario.desabilitaVisibilidadeTelaDescUsr();
     }
 
-    public void habilitaTelaDescadastrarSelecao() {
-        TelaDescadastrarSelecao.setVisible(true);
-        Component[] array = TelaDescadastrarSelecao.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+    public void habilitaTelaDescadastrarUsuario() {
+        TelaDescadastraUsuario.habilitaVisibilidadeTelaDescUsr();
     }
-
+    
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Desmarcar Reserva
     public void desabilitaTelaDesmarcarReserva() {
-        TelaDesmarcarReserva.setVisible(false);
-        Component[] array = TelaDesmarcarReserva.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaDesmarcarReserva.desabilitaVisibilidadeTelaDesmResv();
     }
 
     public void habilitaTelaDesmarcarReserva() {
-        TelaDesmarcarReserva.setVisible(true);
-        Component[] array = TelaDesmarcarReserva.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaDesmarcarReserva.habilitaVisibilidadeTelaDesmResv();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem
     public void desabilitaTelaListaSelecao() {
-        TelaListaSelecao.setVisible(false);
-        Component[] array = TelaListaSelecao.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaListaSelecao.desabilitaVisibilidadeTelaListaSelecao();
     }
 
     public void habilitaTelaListaSelecao() {
-        TelaListaSelecao.setVisible(true);
-        Component[] array = TelaListaSelecao.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaListaSelecao.habilitaVisibilidadeTelaListaSelecao();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Reservas por Usuario
     public void desabilitaTelaListaReservasUsuarios() {
-        TelaListaReservasUsuarios.setVisible(false);
-        Component[] array = TelaListaReservasUsuarios.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaListaReservasUsuarios.desabilitaVisibilidadeTelaListaResvUsr();
     }
 
     public void habilitaTelaListaReservasUsuarios() {
-        TelaListaReservasUsuarios.setVisible(true);
-        Component[] array = TelaListaReservasUsuarios.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaListaReservasUsuarios.habilitaVisibilidadeTelaListaResvUsr();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Usuarios
     public void desabilitaTelaListaUsuarios() {
-        TelaListaUsuarios.setVisible(false);
-        Component[] array = TelaListaUsuarios.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaListaUsuarios.desabilitaVisibilidadeTelaListaUsuarios();
     }
 
     public void habilitaTelaListaUsuarios() {
-        TelaListaUsuarios.setVisible(true);
-        Component[] array = TelaListaUsuarios.getComponents();
-        listaUsuario(TabelaListaUsr);
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
+        TelaListaUsuarios.habilitaVisibilidadeTelaListaUsuarios();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Recursos
     public void desabilitaTelaListaRecursos() {
-        TelaListaRecursos.setVisible(false);
-        Component[] array = TelaListaRecursos.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
+        TelaListaRecursos.desabilitaVisibilidadeTelaListaRecursos();
     }
 
     public void habilitaTelaListaRecursos() {
-        TelaListaRecursos.setVisible(true);
-        Component[] array = TelaListaRecursos.getComponents();
-        listaRecursos();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-
-    // - - - - - - - - - - - - - - - - - - - -
-    // Tela Remover Usuario
-    public void desabilitaTelaRemoverUsuario() {
-        TelaRemoverUsuario.setVisible(false);
-        Component[] array = TelaRemoverUsuario.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
-
-    public void habilitaTelaRemoverUsuario() {
-        TelaRemoverUsuario.setVisible(true);
-        Component[] array = TelaRemoverUsuario.getComponents();
-        listaUsuario(TabelaRemUsr);
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-
-    // - - - - - - - - - - - - - - - - - - - -
-    // Tela Selecao Cadastro
-    public void desabilitaTelaSelecaoCadastro() {
-        TelaSelecaoCadastro.setVisible(false);
-        Component[] array = TelaSelecaoCadastro.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
-
-    public void habilitaTelaSelecaoCadastro() {
-        TelaSelecaoCadastro.setVisible(true);
-        //Temporário enquanto não existem as telas.
-        TelaSelecaoCadastro.BotaoGoTelaCadPredio.setEnabled(false);
-        BotaoGoTelaCadTipo.setEnabled(false);
-        BotaoGoTelaCadCurso.setEnabled(false);
-        Component[] array = TelaSelecaoCadastro.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-
-    // - - - - - - - - - - - - - - - - - - - -
-    private void limpaCampos_CadUsuario() {
-        TF_NomeCadUsr.setText("");
-        TF_NUSPCadUsr.setText("");
-        TF_EmailCadUsr.setText("");
-        TF_TelfCadUsr.setText("");
-        CBCursoCadUsr.setSelectedIndex(0);
-        CBCargoCadUsr.setSelectedIndex(0);
-    }
-
-    private void limpaCampos_CadRecurso() {
-        TF_NomeCadRec.setText("");
-        CBTipoCadRec.setSelectedIndex(0);
-        CBPredioCadRec.setSelectedIndex(0);
-        CBCursoCadRec.setSelectedIndex(0);
-    }
-
-    private void limpaCampos_CadReserva() {
-        TF_NUSPCadResv.setText("");
-        FTF_DataCadResv.setText("");
-        CBPredioCadResv.setSelectedIndex(0);
-        CBTipoCadResv.setSelectedIndex(0);
-        CBNomeCadResv.setSelectedIndex(0);
+        TelaListaRecursos.habilitaVisibilidadeTelaListaRecursos();
     }
 
     // - - - - - - - - - - - - - - - - - - - -

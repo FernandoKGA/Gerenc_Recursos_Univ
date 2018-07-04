@@ -5,19 +5,76 @@
  */
 package Telas.split;
 
+import bancodados.Log;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import negocio.*;
+import objetos.*;
+
+
 /**
  *
  * @author Denise
  */
-public class RemoverUsuario extends javax.swing.JPanel {
+public class DescadastrarUsuario extends javax.swing.JPanel {
 
+    private final Background back;
+    private DialogConfExcUsr dialog;
+    
     /**
      * Creates new form RemoverUsuario
+     * @param back
      */
-    public RemoverUsuario() {
+    public DescadastrarUsuario(Background back) {
+        this.back = back;
+        this.dialog = new DialogConfExcUsr(back, true);
         initComponents();
     }
+    
+    private void listaUsuario(JTable tb) {
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            List<Usuario> lista = r.listaUsuarios();
+            DefaultTableModel model = (DefaultTableModel) tb.getModel();
+            //equivalente a clearTable();
+            model.setNumRows(0);
+            tb.setRowSorter(new TableRowSorter(model));
+            int col_size = tb.getColumnCount();
+            tb.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tb.getColumnModel().getColumn(col_size - 2).setPreferredWidth(48);
+            for (Usuario usu : lista) {
+                model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
+                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
+            }
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+        }
+    }
+    
+    public void habilitaVisibilidadeTelaDescUsr(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        listaUsuario(TabelaRemUsr);
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
 
+    public void desabilitaVisibilidadeTelaDescUsr(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(false);
+        }
+    }
+    
+    public Object getValueTabelaRowSelecionada(){
+        return TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,8 +186,8 @@ public class RemoverUsuario extends javax.swing.JPanel {
     private void BotaoRetFromRemUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromRemUsrActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaRemoverUsuario");
-        habilitaTelaDescadastrarSelecao();
-        desabilitaTelaRemoverUsuario();
+        back.habilitaTelaDescadastrarSelecao();
+        back.desabilitaTelaDescadastrarUsuario();
     }//GEN-LAST:event_BotaoRetFromRemUsrActionPerformed
 
     private void BotaoGoDiagConfUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoDiagConfUsrActionPerformed
@@ -139,14 +196,15 @@ public class RemoverUsuario extends javax.swing.JPanel {
         if (TabelaRemUsr.getSelectedRow() == (-1)) {
             JOptionPane.showMessageDialog(null, "Selecione um usuário para excluir.");
         } else {
-            DialogConfExcUsr.setVisible(true);
+            dialog.habilitaVisibilidadeDialogConfExcUsr();
             System.out.println(TabelaRemUsr.getSelectedRow());
             Object coluna_nome = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 1);
             String nome = (String) coluna_nome;
             Object coluna_email = TabelaRemUsr.getValueAt(TabelaRemUsr.getSelectedRow(), 2);
             String email = (String) coluna_email;
-            LabelNome_BDDiagConfExcUsr.setText(nome);
-            LabelEmail_BDDiagConfExcUsr.setText(email);
+
+            dialog.setLabelNome_BDDiagConfExcUsr(nome);
+            dialog.setLabelEmail_BDDiagConfExcUsr(email);
         }
     }//GEN-LAST:event_BotaoGoDiagConfUsrActionPerformed
 

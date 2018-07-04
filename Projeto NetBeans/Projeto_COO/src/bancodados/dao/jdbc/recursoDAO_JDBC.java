@@ -21,6 +21,10 @@ import objetos.Recurso;
  */
 public class recursoDAO_JDBC extends ConectorDAO_JDBC implements recursoDAO{
 
+    public recursoDAO_JDBC() throws Banco_de_DadosException{
+        super();
+    }
+    
     @Override
     public void insere(Recurso recurso) throws Banco_de_DadosException {
         abreConexao();

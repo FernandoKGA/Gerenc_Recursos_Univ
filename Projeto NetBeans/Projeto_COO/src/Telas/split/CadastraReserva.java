@@ -1,13 +1,91 @@
 package Telas.split;
 
+import java.awt.Component;
 import javax.swing.JOptionPane;
+import negocio.*;
+import objetos.*;
+import bancodados.Log;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import javax.swing.JRadioButton;
 
 public class CadastraReserva extends javax.swing.JPanel {
 
-    public CadastraReserva() {
+    private final Background back;
+    
+    public CadastraReserva(Background back) {
+        this.back = back;
         initComponents();
     }
-    Background back = new Background();
+    
+    public void habilitaVisibilidadeTelaCadResv(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component array1 : array) {
+            array1.setVisible(true);
+        }
+    }
+    
+    public void desabilitaVisibilidadeTelaCadResv(){
+        this.setVisible(false);
+        Component[] array = this.getComponents();
+        for(Component array1 : array){
+            array1.setVisible(false);
+        }
+    }
+    
+    public void desabilitaComponentesCadResv(){
+        Component[] array = this.getComponents();
+        limpaCampos_CadReserva();
+        TF_NUSPCadResv.setEnabled(false);
+        LabelUsuarioCadResv.setEnabled(false);
+        BotaoCadastraReserva.setEnabled(false);
+        CBTipoCadResv.setEnabled(false);
+        LabelTipoCadResv.setEnabled(false);
+        CBNomeCadResv.setEnabled(false);
+        LabelNomeCadResv.setEnabled(false);
+        for (Component cp : array){
+            if(cp instanceof JRadioButton){
+                cp.setEnabled(false);
+            }
+        }
+    }
+    
+    private void limpaCampos_CadReserva(){
+        TF_NUSPCadResv.setText("");
+        FTF_DataCadResv.setText("");
+        CBPredioCadResv.setSelectedIndex(0);
+        CBTipoCadResv.setSelectedIndex(0);
+        CBNomeCadResv.setSelectedIndex(0);
+    }
+
+    public void desabilitaRadioButtonCadResv(){
+        Component[] array = this.getComponents();
+        TF_NUSPCadResv.setEnabled(false);
+        LabelUsuarioCadResv.setEnabled(false);
+        BotaoCadastraReserva.setEnabled(false);
+        for (Component cp : array){
+            if (cp instanceof JRadioButton){
+                cp.setEnabled(false);
+            }
+        }
+    }
+    
+    public void habilitaRadioButtonCadResv(){
+        Component[] array = this.getComponents();
+        TF_NUSPCadResv.setEnabled(true);
+        LabelUsuarioCadResv.setEnabled(true);
+        BotaoCadastraReserva.setEnabled(true);
+        for (Component cp : array){
+            if (cp instanceof JRadioButton){
+                cp.setEnabled(true);
+            }
+        }
+    }
+            
+            
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -357,7 +435,7 @@ public class CadastraReserva extends javax.swing.JPanel {
             LabelPredioCadResv.setEnabled(true);
             CBPredioCadResv.setEnabled(true);
             //Gambis
-            back.desabilitaComponentesCadResv();
+            desabilitaComponentesCadResv();
             LabelTipoCadResv.setEnabled(true);
             CBTipoCadResv.setEnabled(true);
         } else {
@@ -403,7 +481,7 @@ public class CadastraReserva extends javax.swing.JPanel {
         System.out.println("Telas.Telas.jComboBox3ActionPerformed()");
         String tipo = CBNomeCadResv.getSelectedItem().toString();
         if ((tipo.equalsIgnoreCase("SELECIONE"))) {
-            back.desabilitaRadioButtonCadResv();
+            desabilitaRadioButtonCadResv();
         } else {
             habilitaRadioButtonCadResv();
         }
@@ -424,7 +502,7 @@ public class CadastraReserva extends javax.swing.JPanel {
         String nome = CBNomeCadResv.getSelectedItem().toString();
         String nUSP = TF_NUSPCadResv.getText();
         //Recurso rec = (Recurso) CBNomeCadResv.getSelectedItem();
-        Component[] array = TelaCadastraReserva.getComponents();
+        Component[] array = this.getComponents();
         ArrayList<String> horarios = new ArrayList<>();
         for (Component cp : array) {
             if (cp instanceof JRadioButton) {
@@ -433,14 +511,14 @@ public class CadastraReserva extends javax.swing.JPanel {
                 }
             }
         }
-        if (!taVazio(data_ftf)) {
-            if (verificaData(data_ftf)) {
+        if (!back.taVazio(data_ftf)) {
+            if (back.verificaData(data_ftf)) {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
-                if (comparaDataAtual(data_atual, data_ftf)) {
+                if (back.comparaDataAtual(data_atual, data_ftf)) {
                     String data_ftf_antique = data_ftf;
-                    data_ftf = transformaData(data_ftf);
-                    if (verificaNUSP(nUSP)) {
+                    data_ftf = back.transformaData(data_ftf);
+                    if (back.verificaNUSP(nUSP)) {
                         if (horarios.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Selecione um ou"
                                 + " mais horários!");
