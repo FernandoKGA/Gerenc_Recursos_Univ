@@ -12,7 +12,7 @@ import objetos.*;
  *
  * @author Denise
  */
-public class DesmarcarReserva extends javax.swing.JPanel {
+public class DesmarcarReserva extends AbstractJPanel {
 
     private final Background back;
     private final DialogConfExcResv dialog;
@@ -40,21 +40,6 @@ public class DesmarcarReserva extends javax.swing.JPanel {
         TabelaDesmResv.setEnabled(false);
     }
     
-    public void desabilitaVisibilidadeTelaDesmResv(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
-    
-    public void habilitaVisibilidadeTelaDesmResv(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

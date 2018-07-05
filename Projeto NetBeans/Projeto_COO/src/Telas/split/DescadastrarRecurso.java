@@ -18,7 +18,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Denise
  */
-public class DescadastrarRecurso extends javax.swing.JPanel {
+public class DescadastrarRecurso extends AbstractJPanel {
 
     private final Background back;
     private final DialogConfExcRec dialog;
@@ -31,23 +31,6 @@ public class DescadastrarRecurso extends javax.swing.JPanel {
         this.back = back;
         this.dialog = new DialogConfExcRec(back,true);
         initComponents();
-    }
-    
-    
-    public void desabilitaVisibilidadeTelaDescRec(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
-
-    public void habilitaVisibilidadeTelaDescRec(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
     }
     
     public void desabilitaComponentesDescRec() {

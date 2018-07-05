@@ -5,38 +5,21 @@
  */
 package Telas.split;
 
-import java.awt.Component;
-
 /**
  *
  * @author Denise
  */
-public class ListaSelecao extends javax.swing.JPanel {
+public class ListaSelecao extends AbstractJPanel {
 
     private final Background back;
     
     /**
      * Creates new form ListaSelecao
+     * @param back
      */
     public ListaSelecao(Background back) {
         this.back = back;
         initComponents();
-    }
-
-    public void habilitaVisibilidadeTelaListaSelecao(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-    
-    public void desabilitaVisibilidadeTelaListaSelecao(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
     }
     
     /**

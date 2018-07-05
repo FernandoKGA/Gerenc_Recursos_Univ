@@ -5,13 +5,11 @@
  */
 package Telas.split;
 
-import java.awt.Component;
-
 /**
  *
  * @author Denise
  */
-public class DescadastrarSelecao extends javax.swing.JPanel {
+public class DescadastrarSelecao extends AbstractJPanel {
 
     private final Background back;
     
@@ -23,22 +21,7 @@ public class DescadastrarSelecao extends javax.swing.JPanel {
         this.back = back;
         initComponents();
     }
-    
-    public void habilitaVisibilidadeTelaDescSelecao(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-    
-    public void desabilitaVisibilidadeTelaDescSelecao(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

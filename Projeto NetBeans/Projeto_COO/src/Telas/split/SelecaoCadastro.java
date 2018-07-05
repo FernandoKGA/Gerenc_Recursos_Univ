@@ -11,7 +11,7 @@ import java.awt.Component;
  *
  * @author Denise
  */
-public class SelecaoCadastro extends javax.swing.JPanel {
+public class SelecaoCadastro extends AbstractJPanel {
 
     private final Background back;
     
@@ -24,7 +24,8 @@ public class SelecaoCadastro extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void habilitaVisibilidadeTelaSelecaoCadastro(){
+    @Override
+    public void habilitaVisibilidade(){
         this.setVisible(true);
         
         //Temporário enquanto não existem as telas.
@@ -35,14 +36,6 @@ public class SelecaoCadastro extends javax.swing.JPanel {
         Component[] array = this.getComponents();
         for (Component array1 : array) {
             array1.setVisible(true);
-        }
-    }
-    
-    public void desabilitaVisibilidadeTelaSelecaoCadastro(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
         }
     }
 

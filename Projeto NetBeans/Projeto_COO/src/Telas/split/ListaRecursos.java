@@ -5,9 +5,9 @@
  */
 package Telas.split;
 
-import java.awt.Component;
 import negocio.*;
 import bancodados.Log;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +18,7 @@ import objetos.*;
  *
  * @author Denise
  */
-public class ListaRecursos extends javax.swing.JPanel {
+public class ListaRecursos extends AbstractJPanel {
 
     private Background back;
     
@@ -50,7 +50,6 @@ public class ListaRecursos extends javax.swing.JPanel {
         }
     }
 
-    
     public void habilitaVisibilidadeTelaListaRecursos(){
         this.setVisible(true);
         Component[] array = this.getComponents();
@@ -60,14 +59,6 @@ public class ListaRecursos extends javax.swing.JPanel {
         }
     }
 
-    public void desabilitaVisibilidadeTelaListaRecursos(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

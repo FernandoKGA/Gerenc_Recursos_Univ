@@ -1,13 +1,12 @@
 package Telas.split;
 
 import bancodados.Log;
-import java.awt.Component;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import negocio.*;
 import objetos.*;
 
-public class ListaReservasUsuarios extends javax.swing.JPanel {
+public class ListaReservasUsuarios extends AbstractJPanel {
 
     private final Background back;
 
@@ -16,21 +15,6 @@ public class ListaReservasUsuarios extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void habilitaVisibilidadeTelaListaResvUsr(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-
-    public void desabilitaVisibilidadeTelaListaResvUsr(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

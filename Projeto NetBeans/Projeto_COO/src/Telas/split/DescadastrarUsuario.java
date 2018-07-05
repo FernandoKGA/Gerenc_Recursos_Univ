@@ -20,7 +20,7 @@ import objetos.*;
  *
  * @author Denise
  */
-public class DescadastrarUsuario extends javax.swing.JPanel {
+public class DescadastrarUsuario extends AbstractJPanel {
 
     private final Background back;
     private DialogConfExcUsr dialog;
@@ -55,20 +55,13 @@ public class DescadastrarUsuario extends javax.swing.JPanel {
         }
     }
     
-    public void habilitaVisibilidadeTelaDescUsr(){
+    @Override
+    public void habilitaVisibilidade(){
         this.setVisible(true);
         Component[] array = this.getComponents();
         listaUsuario(TabelaRemUsr);
         for (Component array1 : array) {
             array1.setVisible(true);
-        }
-    }
-
-    public void desabilitaVisibilidadeTelaDescUsr(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
         }
     }
     
