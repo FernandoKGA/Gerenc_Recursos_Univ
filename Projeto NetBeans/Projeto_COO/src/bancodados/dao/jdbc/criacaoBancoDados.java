@@ -4,6 +4,7 @@ import bancodados.Banco_de_DadosException;
 import objetos.*;
 import bancodados.dao.*;
 import java.sql.SQLException;
+
 public class criacaoBancoDados extends ConectorDAO_JDBC {
 
     private UsuarioDAO usuariodao;
@@ -96,13 +97,13 @@ public class criacaoBancoDados extends ConectorDAO_JDBC {
         pstmt.execute();
         fechaConexao();
     }
-    
-    private void populaTabelas() throws Banco_de_DadosException{
-        
-        if(usuariodao.busca("10236540") != null){
+
+    private void populaTabelas() throws Banco_de_DadosException {
+
+        if (usuariodao.busca("10236540") != null) {
             return; //ou seja, a inserção já tinha sido feita
         }
-        
+
         //Usuario - criados 1 aluno, 1 professor e 1 coordenador
         Usuario u = new Usuario("João Figueiredo da Silva", "10236540", "testeSilva@gmail.com", "11977555530", "SI", "Aluno");
         System.out.println(u.getNome());
@@ -117,17 +118,19 @@ public class criacaoBancoDados extends ConectorDAO_JDBC {
         recursodao.insere(rc);
         rc = new Recurso("AUD1", "Auditório", "CB", null); //
         recursodao.insere(rc);
+        System.out.println("CRIOU");
         rc = new Recurso("LAB02", "Laboratório", "CB", "SI");
         recursodao.insere(rc);
-        
+
         //Reservas teste - Faremos com alguns
         u = usuariodao.busca("10236540"); //busca pelo aluno
-        rc = recursodao.busca("102", "Sala", "I1"); //busca pela sala
+        rc = recursodao.busca("102", "I1", "Sala"); //busca pela sala
+        System.out.println(rc.getId_Recurso());
         Reserva rs = new Reserva("12:00", "13:00", "2018-12-02", u, rc);
         reservadao.insere(rs);
-        
+
         u = usuariodao.busca("2345678"); //busca pelo coordenador
-        rc = recursodao.busca("LAB02", "Laboratório", "CB"); //busca pelo lab
+        rc = recursodao.busca("LAB02", "CB", "Laboratório"); //busca pelo lab
         //Para reservas de duas horas, fazemos o processo duas vezes
         rs = new Reserva("12:00", "13:00", "2018-12-02", u, rc);
         reservadao.insere(rs);

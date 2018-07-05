@@ -81,6 +81,7 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
                 r.setPredio(predio);
                 r.setTipo(tipo);
                 r.setId_Recurso(idrecurso);
+                System.out.println("BUSCA RECURSO_DAOJDBC: " + r.getId_Recurso());
             }
         } catch (SQLException e) {
             Log.gravaLog(e);

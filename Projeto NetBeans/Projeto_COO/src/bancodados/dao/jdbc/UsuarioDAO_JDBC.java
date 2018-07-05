@@ -26,14 +26,12 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
     @Override
     public void insere(Usuario usuario) throws Banco_de_DadosException {
         abreConexao();
-        preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
-
         try {
-            abreConexao();
             String nome = usuario.getNome();
             System.out.println(nome);
             Usuario u = busca(usuario.getNUSP());
             if (u == null) {
+                preparaComandoSQL("insert into USUARIO(NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
                 pstmt.setString(1, usuario.getNome());
                 pstmt.setString(2, usuario.getNUSP());
                 pstmt.setString(3, usuario.getEmail());
