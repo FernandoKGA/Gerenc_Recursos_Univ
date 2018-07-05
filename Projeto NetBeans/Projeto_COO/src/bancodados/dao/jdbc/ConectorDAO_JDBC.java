@@ -16,6 +16,7 @@ public class ConectorDAO_JDBC extends ConectorJDBC {
     protected static boolean jaCriouBD;
 
     public ConectorDAO_JDBC() throws Banco_de_DadosException {
+        super(DATABASE.MYSQL);
         try {
             Propriedades_BD propriedades_bd = new Propriedades_BD();
             PASSWORD = propriedades_bd.getPassword();

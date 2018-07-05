@@ -25,6 +25,8 @@ public abstract class ConectorJDBC {
     protected Connection con;
     protected PreparedStatement pstmt;
     protected ResultSet rs;
+    
+    private boolean jaCarregou;
 
     protected abstract String getDbHost();
 
@@ -49,6 +51,7 @@ public abstract class ConectorJDBC {
             throw new Banco_de_DadosException(
                     "Problemas no acesso ao banco de dados.");
         }
+        jaCarregou = true;
     }
 
     protected ConectorJDBC() throws Banco_de_DadosException {
@@ -114,6 +117,20 @@ public abstract class ConectorJDBC {
     protected void preparaComandoSQL(String sql) throws Banco_de_DadosException {
         try {
             abreConexao();
+            if (con != null) {
+                pstmt = con.prepareStatement(sql);
+            } else {
+                System.out.println("? prep sql");
+            }
+        } catch (SQLException e) {
+            Log.gravaLog(e);
+            throw new Banco_de_DadosException("Problemas no acesso ao banco de dados.");
+        }
+    }
+    
+        protected void preparaComandoSQL_SemBD(String sql) throws Banco_de_DadosException {
+        try {
+            abreConexaoSemBD();
             if (con != null) {
                 pstmt = con.prepareStatement(sql);
             } else {

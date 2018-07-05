@@ -636,10 +636,6 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public Recurso buscaRecurso(String nome, String predio, String tipo) throws Banco_de_DadosException {
