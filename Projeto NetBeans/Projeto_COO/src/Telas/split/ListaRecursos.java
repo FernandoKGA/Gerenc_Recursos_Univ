@@ -7,7 +7,9 @@ package Telas.split;
 
 import negocio.*;
 import bancodados.Log;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import objetos.*;
@@ -41,41 +43,19 @@ public class ListaRecursos extends AbstractJPanel {
                 for (Recurso rec : lista) {
                     model.addRow(new Object[]{rec.getNome(), rec.getPredio(), rec.getTipo()});
                 }
-                /*if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
-                    if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Selecione")) {
-                        if (!CBPredioListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
-                            //Se for um especifico
-                            if (!CBTiposListaRec.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
-                                //Se for um especifico
-                                for (Recurso rec : lista) {
-                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())
-                                            && rec.getTipo().equals(CBTiposListaRec.getSelectedItem().toString())) {
-                                        model.addRow(new Object[]{rec.getNome()});
-                                    }
-                                }
-                            } else {
-                                for (Recurso rec : lista) {
-                                    if (rec.getPredio().equals(CBPredioListaRec.getSelectedItem().toString())) {
-                                        model.addRow(new Object[]{rec.getNome()});
-                                    }
-                                }
-                            }
-                        } else {
-                            for (Recurso rec : lista) {
-                                model.addRow(new Object[]{rec.getNome()});
-                            }
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Selecione um tipo!");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Selecione um prédio!");
-                }*/
-
-                //Verificar se essa tela precisa mesmo lista todos na hora que entra!
             }
         } catch (RegrasNegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível conectar ao Banco de Dados");
             Log.gravaLog(ex);
+        }
+    }
+
+    public void habilitaVisibilidadeTelaListaRecursos(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+            listaRecursos();
+        for (Component array1 : array) {
+            array1.setVisible(true);
         }
     }
 
