@@ -21,18 +21,17 @@ public class Usuario {
     public Usuario(){
     }
     
-    public Usuario(String id_usuario, String nome, String nUSP,
+    public Usuario(String nome, String nUSP,
             String email, String telefone, String curso, String cargo){
-        this.id_usuario = id_usuario;
-        this.nome = nome;
-        this.nUSP = nUSP;
-        this.email = email;
-        this.telefone = telefone;
+        this.setNome(nome);
+        this.setNUSP(nUSP);
+        this.setEmail(email);
+        this.setTelefone(telefone);
         if(curso != null){
-            this.curso = curso;
+            this.setCurso(curso);
         }
         if(cargo != null){
-            this.cargo = cargo;
+            this.setCargo(cargo);
         }
     }
     

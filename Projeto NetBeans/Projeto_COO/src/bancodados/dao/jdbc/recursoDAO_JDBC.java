@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import objetos.Laboratorio;
 import objetos.Recurso;
 
 /**
@@ -44,16 +43,16 @@ public class recursoDAO_JDBC extends ConectorDAO_JDBC implements recursoDAO{
     }
 
     @Override
-    public void insereLab(Laboratorio l) throws Banco_de_DadosException {
+    public void insereLab(Recurso r) throws Banco_de_DadosException {
         try {
             abreConexao();
             preparaComandoSQL("insert into Recurso (nome, predio, tipo, curso) values (?, ?, ?, ?)");
 
-            pstmt.setString(1, l.getNome());
-            pstmt.setString(2, l.getPredio());
-            pstmt.setString(3, l.getTipo()); //que obviamente vai ser LABORATORIO
-            System.out.println(l.getCurso());
-            pstmt.setString(4, l.getCurso());
+            pstmt.setString(1, r.getNome());
+            pstmt.setString(2, r.getPredio());
+            pstmt.setString(3, r.getTipo()); //que obviamente vai ser LABORATORIO
+            System.out.println(r.getCurso());
+            pstmt.setString(4, r.getCurso());
             pstmt.execute();
             fechaConexao();
         } catch (SQLException e) {

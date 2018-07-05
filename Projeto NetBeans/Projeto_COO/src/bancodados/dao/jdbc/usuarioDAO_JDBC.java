@@ -29,7 +29,11 @@ public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
         preparaComandoSQL("insert into USUARIO (NOME, NUSP, EMAIL, TELEFONE, CARGO, CURSO) values (?, ?, ?, ?, ?, ?)");
 
         try {
-            if ((busca(usuario.getNUSP())) == null) {
+            abreConexao();
+            String nome = usuario.getNome();
+            System.out.println(nome);
+            Usuario u = busca(usuario.getNUSP());
+            if (u == null) {
                 pstmt.setString(1, usuario.getNome());
                 pstmt.setString(2, usuario.getNUSP());
                 pstmt.setString(3, usuario.getEmail());

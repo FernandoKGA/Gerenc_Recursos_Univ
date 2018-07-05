@@ -8,6 +8,7 @@ package negocio;
 import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.FactoryDAO_JDBC;
+import bancodados.dao.jdbc.criacaoBancoDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -32,6 +33,8 @@ public class RegrasNegocio extends RegrasNegocioException {
             usuariodao = factorydao.createUsuarioDAO();
             reservadao = factorydao.createReservaDAO();
             recursodao = factorydao.createRecursoDAO();
+            //Cria o banco de dados
+            new criacaoBancoDados(usuariodao, recursodao, reservadao).criaTabelas();
 
         } catch (Banco_de_DadosException e) {
             throw new RegrasNegocioException(e);
@@ -126,7 +129,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void cadastraLaboratorio(String nome, String tipo, String predio, String curso)
             throws RegrasNegocioException {
-        Laboratorio lb = new Laboratorio();
+        Recurso lb = new Recurso();
         lb.setNome(nome);
         lb.setTipo(tipo);
         lb.setPredio(predio);
@@ -360,9 +363,9 @@ public class RegrasNegocio extends RegrasNegocioException {
             }
             return true;
         } else if (cargoUsu.equalsIgnoreCase("PROFESSOR")) {
-            if (r instanceof Laboratorio) {
+            if (tipoRec.equalsIgnoreCase("LABORATORIO")) {
                 //Isso aqui é possível de fazer? Fica o questionamento
-                String curso = ((Laboratorio) r).getCurso();
+                String curso = r.getCurso();
                 if (curso.equalsIgnoreCase(u.getCurso())) {
                     return true;
                 }

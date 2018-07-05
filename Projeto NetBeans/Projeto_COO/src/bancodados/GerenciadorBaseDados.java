@@ -12,7 +12,7 @@ public interface GerenciadorBaseDados {
 
 	//public void insereReserva(Reserva reserva) throws Banco_de_DadosException; //Modificado
         
-        public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException;
+        //public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException;
 
 	//public Usuario buscaUsuario(String numeroUSP) throws Banco_de_DadosException;  //Modificado
         

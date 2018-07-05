@@ -24,7 +24,7 @@ public class Recurso {
     public Recurso() {
     }
     
-    public Recurso(String id_recurso, String nome, String tipo, String predio, String curso){
+    public Recurso(String nome, String tipo, String predio, String curso){
         this.id_recurso = id_recurso;
         this.nome = nome;
         setTipo(tipo);

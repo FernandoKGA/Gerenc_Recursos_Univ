@@ -19,11 +19,14 @@ public class criacaoBancoDados extends ConectorDAO_JDBC {
     }
 
     public void criaTabelas() throws Banco_de_DadosException {
+        System.out.println("Passando");
         try {
             criaBancoDados();
             criaTabelaUsuario();
             criaTabelaRecurso();
             criaTabelaReserva();
+            populaTabelas();
+            System.out.println("Passou");
         } catch (SQLException ex) {
             throw new Banco_de_DadosException("Erro ao tentar criar o banco de dados.");
         }
@@ -31,10 +34,10 @@ public class criacaoBancoDados extends ConectorDAO_JDBC {
 
     private void criaBancoDados() throws SQLException, Banco_de_DadosException {
         abreConexaoSemBD();
-        jaCriouBD = true;
         String wtf = getDbName();
         String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
-        preparaComandoSQL(query);
+        preparaComandoSQL_SemBD(query);
+        jaCriouBD = true;
         pstmt.execute();
         fechaConexao();
     }
@@ -95,30 +98,41 @@ public class criacaoBancoDados extends ConectorDAO_JDBC {
     }
     
     private void populaTabelas() throws Banco_de_DadosException{
-        //Usuario
-        Usuario u = new Usuario();
-        u.setNome("João Figueiredo da Silva");
-        u.setNUSP("10236540");
-        u.setTelefone("11977555530");
-        u.setEmail("testeSilva@gmail.com");
-        u.setCargo("Aluno");
-        u.setCurso("SI");
-        usuariodao.insere(u);
-        u.setNome("Pedro Olivares");
-        u.setNUSP("6549871");
-        u.setTelefone("11978546601");
-        u.setEmail("profpedro@usp.br");
-        u.setCargo("Professor");
-        u.setCurso("SI");
-        usuariodao.insere(u);
-        u.setNome("Mariana Medeiros");
-        u.setNUSP("2345678");
-        u.setTelefone("11966879845");
-        u.setEmail("marina.med@usp.br");
-        u.setCargo("Coordenador");
-        u.setCurso("GA");
-        usuariodao.insere(u);
         
+        if(usuariodao.busca("10236540") != null){
+            return; //ou seja, a inserção já tinha sido feita
+        }
+        
+        //Usuario - criados 1 aluno, 1 professor e 1 coordenador
+        Usuario u = new Usuario("João Figueiredo da Silva", "10236540", "testeSilva@gmail.com", "11977555530", "SI", "Aluno");
+        System.out.println(u.getNome());
+        usuariodao.insere(u);
+        Usuario u2 = new Usuario("Pedro Olivares", "6549871", "profpedro@usp.br", "11978546601", "SI", "Professor");
+        usuariodao.insere(u2);
+        Usuario u3 = new Usuario("Mariana Medeiros", "2345678", "marina.med@usp.br", "11966879845", "GA", "Coordenador");
+        usuariodao.insere(u3);
+        
+        //Recursos - serão criados 1 sala, 1 auditório e 1 laboratório
+        Recurso rc = new Recurso("102", "Sala", "I1", null); //Sala não possui curso
+        recursodao.insere(rc);
+        rc = new Recurso("AUD1", "Auditório", "CB", null); //
+        recursodao.insere(rc);
+        rc = new Recurso("LAB02", "Laboratório", "CB", "SI");
+        recursodao.insere(rc);
+        
+        //Reservas teste - Faremos com alguns
+        u = usuariodao.busca("10236540"); //busca pelo aluno
+        rc = recursodao.busca("102", "Sala", "I1"); //busca pela sala
+        Reserva rs = new Reserva("12:00", "13:00", "2018-12-02", u, rc);
+        reservadao.insere(rs);
+        
+        u = usuariodao.busca("2345678"); //busca pelo coordenador
+        rc = recursodao.busca("LAB02", "Laboratório", "CB"); //busca pelo lab
+        //Para reservas de duas horas, fazemos o processo duas vezes
+        rs = new Reserva("12:00", "13:00", "2018-12-02", u, rc);
+        reservadao.insere(rs);
+        rs = new Reserva("13:00", "14:00", "2018-12-02", u, rc);
+        reservadao.insere(rs);
     }
 
 }
