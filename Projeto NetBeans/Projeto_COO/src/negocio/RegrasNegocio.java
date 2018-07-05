@@ -7,13 +7,8 @@ package negocio;
 
 import bancodados.*;
 import bancodados.dao.*;
-import bancodados.dao.jdbc.recursoDAO_JDBC;
-import bancodados.dao.jdbc.reservaDAO_JDBC;
-import bancodados.dao.jdbc.usuarioDAO_JDBC;
+import bancodados.dao.jdbc.FactoryDAO_JDBC;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -33,9 +28,10 @@ public class RegrasNegocio extends RegrasNegocioException {
     public RegrasNegocio() throws RegrasNegocioException {
         try {
             //baseDados = new GerenciadorBaseDadosJDBC();
-            usuariodao = new usuarioDAO_JDBC();
-            reservadao = new reservaDAO_JDBC();
-            recursodao = new recursoDAO_JDBC();
+            DaoAbstractFactory factorydao = new FactoryDAO_JDBC();
+            usuariodao = factorydao.createUsuarioDAO();
+            reservadao = factorydao.createReservaDAO();
+            recursodao = factorydao.createRecursoDAO();
 
         } catch (Banco_de_DadosException e) {
             throw new RegrasNegocioException(e);

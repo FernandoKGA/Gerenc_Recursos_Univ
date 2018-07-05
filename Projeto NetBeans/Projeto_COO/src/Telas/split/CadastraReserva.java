@@ -535,7 +535,7 @@ public class CadastraReserva extends AbstractJPanel {
                                         JOptionPane.showMessageDialog(null, "Reserva "
                                             + "cadastrada com sucesso!");
                                     }
-
+                                    
                                     r.atualizaReservas();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuário não"

@@ -2,18 +2,10 @@ package Telas.split;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 public class Background extends JFrame {
     
-    private List<JPanel> paineis = new LinkedList<>();
     private Container background;
     private Dimension tamanhoJanela = new java.awt.Dimension(420,340);
     Validador valida = new Validador();
