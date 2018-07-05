@@ -7,19 +7,19 @@ package bancodados.dao.jdbc;
 
 import bancodados.Banco_de_DadosException;
 import bancodados.Log;
-import bancodados.dao.usuarioDAO;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import objetos.Usuario;
+import bancodados.dao.UsuarioDAO;
 
 /**
  *
  * @author Lucas
  */
-public class usuarioDAO_JDBC extends ConectorDAO_JDBC implements usuarioDAO {
+public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
 
-    public usuarioDAO_JDBC() throws Banco_de_DadosException {
+    public UsuarioDAO_JDBC() throws Banco_de_DadosException {
         super();
     }
 

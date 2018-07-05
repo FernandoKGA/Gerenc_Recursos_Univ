@@ -2,10 +2,7 @@ package bancodados.dao.jdbc;
 
 import bancodados.Banco_de_DadosException;
 import bancodados.Log;
-import bancodados.dao.reservaDAO;
 //Necessário que haja acesso aos dados dos objetos auxiliares
-import bancodados.dao.recursoDAO;
-import bancodados.dao.usuarioDAO;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,20 +12,23 @@ import objetos.Recurso;
 //Necessário que haja acesso aos objetos auxiliares Reserva e Usuario
 import objetos.Reserva;
 import objetos.Usuario;
+import bancodados.dao.RecursoDAO;
+import bancodados.dao.ReservaDAO;
+import bancodados.dao.UsuarioDAO;
 
 /**
  *
  * @author ferna
  */
-public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
+public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
 
-    public reservaDAO_JDBC() throws Banco_de_DadosException {
+    public ReservaDAO_JDBC() throws Banco_de_DadosException {
         super();
     }
     
 
-    private usuarioDAO usuariodao;
-    private recursoDAO recursodao;
+    private UsuarioDAO usuariodao;
+    private RecursoDAO recursodao;
 
     @Override
     public void insere(Reserva reserva) throws Banco_de_DadosException {
@@ -87,7 +87,7 @@ public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
         List<Reserva> reservaUsuario = new ArrayList<>();
         try {
             abreConexao();
-            usuariodao = new usuarioDAO_JDBC();
+            usuariodao = new UsuarioDAO_JDBC();
             Usuario u = usuariodao.busca(nUSP);
             if (u != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
@@ -99,7 +99,7 @@ public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    recursoDAO recursodao = new recursoDAO_JDBC();
+                    RecursoDAO recursodao = new RecursoDAO_JDBC();
                     Recurso rec = recursodao.buscaPorID(rs.getInt(5));
                     r.setRecurso(rec);
                     reservaUsuario.add(r);
@@ -139,7 +139,7 @@ public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
 
         try {
             abreConexao();
-            usuariodao = new usuarioDAO_JDBC();
+            usuariodao = new UsuarioDAO_JDBC();
             Usuario u = usuariodao.busca(numeroUSP);
             if (u.getId_Usuario() != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
@@ -153,7 +153,7 @@ public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    recursodao = new recursoDAO_JDBC();
+                    recursodao = new RecursoDAO_JDBC();
                     Recurso rec = recursodao.buscaPorID(rs.getInt(5));
                     r.setRecurso(rec);
                     reservaUsuario.add(r);
@@ -182,7 +182,7 @@ public class reservaDAO_JDBC extends ConectorDAO_JDBC implements reservaDAO {
                     r.setHoraInicio(rs.getString(2));
                     r.setHoraFim(rs.getString(3));
                     r.setData(rs.getString(4));
-                    usuarioDAO usuariodao = new usuarioDAO_JDBC();
+                    UsuarioDAO usuariodao = new UsuarioDAO_JDBC();
                     Usuario u = usuariodao.busca(rs.getString(6));
                     r.setUsuario(u);
                     r.setRecurso(rec);

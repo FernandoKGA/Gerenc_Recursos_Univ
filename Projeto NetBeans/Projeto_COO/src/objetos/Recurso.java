@@ -95,6 +95,5 @@ public class Recurso {
         setPredio(predio);
         this.curso = curso;
     }
-
     
 }

@@ -7,21 +7,21 @@ package bancodados.dao.jdbc;
 
 import bancodados.Banco_de_DadosException;
 import bancodados.Log;
-import bancodados.dao.recursoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import objetos.Laboratorio;
 import objetos.Recurso;
+import bancodados.dao.RecursoDAO;
 
 /**
  *
  * @author ferna
  */
-public class recursoDAO_JDBC extends ConectorDAO_JDBC implements recursoDAO{
+public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
 
-    public recursoDAO_JDBC() throws Banco_de_DadosException{
+    public RecursoDAO_JDBC() throws Banco_de_DadosException{
         super();
     }
     

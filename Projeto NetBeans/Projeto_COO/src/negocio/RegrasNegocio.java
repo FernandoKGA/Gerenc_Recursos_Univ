@@ -21,14 +21,14 @@ import objetos.*;
  */
 public class RegrasNegocio extends RegrasNegocioException {
 
-    private usuarioDAO usuariodao;
-    private reservaDAO reservadao;
-    private recursoDAO recursodao;
+    private UsuarioDAO usuariodao;
+    private ReservaDAO reservadao;
+    private RecursoDAO recursodao;
 
     public RegrasNegocio() throws RegrasNegocioException {
         try {
             //baseDados = new GerenciadorBaseDadosJDBC();
-            DaoAbstractFactory factorydao = new FactoryDAO_JDBC();
+            AbstractFactoryDAO factorydao = new FactoryDAO_JDBC();
             usuariodao = factorydao.createUsuarioDAO();
             reservadao = factorydao.createReservaDAO();
             recursodao = factorydao.createRecursoDAO();

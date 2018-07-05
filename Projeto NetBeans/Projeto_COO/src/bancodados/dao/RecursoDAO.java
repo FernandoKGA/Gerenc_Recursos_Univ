@@ -14,7 +14,7 @@ import objetos.Recurso;
  *
  * @author Lucas
  */
-public interface recursoDAO {
+public interface RecursoDAO {
     public void insere(Recurso recurso) throws Banco_de_DadosException;
     //Variação de Recurso - Laboratório
     public void insereLab(Laboratorio l) throws Banco_de_DadosException;

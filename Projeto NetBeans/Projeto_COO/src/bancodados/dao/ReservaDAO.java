@@ -14,7 +14,7 @@ import objetos.Reserva;
  *
  * @author Lucas
  */
-public interface reservaDAO {
+public interface ReservaDAO {
     public void insere(Reserva reserva) throws Banco_de_DadosException;
     public List<Reserva> lista() throws Banco_de_DadosException;
     public List<Reserva> listaPorUsuario(String nUSP) throws Banco_de_DadosException;

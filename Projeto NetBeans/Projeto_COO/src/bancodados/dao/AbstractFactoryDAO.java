@@ -11,10 +11,10 @@ import bancodados.Banco_de_DadosException;
  *
  * @author ferna
  */
-public interface DaoAbstractFactory {
-    public recursoDAO createRecursoDAO() throws Banco_de_DadosException;
+public interface AbstractFactoryDAO {
+    public RecursoDAO createRecursoDAO() throws Banco_de_DadosException;
     
-    public reservaDAO createReservaDAO() throws Banco_de_DadosException;
+    public ReservaDAO createReservaDAO() throws Banco_de_DadosException;
     
-    public usuarioDAO createUsuarioDAO() throws Banco_de_DadosException;
+    public UsuarioDAO createUsuarioDAO() throws Banco_de_DadosException;
 }

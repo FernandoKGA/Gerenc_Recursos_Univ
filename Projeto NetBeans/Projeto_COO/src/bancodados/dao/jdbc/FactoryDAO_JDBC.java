@@ -6,29 +6,29 @@
 package bancodados.dao.jdbc;
 
 import bancodados.Banco_de_DadosException;
-import bancodados.dao.DaoAbstractFactory;
-import bancodados.dao.recursoDAO;
-import bancodados.dao.reservaDAO;
-import bancodados.dao.usuarioDAO;
+import bancodados.dao.AbstractFactoryDAO;
+import bancodados.dao.RecursoDAO;
+import bancodados.dao.ReservaDAO;
+import bancodados.dao.UsuarioDAO;
 /**
  *
  * @author ferna
  */
-public class FactoryDAO_JDBC implements DaoAbstractFactory{
+public class FactoryDAO_JDBC implements AbstractFactoryDAO{
 
     @Override
-    public recursoDAO createRecursoDAO() throws Banco_de_DadosException {
-        return new recursoDAO_JDBC();
+    public RecursoDAO createRecursoDAO() throws Banco_de_DadosException {
+        return new RecursoDAO_JDBC();
     }
 
     @Override
-    public reservaDAO createReservaDAO() throws Banco_de_DadosException {
-        return new reservaDAO_JDBC();
+    public ReservaDAO createReservaDAO() throws Banco_de_DadosException {
+        return new ReservaDAO_JDBC();
     }
 
     @Override
-    public usuarioDAO createUsuarioDAO() throws Banco_de_DadosException {
-        return new usuarioDAO_JDBC();
+    public UsuarioDAO createUsuarioDAO() throws Banco_de_DadosException {
+        return new UsuarioDAO_JDBC();
     }
     
 }

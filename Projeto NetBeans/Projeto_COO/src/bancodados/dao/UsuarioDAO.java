@@ -13,7 +13,7 @@ import objetos.Usuario;
  *
  * @author Lucas
  */
-public interface usuarioDAO {
+public interface UsuarioDAO {
     public void insere(Usuario usuario) throws Banco_de_DadosException;
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException;
     public LinkedList<Usuario> lista() throws Banco_de_DadosException;
