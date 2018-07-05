@@ -551,7 +551,7 @@ public class CadastraReserva extends javax.swing.JPanel {
                                         JOptionPane.showMessageDialog(null, "Reserva "
                                             + "cadastrada com sucesso!");
                                     }
-
+                                    limpaCampos_CadReserva();
                                     r.atualizaReservas();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuário não"

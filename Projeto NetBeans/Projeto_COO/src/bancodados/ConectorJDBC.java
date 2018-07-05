@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public abstract class ConectorJDBC {
 
@@ -66,6 +67,7 @@ public abstract class ConectorJDBC {
                     + getDbName() + "?autoReconnect=true&useSSL=false", getUser(), getPassword());
         } catch (SQLException e) {
             Log.gravaLog(e);
+            JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados");
             throw new Banco_de_DadosException(
                     "Problemas no acesso ao banco de dados.");
         }

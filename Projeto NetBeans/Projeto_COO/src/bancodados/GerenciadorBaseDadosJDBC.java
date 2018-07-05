@@ -253,7 +253,7 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     }*/
 
     // -----------------  RECURSO  -------------------------
-    @Override
+   /* @Override
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
         abreConexao();
         preparaComandoSQL("insert into RECURSO (NOME, PREDIO, TIPO) values (?, ?, ?)");
@@ -630,4 +630,39 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
             throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");
 <<<<<<< HEAD
         }*/
+
+    @Override
+    public void insereRecurso(Recurso recurso) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insereLaboratorio(Laboratorio l) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Recurso buscaRecurso(String nome, String predio, String tipo) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Recurso buscaRecursoID(int idRecurso) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void excluirRecurso(Recurso r) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Recurso> listaRecursos() throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Recurso> listaRecursos(String predio, String tipo) throws Banco_de_DadosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
