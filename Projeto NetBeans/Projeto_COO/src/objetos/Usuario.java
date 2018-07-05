@@ -21,6 +21,20 @@ public class Usuario {
     public Usuario(){
     }
     
+    public Usuario(String id_usuario, String nome, String nUSP,
+            String email, String telefone, String curso, String cargo){
+        this.id_usuario = id_usuario;
+        this.nome = nome;
+        this.nUSP = nUSP;
+        this.email = email;
+        this.telefone = telefone;
+        if(curso != null){
+            this.curso = curso;
+        }
+        if(cargo != null){
+            this.cargo = cargo;
+        }
+    }
     
     //Getters
     public String getId_Usuario(){
@@ -74,5 +88,20 @@ public class Usuario {
     
     public void setCargo(String a){
         this.cargo = a;
+    }
+    
+    public void setUsuarioGeral(String id_usuario, String nome, String nUSP,
+            String email, String telefone, String curso, String cargo){
+        this.id_usuario = id_usuario;
+        this.nome = nome;
+        this.nUSP = nUSP;
+        this.email = email;
+        this.telefone = telefone;
+        if(curso != null){
+            this.curso = curso;
+        }
+        if(cargo != null){
+            this.cargo = cargo;
+        }
     }
 }

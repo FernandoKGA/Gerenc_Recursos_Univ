@@ -24,6 +24,14 @@ public class Recurso {
     public Recurso() {
     }
     
+    public Recurso(String id_recurso, String nome, String tipo, String predio, String curso){
+        this.id_recurso = id_recurso;
+        this.nome = nome;
+        setTipo(tipo);
+        setPredio(predio);
+        this.curso = curso;
+    }
+    
     //Getters
     public String getNome() {
         return nome;
@@ -63,15 +71,11 @@ public class Recurso {
     }
 
     public void setPredio(String predio) {
-       try{ 
         for(Predios predios : Predios.values()){
             if(predios.name().equalsIgnoreCase(predio)){
                 this.predio = predios;
             }
         }
-       }catch(Exception e){
-           e.printStackTrace();
-       }
     }    
     
     public void setId_Recurso(String id_recurso){
@@ -83,5 +87,14 @@ public class Recurso {
             System.out.println(predios.name());
         }
     }
+    
+    public void setRecursoGeral(String id_recurso, String nome, String tipo, String predio, String curso){
+        this.id_recurso = id_recurso;
+        this.nome = nome;
+        setTipo(tipo);
+        setPredio(predio);
+        this.curso = curso;
+    }
 
+    
 }

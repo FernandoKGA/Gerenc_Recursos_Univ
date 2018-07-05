@@ -61,4 +61,13 @@ public class Reserva {
         this.recurso = recurso;
     }
     
+    public void setReservaGeral(String horaInicio, String horaFim, String data,
+            Usuario usuario, Recurso recurso){
+        this.horaInicio = horaInicio;
+        this.horaFim = horaFim;
+        this.data = data;
+        this.usuario = usuario;
+        this.recurso = recurso;
+    }
+    
 }
