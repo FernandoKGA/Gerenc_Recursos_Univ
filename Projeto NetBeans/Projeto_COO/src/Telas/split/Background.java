@@ -12,7 +12,6 @@ public class Background extends JFrame {
 
     public Background() {
         initComponents();
-        
         iniciaTelas();
     }
     

@@ -28,6 +28,10 @@ public class FachadaDAO_JDBC implements FachadaDAO{
         usuarioDAO = factoryDAO.createUsuarioDAO();
         recursoDAO = factoryDAO.createRecursoDAO();
         reservaDAO = factoryDAO.createReservaDAO();
+        
+        //Criacao do banco de dados
+        new criacaoBancoDados(usuarioDAO, recursoDAO, reservaDAO).criaTabelas();
+        
     }
 
     @Override

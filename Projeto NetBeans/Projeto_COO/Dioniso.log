@@ -2,14 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-07-05T18:25:44</date>
-  <millis>1530825944366</millis>
+  <date>2018-07-05T18:58:16</date>
+  <millis>1530827896133</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
-  <thread>14</thread>
+  <thread>15</thread>
   <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.</message>
   <exception>
     <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.</message>
@@ -128,23 +128,18 @@
     </frame>
     <frame>
       <class>bancodados.ConectorJDBC</class>
-      <method>abreConexao</method>
-      <line>66</line>
-    </frame>
-    <frame>
-      <class>bancodados.ConectorJDBC</class>
-      <method>preparaComandoSQL</method>
-      <line>116</line>
+      <method>abreConexaoSemBD</method>
+      <line>83</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.criacaoBancoDados</class>
       <method>criaBancoDados</method>
-      <line>38</line>
+      <line>36</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.criacaoBancoDados</class>
       <method>criaTabelas</method>
-      <line>23</line>
+      <line>24</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
@@ -298,12 +293,12 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>80</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>86</line>
+      <line>90</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
@@ -322,7 +317,7 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>80</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
@@ -362,14 +357,14 @@
   </exception>
 </record>
 <record>
-  <date>2018-07-05T18:25:45</date>
-  <millis>1530825945456</millis>
+  <date>2018-07-05T18:58:16</date>
+  <millis>1530827896226</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
-  <thread>14</thread>
+  <thread>15</thread>
   <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
   <exception>
     <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
@@ -525,12 +520,12 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>80</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>86</line>
+      <line>90</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
@@ -549,7 +544,7 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>80</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>

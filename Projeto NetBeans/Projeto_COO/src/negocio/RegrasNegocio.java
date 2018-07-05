@@ -7,6 +7,7 @@ package negocio;
 
 import bancodados.*;
 import bancodados.dao.*;
+import bancodados.dao.jdbc.FachadaDAO_JDBC;
 import bancodados.dao.jdbc.FactoryDAO_JDBC;
 import bancodados.dao.jdbc.criacaoBancoDados;
 import java.util.ArrayList;
@@ -22,20 +23,11 @@ import objetos.*;
  */
 public class RegrasNegocio extends RegrasNegocioException {
 
-    private UsuarioDAO usuariodao;
-    private ReservaDAO reservadao;
-    private RecursoDAO recursodao;
+    private final FachadaDAO fachadaDAO;
 
     public RegrasNegocio() throws RegrasNegocioException {
         try {
-            //baseDados = new GerenciadorBaseDadosJDBC();
-            AbstractFactoryDAO factorydao = new FactoryDAO_JDBC();
-            usuariodao = factorydao.createUsuarioDAO();
-            reservadao = factorydao.createReservaDAO();
-            recursodao = factorydao.createRecursoDAO();
-            //Cria o banco de dados
-            new criacaoBancoDados(usuariodao, recursodao, reservadao).criaTabelas();
-
+            fachadaDAO = new FachadaDAO_JDBC();
         } catch (Banco_de_DadosException e) {
             throw new RegrasNegocioException(e);
         }
@@ -53,7 +45,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         u.setCurso(curso);
         u.setCargo(cargo);
         try {
-            usuariodao.insere(u);
+            fachadaDAO.insereUsuario(u);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -63,7 +55,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Usuario> listaUsuarios() throws RegrasNegocioException {
         try {
-            return usuariodao.lista();
+            return fachadaDAO.listaUsuarios();
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -73,7 +65,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public Usuario buscaUsuario(String nusp) throws RegrasNegocioException {
         try {
-            return usuariodao.busca(nusp);
+            return fachadaDAO.buscaUsuario(nusp);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
@@ -82,7 +74,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void excluirUsuario(String nusp) throws RegrasNegocioException {
         try {
-            usuariodao.excluir(nusp);
+            fachadaDAO.excluirUsuario(nusp);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
@@ -99,7 +91,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         rs.setPredio(predio);
 
         try {
-            recursodao.insere(rs);
+            fachadaDAO.insereRecurso(rs);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível "
@@ -109,7 +101,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Recurso> listaRecursos() throws RegrasNegocioException {
         try {
-            return recursodao.listaTodos();
+            return fachadaDAO.listaTodosRecursos();
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -119,7 +111,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Recurso> listaRecursos(String predio, String tipo) throws RegrasNegocioException {
         try {
-            return recursodao.lista(predio, tipo);
+            return fachadaDAO.listaRecursos(predio, tipo);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -136,7 +128,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         lb.setCurso(curso);
 
         try {
-            recursodao.insereLab(lb);
+            fachadaDAO.insereRecurso(lb);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível "
@@ -146,7 +138,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void excluirRecurso(Recurso r) throws RegrasNegocioException {
         try {
-            recursodao.excluir(r);
+            fachadaDAO.excluirRecurso(r);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
@@ -167,7 +159,7 @@ public class RegrasNegocio extends RegrasNegocioException {
             r.setUsuario(usuario);
             r.setRecurso(recurso);
 
-            reservadao.insere(r);
+            fachadaDAO.insereReserva(r);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível conectar "
@@ -185,7 +177,7 @@ public class RegrasNegocio extends RegrasNegocioException {
                     //Verifica se o usuario pode alugar
                     if (!temResvMesmoHorarioUsuario(horarios, usuario, data_ftf)) {
                         //Verifica se o usuario ja tem reservas nesse horario
-                        listaReservasDiaRec = reservadao.buscaDia(data_ftf, rec);
+                        listaReservasDiaRec = fachadaDAO.buscaReservaDia(data_ftf, rec);
                         //Puxa se tem reservas desse recurso
                         if (!listaReservasDiaRec.isEmpty()) {
                             if (!temResvMesmoHorarioRecurso(horarios, listaReservasDiaRec)) {
@@ -209,9 +201,9 @@ public class RegrasNegocio extends RegrasNegocioException {
                                         resv.setHoraFim(h_fim);
                                         resv.setRecurso(rec);
                                         resv.setUsuario(usuario);
-                                        reservadao.insere(resv);
+                                        fachadaDAO.insereReserva(resv);
                                     }
-                                    reservadao.atualiza();
+                                    fachadaDAO.atualizaReservas();
                                     return true;
                                 } else {
                                     return false;
@@ -236,20 +228,20 @@ public class RegrasNegocio extends RegrasNegocioException {
                                     resv.setRecurso(rec);
                                     resv.setUsuario(usuario);
                                     //baseDados.insereReserva(resv);
-                                    reservadao.insere(resv);
+                                    fachadaDAO.insereReserva(resv);
                                 }
-                                //reservadao.atualiza();
-                                reservadao.atualiza();
+                                //fachadaDAO.atualiza();
+                                fachadaDAO.atualizaReservas();
                                 return true;
                             } else {
-                                //reservadao.atualiza();
-                                reservadao.atualiza();
+                                //fachadaDAO.atualiza();
+                                fachadaDAO.atualizaReservas();
                                 return false;
                             }
                         }
                     } else {
                         //Mensagem eh mostrada na funcao temResvMesmoHorarioUsuario
-                        reservadao.atualiza();
+                        fachadaDAO.atualizaReservas();
                         return false;
                     }
                     //Usar o horarios para separar as reservas
@@ -259,14 +251,14 @@ public class RegrasNegocio extends RegrasNegocioException {
                 } else {
                     JOptionPane.showMessageDialog(null, "Este usuário chegou "
                             + "ao limite da cota mensal do mês indicado na data.");
-                    reservadao.atualiza();
+                    fachadaDAO.atualizaReservas();
                     return false;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário de cargo "
                         + usuario.getCargo() + " não pode alugar recurso do tipo "
                         + rec.getTipo() + "!");
-                reservadao.atualiza();
+                fachadaDAO.atualizaReservas();
                 return false;
             }
         } catch (Banco_de_DadosException e) {
@@ -280,7 +272,7 @@ public class RegrasNegocio extends RegrasNegocioException {
     public List<Reserva> buscaReservasDiaRec(String data_ftf, Recurso rec)
             throws RegrasNegocioException {
         try {
-            return reservadao.buscaDia(data_ftf, rec);
+            return fachadaDAO.buscaReservaDia(data_ftf, rec);
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar "
@@ -290,7 +282,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Reserva> listaReservasDoUsuario(String numeroUSP) throws RegrasNegocioException {
         try {
-            return reservadao.listaPorUsuario(numeroUSP);
+            return fachadaDAO.listaReservasPorUsuario(numeroUSP);
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco"
@@ -301,7 +293,7 @@ public class RegrasNegocio extends RegrasNegocioException {
     public List<Reserva> listaReservasMensaisDoUsuario(String numeroUSP,
             String ano_mes_dia) throws RegrasNegocioException {
         try {
-            return reservadao.listaMensais(numeroUSP, ano_mes_dia);
+            return fachadaDAO.listaReservasMensais(numeroUSP, ano_mes_dia);
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco"
@@ -311,7 +303,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public List<Reserva> listaReservas() throws RegrasNegocioException {
         try {
-            return reservadao.lista();
+            return fachadaDAO.listaTodasReservas();
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco"
@@ -321,7 +313,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void excluirReserva(Reserva r) throws RegrasNegocioException {
         try {
-            reservadao.excluir(r);
+            fachadaDAO.excluirReserva(r);
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException("Não foi possível conectar ao banco"
@@ -331,7 +323,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public void atualizaReservas() throws RegrasNegocioException {
         try {
-            reservadao.atualiza();
+            fachadaDAO.atualizaReservas();
         } catch (Banco_de_DadosException ex) {
             Log.gravaLog(ex);
             throw new RegrasNegocioException("Não foi possível conectar ao banco de dados.");
@@ -346,7 +338,7 @@ public class RegrasNegocio extends RegrasNegocioException {
             Contrário, false.
          */
         try {
-            return usuariodao.verificaQuantCoordenador(curso);
+            return fachadaDAO.verificaQuantCoordenador(curso);
         } catch (Banco_de_DadosException e) {
             Log.gravaLog(e);
             throw new RegrasNegocioException(e);
@@ -385,7 +377,7 @@ public class RegrasNegocio extends RegrasNegocioException {
             return true;
         }
         try {
-            List<Reserva> a = reservadao.listaMensais(u.getNUSP(), data_ftf);
+            List<Reserva> a = fachadaDAO.listaReservasMensais(u.getNUSP(), data_ftf);
             if (a != null) //estamos fazendo dessa forma pela forma que estamos iniciando
             {
                 if (a.size() < numMaxResvMensal) {
@@ -406,7 +398,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         List<Reserva> listaMensal;
         ArrayList<String> horariosConcatenados;
         try {
-            listaMensal = reservadao.listaMensais(usr.getNUSP(), ano_mes_dia);
+            listaMensal = fachadaDAO.listaReservasMensais(usr.getNUSP(), ano_mes_dia);
             horariosConcatenados = concatenaHorarios(listaMensal);
             if (horariosConcatenados != null) {
                 for (String hora : horarios) {
