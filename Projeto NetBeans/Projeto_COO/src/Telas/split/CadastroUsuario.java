@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas.split;
 
 import java.awt.Component;
@@ -17,17 +12,10 @@ import java.util.Date;
 import javax.swing.JRadioButton;
 
 
-/**
- *
- * @author Denise
- */
 public class CadastroUsuario extends javax.swing.JPanel {
 
     private final Background back;
-    
-    /**
-     * Creates new form CadastraUsuario
-     */
+
     public CadastroUsuario(Background back) {
         this.back = back;
         initComponents();
@@ -248,19 +236,19 @@ public class CadastroUsuario extends javax.swing.JPanel {
             RegrasNegocio r = new RegrasNegocio();
             System.out.println("BotaoCadastrarUsuario");
             String nome = TF_NomeCadUsr.getText();
-            if (!back.verificaTexto(nome)) {
+            if (!back.valida.verificaTexto(nome)) {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;
             }
 
             String nUSP = TF_NUSPCadUsr.getText();
-            if (!back.verificaNumero(nUSP)) {
+            if (!back.valida.verificaNumero(nUSP)) {
                 return;
             }
 
             String email = TF_EmailCadUsr.getText();
             String telefone = TF_TelfCadUsr.getText();
-            if (!back.verificaNumero(telefone)) {
+            if (!back.valida.verificaNumero(telefone)) {
                 JOptionPane.showMessageDialog(null, "Telefone inválido!\nDeve ter 10 ou 11 números.");
                 return;
             } else if (telefone.length() != 10 && telefone.length() != 11) {
