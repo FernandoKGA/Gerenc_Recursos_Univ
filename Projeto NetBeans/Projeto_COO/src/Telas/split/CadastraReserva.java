@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Date;
 import javax.swing.JRadioButton;
 
-public class CadastraReserva extends javax.swing.JPanel {
+public class CadastraReserva extends AbstractJPanel {
 
     private final Background back;
     
@@ -19,23 +19,7 @@ public class CadastraReserva extends javax.swing.JPanel {
         this.back = back;
         initComponents();
     }
-    
-    public void habilitaVisibilidadeTelaCadResv(){
-        this.setVisible(true);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
-    
-    public void desabilitaVisibilidadeTelaCadResv(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for(Component array1 : array){
-            array1.setVisible(false);
-        }
-    }
-    
+
     public void desabilitaComponentesCadResv(){
         Component[] array = this.getComponents();
         limpaCampos_CadReserva();

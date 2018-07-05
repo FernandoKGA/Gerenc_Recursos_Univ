@@ -20,7 +20,7 @@ import objetos.Usuario;
  *
  * @author Denise
  */
-public class ListaUsuarios extends javax.swing.JPanel {
+public class ListaUsuarios extends AbstractJPanel {
 
     private final Background back;
     
@@ -50,8 +50,8 @@ public class ListaUsuarios extends javax.swing.JPanel {
             Log.gravaLog(ex);
         }
     }
-
-    public void habilitaVisibilidadeTelaListaUsuarios(){
+    @Override
+    public void habilitaVisibilidade(){
         this.setVisible(true);
         Component[] array = this.getComponents();
         listaUsuario(TabelaListaUsr);
@@ -60,13 +60,6 @@ public class ListaUsuarios extends javax.swing.JPanel {
         }
     }
     
-    public void desabilitaVisibilidadeTelaListaUsuarios(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

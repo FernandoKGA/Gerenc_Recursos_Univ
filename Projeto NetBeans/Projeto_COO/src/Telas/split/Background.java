@@ -95,138 +95,137 @@ public class Background extends JFrame {
     ListaRecursos TelaListaRecursos = new ListaRecursos(this);
     
     
+    // - - - - - - - - - - - - - - - - - - - -
+    //Metodos auxiliares
+    
     //-------------------------
-
     // Tela Menu 
     public void desabilitaTelaMenu() {
-        TelaMenu.desabilitaVisibilidadeTelaMenu();
+        TelaMenu.desabilitaVisibilidade();
     }
 
     public void habilitaTelaMenu() {
-        TelaMenu.habilitaVisibilidadeTelaMenu();
+        TelaMenu.habilitaVisibilidade();
     }
-    
-    // - - - - - - - - - - - - - - - - - - - -
-    //Metodos auxiliares
     
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Selecao Cadastro
     public void desabilitaTelaSelecaoCadastro() {
-        TelaSelecaoCadastro.desabilitaVisibilidadeTelaSelecaoCadastro();
+        TelaSelecaoCadastro.desabilitaVisibilidade();
     }
 
     public void habilitaTelaSelecaoCadastro() {
-        TelaSelecaoCadastro.habilitaVisibilidadeTelaSelecaoCadastro();
+        TelaSelecaoCadastro.habilitaVisibilidade();
     }
     
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastra Reserva
     public void desabilitaTelaCadastraReserva() {
-        TelaCadastraReserva.desabilitaVisibilidadeTelaCadResv();
+        TelaCadastraReserva.desabilitaVisibilidade();
     }
 
     public void habilitaTelaCadastraReserva() {
-        TelaCadastraReserva.habilitaVisibilidadeTelaCadResv();
+        TelaCadastraReserva.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastro Recurso
     public void desabilitaTelaCadastroRecurso() {
-        TelaCadastroRecurso.desabilitaVisibilidadeTelaCadRec();
+        TelaCadastroRecurso.desabilitaVisibilidade();
     }
 
     public void habilitaTelaCadastroRecurso() {
-        TelaCadastroRecurso.habilitaVisibilidadeTelaCadRec();
+        TelaCadastroRecurso.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Cadastro Usuario
     public void desabilitaTelaCadastroUsuario() {
-        TelaCadastroUsuario.desabilitaVisibilidadeTelaCadUsr();
+        TelaCadastroUsuario.desabilitaVisibilidade();
     }
 
     public void habilitaTelaCadastroUsuario() {
-        TelaCadastroUsuario.habilitaVisibilidadeTelaCadUsr();
+        TelaCadastroUsuario.habilitaVisibilidade();
     }
     
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Descadastrar Selecao
     public void desabilitaTelaDescadastrarSelecao() {
-        TelaDescadastrarSelecao.desabilitaVisibilidadeTelaDescSelecao();
+        TelaDescadastrarSelecao.desabilitaVisibilidade();
     }
 
     public void habilitaTelaDescadastrarSelecao() {
-        TelaDescadastrarSelecao.habilitaVisibilidadeTelaDescSelecao();
+        TelaDescadastrarSelecao.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Descadastrar Recurso
     public void desabilitaTelaDescadastrarRecurso() {
-        TelaDescadastrarRecurso.desabilitaVisibilidadeTelaDescRec();
+        TelaDescadastrarRecurso.desabilitaVisibilidade();
     }
 
     public void habilitaTelaDescadastrarRecurso() {
-        TelaDescadastrarRecurso.habilitaVisibilidadeTelaDescRec();
+        TelaDescadastrarRecurso.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Descadastra Usuario
     public void desabilitaTelaDescadastrarUsuario() {
-        TelaDescadastraUsuario.desabilitaVisibilidadeTelaDescUsr();
+        TelaDescadastraUsuario.desabilitaVisibilidade();
     }
 
     public void habilitaTelaDescadastrarUsuario() {
-        TelaDescadastraUsuario.habilitaVisibilidadeTelaDescUsr();
+        TelaDescadastraUsuario.habilitaVisibilidade();
     }
     
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Desmarcar Reserva
     public void desabilitaTelaDesmarcarReserva() {
-        TelaDesmarcarReserva.desabilitaVisibilidadeTelaDesmResv();
+        TelaDesmarcarReserva.desabilitaVisibilidade();
     }
 
     public void habilitaTelaDesmarcarReserva() {
-        TelaDesmarcarReserva.habilitaVisibilidadeTelaDesmResv();
+        TelaDesmarcarReserva.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem
     public void desabilitaTelaListaSelecao() {
-        TelaListaSelecao.desabilitaVisibilidadeTelaListaSelecao();
+        TelaListaSelecao.desabilitaVisibilidade();
     }
 
     public void habilitaTelaListaSelecao() {
-        TelaListaSelecao.habilitaVisibilidadeTelaListaSelecao();
+        TelaListaSelecao.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Reservas por Usuario
     public void desabilitaTelaListaReservasUsuarios() {
-        TelaListaReservasUsuarios.desabilitaVisibilidadeTelaListaResvUsr();
+        TelaListaReservasUsuarios.desabilitaVisibilidade();
     }
 
     public void habilitaTelaListaReservasUsuarios() {
-        TelaListaReservasUsuarios.habilitaVisibilidadeTelaListaResvUsr();
+        TelaListaReservasUsuarios.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Usuarios
     public void desabilitaTelaListaUsuarios() {
-        TelaListaUsuarios.desabilitaVisibilidadeTelaListaUsuarios();
+        TelaListaUsuarios.desabilitaVisibilidade();
     }
 
     public void habilitaTelaListaUsuarios() {
-        TelaListaUsuarios.habilitaVisibilidadeTelaListaUsuarios();
+        TelaListaUsuarios.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -
     // Tela Listagem Recursos
     public void desabilitaTelaListaRecursos() {
-        TelaListaRecursos.desabilitaVisibilidadeTelaListaRecursos();
+        TelaListaRecursos.desabilitaVisibilidade();
     }
 
     public void habilitaTelaListaRecursos() {
-        TelaListaRecursos.habilitaVisibilidadeTelaListaRecursos();
+        TelaListaRecursos.habilitaVisibilidade();
     }
 
     // - - - - - - - - - - - - - - - - - - - -

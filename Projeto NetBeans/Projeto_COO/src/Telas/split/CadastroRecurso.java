@@ -14,7 +14,7 @@ import bancodados.Log;
  *
  * @author Denise
  */
-public class CadastroRecurso extends javax.swing.JPanel {
+public class CadastroRecurso extends AbstractJPanel {
 
     /**
      * Creates new form CadastraRecurso
@@ -26,16 +26,9 @@ public class CadastroRecurso extends javax.swing.JPanel {
         this.back = back;
         initComponents();
     }
-
-    public void desabilitaVisibilidadeTelaCadRec(){
-        this.setVisible(false);
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(false);
-        }
-    }
     
-    public void habilitaVisibilidadeTelaCadRec(){
+    @Override
+    public void habilitaVisibilidade(){
         this.setVisible(true);
         Component[] array = this.getComponents();
         CBCursoCadRec.setEnabled(false);
