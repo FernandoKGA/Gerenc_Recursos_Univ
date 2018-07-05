@@ -4,9 +4,6 @@ import bancodados.Banco_de_DadosException;
 import objetos.*;
 import bancodados.dao.*;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class criacaoBancoDados extends ConectorDAO_JDBC {
 
     private usuarioDAO usuariodao;

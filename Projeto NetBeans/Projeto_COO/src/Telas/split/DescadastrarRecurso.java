@@ -5,7 +5,6 @@
  */
 package Telas.split;
 
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import negocio.*;
 import objetos.*;
@@ -21,7 +20,6 @@ import javax.swing.table.TableRowSorter;
 public class DescadastrarRecurso extends AbstractJPanel {
 
     private final Background back;
-    private final DialogConfExcRec dialog;
     
     /**
      * Creates new form DescadastrarRecurso
@@ -29,7 +27,6 @@ public class DescadastrarRecurso extends AbstractJPanel {
      */
     public DescadastrarRecurso(Background back) {
         this.back = back;
-        this.dialog = new DialogConfExcRec(back,true);
         initComponents();
     }
     
@@ -51,6 +48,17 @@ public class DescadastrarRecurso extends AbstractJPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DialogConfExcRec = new javax.swing.JDialog();
+        LabelDialogConfExcRec = new javax.swing.JLabel();
+        LabelSubDialogConfExcRec = new javax.swing.JLabel();
+        LabelPredioDialogConfExcRec = new javax.swing.JLabel();
+        LabelPredio_BDDialogConfExcRec = new javax.swing.JLabel();
+        LabelTipoDialogConfExcRec = new javax.swing.JLabel();
+        LabelTipo_BDDialogConfExcRec = new javax.swing.JLabel();
+        LabelNomeDialogConfExcRec = new javax.swing.JLabel();
+        LabelNome_BDDialogConfExcRec = new javax.swing.JLabel();
+        BotaoDescRec = new javax.swing.JButton();
+        BotaoRetFromDiagConfExcRec = new javax.swing.JButton();
         LabelNomeTelaDescRec = new javax.swing.JLabel();
         LabelSubTelaDescRec = new javax.swing.JLabel();
         LabelPredioTelaExcluirRec = new javax.swing.JLabel();
@@ -62,6 +70,114 @@ public class DescadastrarRecurso extends AbstractJPanel {
         CBPredioExcluirRec = new javax.swing.JComboBox<>();
         ScrolExcluirRec = new javax.swing.JScrollPane();
         TabelaExcluirRec = new javax.swing.JTable();
+
+        DialogConfExcRec.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        DialogConfExcRec.setTitle("Confirmação");
+        DialogConfExcRec.setMinimumSize(new java.awt.Dimension(250, 250));
+
+        LabelDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        LabelDialogConfExcRec.setForeground(new java.awt.Color(255, 0, 0));
+        LabelDialogConfExcRec.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelDialogConfExcRec.setText("Confirmar Ação");
+
+        LabelSubDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        LabelSubDialogConfExcRec.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelSubDialogConfExcRec.setText("Deseja excluir este recurso?");
+
+        LabelPredioDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelPredioDialogConfExcRec.setText("Prédio:");
+
+        LabelPredio_BDDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelPredio_BDDialogConfExcRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelPredio_BDDialogConfExcRec.setText("I1");
+
+        LabelTipoDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelTipoDialogConfExcRec.setText("Tipo:");
+
+        LabelTipo_BDDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelTipo_BDDialogConfExcRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelTipo_BDDialogConfExcRec.setText("Sala");
+
+        LabelNomeDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelNomeDialogConfExcRec.setText("Nome:");
+
+        LabelNome_BDDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelNome_BDDialogConfExcRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelNome_BDDialogConfExcRec.setText("320");
+
+        BotaoDescRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        BotaoDescRec.setText("Confirmar");
+        BotaoDescRec.setActionCommand("Sim");
+        BotaoDescRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoDescRecActionPerformed(evt);
+            }
+        });
+
+        BotaoRetFromDiagConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        BotaoRetFromDiagConfExcRec.setText("Cancelar");
+        BotaoRetFromDiagConfExcRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRetFromDiagConfExcRecActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DialogConfExcRecLayout = new javax.swing.GroupLayout(DialogConfExcRec.getContentPane());
+        DialogConfExcRec.getContentPane().setLayout(DialogConfExcRecLayout);
+        DialogConfExcRecLayout.setHorizontalGroup(
+            DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LabelDialogConfExcRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LabelSubDialogConfExcRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(DialogConfExcRecLayout.createSequentialGroup()
+                .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DialogConfExcRecLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(BotaoRetFromDiagConfExcRec)
+                        .addGap(18, 18, 18)
+                        .addComponent(BotaoDescRec))
+                    .addGroup(DialogConfExcRecLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelPredioDialogConfExcRec)
+                            .addComponent(LabelNomeDialogConfExcRec))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelPredio_BDDialogConfExcRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DialogConfExcRecLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(LabelNome_BDDialogConfExcRec, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(DialogConfExcRecLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LabelTipoDialogConfExcRec)
+                        .addGap(61, 61, 61)
+                        .addComponent(LabelTipo_BDDialogConfExcRec, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        DialogConfExcRecLayout.setVerticalGroup(
+            DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DialogConfExcRecLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelDialogConfExcRec)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LabelSubDialogConfExcRec)
+                .addGap(9, 9, 9)
+                .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelPredioDialogConfExcRec)
+                    .addComponent(LabelPredio_BDDialogConfExcRec))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelTipoDialogConfExcRec)
+                    .addComponent(LabelTipo_BDDialogConfExcRec))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelNomeDialogConfExcRec)
+                    .addComponent(LabelNome_BDDialogConfExcRec))
+                .addGap(36, 36, 36)
+                .addGroup(DialogConfExcRecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoRetFromDiagConfExcRec)
+                    .addComponent(BotaoDescRec))
+                .addGap(14, 14, 14))
+        );
 
         LabelNomeTelaDescRec.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         LabelNomeTelaDescRec.setForeground(new java.awt.Color(255, 0, 0));
@@ -213,13 +329,13 @@ public class DescadastrarRecurso extends AbstractJPanel {
             JOptionPane.showMessageDialog(null, "Selecione um recurso para "
                 + "excluir.");
         } else {
-            dialog.habilitaVisibilidadeDialogConfExcRec();
             System.out.println(TabelaExcluirRec.getSelectedRow());
             Object coluna_nome = TabelaExcluirRec.getValueAt(TabelaExcluirRec.getSelectedRow(), 0);
             String nome = (String) coluna_nome;
-            dialog.setLabelNome_BDDialogConfExcRec(nome);
-            dialog.setLabelPredio_BDDialogConfExcRec(CBPredioExcluirRec.getSelectedItem().toString());
-            dialog.setLabelTipo_BDDialogConfExcRec(CBTiposExcluirRec.getSelectedItem().toString());
+            LabelNome_BDDialogConfExcRec.setText(nome);
+            LabelPredio_BDDialogConfExcRec.setText(CBPredioExcluirRec.getSelectedItem().toString());
+            LabelTipo_BDDialogConfExcRec.setText(CBTiposExcluirRec.getSelectedItem().toString());
+            DialogConfExcRec.setVisible(true);
         }
     }//GEN-LAST:event_BotaoGoDiagConfRecActionPerformed
 
@@ -282,17 +398,51 @@ public class DescadastrarRecurso extends AbstractJPanel {
         }
     }//GEN-LAST:event_CBPredioExcluirRecActionPerformed
 
+    private void BotaoDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescRecActionPerformed
+        // Botao Descadastra Recurso
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            Recurso rec = new Recurso();
+            rec.setNome(LabelNome_BDDialogConfExcRec.getText());
+            rec.setPredio(LabelPredio_BDDialogConfExcRec.getText());
+            rec.setTipo(LabelTipo_BDDialogConfExcRec.getText());
+            r.excluirRecurso(rec);
+            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            DialogConfExcRec.setVisible(false);
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+            JOptionPane.showMessageDialog(null, "Recurso não encontrado!");
+        }
+    }//GEN-LAST:event_BotaoDescRecActionPerformed
+
+    private void BotaoRetFromDiagConfExcRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDiagConfExcRecActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Telas.Telas.jButton31ActionPerformed()");
+        DialogConfExcRec.setVisible(false);
+    }//GEN-LAST:event_BotaoRetFromDiagConfExcRecActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoDescRec;
     private javax.swing.JButton BotaoGoDiagConfRec;
     private javax.swing.JButton BotaoListaRecExcRec;
     private javax.swing.JButton BotaoRetFromDescRec;
+    private javax.swing.JButton BotaoRetFromDiagConfExcRec;
     private javax.swing.JComboBox<String> CBPredioExcluirRec;
     private javax.swing.JComboBox<String> CBTiposExcluirRec;
+    private javax.swing.JDialog DialogConfExcRec;
+    private javax.swing.JLabel LabelDialogConfExcRec;
+    private javax.swing.JLabel LabelNomeDialogConfExcRec;
     private javax.swing.JLabel LabelNomeTelaDescRec;
+    private javax.swing.JLabel LabelNome_BDDialogConfExcRec;
+    private javax.swing.JLabel LabelPredioDialogConfExcRec;
     private javax.swing.JLabel LabelPredioTelaExcluirRec;
+    private javax.swing.JLabel LabelPredio_BDDialogConfExcRec;
+    private javax.swing.JLabel LabelSubDialogConfExcRec;
     private javax.swing.JLabel LabelSubTelaDescRec;
+    private javax.swing.JLabel LabelTipoDialogConfExcRec;
     private javax.swing.JLabel LabelTipoTelaExcluirRec;
+    private javax.swing.JLabel LabelTipo_BDDialogConfExcRec;
     private javax.swing.JScrollPane ScrolExcluirRec;
     private javax.swing.JTable TabelaExcluirRec;
     // End of variables declaration//GEN-END:variables

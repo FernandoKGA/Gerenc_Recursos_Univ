@@ -20,6 +20,16 @@ public class CadastraReserva extends AbstractJPanel {
         initComponents();
     }
 
+    @Override
+    public void habilitaVisibilidade(){
+        this.setVisible(true);
+        Component[] array = this.getComponents();
+        for (Component cp : array){
+            cp.setVisible(true);
+        }
+        desabilitaComponentesCadResv();
+    }
+    
     public void desabilitaComponentesCadResv(){
         Component[] array = this.getComponents();
         limpaCampos_CadReserva();

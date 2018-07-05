@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import negocio.*;
 import objetos.*;
 import bancodados.Log;
+import java.awt.Component;
 /**
  *
  * @author ferna
@@ -80,6 +81,7 @@ public class DialogConfExcRec extends javax.swing.JDialog {
         BotaoDescRec = new javax.swing.JButton();
         BotaoRetFromDiagConfExcRec = new javax.swing.JButton();
 
+        DialogConfExcRec.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         DialogConfExcRec.setMinimumSize(new java.awt.Dimension(250, 250));
 
         LabelDialogConfExcRec.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N

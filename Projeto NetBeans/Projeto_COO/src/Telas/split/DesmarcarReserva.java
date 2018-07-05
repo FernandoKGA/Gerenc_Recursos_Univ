@@ -1,7 +1,6 @@
 package Telas.split;
 
 import bancodados.Log;
-import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +14,6 @@ import objetos.*;
 public class DesmarcarReserva extends AbstractJPanel {
 
     private final Background back;
-    private final DialogConfExcResv dialog;
     
     /**
      * Creates new form DesmarcarReserva
@@ -23,8 +21,6 @@ public class DesmarcarReserva extends AbstractJPanel {
      */
     public DesmarcarReserva(Background back) {
         this.back = back;
-        this.dialog = new DialogConfExcResv(back,true);
-        dialog.setPai(this);  //Vazamento???
         initComponents();
     }
 
@@ -49,6 +45,21 @@ public class DesmarcarReserva extends AbstractJPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DialogConfDesmResv = new javax.swing.JDialog();
+        LabelDiagConfDesmResv = new javax.swing.JLabel();
+        LabelSubDiagConfDesmResv = new javax.swing.JLabel();
+        LabelDataDiagConfDesmResv = new javax.swing.JLabel();
+        LabelData_BDDiagConfDesmResv = new javax.swing.JLabel();
+        LabelTipoDiagConfDesmResv = new javax.swing.JLabel();
+        LabelTipo_BDDiagConfDesmResv = new javax.swing.JLabel();
+        LabelPredioDiagConfDesmResv = new javax.swing.JLabel();
+        LabelPredio_BDDiagConfDesmResv = new javax.swing.JLabel();
+        LabelRecDiagConfDesmResv = new javax.swing.JLabel();
+        LabelRec_BDDiagConfDesmResv = new javax.swing.JLabel();
+        LabelHoraDiagConfDesmResv = new javax.swing.JLabel();
+        LabelHora_BDDiagConfDesmResv = new javax.swing.JLabel();
+        BotaoDesmResv = new javax.swing.JButton();
+        BotaoRetFromDiagConfDesmResv = new javax.swing.JButton();
         LabelNomeTelaDesmResv = new javax.swing.JLabel();
         LabelUsuarioTelaDesmResv = new javax.swing.JLabel();
         TF_NUSP_DesmResv = new javax.swing.JTextField();
@@ -57,6 +68,133 @@ public class DesmarcarReserva extends AbstractJPanel {
         TabelaDesmResv = new javax.swing.JTable();
         BotaoGoDiagConfResv = new javax.swing.JButton();
         BotaoRetFromDesmResv = new javax.swing.JButton();
+
+        DialogConfDesmResv.setMinimumSize(new java.awt.Dimension(250, 300));
+
+        LabelDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        LabelDiagConfDesmResv.setForeground(new java.awt.Color(255, 0, 0));
+        LabelDiagConfDesmResv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelDiagConfDesmResv.setText("Confirmar Ação");
+
+        LabelSubDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        LabelSubDiagConfDesmResv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelSubDiagConfDesmResv.setText("Deseja desmarcar a reserva?");
+
+        LabelDataDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelDataDiagConfDesmResv.setText("Data:");
+
+        LabelData_BDDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelData_BDDiagConfDesmResv.setText("15/04");
+
+        LabelTipoDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelTipoDiagConfDesmResv.setText("Tipo:");
+
+        LabelTipo_BDDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelTipo_BDDiagConfDesmResv.setText("Sala");
+
+        LabelPredioDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelPredioDiagConfDesmResv.setText("Prédio:");
+
+        LabelPredio_BDDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelPredio_BDDiagConfDesmResv.setText("I1");
+
+        LabelRecDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelRecDiagConfDesmResv.setText("Recurso:");
+
+        LabelRec_BDDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelRec_BDDiagConfDesmResv.setText("219");
+
+        LabelHoraDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        LabelHoraDiagConfDesmResv.setText("Horário:");
+
+        LabelHora_BDDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        LabelHora_BDDiagConfDesmResv.setText("10:00 - 11:00");
+
+        BotaoDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        BotaoDesmResv.setText("Confirmar");
+        BotaoDesmResv.setActionCommand("Sim");
+        BotaoDesmResv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoDesmResvActionPerformed(evt);
+            }
+        });
+
+        BotaoRetFromDiagConfDesmResv.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        BotaoRetFromDiagConfDesmResv.setText("Cancelar");
+        BotaoRetFromDiagConfDesmResv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRetFromDiagConfDesmResvActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DialogConfDesmResvLayout = new javax.swing.GroupLayout(DialogConfDesmResv.getContentPane());
+        DialogConfDesmResv.getContentPane().setLayout(DialogConfDesmResvLayout);
+        DialogConfDesmResvLayout.setHorizontalGroup(
+            DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LabelDiagConfDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LabelSubDiagConfDesmResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(BotaoRetFromDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(BotaoDesmResv))
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(LabelDataDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelData_BDDiagConfDesmResv))
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(LabelTipoDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelTipo_BDDiagConfDesmResv))
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(LabelPredioDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelPredio_BDDiagConfDesmResv))
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(LabelRecDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelRec_BDDiagConfDesmResv))
+                    .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                        .addComponent(LabelHoraDiagConfDesmResv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelHora_BDDiagConfDesmResv)))
+                .addContainerGap())
+        );
+        DialogConfDesmResvLayout.setVerticalGroup(
+            DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DialogConfDesmResvLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelDiagConfDesmResv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LabelSubDiagConfDesmResv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelDataDiagConfDesmResv)
+                    .addComponent(LabelData_BDDiagConfDesmResv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelTipoDiagConfDesmResv)
+                    .addComponent(LabelTipo_BDDiagConfDesmResv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelPredioDiagConfDesmResv)
+                    .addComponent(LabelPredio_BDDiagConfDesmResv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelRecDiagConfDesmResv)
+                    .addComponent(LabelRec_BDDiagConfDesmResv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelHoraDiagConfDesmResv)
+                    .addComponent(LabelHora_BDDiagConfDesmResv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(DialogConfDesmResvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoRetFromDiagConfDesmResv)
+                    .addComponent(BotaoDesmResv))
+                .addGap(11, 11, 11))
+        );
 
         LabelNomeTelaDesmResv.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         LabelNomeTelaDesmResv.setForeground(new java.awt.Color(250, 0, 0));
@@ -217,14 +355,14 @@ public class DesmarcarReserva extends AbstractJPanel {
             String hora_show = (String) hora;
 
             //Insercao na Dialog
-            dialog.setLabelData_BDDiagConfDesmResv(data_show);
-            dialog.setLabelPredio_BDDiagConfDesmResv(predio_show);
-            dialog.setLabelTipo_BDDiagConfDesmResv(tipo_show);
-            dialog.setLabelRec_BDDiagConfDesmResv(recurso_show);
-            dialog.setLabelHora_BDDiagConfDesmResv(hora_show);
+            LabelData_BDDiagConfDesmResv.setText(data_show);
+            LabelPredio_BDDiagConfDesmResv.setText(predio_show);
+            LabelTipo_BDDiagConfDesmResv.setText(tipo_show);
+            LabelRec_BDDiagConfDesmResv.setText(recurso_show);
+            LabelHora_BDDiagConfDesmResv.setText(hora_show);
 
             TabelaDesmResv.setEnabled(false);
-            dialog.habilitaVisibilidadeDialogConfExcResv();
+            DialogConfDesmResv.setVisible(true);
         }
     }//GEN-LAST:event_BotaoGoDiagConfResvActionPerformed
 
@@ -235,12 +373,67 @@ public class DesmarcarReserva extends AbstractJPanel {
         back.desabilitaTelaDesmarcarReserva();
     }//GEN-LAST:event_BotaoRetFromDesmResvActionPerformed
 
+    private void BotaoDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesmResvActionPerformed
+        // Botao que Confirma a desmarcação da reserva
+        String data = LabelData_BDDiagConfDesmResv.getText();
+        String predio = LabelPredio_BDDiagConfDesmResv.getText();
+        String tipo = LabelTipo_BDDiagConfDesmResv.getText();
+        String recurso_nome = LabelRec_BDDiagConfDesmResv.getText();
+        //String LabelRec_BDDiagConfDesmResv.getText();
+        String hora = LabelHora_BDDiagConfDesmResv.getText();
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            String numeroUSP = getTF_NUSP_DesmResv();   //Nao deveria ter uma variavel que guardasse?
+            List<Reserva> lista_reserva = r.listaReservasDoUsuario(numeroUSP);
+            //Gambiarra para achar a reserva (como fazer isso melhor???)
+            for (Reserva reserva : lista_reserva) {
+                if ((data.equalsIgnoreCase(reserva.getData()))
+                    && (predio.equalsIgnoreCase(reserva.getRecurso().getPredio()))
+                    && (tipo.equalsIgnoreCase(reserva.getRecurso().getTipo()))
+                    && (recurso_nome.equalsIgnoreCase(reserva.getRecurso().getNome()))
+                    && (hora.substring(0, 5).equalsIgnoreCase(reserva.getHoraInicio()))
+                    && (hora.substring(8, hora.length()).equalsIgnoreCase(reserva.getHoraFim()))
+                    && (numeroUSP.equalsIgnoreCase(reserva.getUsuario().getNUSP()))) {
+
+                    r.excluirReserva(reserva);
+                    JOptionPane.showMessageDialog(null,"Desmarcou com sucesso!");
+                }
+            }
+            r.atualizaReservas();
+            habilitaTabelaDesmResv();
+            DialogConfDesmResv.setVisible(false);
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+    }//GEN-LAST:event_BotaoDesmResvActionPerformed
+
+    private void BotaoRetFromDiagConfDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromDiagConfDesmResvActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Telas.Telas.jButton28ActionPerformed()");
+        DialogConfDesmResv.setVisible(false);
+    }//GEN-LAST:event_BotaoRetFromDiagConfDesmResvActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoBusca_DesmResv;
+    private javax.swing.JButton BotaoDesmResv;
     private javax.swing.JButton BotaoGoDiagConfResv;
     private javax.swing.JButton BotaoRetFromDesmResv;
+    private javax.swing.JButton BotaoRetFromDiagConfDesmResv;
+    private javax.swing.JDialog DialogConfDesmResv;
+    private javax.swing.JLabel LabelDataDiagConfDesmResv;
+    private javax.swing.JLabel LabelData_BDDiagConfDesmResv;
+    private javax.swing.JLabel LabelDiagConfDesmResv;
+    private javax.swing.JLabel LabelHoraDiagConfDesmResv;
+    private javax.swing.JLabel LabelHora_BDDiagConfDesmResv;
     private javax.swing.JLabel LabelNomeTelaDesmResv;
+    private javax.swing.JLabel LabelPredioDiagConfDesmResv;
+    private javax.swing.JLabel LabelPredio_BDDiagConfDesmResv;
+    private javax.swing.JLabel LabelRecDiagConfDesmResv;
+    private javax.swing.JLabel LabelRec_BDDiagConfDesmResv;
+    private javax.swing.JLabel LabelSubDiagConfDesmResv;
+    private javax.swing.JLabel LabelTipoDiagConfDesmResv;
+    private javax.swing.JLabel LabelTipo_BDDiagConfDesmResv;
     private javax.swing.JLabel LabelUsuarioTelaDesmResv;
     private javax.swing.JScrollPane ScrolDesmResv;
     private javax.swing.JTextField TF_NUSP_DesmResv;

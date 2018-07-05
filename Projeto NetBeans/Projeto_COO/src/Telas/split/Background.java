@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class Background extends JFrame {
     
     private Container background;
-    private Dimension tamanhoJanela = new java.awt.Dimension(420,340);
+    private final Dimension tamanhoJanela = new java.awt.Dimension(420,340);
     Validador valida = new Validador();
 
     public Background() {
