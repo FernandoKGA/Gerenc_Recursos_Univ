@@ -235,7 +235,7 @@ public class CadastroRecurso extends javax.swing.JPanel {
         }
         try {
             RegrasNegocio r = new RegrasNegocio();
-            if (!back.verificaTextoNumeros(nome)) {
+            if (!back.valida.verificaTextoNumeros(nome)) {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;
             }

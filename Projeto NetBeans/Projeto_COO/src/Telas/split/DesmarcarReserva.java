@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas.split;
 
 import bancodados.Log;
@@ -197,7 +192,7 @@ public class DesmarcarReserva extends javax.swing.JPanel {
             RegrasNegocio r = new RegrasNegocio();
             //NAO USAR .getSelectedText()!!!!!!!
             String numeroUSP = TF_NUSP_DesmResv.getText();
-            if (back.verificaNUSP(numeroUSP)) {
+            if (back.valida.verificaNUSP(numeroUSP)) {
                 listaReservas = r.listaReservasDoUsuario(numeroUSP);
                 DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
                 int last_col = TabelaDesmResv.getColumnCount() - 1;

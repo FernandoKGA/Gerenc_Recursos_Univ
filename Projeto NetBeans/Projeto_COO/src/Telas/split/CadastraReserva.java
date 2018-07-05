@@ -511,14 +511,15 @@ public class CadastraReserva extends javax.swing.JPanel {
                 }
             }
         }
-        if (!back.taVazio(data_ftf)) {
-            if (back.verificaData(data_ftf)) {
+        
+        if (!back.valida.taVazio(data_ftf)) {
+            if (back.valida.verificaData(data_ftf)) {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
-                if (back.comparaDataAtual(data_atual, data_ftf)) {
+                if (back.valida.comparaDataAtual(data_atual, data_ftf)) {
                     String data_ftf_antique = data_ftf;
-                    data_ftf = back.transformaData(data_ftf);
-                    if (back.verificaNUSP(nUSP)) {
+                    data_ftf = back.valida.transformaData(data_ftf);
+                    if (back.valida.verificaNUSP(nUSP)) {
                         if (horarios.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Selecione um ou"
                                 + " mais horários!");
