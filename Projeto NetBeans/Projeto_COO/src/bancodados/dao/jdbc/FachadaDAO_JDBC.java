@@ -30,7 +30,7 @@ public class FachadaDAO_JDBC implements FachadaDAO{
         reservaDAO = factoryDAO.createReservaDAO();
         
         //Criacao do banco de dados
-        new criacaoBancoDados(usuarioDAO, recursoDAO, reservaDAO).criaTabelas();
+        new CriacaoBancoDados(usuarioDAO, recursoDAO, reservaDAO).criaTabelas();
         
     }
 

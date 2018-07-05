@@ -39,6 +39,12 @@ public class DescadastrarRecurso extends AbstractJPanel {
         BotaoGoDiagConfRec.setEnabled(false);
     }
     
+    private void resetaTela(){
+        CBPredioExcluirRec.setSelectedIndex(0);
+        CBTiposExcluirRec.setSelectedIndex(0);
+        DefaultTableModel model = (DefaultTableModel) TabelaExcluirRec.getModel();
+        model.setNumRows(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -319,6 +325,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDescadastrarRecurso");
         back.habilitaTelaDescadastrarSelecao();
+        resetaTela();
         back.desabilitaTelaDescadastrarRecurso();
     }//GEN-LAST:event_BotaoRetFromDescRecActionPerformed
 
@@ -381,6 +388,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
             TabelaExcluirRec.setEnabled(true);
             BotaoListaRecExcRec.setEnabled(true);
             BotaoGoDiagConfRec.setEnabled(true);
+            BotaoListaRecExcRecActionPerformed(evt);
         }
     }//GEN-LAST:event_CBTiposExcluirRecActionPerformed
 

@@ -14,7 +14,17 @@ public class ListaReservasUsuarios extends AbstractJPanel {
         this.back = back;
         initComponents();
     }
+    
+    private void limpaCampos_ListaResvUsr(){
+        TF_NUSP_ListResvUsr.setText("");
+        limpaTabela((DefaultTableModel) TabelaListaReserUsr.getModel());
+    }
             
+    private void limpaTabela(DefaultTableModel model){
+        while(model.getRowCount() > 0){
+            model.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,6 +136,7 @@ public class ListaReservasUsuarios extends AbstractJPanel {
 
     private void BotaoRetFromTelaListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaListResvUsrActionPerformed
         back.desabilitaTelaListaReservasUsuarios();
+        limpaCampos_ListaResvUsr();
         back.habilitaTelaListaSelecao();
     }//GEN-LAST:event_BotaoRetFromTelaListResvUsrActionPerformed
 
@@ -138,9 +149,8 @@ public class ListaReservasUsuarios extends AbstractJPanel {
                 List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
                 DefaultTableModel model = (DefaultTableModel) TabelaListaReserUsr.getModel();
                 //equivalente a clearTable();
-                while (model.getRowCount() > 0) {
-                    model.removeRow(0);
-                }
+                limpaTabela(model);
+                
                 for (Reserva res : lista) {
                     String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
                     Recurso rec = res.getRecurso();

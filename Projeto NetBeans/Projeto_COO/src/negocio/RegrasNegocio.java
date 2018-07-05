@@ -9,7 +9,7 @@ import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.FachadaDAO_JDBC;
 import bancodados.dao.jdbc.FactoryDAO_JDBC;
-import bancodados.dao.jdbc.criacaoBancoDados;
+import bancodados.dao.jdbc.CriacaoBancoDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
