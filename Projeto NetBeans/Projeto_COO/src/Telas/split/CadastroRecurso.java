@@ -8,13 +8,7 @@ package Telas.split;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import negocio.*;
-import objetos.*;
 import bancodados.Log;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-import javax.swing.JRadioButton;
 
 /**
  *

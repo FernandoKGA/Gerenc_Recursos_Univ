@@ -71,18 +71,22 @@ public class Background extends JFrame {
         desabilitaTelaDesmarcarReserva();
     }
     
+    //Menu
     Menu TelaMenu = new Menu(this);
     
+    //Cadastro
     SelecaoCadastro TelaSelecaoCadastro = new SelecaoCadastro(this);
     CadastraReserva TelaCadastraReserva = new CadastraReserva(this);
     CadastroRecurso TelaCadastroRecurso = new CadastroRecurso(this);
     CadastroUsuario TelaCadastroUsuario = new CadastroUsuario(this);
     
+    //Descadastro
     DescadastrarSelecao TelaDescadastrarSelecao = new DescadastrarSelecao(this);
     DescadastrarRecurso TelaDescadastrarRecurso = new DescadastrarRecurso(this);
     DesmarcarReserva TelaDesmarcarReserva = new DesmarcarReserva(this);
     DescadastrarUsuario TelaDescadastraUsuario = new DescadastrarUsuario(this);
     
+    //Listagem
     ListaSelecao TelaListaSelecao = new ListaSelecao(this);
     ListaReservasUsuarios TelaListaReservasUsuarios = new ListaReservasUsuarios(this);
     ListaUsuarios TelaListaUsuarios = new ListaUsuarios(this);
