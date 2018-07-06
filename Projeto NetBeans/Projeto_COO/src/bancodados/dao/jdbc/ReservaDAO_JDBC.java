@@ -139,6 +139,8 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
     public List<Reserva> listaMensais(String numeroUSP, String data_ftf) throws
             Banco_de_DadosException {
         List<Reserva> reservaUsuario = new ArrayList<>();
+        String mes = data_ftf.substring(5, 7);
+        System.out.println(mes);
 
         try {
             abreConexao();
@@ -147,9 +149,9 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             if (u.getId_Usuario() != null) {
                 int idu = Integer.parseInt(u.getId_Usuario());
                 preparaComandoSQL("SELECT * FROM RESERVA WHERE "
-                        + "ID_USUARIO = ? AND DATA = MONTH(?)");
+                        + "ID_USUARIO = ? AND MONTH(DATA) = ?");
                 pstmt.setInt(1, idu);
-                pstmt.setString(2, data_ftf);
+                pstmt.setString(2, mes);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Reserva r = new Reserva();

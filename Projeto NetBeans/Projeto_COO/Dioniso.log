@@ -2,21 +2,50 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-07-06T18:28:59</date>
-  <millis>1530912539162</millis>
+  <date>2018-07-06T19:16:59</date>
+  <millis>1530915419533</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>java.sql.SQLException: Can not issue data manipulation statements with executeQuery().</message>
+  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Data source rejected establishment of connection,  message from server: "Too many connections"</message>
   <exception>
-    <message>java.sql.SQLException: Can not issue data manipulation statements with executeQuery().</message>
+    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Data source rejected establishment of connection,  message from server: "Too many connections"</message>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance0</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance</method>
+      <line>62</line>
+    </frame>
+    <frame>
+      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
+      <method>newInstance</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Constructor</class>
+      <method>newInstance</method>
+      <line>423</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>handleNewInstance</method>
+      <line>425</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>getInstance</method>
+      <line>408</line>
+    </frame>
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
       <method>createSQLException</method>
-      <line>964</line>
+      <line>918</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
@@ -29,39 +58,113 @@
       <line>886</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>860</line>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>doHandshake</method>
+      <line>1040</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.StatementImpl</class>
-      <method>checkForDml</method>
-      <line>463</line>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>coreConnect</method>
+      <line>2205</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.PreparedStatement</class>
-      <method>executeQuery</method>
-      <line>1923</line>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>connectOneTryOnly</method>
+      <line>2236</line>
     </frame>
     <frame>
-      <class>bancodados.dao.jdbc.ReservaDAO_JDBC</class>
-      <method>excluir</method>
-      <line>126</line>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>createNewIO</method>
+      <line>2035</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>&lt;init&gt;</method>
+      <line>790</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.JDBC4Connection</class>
+      <method>&lt;init&gt;</method>
+      <line>47</line>
+    </frame>
+    <frame>
+      <class>sun.reflect.GeneratedConstructorAccessor6</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
+      <method>newInstance</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Constructor</class>
+      <method>newInstance</method>
+      <line>423</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>handleNewInstance</method>
+      <line>425</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>getInstance</method>
+      <line>400</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.NonRegisteringDriver</class>
+      <method>connect</method>
+      <line>330</line>
+    </frame>
+    <frame>
+      <class>java.sql.DriverManager</class>
+      <method>getConnection</method>
+      <line>664</line>
+    </frame>
+    <frame>
+      <class>java.sql.DriverManager</class>
+      <method>getConnection</method>
+      <line>247</line>
+    </frame>
+    <frame>
+      <class>bancodados.ConectorJDBC</class>
+      <method>abreConexao</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>bancodados.ConectorJDBC</class>
+      <method>preparaComandoSQL</method>
+      <line>120</line>
+    </frame>
+    <frame>
+      <class>bancodados.dao.jdbc.UsuarioDAO_JDBC</class>
+      <method>busca</method>
+      <line>61</line>
+    </frame>
+    <frame>
+      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
+      <method>populaTabelas</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
+      <method>criaTabelas</method>
+      <line>29</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.FachadaDAO_JDBC</class>
-      <method>excluirReserva</method>
-      <line>109</line>
+      <method>&lt;init&gt;</method>
+      <line>33</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>excluirReserva</method>
-      <line>314</line>
+      <method>&lt;init&gt;</method>
+      <line>28</line>
     </frame>
     <frame>
       <class>Telas.split.DesmarcarReserva</class>
       <method>BotaoDesmResvActionPerformed</method>
-      <line>398</line>
+      <line>392</line>
     </frame>
     <frame>
       <class>Telas.split.DesmarcarReserva</class>
@@ -71,7 +174,7 @@
     <frame>
       <class>Telas.split.DesmarcarReserva$1</class>
       <method>actionPerformed</method>
-      <line>118</line>
+      <line>124</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -254,36 +357,26 @@
   </exception>
 </record>
 <record>
-  <date>2018-07-06T18:28:59</date>
-  <millis>1530912539165</millis>
+  <date>2018-07-06T19:17:01</date>
+  <millis>1530915421254</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>bancodados.Banco_de_DadosException: Problemas ao ler os parâmtros da consulta.</message>
+  <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
   <exception>
-    <message>bancodados.Banco_de_DadosException: Problemas ao ler os parâmtros da consulta.</message>
-    <frame>
-      <class>bancodados.dao.jdbc.ReservaDAO_JDBC</class>
-      <method>excluir</method>
-      <line>130</line>
-    </frame>
-    <frame>
-      <class>bancodados.dao.jdbc.FachadaDAO_JDBC</class>
-      <method>excluirReserva</method>
-      <line>109</line>
-    </frame>
+    <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>excluirReserva</method>
-      <line>314</line>
+      <method>&lt;init&gt;</method>
+      <line>30</line>
     </frame>
     <frame>
       <class>Telas.split.DesmarcarReserva</class>
       <method>BotaoDesmResvActionPerformed</method>
-      <line>398</line>
+      <line>392</line>
     </frame>
     <frame>
       <class>Telas.split.DesmarcarReserva</class>
@@ -293,219 +386,7 @@
     <frame>
       <class>Telas.split.DesmarcarReserva$1</class>
       <method>actionPerformed</method>
-      <line>118</line>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton</class>
-      <method>fireActionPerformed</method>
-      <line>2022</line>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton$Handler</class>
-      <method>actionPerformed</method>
-      <line>2348</line>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>fireActionPerformed</method>
-      <line>402</line>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>setPressed</method>
-      <line>259</line>
-    </frame>
-    <frame>
-      <class>javax.swing.plaf.basic.BasicButtonListener</class>
-      <method>mouseReleased</method>
-      <line>252</line>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processMouseEvent</method>
-      <line>6533</line>
-    </frame>
-    <frame>
-      <class>javax.swing.JComponent</class>
-      <method>processMouseEvent</method>
-      <line>3324</line>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processEvent</method>
-      <line>6298</line>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>processEvent</method>
-      <line>2236</line>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEventImpl</method>
-      <line>4889</line>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-      <line>2294</line>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-      <line>4711</line>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>retargetMouseEvent</method>
-      <line>4888</line>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>processMouseEvent</method>
-      <line>4525</line>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>dispatchEvent</method>
-      <line>4466</line>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-      <line>2280</line>
-    </frame>
-    <frame>
-      <class>java.awt.Window</class>
-      <method>dispatchEventImpl</method>
-      <line>2746</line>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-      <line>4711</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEventImpl</method>
-      <line>758</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>access$500</method>
-      <line>97</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-      <line>709</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-      <line>703</line>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-      <line>76</line>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-      <line>86</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>731</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>729</line>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-      <line>76</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEvent</method>
-      <line>728</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpOneEventForFilters</method>
-      <line>201</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForFilter</method>
-      <line>116</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForHierarchy</method>
-      <line>105</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-      <line>101</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-      <line>93</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>run</method>
-      <line>82</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2018-07-06T18:28:59</date>
-  <millis>1530912539191</millis>
-  <sequence>2</sequence>
-  <logger>java.util.logging.Logger</logger>
-  <level>SEVERE</level>
-  <class>bancodados.Log</class>
-  <method>gravaLog</method>
-  <thread>14</thread>
-  <message>negocio.RegrasNegocioException: Não foi possível conectar ao banco de dados.</message>
-  <exception>
-    <message>negocio.RegrasNegocioException: Não foi possível conectar ao banco de dados.</message>
-    <frame>
-      <class>negocio.RegrasNegocio</class>
-      <method>excluirReserva</method>
-      <line>317</line>
-    </frame>
-    <frame>
-      <class>Telas.split.DesmarcarReserva</class>
-      <method>BotaoDesmResvActionPerformed</method>
-      <line>398</line>
-    </frame>
-    <frame>
-      <class>Telas.split.DesmarcarReserva</class>
-      <method>access$000</method>
-      <line>14</line>
-    </frame>
-    <frame>
-      <class>Telas.split.DesmarcarReserva$1</class>
-      <method>actionPerformed</method>
-      <line>118</line>
+      <line>124</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
