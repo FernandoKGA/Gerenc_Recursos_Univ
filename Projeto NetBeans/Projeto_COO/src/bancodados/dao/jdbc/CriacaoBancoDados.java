@@ -5,13 +5,13 @@ import objetos.*;
 import bancodados.dao.*;
 import java.sql.SQLException;
 
-public class criacaoBancoDados extends ConectorDAO_JDBC {
+public class CriacaoBancoDados extends ConectorDAO_JDBC {
 
     private UsuarioDAO usuariodao;
     private RecursoDAO recursodao;
     private ReservaDAO reservadao;
 
-    public criacaoBancoDados(UsuarioDAO u, RecursoDAO rc, ReservaDAO rs) throws Banco_de_DadosException {
+    public CriacaoBancoDados(UsuarioDAO u, RecursoDAO rc, ReservaDAO rs) throws Banco_de_DadosException {
         super();
         //partimos do principio que estaremos usando o MySQL pelo sistema 
         this.usuariodao = u;

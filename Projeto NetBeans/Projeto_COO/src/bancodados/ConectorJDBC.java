@@ -67,7 +67,7 @@ public abstract class ConectorJDBC {
         try {
             //?autoReconnect=true&useSSL=false RESOLVE O PROBLEMA DE SSL, USAR COM CUIDADO
             con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
-                    + getDbName() + "?autoReconnect=true&useSSL=false", getUser(), getPassword());
+                    + getDbName() + "?autoReconnect=false&useSSL=false", getUser(), getPassword());
         } catch (SQLException e) {
             Log.gravaLog(e);
             JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados");
@@ -81,9 +81,10 @@ public abstract class ConectorJDBC {
         try {
             //?autoReconnect=true&useSSL=false   RESOLVE O PROBLEMA DE SSL
             con = DriverManager.getConnection(dbURL + "://" + getDbHost() + "/"
-                    + "?autoReconnect=true&useSSL=false", getUser(), getPassword());
+                    + "?autoReconnect=false&useSSL=false", getUser(), getPassword());
         } catch (SQLException e) {
             Log.gravaLog(e);
+            JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados");
             throw new Banco_de_DadosException(
                     "Problemas no acesso ao banco de dados.");
         }

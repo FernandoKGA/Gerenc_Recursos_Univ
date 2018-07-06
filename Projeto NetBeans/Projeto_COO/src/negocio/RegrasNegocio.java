@@ -8,8 +8,6 @@ package negocio;
 import bancodados.*;
 import bancodados.dao.*;
 import bancodados.dao.jdbc.FachadaDAO_JDBC;
-import bancodados.dao.jdbc.FactoryDAO_JDBC;
-import bancodados.dao.jdbc.criacaoBancoDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -96,6 +94,16 @@ public class RegrasNegocio extends RegrasNegocioException {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível "
                     + "conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Recurso buscaRecurso(String nome, String predio, String tipo) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaRecurso(nome, predio, tipo);
+        }catch(Banco_de_DadosException e){
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
         }
     }
 
@@ -350,7 +358,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         String tipoRec = r.getTipo();
 
         if (cargoUsu.equalsIgnoreCase("ALUNO")) {
-            if (tipoRec.equalsIgnoreCase("LABORATORIO") || tipoRec.equalsIgnoreCase("AUDITORIO")) {
+            if (tipoRec.equalsIgnoreCase("LABORATORIO") || tipoRec.equalsIgnoreCase("AUDITORIO") || r.getPredio().equalsIgnoreCase("A2") || r.getPredio().equalsIgnoreCase("A3")) {
                 return false; //porque a regra diz que laboratórios são reservados a professores.
             }
             return true;

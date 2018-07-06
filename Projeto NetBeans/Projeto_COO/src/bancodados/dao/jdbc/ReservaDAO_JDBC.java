@@ -119,11 +119,14 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             abreConexao();
             preparaComandoSQL("DELETE FROM RESERVA WHERE DATA=? "
                     + "AND HINICIO=? AND HFIM=? AND ID_RECURSO=?");
+            System.out.println("DELETE FROM RESERVA WHERE DATA="
+                    + reserva.getData() + " AND HINICIO=" + reserva.getHoraInicio()
+                    + " AND HFIM=" + reserva.getHoraFim() + " AND ID_RECURSO=" + reserva.getRecurso().getId_Recurso());
             pstmt.setString(1, reserva.getData());
             pstmt.setString(2, reserva.getHoraInicio());
             pstmt.setString(3, reserva.getHoraFim());
             pstmt.setString(4, reserva.getRecurso().getId_Recurso());
-            rs = pstmt.executeQuery();
+            pstmt.execute();
             fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);

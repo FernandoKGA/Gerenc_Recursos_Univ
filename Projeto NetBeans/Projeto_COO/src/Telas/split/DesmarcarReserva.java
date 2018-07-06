@@ -393,8 +393,10 @@ public class DesmarcarReserva extends AbstractJPanel {
                     && (recurso_nome.equalsIgnoreCase(reserva.getRecurso().getNome()))
                     && (hora.substring(0, 5).equalsIgnoreCase(reserva.getHoraInicio()))
                     && (hora.substring(8, hora.length()).equalsIgnoreCase(reserva.getHoraFim()))
-                    && (numeroUSP.equalsIgnoreCase(reserva.getUsuario().getNUSP()))) {
-
+                    /*&& (numeroUSP.equalsIgnoreCase(reserva.getUsuario().getNUSP()))*/) {
+                    Recurso rec = r.buscaRecurso(recurso_nome, predio, tipo);
+                    reserva.getRecurso().setId_Recurso(rec.getId_Recurso());
+                    System.out.println("Encontramos! é o de ID " + reserva.getRecurso().getId_Recurso());
                     r.excluirReserva(reserva);
                     JOptionPane.showMessageDialog(null,"Desmarcou com sucesso!");
                 }
