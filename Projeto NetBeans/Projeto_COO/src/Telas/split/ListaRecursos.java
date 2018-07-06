@@ -38,7 +38,9 @@ public class ListaRecursos extends AbstractJPanel {
             if (lista != null) {
                 DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();
                 //equivalente a clearTable();
-                model.setNumRows(0);
+                while(model.getRowCount() > 0){
+                    model.removeRow(0);
+                }
                 TabelaListaRec.setRowSorter(new TableRowSorter(model));
                 for (Recurso rec : lista) {
                     model.addRow(new Object[]{rec.getNome(), rec.getPredio(), rec.getTipo()});
@@ -50,13 +52,14 @@ public class ListaRecursos extends AbstractJPanel {
         }
     }
 
-    public void habilitaVisibilidadeTelaListaRecursos(){
+    @Override
+    public void habilitaVisibilidade(){
         this.setVisible(true);
         Component[] array = this.getComponents();
-            listaRecursos();
         for (Component array1 : array) {
             array1.setVisible(true);
         }
+        listaRecursos();
     }
 
     /**

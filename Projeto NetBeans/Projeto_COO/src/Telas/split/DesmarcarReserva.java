@@ -36,6 +36,12 @@ public class DesmarcarReserva extends AbstractJPanel {
         TabelaDesmResv.setEnabled(false);
     }
     
+    private void limpaTelaDesmResv(){
+        TF_NUSP_DesmResv.setText("");
+        DefaultTableModel model = (DefaultTableModel) TabelaDesmResv.getModel();
+        model.setRowCount(0);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -370,6 +376,7 @@ public class DesmarcarReserva extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDesmarcarReserva");
         back.habilitaTelaDescadastrarSelecao();
+        limpaTelaDesmResv();
         back.desabilitaTelaDesmarcarReserva();
     }//GEN-LAST:event_BotaoRetFromDesmResvActionPerformed
 
