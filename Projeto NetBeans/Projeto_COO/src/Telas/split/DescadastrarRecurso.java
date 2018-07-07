@@ -210,7 +210,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         });
 
         BotaoGoDiagConfRec.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        BotaoGoDiagConfRec.setText("Buscar");
+        BotaoGoDiagConfRec.setText("Excluir");
         BotaoGoDiagConfRec.setMaximumSize(new java.awt.Dimension(93, 27));
         BotaoGoDiagConfRec.setMinimumSize(new java.awt.Dimension(93, 27));
         BotaoGoDiagConfRec.addActionListener(new java.awt.event.ActionListener() {

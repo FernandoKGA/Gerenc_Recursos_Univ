@@ -23,21 +23,6 @@ public class SelecaoCadastro extends AbstractJPanel {
         this.back = back;
         initComponents();
     }
-    
-    @Override
-    public void habilitaVisibilidade(){
-        this.setVisible(true);
-        
-        //Temporário enquanto não existem as telas.
-        BotaoGoTelaCadPredio.setEnabled(false);
-        BotaoGoTelaCadTipo.setEnabled(false);
-        BotaoGoTelaCadCurso.setEnabled(false);
-        
-        Component[] array = this.getComponents();
-        for (Component array1 : array) {
-            array1.setVisible(true);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,9 +39,6 @@ public class SelecaoCadastro extends AbstractJPanel {
         BotaoGoTelaCadUsr = new javax.swing.JButton();
         BotaoGoTelaCadRec = new javax.swing.JButton();
         BotaoRetFromCadSelc = new javax.swing.JButton();
-        BotaoGoTelaCadPredio = new javax.swing.JButton();
-        BotaoGoTelaCadTipo = new javax.swing.JButton();
-        BotaoGoTelaCadCurso = new javax.swing.JButton();
 
         LabelTelaCadSelc.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         LabelTelaCadSelc.setForeground(new java.awt.Color(255, 0, 0));
@@ -109,40 +91,6 @@ public class SelecaoCadastro extends AbstractJPanel {
             }
         });
 
-        BotaoGoTelaCadPredio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        BotaoGoTelaCadPredio.setText("Novo Prédio");
-        BotaoGoTelaCadPredio.setMaximumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadPredio.setMinimumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadPredio.setPreferredSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadPredio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoGoTelaCadPredioActionPerformed(evt);
-            }
-        });
-
-        BotaoGoTelaCadTipo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        BotaoGoTelaCadTipo.setText("Novo Tipo");
-        BotaoGoTelaCadTipo.setMaximumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadTipo.setMinimumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadTipo.setPreferredSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoGoTelaCadTipoActionPerformed(evt);
-            }
-        });
-
-        BotaoGoTelaCadCurso.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        BotaoGoTelaCadCurso.setText("Novo Curso");
-        BotaoGoTelaCadCurso.setMaximumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadCurso.setMinimumSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadCurso.setPreferredSize(new java.awt.Dimension(135, 27));
-        BotaoGoTelaCadCurso.setVerifyInputWhenFocusTarget(false);
-        BotaoGoTelaCadCurso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoGoTelaCadCursoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,15 +109,10 @@ public class SelecaoCadastro extends AbstractJPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(BotaoGoTelaCadResv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BotaoGoTelaCadResv, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                                     .addComponent(BotaoGoTelaCadUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BotaoGoTelaCadRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(BotaoGoTelaCadPredio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BotaoGoTelaCadTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BotaoGoTelaCadCurso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(BotaoGoTelaCadRec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 35, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,17 +123,11 @@ public class SelecaoCadastro extends AbstractJPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelSubTelaCadSelc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoGoTelaCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoGoTelaCadPredio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(BotaoGoTelaCadResv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoGoTelaCadUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoGoTelaCadTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(BotaoGoTelaCadUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoGoTelaCadRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoGoTelaCadCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(BotaoGoTelaCadRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(BotaoRetFromCadSelc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -225,25 +162,10 @@ public class SelecaoCadastro extends AbstractJPanel {
         back.desabilitaTelaSelecaoCadastro();
     }//GEN-LAST:event_BotaoRetFromCadSelcActionPerformed
 
-    private void BotaoGoTelaCadPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadPredioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoGoTelaCadPredioActionPerformed
-
-    private void BotaoGoTelaCadTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoGoTelaCadTipoActionPerformed
-
-    private void BotaoGoTelaCadCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGoTelaCadCursoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoGoTelaCadCursoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoGoTelaCadCurso;
-    private javax.swing.JButton BotaoGoTelaCadPredio;
     private javax.swing.JButton BotaoGoTelaCadRec;
     private javax.swing.JButton BotaoGoTelaCadResv;
-    private javax.swing.JButton BotaoGoTelaCadTipo;
     private javax.swing.JButton BotaoGoTelaCadUsr;
     private javax.swing.JButton BotaoRetFromCadSelc;
     private javax.swing.JLabel LabelSubTelaCadSelc;
