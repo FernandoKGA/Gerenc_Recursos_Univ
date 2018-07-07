@@ -2,17 +2,17 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-07-06T19:16:59</date>
-  <millis>1530915419533</millis>
+  <date>2018-07-06T22:55:28</date>
+  <millis>1530928528801</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Data source rejected establishment of connection,  message from server: "Too many connections"</message>
+  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`dioniso`.`reserva`, CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `recurso` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION)</message>
   <exception>
-    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Data source rejected establishment of connection,  message from server: "Too many connections"</message>
+    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`dioniso`.`reserva`, CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `recurso` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION)</message>
     <frame>
       <class>sun.reflect.NativeConstructorAccessorImpl</class>
       <method>newInstance0</method>
@@ -45,136 +45,87 @@
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
       <method>createSQLException</method>
-      <line>918</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>897</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createSQLException</method>
-      <line>886</line>
+      <line>935</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.MysqlIO</class>
-      <method>doHandshake</method>
-      <line>1040</line>
+      <method>checkErrorPacket</method>
+      <line>3973</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>checkErrorPacket</method>
+      <line>3909</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>sendCommand</method>
+      <line>2527</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>sqlQueryDirect</method>
+      <line>2680</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>coreConnect</method>
-      <line>2205</line>
+      <method>execSQL</method>
+      <line>2501</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>connectOneTryOnly</method>
-      <line>2236</line>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeInternal</method>
+      <line>1858</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>createNewIO</method>
-      <line>2035</line>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeUpdateInternal</method>
+      <line>2079</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>&lt;init&gt;</method>
-      <line>790</line>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeUpdateInternal</method>
+      <line>2013</line>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.JDBC4Connection</class>
-      <method>&lt;init&gt;</method>
-      <line>47</line>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeLargeUpdate</method>
+      <line>5104</line>
     </frame>
     <frame>
-      <class>sun.reflect.GeneratedConstructorAccessor6</class>
-      <method>newInstance</method>
+      <class>com.mysql.jdbc.PreparedStatement</class>
+      <method>executeUpdate</method>
+      <line>1998</line>
     </frame>
     <frame>
-      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
-      <method>newInstance</method>
-      <line>45</line>
-    </frame>
-    <frame>
-      <class>java.lang.reflect.Constructor</class>
-      <method>newInstance</method>
-      <line>423</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.Util</class>
-      <method>handleNewInstance</method>
-      <line>425</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>getInstance</method>
-      <line>400</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.NonRegisteringDriver</class>
-      <method>connect</method>
-      <line>330</line>
-    </frame>
-    <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
-      <line>664</line>
-    </frame>
-    <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
-      <line>247</line>
-    </frame>
-    <frame>
-      <class>bancodados.ConectorJDBC</class>
-      <method>abreConexao</method>
-      <line>69</line>
-    </frame>
-    <frame>
-      <class>bancodados.ConectorJDBC</class>
-      <method>preparaComandoSQL</method>
-      <line>120</line>
-    </frame>
-    <frame>
-      <class>bancodados.dao.jdbc.UsuarioDAO_JDBC</class>
-      <method>busca</method>
-      <line>61</line>
-    </frame>
-    <frame>
-      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
-      <method>populaTabelas</method>
-      <line>103</line>
-    </frame>
-    <frame>
-      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
-      <method>criaTabelas</method>
-      <line>29</line>
+      <class>bancodados.dao.jdbc.RecursoDAO_JDBC</class>
+      <method>excluir</method>
+      <line>180</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.FachadaDAO_JDBC</class>
-      <method>&lt;init&gt;</method>
-      <line>33</line>
+      <method>excluirRecurso</method>
+      <line>89</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>&lt;init&gt;</method>
-      <line>28</line>
+      <method>excluirRecurso</method>
+      <line>149</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva</class>
-      <method>BotaoDesmResvActionPerformed</method>
-      <line>392</line>
+      <class>Telas.split.DescadastrarRecurso</class>
+      <method>BotaoDescRecActionPerformed</method>
+      <line>417</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva</class>
+      <class>Telas.split.DescadastrarRecurso</class>
       <method>access$000</method>
-      <line>14</line>
+      <line>20</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva$1</class>
+      <class>Telas.split.DescadastrarRecurso$1</class>
       <method>actionPerformed</method>
-      <line>124</line>
+      <line>119</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -357,36 +308,36 @@
   </exception>
 </record>
 <record>
-  <date>2018-07-06T19:17:01</date>
-  <millis>1530915421254</millis>
+  <date>2018-07-06T22:55:28</date>
+  <millis>1530928528835</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
+  <message>negocio.RegrasNegocioException: Não foi possível conectar ao Banco de Dados.</message>
   <exception>
-    <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Problemas no acesso ao banco de dados.</message>
+    <message>negocio.RegrasNegocioException: Não foi possível conectar ao Banco de Dados.</message>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>&lt;init&gt;</method>
-      <line>30</line>
+      <method>excluirRecurso</method>
+      <line>152</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva</class>
-      <method>BotaoDesmResvActionPerformed</method>
-      <line>392</line>
+      <class>Telas.split.DescadastrarRecurso</class>
+      <method>BotaoDescRecActionPerformed</method>
+      <line>417</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva</class>
+      <class>Telas.split.DescadastrarRecurso</class>
       <method>access$000</method>
-      <line>14</line>
+      <line>20</line>
     </frame>
     <frame>
-      <class>Telas.split.DesmarcarReserva$1</class>
+      <class>Telas.split.DescadastrarRecurso$1</class>
       <method>actionPerformed</method>
-      <line>124</line>
+      <line>119</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>

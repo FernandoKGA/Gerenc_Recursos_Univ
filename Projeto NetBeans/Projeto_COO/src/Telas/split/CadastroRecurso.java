@@ -253,7 +253,7 @@ public class CadastroRecurso extends AbstractJPanel {
                     return;
                 }
                 r.cadastraLaboratorio(nome, tipo, predio, curso);
-                JOptionPane.showMessageDialog(null, "Cadastrou Recurso com sucesso!");
+                JOptionPane.showMessageDialog(null, "Cadastrou Laboratório com sucesso!");
                 limpaCampos_CadRecurso();
             }
         } catch (RegrasNegocioException e) {

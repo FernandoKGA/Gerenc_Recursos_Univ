@@ -435,6 +435,7 @@ public class Telas extends JFrame {
     }
 
     private boolean comparaDataAtual(String data, String data_ftf) {
+        System.out.println("COMPARA DATA ATUAL: DATA = " + data + "; DATA_FTF = " + data_ftf);
         if (((int) data_ftf.charAt(3)) < ((int) data.charAt(3))) {
             return false;
         }
@@ -3038,7 +3039,7 @@ public class Telas extends JFrame {
             if (verificaData(data_ftf)) {
                 Date data_agora = new Date();
                 String data_atual = (String) new SimpleDateFormat("dd/MM HH:mm").format(data_agora);
-                String hora = data_atual.substring(8,data_atual.length());
+               // String hora = data_atual.substring(8,data_atual.length());
                 if (comparaDataAtual(data_atual, data_ftf)) {
                     String data_ftf_antique = data_ftf;
                     data_ftf = transformaData(data_ftf);

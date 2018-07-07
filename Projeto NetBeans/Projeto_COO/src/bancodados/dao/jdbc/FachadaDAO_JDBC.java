@@ -123,4 +123,9 @@ public class FachadaDAO_JDBC implements FachadaDAO{
     public void atualizaReservas() throws Banco_de_DadosException {
         reservaDAO.atualiza();
     }
+
+    @Override
+    public void insereLaboratorio(Recurso recurso) throws Banco_de_DadosException {
+       recursoDAO.insereLab(recurso);   
+    }
 }

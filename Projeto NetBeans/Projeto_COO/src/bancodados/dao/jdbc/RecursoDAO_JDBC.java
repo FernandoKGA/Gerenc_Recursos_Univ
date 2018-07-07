@@ -142,7 +142,7 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
     public List<Recurso> lista(String predio, String tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = new LinkedList<>();
         try {
-            preparaComandoSQL("SELECT NOME,IDRECURSO FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
+            preparaComandoSQL("SELECT NOME,IDRECURSO,CURSO FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
             System.out.println(predio);
             pstmt.setString(1, predio);
             pstmt.setString(2, tipo);
@@ -150,11 +150,16 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
                 String idrecurso = rs.getString(2); //idrecurso
+                String curso = rs.getString(3);
                 Recurso r = new Recurso();
                 r.setNome(nome);
                 r.setId_Recurso(idrecurso);
                 r.setPredio(predio);
                 r.setTipo(tipo);
+                r.setCurso(curso);
+                if(r.getCurso() != null){
+                    System.out.println("TEM UM CURSO: " + r.getCurso());
+                }
                 recursos.add(r);
             }
         } catch (SQLException e) {
@@ -166,6 +171,7 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
 
     @Override
     public void excluir(Recurso recurso) throws Banco_de_DadosException {
+        System.out.println("DELETE FROM RECURSO WHERE NOME = " + recurso.getNome() + " AND PREDIO = " + recurso.getPredio() + " AND TIPO = " + recurso.getTipo());
         preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
         try {
             pstmt.setString(1, recurso.getNome());

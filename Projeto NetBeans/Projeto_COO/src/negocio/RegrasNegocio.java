@@ -96,11 +96,11 @@ public class RegrasNegocio extends RegrasNegocioException {
                     + "conectar ao Banco de Dados.");
         }
     }
-    
-    public Recurso buscaRecurso(String nome, String predio, String tipo) throws RegrasNegocioException{
-        try{
+
+    public Recurso buscaRecurso(String nome, String predio, String tipo) throws RegrasNegocioException {
+        try {
             return fachadaDAO.buscaRecurso(nome, predio, tipo);
-        }catch(Banco_de_DadosException e){
+        } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível"
                     + " conectar ao Banco de Dados.");
@@ -136,7 +136,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         lb.setCurso(curso);
 
         try {
-            fachadaDAO.insereRecurso(lb);
+            fachadaDAO.insereLaboratorio(lb);
         } catch (Banco_de_DadosException e) {
             e.printStackTrace();
             throw new RegrasNegocioException("Não foi possível "
@@ -195,7 +195,7 @@ public class RegrasNegocio extends RegrasNegocioException {
                                     //Limita QUALQUER usuario de selecionar mais de 2 horas
                                     System.out.println(data_ftf);
                                     horarios = ordenaHorarios(horarios);
-                                    if(verificaHorarioMesmoDia(horarios,data_ftf)){
+                                    if (verificaHorarioMesmoDia(horarios, data_ftf)) {
                                         System.out.println("msm dia");
                                     }
                                     for (String hora : horarios) {
@@ -223,7 +223,7 @@ public class RegrasNegocio extends RegrasNegocioException {
                             if (verificaHorasConsecutivas(horarios)) {
                                 //Limita QUALQUER usuario de selecionar mais de 2 horas
                                 horarios = ordenaHorarios(horarios);
-                                
+
                                 for (String hora : horarios) {
                                     String h_inicio = hora.substring(0, 5);
                                     System.out.println(h_inicio);
@@ -263,9 +263,13 @@ public class RegrasNegocio extends RegrasNegocioException {
                     return false;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário de cargo "
-                        + usuario.getCargo() + " não pode alugar recurso do tipo "
-                        + rec.getTipo() + "!");
+                if (usuario.getCargo().equalsIgnoreCase("ALUNO")) {
+                    JOptionPane.showMessageDialog(null, "Alunos não podem alugar recurso do tipo "
+                            + rec.getTipo() + " no prédio " + rec.getPredio() + "!");
+                }else if(usuario.getCargo().equalsIgnoreCase("PROFESSOR")){
+                    JOptionPane.showMessageDialog(null, "Professor de curso diferente do laboratório - " + rec.getCurso());
+                }
+
                 fachadaDAO.atualizaReservas();
                 return false;
             }
@@ -341,10 +345,6 @@ public class RegrasNegocio extends RegrasNegocioException {
     // ---------------------------- FIM RESERVA ----------------------------
     //---------------------------Regras de Negócio---------------------------
     public boolean verificaQuantCoordenador(String curso) throws RegrasNegocioException {
-        /*
-            Caso existam dois coordenadores no curso, retorna true.
-            Contrário, false.
-         */
         try {
             return fachadaDAO.verificaQuantCoordenador(curso);
         } catch (Banco_de_DadosException e) {
@@ -355,17 +355,19 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     public boolean permiteAluguelTipo(Usuario u, Recurso r) {
         String cargoUsu = u.getCargo();
+        System.out.println(cargoUsu);
         String tipoRec = r.getTipo();
 
         if (cargoUsu.equalsIgnoreCase("ALUNO")) {
-            if (tipoRec.equalsIgnoreCase("LABORATORIO") || tipoRec.equalsIgnoreCase("AUDITORIO") || r.getPredio().equalsIgnoreCase("A2") || r.getPredio().equalsIgnoreCase("A3")) {
+            if (tipoRec.equalsIgnoreCase("LABORATÓRIO") || tipoRec.equalsIgnoreCase("AUDITORIO") || r.getPredio().equalsIgnoreCase("A2") || r.getPredio().equalsIgnoreCase("A3")) {
                 return false; //porque a regra diz que laboratórios são reservados a professores.
             }
             return true;
         } else if (cargoUsu.equalsIgnoreCase("PROFESSOR")) {
-            if (tipoRec.equalsIgnoreCase("LABORATORIO")) {
+            if (tipoRec.equalsIgnoreCase("LABORATÓRIO")) {
                 //Isso aqui é possível de fazer? Fica o questionamento
                 String curso = r.getCurso();
+                System.out.println("VERIFICANDO CURSO - " + r.getCurso() + " = " + u.getCurso() + "?");
                 if (curso.equalsIgnoreCase(u.getCurso())) {
                     return true;
                 }
@@ -470,12 +472,12 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
         return false;
     }
-    
-    private boolean verificaHorarioMesmoDia(ArrayList<String> horarios, String data_ftf){
+
+    private boolean verificaHorarioMesmoDia(ArrayList<String> horarios, String data_ftf) {
         Date data_agora = new Date();
         String data = (String) new SimpleDateFormat("HH:mm").format(data_agora);
-        System.out.println("data_ftf: "+data_ftf);
-        System.out.println("hora :"+data);
+        System.out.println("data_ftf: " + data_ftf);
+        System.out.println("hora :" + data);
         return true;
     }
 

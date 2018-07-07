@@ -27,7 +27,7 @@ public interface FachadaDAO {
     
     public void insereRecurso(Recurso recurso) throws Banco_de_DadosException;
     
-    //public void insereLab(Laboratorio l) throws Banco_de_DadosException;
+    public void insereLaboratorio(Recurso recurso) throws Banco_de_DadosException;
     
     public Recurso buscaRecurso(String nome, String predio, String tipo) throws Banco_de_DadosException;
     
