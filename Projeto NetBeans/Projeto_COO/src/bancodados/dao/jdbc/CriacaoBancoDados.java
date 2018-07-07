@@ -112,6 +112,8 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         usuariodao.insere(u2);
         Usuario u3 = new Usuario("Mariana Medeiros", "2345678", "marina.med@usp.br", "11966879845", "GA", "Coordenador");
         usuariodao.insere(u3);
+        Usuario u4 = new Usuario("Cláudia Excluível", "63295831", "me.exclua@usp.br", "11963294872", "EFS", "Aluno");
+        usuariodao.insere(u4);
         
         //Recursos - serão criados 1 sala, 1 auditório e 1 laboratório
         Recurso rc = new Recurso("102", "Sala", "I1", null); //Sala não possui curso
@@ -120,6 +122,8 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         recursodao.insere(rc);
         System.out.println("CRIOU");
         rc = new Recurso("LAB02", "Laboratório", "CB", "SI");
+        recursodao.insere(rc);
+        rc = new Recurso("220", "Sala", "I1", null);
         recursodao.insere(rc);
 
         //Reservas teste - Faremos com alguns
@@ -134,6 +138,13 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         //Para reservas de duas horas, fazemos o processo duas vezes
         rs = new Reserva("12:00", "13:00", "2018-12-02", u, rc);
         reservadao.insere(rs);
+        rs = new Reserva("13:00", "14:00", "2018-12-02", u, rc);
+        reservadao.insere(rs);
+        
+        //reserva que será usada de teste para exclusão
+        u = usuariodao.busca("10236540"); //busca pelo aluno
+        rc = recursodao.busca("102", "I1", "Sala"); //busca pela sala
+        System.out.println(rc.getId_Recurso());
         rs = new Reserva("13:00", "14:00", "2018-12-02", u, rc);
         reservadao.insere(rs);
     }
