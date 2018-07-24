@@ -16,7 +16,7 @@
 
 ## English
 
-Project executed for a semester task of the subject Object Oriented Computation during the graduation period in Universidade de São Paulo.
+Project executed for a semester task of the subject Object Oriented Computing during the graduation period in Universidade de São Paulo.
 
 The project theme was free and it's objective was to apply the use of **Object Oriented Programming** and it's concepts. After the estabilization of the project, would be applied **Design Patterns** so that the code could be clear, organized and of easy maintaince, for this one were applied: **DAO** (Data Transfer Object), **Factory**, **Facade**, and **Mediator**.
 
