@@ -7,11 +7,11 @@ package objetos;
 
 public class Recurso {
 
-    private String id_recurso;
+    private int id_recurso;
     private String nome;
-    private Tipos tipo;
-    private Predios predio;
-    private String curso;
+    private Tipo tipo;
+    private Predio predio;
+    private Curso curso;
     
     private enum Tipos {
         SALA, LABORATÓRIO, AUDITÓRIO 
@@ -24,8 +24,8 @@ public class Recurso {
     public Recurso() {
     }
     
-    public Recurso(String nome, String tipo, String predio, String curso){
-        this.id_recurso = id_recurso;
+    public Recurso(String nome, Tipo tipo, Predio predio, Curso curso){
+        this.id_recurso = id_recurso;  //O QUE EH ISSO?
         this.nome = nome;
         setTipo(tipo);
         setPredio(predio);
@@ -37,24 +37,24 @@ public class Recurso {
         return nome;
     }
 
-    public String getTipo() {
-        return tipo.toString();
+    public Tipo getTipo() {
+        return tipo;
     }
 
-    public String getPredio() {
-        return predio.name();
+    public Predio getPredio() {
+        return predio;
     }
     
-    public String getId_Recurso(){
+    public int getId_Recurso(){
         return this.id_recurso;
     }
     
-    public String getCurso() {
+    public Curso getCurso() {
         return curso;
     }
     
     //Setters
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
     
@@ -62,33 +62,19 @@ public class Recurso {
         this.nome = nome;
     }
 
-    public void setTipo(String tipo) {
-        for(Tipos tipos : Tipos.values()){
-            if(tipos.name().equalsIgnoreCase(tipo)){
-                this.tipo = tipos;
-            }
-        }
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
-    public void setPredio(String predio) {
-        for(Predios predios : Predios.values()){
-            if(predios.name().equalsIgnoreCase(predio)){
-                this.predio = predios;
-            }
-        }
+    public void setPredio(Predio predio) {
+        this.predio = predio;
     }    
     
-    public void setId_Recurso(String id_recurso){
+    public void setId_Recurso(int id_recurso){
         this.id_recurso = id_recurso;
     }
     
-    public void imprimeENUM(){
-        for(Predios predios: Predios.values()){
-            System.out.println(predios.name());
-        }
-    }
-    
-    public void setRecursoGeral(String id_recurso, String nome, String tipo, String predio, String curso){
+    public void setRecursoGeral(int id_recurso, String nome, Tipo tipo, Predio predio, Curso curso){
         this.id_recurso = id_recurso;
         this.nome = nome;
         setTipo(tipo);

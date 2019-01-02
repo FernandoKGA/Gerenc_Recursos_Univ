@@ -23,6 +23,9 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         System.out.println("Passando");
         try {
             criaBancoDados();
+            criaTabelaTipos();
+            criaTabelaCursos();
+            criaTabelaPredios();
             criaTabelaUsuario();
             criaTabelaRecurso();
             criaTabelaReserva();
@@ -35,10 +38,52 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
 
     private void criaBancoDados() throws SQLException, Banco_de_DadosException {
         abreConexaoSemBD();
-        String wtf = getDbName();
-        String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
+        String database_name = getDbName();
+        String query = String.format("CREATE DATABASE IF NOT EXISTS %s", database_name);
         preparaComandoSQL_SemBD(query);
         jaCriouBD = true;
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaTipos() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `TIPOS` ("
+                + " `IDTIPO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(30) NOT NULL,"
+                + " PRIMARY KEY (`IDTIPO`),"
+                + " UNIQUE KEY`IDTIPO_UNIQUE` (`IDTIPO`),"
+                + " INDEX (`IDTIPO`)"
+                + ")";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaCursos() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `CURSOS` ("
+                + " `IDCURSO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(60) NOT NULL,"
+                + " PRIMARY KEY (`IDCURSO`),"
+                + " UNIQUE KEY `IDCURSO_UNIQUE` (`IDCURSO`),"
+                + " INDEX (`IDCURSO`)"
+                + ")";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaPredios() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `PREDIOS` ("
+                + " `IDPREDIO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(30) NOT NULL,"
+                + " PRIMARY KEY (`IDPREDIO`),"
+                + " UNIQUE KEY `IDPREDIO_UNIQUE` (`IDPREDIO`),"
+                + " INDEX (`IDPREDIO`)"
+                + ")";
+        preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
     }
@@ -67,11 +112,18 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         String query = "CREATE TABLE IF NOT EXISTS `RECURSO` ("
                 + "`IDRECURSO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
                 + "`NOME` varchar(50) NOT NULL,"
-                + "`PREDIO` varchar(50) NOT NULL,"
-                + "`TIPO` varchar(50) NOT NULL,"
-                + "`CURSO` varchar(50),"
+                + "`ID_PREDIO` varchar(50) NOT NULL,"
+                + "`ID_TIPO` varchar(50) NOT NULL,"
+                + "`ID_CURSO` varchar(50),"
                 + "PRIMARY KEY (`IDRECURSO`),"
-                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`))";
+                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`),"
+                + "KEY `ID_RECURSO_idx` (`ID_PREDIO`),"
+                + "KEY `ID_USUARIO_idx` (`ID_TIPO`),"
+                + "KEY `ID_CURSO_idx` (`ID_CURSO`)"
+                + "CONSTRAINT `fk_ID_PREDIO_1` FOREIGN KEY (`ID_PREDIO`) REFERENCES `PREDIOS` (`IDPREDIO`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                + "CONSTRAINT `fk_ID_TIPO_1` FOREIGN KEY (`ID_TIPO`) REFERENCES `TIPOS` (`IDTIPO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + "CONSTRAINT `fk_ID_CURSO_1` FOREIGN KEY (`ID_CURSO`) REFERENCES `CURSOS` (`IDCURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + ")";
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
@@ -114,6 +166,8 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         usuariodao.insere(u3);
         Usuario u4 = new Usuario("Cláudia Excluível", "63295831", "me.exclua@usp.br", "11963294872", "EFS", "Aluno");
         usuariodao.insere(u4);
+        
+        
         
         //Recursos - serão criados 1 sala, 1 auditório e 1 laboratório
         Recurso rc = new Recurso("102", "Sala", "I1", null); //Sala não possui curso
