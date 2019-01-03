@@ -44,7 +44,7 @@ public class ListaUsuarios extends AbstractJPanel {
             tb.getColumnModel().getColumn(col_size - 2).setPreferredWidth(48);
             for (Usuario usu : lista) {
                 model.addRow(new Object[]{usu.getNome(), usu.getNUSP(), usu.getTelefone(),
-                    usu.getEmail(), usu.getCargo(), usu.getCurso()});
+                    usu.getEmail(), usu.getCargo(), usu.getCurso().getNome()});
             }
         } catch (RegrasNegocioException ex) {
             Log.gravaLog(ex);

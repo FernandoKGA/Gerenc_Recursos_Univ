@@ -240,14 +240,14 @@ public class CadastraReserva extends AbstractJPanel {
 
         SeparadorCadResv.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        CBPredioCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
+        CBPredioCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
         CBPredioCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioCadResvActionPerformed(evt);
             }
         });
 
-        CBTipoCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório" }));
+        CBTipoCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
         CBTipoCadResv.setPreferredSize(new java.awt.Dimension(70, 20));
         CBTipoCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,6 +438,15 @@ public class CadastraReserva extends AbstractJPanel {
     }//GEN-LAST:event_jRadioButton12ActionPerformed
 
     private void CBPredioCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
+        List<Predio> predios = buscaPredios();
+        if (!predios.isEmpty()) {
+            for (int i = 1; i < CBPredioCadResv.getItemCount(); i++) {
+                CBPredioCadResv.removeItemAt(i);
+            }
+            for (Predio pd : predios) {
+                CBPredioCadResv.addItem(pd.getNome());
+            }
+        }
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox1ActionPerformed()");
         String tipo = CBPredioCadResv.getSelectedItem().toString();
@@ -456,12 +465,21 @@ public class CadastraReserva extends AbstractJPanel {
     }//GEN-LAST:event_CBPredioCadResvActionPerformed
 
     private void CBTipoCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTipoCadResvActionPerformed
+        List<Tipo> tipos = buscaTipos();
+        if (!tipos.isEmpty()) {
+            for (int i = 1; i < CBTipoCadResv.getItemCount(); i++) {
+                CBTipoCadResv.removeItemAt(i);
+            }
+            for (Tipo tp : tipos) {
+                CBTipoCadResv.addItem(tp.getNome());
+            }
+        }
         // TODO add your handling code here:
         System.out.println("Telas.Telas.jComboBox2ActionPerformed()");
-        String predio = CBPredioCadResv.getSelectedItem().toString();
-        String tipo = CBTipoCadResv.getSelectedItem().toString();
-        System.out.println(tipo);
-        if ((tipo.equalsIgnoreCase("SELECIONE"))) {
+        String predio_name = CBPredioCadResv.getSelectedItem().toString();
+        String tipo_name = CBTipoCadResv.getSelectedItem().toString();
+        System.out.println(tipo_name);
+        if ((tipo_name.equalsIgnoreCase("SELECIONE"))) {
             LabelNomeCadResv.setEnabled(false);
             CBNomeCadResv.setEnabled(false);
             LabelPredioCadResv.setEnabled(true);
@@ -477,6 +495,8 @@ public class CadastraReserva extends AbstractJPanel {
             CBPredioCadResv.setEnabled(false);
             try {
                 RegrasNegocio r = new RegrasNegocio();
+                Predio predio = new Predio(predio_name);
+                Tipo tipo = new Tipo(tipo_name);
                 List<Recurso> lista = r.listaRecursos(predio, tipo);
                 String slc = CBNomeCadResv.getItemAt(0);
 
@@ -529,8 +549,8 @@ public class CadastraReserva extends AbstractJPanel {
     private void BotaoCadastraReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastraReservaActionPerformed
         //Botao Cadastra Reserva
         String data_ftf = FTF_DataCadResv.getText();
-        String predio = CBPredioCadResv.getSelectedItem().toString();
-        String tipo = CBTipoCadResv.getSelectedItem().toString();
+        String predio_name = CBPredioCadResv.getSelectedItem().toString();
+        String tipo_name = CBTipoCadResv.getSelectedItem().toString();
         String nome = CBNomeCadResv.getSelectedItem().toString();
         String nUSP = TF_NUSPCadResv.getText();
         //Recurso rec = (Recurso) CBNomeCadResv.getSelectedItem();
@@ -564,6 +584,8 @@ public class CadastraReserva extends AbstractJPanel {
                                 Recurso recurso = null;
                                 RegrasNegocio r = new RegrasNegocio();
                                 Usuario usuario = r.buscaUsuario(nUSP);
+                                Predio predio = new Predio(predio_name);
+                                Tipo tipo = new Tipo(tipo_name);
                                 List<Recurso> lista = r.listaRecursos(predio, tipo);
                                 for (Recurso rec : lista) {
                                     if (rec.getNome().equalsIgnoreCase(nome)) {

@@ -43,7 +43,7 @@ public class ListaRecursos extends AbstractJPanel {
                 }
                 TabelaListaRec.setRowSorter(new TableRowSorter(model));
                 for (Recurso rec : lista) {
-                    model.addRow(new Object[]{rec.getNome(), rec.getPredio(), rec.getTipo()});
+                    model.addRow(new Object[]{rec.getNome(), rec.getPredio().getNome(), rec.getTipo().getNome()});
                 }
             }
         } catch (RegrasNegocioException ex) {

@@ -266,8 +266,8 @@ public class DialogConfExcResv extends javax.swing.JDialog {
     private void BotaoDesmResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesmResvActionPerformed
         // Botao que Confirma a desmarcação da reserva
         String data = LabelData_BDDiagConfDesmResv.getText();
-        String predio = LabelPredio_BDDiagConfDesmResv.getText();
-        String tipo = LabelTipo_BDDiagConfDesmResv.getText();
+        String predio_name = LabelPredio_BDDiagConfDesmResv.getText();
+        String tipo_name = LabelTipo_BDDiagConfDesmResv.getText();
         String recurso_nome = LabelRec_BDDiagConfDesmResv.getText();
         //String LabelRec_BDDiagConfDesmResv.getText();
         String hora = LabelHora_BDDiagConfDesmResv.getText();
@@ -278,8 +278,8 @@ public class DialogConfExcResv extends javax.swing.JDialog {
             //Gambiarra para achar a reserva (como fazer isso melhor???)
             for (Reserva reserva : lista_reserva) {
                 if ((data.equalsIgnoreCase(reserva.getData()))
-                    && (predio.equalsIgnoreCase(reserva.getRecurso().getPredio()))
-                    && (tipo.equalsIgnoreCase(reserva.getRecurso().getTipo()))
+                    && (predio_name.equalsIgnoreCase(reserva.getRecurso().getPredio().getNome()))
+                    && (tipo_name.equalsIgnoreCase(reserva.getRecurso().getTipo().getNome()))
                     && (recurso_nome.equalsIgnoreCase(reserva.getRecurso().getNome()))
                     && (hora.substring(0, 5).equalsIgnoreCase(reserva.getHoraInicio()))
                     && (hora.substring(8, hora.length()).equalsIgnoreCase(reserva.getHoraFim()))

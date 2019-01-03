@@ -210,10 +210,12 @@ public class DialogConfExcRec extends javax.swing.JDialog {
             RegrasNegocio r = new RegrasNegocio();
             Recurso rec = new Recurso();
             rec.setNome(this.getLabelNome_BDDialogConfExcRec());
-            rec.setPredio(this.getLabelPredio_BDDialogConfExcRec());
-            rec.setTipo(this.getLabelTipo_BDDialogConfExcRec());
+            Predio predio = new Predio(this.getLabelPredio_BDDialogConfExcRec());
+            rec.setPredio(predio);
+            Tipo tipo = new Tipo(this.getLabelTipo_BDDialogConfExcRec());
+            rec.setTipo(tipo);
             r.excluirRecurso(rec);
-            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Recurso excluído com sucesso!");
             desabilitaVisibilidadeDialogConfExcRec();
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);

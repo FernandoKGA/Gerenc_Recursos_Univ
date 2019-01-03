@@ -30,12 +30,19 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
         System.out.println("Passando");
         try {
             criaBancoDados();
+            System.out.println("criei bd");
             criaTabelaTipos();
+            System.out.println("criei tipos");
             criaTabelaCursos();
+            System.out.println("criei cursos");
             criaTabelaPredios();
+            System.out.println("criei predios");
             criaTabelaUsuario();
+            System.out.println("criei usuario");
             criaTabelaRecurso();
+            System.out.println("criei recurso");
             criaTabelaReserva();
+            System.out.println("criei reserva");
             populaTabelas();
             System.out.println("Passou");
         } catch (SQLException ex) {
@@ -44,12 +51,14 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
     }
 
     private void criaBancoDados() throws SQLException, Banco_de_DadosException {
-        abreConexaoSemBD();
+        System.out.println("bancodados.dao.jdbc.CriacaoBancoDados.criaBancoDados()");
         String database_name = getDbName();
         String query = String.format("CREATE DATABASE IF NOT EXISTS %s", database_name);
+        System.out.println(query);
         preparaComandoSQL_SemBD(query);
         jaCriouBD = true;
         pstmt.execute();
+        System.out.println("erro");
         fechaConexao();
     }
     
@@ -115,7 +124,6 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
     }
 
     private void criaTabelaRecurso() throws SQLException, Banco_de_DadosException {
-        abreConexao();
         String query = "CREATE TABLE IF NOT EXISTS `RECURSO` ("
                 + "`IDRECURSO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
                 + "`NOME` varchar(50) NOT NULL,"
@@ -123,13 +131,7 @@ public class CriacaoBancoDados extends ConectorDAO_JDBC {
                 + "`ID_TIPO` varchar(50) NOT NULL,"
                 + "`ID_CURSO` varchar(50),"
                 + "PRIMARY KEY (`IDRECURSO`),"
-                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`),"
-                + "KEY `ID_RECURSO_idx` (`ID_PREDIO`),"
-                + "KEY `ID_USUARIO_idx` (`ID_TIPO`),"
-                + "KEY `ID_CURSO_idx` (`ID_CURSO`)"
-                + "CONSTRAINT `fk_ID_PREDIO_1` FOREIGN KEY (`ID_PREDIO`) REFERENCES `PREDIOS` (`IDPREDIO`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "CONSTRAINT `fk_ID_TIPO_1` FOREIGN KEY (`ID_TIPO`) REFERENCES `TIPOS` (`IDTIPO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
-                + "CONSTRAINT `fk_ID_CURSO_1` FOREIGN KEY (`ID_CURSO`) REFERENCES `CURSOS` (`IDCURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`)"
                 + ")";
         preparaComandoSQL(query);
         pstmt.execute();

@@ -39,6 +39,32 @@ public class DescadastrarRecurso extends AbstractJPanel {
         BotaoGoDiagConfRec.setEnabled(false);
     }
     
+    private List<Tipo> buscaTipos() {
+        List<Tipo> tipos = null;
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            tipos = r.listaTipos();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return tipos;
+    }
+
+    private List<Predio> buscaPredios() {
+        List<Predio> predios = null;
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            predios = r.listaPredios();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return predios;
+    }
+    
     private void resetaTela(){
         CBPredioExcluirRec.setSelectedIndex(0);
         CBTiposExcluirRec.setSelectedIndex(0);
@@ -349,9 +375,11 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private void BotaoListaRecExcRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecExcRecActionPerformed
         // Botao Lista Recursos para Excluir
         try {
-            String predio = CBPredioExcluirRec.getSelectedItem().toString();
-            String tipo = CBTiposExcluirRec.getSelectedItem().toString();
+            String predio_name = CBPredioExcluirRec.getSelectedItem().toString();
+            String tipo_name = CBTiposExcluirRec.getSelectedItem().toString();
             RegrasNegocio r = new RegrasNegocio();
+            Predio predio = new Predio(predio_name);
+            Tipo tipo = new Tipo(tipo_name);
             List<Recurso> lista = r.listaRecursos(predio, tipo);
             if (lista.isEmpty()) {
                 DefaultTableModel model = (DefaultTableModel) TabelaExcluirRec.getModel();
@@ -376,6 +404,15 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_BotaoListaRecExcRecActionPerformed
 
     private void CBTiposExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTiposExcluirRecActionPerformed
+        List<Tipo> tipos = buscaTipos();
+        if (!tipos.isEmpty()) {
+            for (int i = 1; i < CBTiposExcluirRec.getItemCount(); i++) {
+                CBTiposExcluirRec.removeItemAt(i);
+            }
+            for (Tipo tp : tipos) {
+                CBTiposExcluirRec.addItem(tp.getNome());
+            }
+        }
         //ComboBox Tipo Excluir Recurso
         String campo = CBPredioExcluirRec.getSelectedItem().toString();
         if ((campo.equalsIgnoreCase("SELECIONE"))) {
@@ -393,6 +430,15 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_CBTiposExcluirRecActionPerformed
 
     private void CBPredioExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioExcluirRecActionPerformed
+        List<Predio> predios = buscaPredios();
+        if (!predios.isEmpty()) {
+            for (int i = 1; i < CBPredioExcluirRec.getItemCount(); i++) {
+                CBPredioExcluirRec.removeItemAt(i);
+            }
+            for (Predio pd : predios) {
+                CBPredioExcluirRec.addItem(pd.getNome());
+            }
+        }
         //ComboBox Predio Excluir Recurso
         String campo = CBPredioExcluirRec.getSelectedItem().toString();
         if ((campo.equalsIgnoreCase("SELECIONE"))) {
@@ -412,10 +458,12 @@ public class DescadastrarRecurso extends AbstractJPanel {
             RegrasNegocio r = new RegrasNegocio();
             Recurso rec = new Recurso();
             rec.setNome(LabelNome_BDDialogConfExcRec.getText());
-            rec.setPredio(LabelPredio_BDDialogConfExcRec.getText());
-            rec.setTipo(LabelTipo_BDDialogConfExcRec.getText());
+            Predio predio = new Predio(LabelPredio_BDDialogConfExcRec.getText());
+            rec.setPredio(predio);
+            Tipo tipo = new Tipo(LabelTipo_BDDialogConfExcRec.getText());
+            rec.setTipo(tipo);
             r.excluirRecurso(rec);
-            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Recurso excluído com sucesso!");
             DialogConfExcRec.setVisible(false);
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);

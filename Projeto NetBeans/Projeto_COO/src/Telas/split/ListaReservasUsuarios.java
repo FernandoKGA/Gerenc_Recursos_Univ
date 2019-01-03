@@ -154,7 +154,7 @@ public class ListaReservasUsuarios extends AbstractJPanel {
                 for (Reserva res : lista) {
                     String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
                     Recurso rec = res.getRecurso();
-                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                    model.addRow(new Object[]{res.getData(), rec.getPredio().getNome(), rec.getTipo().getNome(), rec.getNome(), horarios});
                 }
             }
         } catch (RegrasNegocioException ex) {
