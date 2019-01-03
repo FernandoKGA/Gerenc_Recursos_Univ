@@ -33,13 +33,11 @@ public class DescadastrarUsuario extends AbstractJPanel {
      */
     public DescadastrarUsuario(Background back) {
         this.back = back;
-        
         initComponents();
     }
     
     private void listaUsuario(JTable tb) {
         try {
-            RegrasNegocio r = new RegrasNegocio();
             List<Usuario> lista = r.listaUsuarios();
             DefaultTableModel model = (DefaultTableModel) tb.getModel();
             //equivalente a clearTable();
@@ -308,14 +306,12 @@ public class DescadastrarUsuario extends AbstractJPanel {
         Object valor_nUSP = getValueTabelaRowSelecionada();
         String nUSP = (String) valor_nUSP;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             r.excluirUsuario(nUSP);
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
             DialogConfExcUsr.setVisible(false);
         } catch (RegrasNegocioException ex) {
             Log.gravaLog(ex);
             try {
-                RegrasNegocio r = new RegrasNegocio();
                 Usuario usr = r.buscaUsuario(nUSP);
                 if (usr == null) {
                     JOptionPane.showMessageDialog(null, "Usuário não encontrado!");

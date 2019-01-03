@@ -30,10 +30,183 @@ public class RegrasNegocio extends RegrasNegocioException {
             throw new RegrasNegocioException(e);
         }
     }
+    // ------------- TIPOS -------------------------
+    
+    public void insereTipo(Tipo tipo) throws RegrasNegocioException{
+        try{
+            fachadaDAO.insereTipo(tipo);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Tipo buscaTipo(String nome) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaTipo(nome);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Tipo buscaTipoPorID(int idTipo) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaTipoPorID(idTipo);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public List<Tipo> listaTipos() throws RegrasNegocioException{
+        try{
+            return fachadaDAO.listaTipos();
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public void excluirTipo(Tipo tipo) throws RegrasNegocioException{
+        try{
+            fachadaDAO.excluiTipo(tipo);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    // ------------- FIM TIPOS ---------------------
+    
+    // ------------- CURSOS ------------------------
+    public void insereCurso(Curso curso) throws RegrasNegocioException{
+        try{
+            fachadaDAO.insereCurso(curso);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Curso buscaCurso(String nome) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaCurso(nome);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Curso buscaCursoPorID(int idCurso) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaCursoPorID(idCurso);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public List<Curso> listaCursos() throws RegrasNegocioException{
+        try{
+            return fachadaDAO.listaCursos();
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public void excluirCurso(Curso curso) throws RegrasNegocioException{
+        try{
+            fachadaDAO.excluiCurso(curso);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    // ------------- FIM CURSOS --------------------
+    
+    // ------------- PREDIOS -----------------------
+    public void inserePredio(Predio predio) throws RegrasNegocioException{
+        try{
+            fachadaDAO.inserePredio(predio);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Predio buscaPredio(String nome) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaPredio(nome);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public Predio buscaPredioPorID(int idPredio) throws RegrasNegocioException{
+        try{
+            return fachadaDAO.buscaPredioPorID(idPredio);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public List<Predio> listaPredios() throws RegrasNegocioException{
+        try{
+            System.out.println("listando");
+            return fachadaDAO.listaPredios();
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    
+    public void excluirPredio(Predio predio) throws RegrasNegocioException{
+        try{
+            fachadaDAO.excluiPredio(predio);
+        }
+        catch (Banco_de_DadosException e) {
+            e.printStackTrace();
+            throw new RegrasNegocioException("Não foi possível"
+                    + " conectar ao Banco de Dados.");
+        }
+    }
+    // ------------- FIM PREDIOS -------------------
 
     // ------------- USUARIO -----------------------
+            
     public void cadastraUsuario(String nome, String nUSP,
-            String email, String telefone, String curso,
+            String email, String telefone, Curso curso,
             String cargo) throws RegrasNegocioException {
         Usuario u = new Usuario();
         u.setNome(nome);
@@ -81,7 +254,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     // ---------------------------- FIM USUARIO ----------------------------
     // ---------------------------- RECURSO ----------------------------
-    public void cadastraRecurso(String nome, String tipo, String predio)
+    public void cadastraRecurso(String nome, Tipo tipo, Predio predio)
             throws RegrasNegocioException {
         Recurso rs = new Recurso();
         rs.setNome(nome);
@@ -97,7 +270,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public Recurso buscaRecurso(String nome, String predio, String tipo) throws RegrasNegocioException {
+    public Recurso buscaRecurso(String nome, Predio predio, Tipo tipo) throws RegrasNegocioException {
         try {
             return fachadaDAO.buscaRecurso(nome, predio, tipo);
         } catch (Banco_de_DadosException e) {
@@ -117,7 +290,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public List<Recurso> listaRecursos(String predio, String tipo) throws RegrasNegocioException {
+    public List<Recurso> listaRecursos(Predio predio, Tipo tipo) throws RegrasNegocioException {
         try {
             return fachadaDAO.listaRecursos(predio, tipo);
         } catch (Banco_de_DadosException e) {
@@ -127,7 +300,7 @@ public class RegrasNegocio extends RegrasNegocioException {
         }
     }
 
-    public void cadastraLaboratorio(String nome, String tipo, String predio, String curso)
+    public void cadastraLaboratorio(String nome, Tipo tipo, Predio predio, Curso curso)
             throws RegrasNegocioException {
         Recurso lb = new Recurso();
         lb.setNome(nome);
@@ -344,7 +517,7 @@ public class RegrasNegocio extends RegrasNegocioException {
 
     // ---------------------------- FIM RESERVA ----------------------------
     //---------------------------Regras de Negócio---------------------------
-    public boolean verificaQuantCoordenador(String curso) throws RegrasNegocioException {
+    public boolean verificaQuantCoordenador(Curso curso) throws RegrasNegocioException {
         try {
             return fachadaDAO.verificaQuantCoordenador(curso);
         } catch (Banco_de_DadosException e) {
@@ -356,19 +529,19 @@ public class RegrasNegocio extends RegrasNegocioException {
     public boolean permiteAluguelTipo(Usuario u, Recurso r) {
         String cargoUsu = u.getCargo();
         System.out.println(cargoUsu);
-        String tipoRec = r.getTipo();
+        String tipoRec = r.getTipo().getNome();
 
         if (cargoUsu.equalsIgnoreCase("ALUNO")) {
-            if (tipoRec.equalsIgnoreCase("LABORATÓRIO") || tipoRec.equalsIgnoreCase("AUDITORIO") || r.getPredio().equalsIgnoreCase("A2") || r.getPredio().equalsIgnoreCase("A3")) {
+            if (tipoRec.equalsIgnoreCase("LABORATÓRIO") || tipoRec.equalsIgnoreCase("AUDITORIO") || r.getPredio().getNome().equalsIgnoreCase("A2") || r.getPredio().getNome().equalsIgnoreCase("A3")) {
                 return false; //porque a regra diz que laboratórios são reservados a professores.
             }
             return true;
         } else if (cargoUsu.equalsIgnoreCase("PROFESSOR")) {
             if (tipoRec.equalsIgnoreCase("LABORATÓRIO")) {
                 //Isso aqui é possível de fazer? Fica o questionamento
-                String curso = r.getCurso();
+                String curso = r.getCurso().getNome();
                 System.out.println("VERIFICANDO CURSO - " + r.getCurso() + " = " + u.getCurso() + "?");
-                if (curso.equalsIgnoreCase(u.getCurso())) {
+                if (curso.equalsIgnoreCase(u.getCurso().getNome())) {
                     return true;
                 }
                 return false;

@@ -5,13 +5,29 @@
  */
 package Telas.split;
 
+import bancodados.Log;
 import java.awt.Component;
+import negocio.RegrasNegocio;
+import negocio.RegrasNegocioException;
 
 /**
  *
  * @author Fernando
  */
 public abstract class AbstractJPanel extends javax.swing.JPanel{
+    
+    protected boolean modified;
+    public RegrasNegocio r;
+    
+    public AbstractJPanel(){
+        modified = true;
+        try {
+            r = new RegrasNegocio();
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+            ex.printStackTrace();
+        }
+    }
     
     public void desabilitaVisibilidade(){
         this.setVisible(false);

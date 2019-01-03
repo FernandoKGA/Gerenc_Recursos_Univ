@@ -143,7 +143,6 @@ public class ListaReservasUsuarios extends AbstractJPanel {
     private void BotaoBusca_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_ListResvUsrActionPerformed
         try {
             //Tenta criar uma List baseado no nUSP
-            RegrasNegocio r = new RegrasNegocio();
             String nUSP = TF_NUSP_ListResvUsr.getText();
             if (back.valida.verificaNUSP(nUSP)) {
                 List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
@@ -154,7 +153,7 @@ public class ListaReservasUsuarios extends AbstractJPanel {
                 for (Reserva res : lista) {
                     String horarios = res.getHoraInicio() + "~" + res.getHoraFim();
                     Recurso rec = res.getRecurso();
-                    model.addRow(new Object[]{res.getData(), rec.getPredio(), rec.getTipo(), rec.getNome(), horarios});
+                    model.addRow(new Object[]{res.getData(), rec.getPredio().getNome(), rec.getTipo().getNome(), rec.getNome(), horarios});
                 }
             }
         } catch (RegrasNegocioException ex) {

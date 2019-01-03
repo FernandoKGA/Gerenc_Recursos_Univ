@@ -24,6 +24,9 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         try {
             prop = new Propriedades_BD();
             criaBancoDeDados();
+            criaTabelaTipos();
+            criaTabelaCursos();
+            criaTabelaPredios();
             criaTabelaUsuario();
             criaTabelaRecurso();
             criaTabelaReserva();
@@ -62,13 +65,55 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
     private void criaBancoDeDados() throws SQLException, Banco_de_DadosException {
         abreConexaoSemBD();
         jaCriouBD = true;
-        String wtf = getDbName();
-        String query = String.format("CREATE DATABASE IF NOT EXISTS %s", wtf);
+        String database_name = getDbName();
+        String query = String.format("CREATE DATABASE IF NOT EXISTS %s", database_name);
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
     }
-
+    
+    private void criaTabelaTipos() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `TIPOS` ("
+                + " `IDTIPO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(30) NOT NULL,"
+                + " PRIMARY KEY (`IDTIPO`),"
+                + " UNIQUE KEY`IDTIPO_UNIQUE` (`IDTIPO`),"
+                + " INDEX (`IDTIPO`)"
+                + ")";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaCursos() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `CURSOS` ("
+                + " `IDCURSO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(60) NOT NULL,"
+                + " PRIMARY KEY (`IDCURSO`),"
+                + " UNIQUE KEY `IDCURSO_UNIQUE` (`IDCURSO`),"
+                + " INDEX (`IDCURSO`)"
+                + ")";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
+    private void criaTabelaPredios() throws SQLException, Banco_de_DadosException {
+        abreConexao();
+        String query = "CREATE TABLE IF NOT EXISTS `PREDIOS` ("
+                + " `IDPREDIO` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,"
+                + " `NOME` VARCHAR(30) NOT NULL,"
+                + " PRIMARY KEY (`IDPREDIO`),"
+                + " UNIQUE KEY `IDPREDIO_UNIQUE` (`IDPREDIO`),"
+                + " INDEX (`IDPREDIO`)"
+                + ")";
+        preparaComandoSQL(query);
+        pstmt.execute();
+        fechaConexao();
+    }
+    
     private void criaTabelaUsuario() throws SQLException, Banco_de_DadosException {
         abreConexao();
         String query = "CREATE TABLE IF NOT EXISTS `USUARIO` ("
@@ -82,7 +127,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 + " PRIMARY KEY (`IDUSUARIO`),"
                 + " UNIQUE KEY `NUSP` (`NUSP`),"
                 + " UNIQUE KEY `TELEFONE_UNIQUE` (`TELEFONE`),"
-                + " UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`))";
+                + " UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`)"
+                + ")";
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
@@ -93,11 +139,18 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
         String query = "CREATE TABLE IF NOT EXISTS `RECURSO` ("
                 + "`IDRECURSO` int(10) unsigned NOT NULL AUTO_INCREMENT,"
                 + "`NOME` varchar(50) NOT NULL,"
-                + "`PREDIO` varchar(50) NOT NULL,"
-                + "`TIPO` varchar(50) NOT NULL,"
-                + "`CURSO` varchar(50),"
+                + "`ID_PREDIO` varchar(50) NOT NULL,"
+                + "`ID_TIPO` varchar(50) NOT NULL,"
+                + "`ID_CURSO` varchar(50),"
                 + "PRIMARY KEY (`IDRECURSO`),"
-                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`))";
+                + "UNIQUE KEY `IDRECURSO_UNIQUE` (`IDRECURSO`),"
+                + "KEY `ID_RECURSO_idx` (`ID_PREDIO`),"
+                + "KEY `ID_USUARIO_idx` (`ID_TIPO`),"
+                + "KEY `ID_CURSO_idx` (`ID_CURSO`)"
+                + "CONSTRAINT `fk_ID_PREDIO_1` FOREIGN KEY (`ID_PREDIO`) REFERENCES `PREDIOS` (`IDPREDIO`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+                + "CONSTRAINT `fk_ID_TIPO_1` FOREIGN KEY (`ID_TIPO`) REFERENCES `TIPOS` (`IDTIPO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + "CONSTRAINT `fk_ID_CURSO_1` FOREIGN KEY (`ID_CURSO`) REFERENCES `CURSOS` (`IDCURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + ")";
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();
@@ -118,7 +171,8 @@ public class GerenciadorBaseDadosJDBC extends ConectorJDBC implements
                 + "KEY `ID_RECURSO_idx` (`ID_RECURSO`),"
                 + "KEY `ID_USUARIO_idx` (`ID_USUARIO`),"
                 + "CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `RECURSO` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-                + "CONSTRAINT `fk_ID_USUARIO_1` FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIO` (`IDUSUARIO`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+                + "CONSTRAINT `fk_ID_USUARIO_1` FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIO` (`IDUSUARIO`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+                + ")";
         preparaComandoSQL(query);
         pstmt.execute();
         fechaConexao();

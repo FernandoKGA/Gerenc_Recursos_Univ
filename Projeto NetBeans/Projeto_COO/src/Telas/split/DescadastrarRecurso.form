@@ -205,8 +205,8 @@
               <Component id="CBPredioExcluirRec" min="-2" pref="90" max="-2" attributes="0"/>
               <EmptySpace pref="56" max="32767" attributes="0"/>
               <Component id="LabelTipoTelaExcluirRec" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="CBTiposExcluirRec" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="CBTiposExcluirRec" min="-2" pref="103" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
@@ -351,13 +351,8 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="0"/>
         </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Selecione"/>
-            <StringItem index="1" value="Sala"/>
-            <StringItem index="2" value="Laborat&#xf3;rio"/>
-            <StringItem index="3" value="Audit&#xf3;rio"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="model_tipo" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -372,17 +367,8 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="0"/>
         </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="8">
-            <StringItem index="0" value="Selecione"/>
-            <StringItem index="1" value="I1"/>
-            <StringItem index="2" value="I3"/>
-            <StringItem index="3" value="I5"/>
-            <StringItem index="4" value="A2"/>
-            <StringItem index="5" value="A3"/>
-            <StringItem index="6" value="CB"/>
-            <StringItem index="7" value="INCUB"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="model_predio" type="code"/>
         </Property>
       </Properties>
       <Events>

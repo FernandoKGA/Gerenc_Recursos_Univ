@@ -7,6 +7,7 @@ package bancodados.dao;
 
 import bancodados.Banco_de_DadosException;
 import java.util.LinkedList;
+import objetos.Curso;
 import objetos.Usuario;
 
 /**
@@ -18,5 +19,5 @@ public interface UsuarioDAO {
     public Usuario busca(String numeroUSP) throws Banco_de_DadosException;
     public LinkedList<Usuario> lista() throws Banco_de_DadosException;
     public void excluir(String nUSP) throws Banco_de_DadosException;
-    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException;
+    public boolean verificaQuantCoordenador(Curso curso) throws Banco_de_DadosException;
 }

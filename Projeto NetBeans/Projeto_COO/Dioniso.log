@@ -2,17 +2,17 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2018-07-06T22:55:28</date>
-  <millis>1530928528801</millis>
+  <date>2019-01-03T14:12:04</date>
+  <millis>1546531924117</millis>
   <sequence>0</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`dioniso`.`reserva`, CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `recurso` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION)</message>
+  <message>com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'PREDIO' in 'field list'</message>
   <exception>
-    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`dioniso`.`reserva`, CONSTRAINT `fk_ID_RECURSO_1` FOREIGN KEY (`ID_RECURSO`) REFERENCES `recurso` (`IDRECURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION)</message>
+    <message>com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'PREDIO' in 'field list'</message>
     <frame>
       <class>sun.reflect.NativeConstructorAccessorImpl</class>
       <method>newInstance0</method>
@@ -45,7 +45,7 @@
     <frame>
       <class>com.mysql.jdbc.SQLError</class>
       <method>createSQLException</method>
-      <line>935</line>
+      <line>943</line>
     </frame>
     <frame>
       <class>com.mysql.jdbc.MysqlIO</class>
@@ -79,53 +79,103 @@
     </frame>
     <frame>
       <class>com.mysql.jdbc.PreparedStatement</class>
-      <method>executeUpdateInternal</method>
-      <line>2079</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.PreparedStatement</class>
-      <method>executeUpdateInternal</method>
-      <line>2013</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.PreparedStatement</class>
-      <method>executeLargeUpdate</method>
-      <line>5104</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.PreparedStatement</class>
-      <method>executeUpdate</method>
-      <line>1998</line>
+      <method>execute</method>
+      <line>1197</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.RecursoDAO_JDBC</class>
-      <method>excluir</method>
-      <line>180</line>
+      <method>insere</method>
+      <line>39</line>
+    </frame>
+    <frame>
+      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
+      <method>populaTabelas</method>
+      <line>230</line>
+    </frame>
+    <frame>
+      <class>bancodados.dao.jdbc.CriacaoBancoDados</class>
+      <method>criaTabelas</method>
+      <line>46</line>
     </frame>
     <frame>
       <class>bancodados.dao.jdbc.FachadaDAO_JDBC</class>
-      <method>excluirRecurso</method>
-      <line>89</line>
+      <method>&lt;init&gt;</method>
+      <line>43</line>
     </frame>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>excluirRecurso</method>
-      <line>149</line>
+      <method>&lt;init&gt;</method>
+      <line>28</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso</class>
-      <method>BotaoDescRecActionPerformed</method>
-      <line>417</line>
+      <class>Telas.split.CadastraReserva</class>
+      <method>buscaPredios</method>
+      <line>98</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso</class>
-      <method>access$000</method>
-      <line>20</line>
+      <class>Telas.split.CadastraReserva</class>
+      <method>CBPredioCadResvActionPerformed</method>
+      <line>441</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso$1</class>
+      <class>Telas.split.CadastraReserva</class>
+      <method>access$500</method>
+      <line>14</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva$6</class>
       <method>actionPerformed</method>
+      <line>246</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>fireActionEvent</method>
+      <line>1258</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>setSelectedItem</method>
+      <line>586</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>setSelectedIndex</method>
+      <line>622</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>limpaCampos_CadReserva</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>desabilitaComponentesCadResv</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>habilitaVisibilidade</method>
+      <line>30</line>
+    </frame>
+    <frame>
+      <class>Telas.split.Background</class>
+      <method>habilitaTelaCadastraReserva</method>
       <line>119</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro</class>
+      <method>BotaoGoTelaCadResvActionPerformed</method>
+      <line>140</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro</class>
+      <method>access$000</method>
+      <line>14</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro$1</class>
+      <method>actionPerformed</method>
+      <line>60</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -155,7 +205,7 @@
     <frame>
       <class>java.awt.Component</class>
       <method>processMouseEvent</method>
-      <line>6533</line>
+      <line>6539</line>
     </frame>
     <frame>
       <class>javax.swing.JComponent</class>
@@ -165,12 +215,12 @@
     <frame>
       <class>java.awt.Component</class>
       <method>processEvent</method>
-      <line>6298</line>
+      <line>6304</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2236</line>
+      <line>2239</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -180,7 +230,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2294</line>
+      <line>2297</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -190,22 +240,22 @@
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>retargetMouseEvent</method>
-      <line>4888</line>
+      <line>4904</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>processMouseEvent</method>
-      <line>4525</line>
+      <line>4535</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>dispatchEvent</method>
-      <line>4466</line>
+      <line>4476</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2280</line>
+      <line>2283</line>
     </frame>
     <frame>
       <class>java.awt.Window</class>
@@ -220,7 +270,7 @@
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEventImpl</method>
-      <line>758</line>
+      <line>760</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
@@ -244,22 +294,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>74</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>86</line>
+      <line>84</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>733</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
       <method>run</method>
       <line>731</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>729</line>
     </frame>
     <frame>
       <class>java.security.AccessController</class>
@@ -268,17 +318,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>74</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEvent</method>
-      <line>728</line>
+      <line>730</line>
+    </frame>
+    <frame>
+      <class>org.GNOME.Accessibility.AtkWrapper$6</class>
+      <method>dispatchEvent</method>
+      <line>715</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
       <method>pumpOneEventForFilters</method>
-      <line>201</line>
+      <line>205</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
@@ -308,36 +363,91 @@
   </exception>
 </record>
 <record>
-  <date>2018-07-06T22:55:28</date>
-  <millis>1530928528835</millis>
+  <date>2019-01-03T14:12:04</date>
+  <millis>1546531924121</millis>
   <sequence>1</sequence>
   <logger>java.util.logging.Logger</logger>
   <level>SEVERE</level>
   <class>bancodados.Log</class>
   <method>gravaLog</method>
   <thread>14</thread>
-  <message>negocio.RegrasNegocioException: Não foi possível conectar ao Banco de Dados.</message>
+  <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Erro ao setar os parâmetros da consulta.</message>
   <exception>
-    <message>negocio.RegrasNegocioException: Não foi possível conectar ao Banco de Dados.</message>
+    <message>negocio.RegrasNegocioException: bancodados.Banco_de_DadosException: Erro ao setar os parâmetros da consulta.</message>
     <frame>
       <class>negocio.RegrasNegocio</class>
-      <method>excluirRecurso</method>
-      <line>152</line>
+      <method>&lt;init&gt;</method>
+      <line>30</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso</class>
-      <method>BotaoDescRecActionPerformed</method>
-      <line>417</line>
+      <class>Telas.split.CadastraReserva</class>
+      <method>buscaPredios</method>
+      <line>98</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso</class>
-      <method>access$000</method>
-      <line>20</line>
+      <class>Telas.split.CadastraReserva</class>
+      <method>CBPredioCadResvActionPerformed</method>
+      <line>441</line>
     </frame>
     <frame>
-      <class>Telas.split.DescadastrarRecurso$1</class>
+      <class>Telas.split.CadastraReserva</class>
+      <method>access$500</method>
+      <line>14</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva$6</class>
       <method>actionPerformed</method>
+      <line>246</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>fireActionEvent</method>
+      <line>1258</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>setSelectedItem</method>
+      <line>586</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComboBox</class>
+      <method>setSelectedIndex</method>
+      <line>622</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>limpaCampos_CadReserva</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>desabilitaComponentesCadResv</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>Telas.split.CadastraReserva</class>
+      <method>habilitaVisibilidade</method>
+      <line>30</line>
+    </frame>
+    <frame>
+      <class>Telas.split.Background</class>
+      <method>habilitaTelaCadastraReserva</method>
       <line>119</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro</class>
+      <method>BotaoGoTelaCadResvActionPerformed</method>
+      <line>140</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro</class>
+      <method>access$000</method>
+      <line>14</line>
+    </frame>
+    <frame>
+      <class>Telas.split.SelecaoCadastro$1</class>
+      <method>actionPerformed</method>
+      <line>60</line>
     </frame>
     <frame>
       <class>javax.swing.AbstractButton</class>
@@ -367,7 +477,7 @@
     <frame>
       <class>java.awt.Component</class>
       <method>processMouseEvent</method>
-      <line>6533</line>
+      <line>6539</line>
     </frame>
     <frame>
       <class>javax.swing.JComponent</class>
@@ -377,12 +487,12 @@
     <frame>
       <class>java.awt.Component</class>
       <method>processEvent</method>
-      <line>6298</line>
+      <line>6304</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>processEvent</method>
-      <line>2236</line>
+      <line>2239</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -392,7 +502,7 @@
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2294</line>
+      <line>2297</line>
     </frame>
     <frame>
       <class>java.awt.Component</class>
@@ -402,22 +512,22 @@
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>retargetMouseEvent</method>
-      <line>4888</line>
+      <line>4904</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>processMouseEvent</method>
-      <line>4525</line>
+      <line>4535</line>
     </frame>
     <frame>
       <class>java.awt.LightweightDispatcher</class>
       <method>dispatchEvent</method>
-      <line>4466</line>
+      <line>4476</line>
     </frame>
     <frame>
       <class>java.awt.Container</class>
       <method>dispatchEventImpl</method>
-      <line>2280</line>
+      <line>2283</line>
     </frame>
     <frame>
       <class>java.awt.Window</class>
@@ -432,7 +542,7 @@
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEventImpl</method>
-      <line>758</line>
+      <line>760</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
@@ -456,22 +566,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>74</line>
     </frame>
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>86</line>
+      <line>84</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>733</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue$4</class>
       <method>run</method>
       <line>731</line>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-      <line>729</line>
     </frame>
     <frame>
       <class>java.security.AccessController</class>
@@ -480,17 +590,22 @@
     <frame>
       <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
       <method>doIntersectionPrivilege</method>
-      <line>76</line>
+      <line>74</line>
     </frame>
     <frame>
       <class>java.awt.EventQueue</class>
       <method>dispatchEvent</method>
-      <line>728</line>
+      <line>730</line>
+    </frame>
+    <frame>
+      <class>org.GNOME.Accessibility.AtkWrapper$6</class>
+      <method>dispatchEvent</method>
+      <line>715</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>
       <method>pumpOneEventForFilters</method>
-      <line>201</line>
+      <line>205</line>
     </frame>
     <frame>
       <class>java.awt.EventDispatchThread</class>

@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
 import negocio.*;
 import objetos.*;
 import bancodados.Log;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -20,13 +22,18 @@ import javax.swing.table.TableRowSorter;
 public class DescadastrarRecurso extends AbstractJPanel {
 
     private final Background back;
+    private final DefaultComboBoxModel model_tipo;
+    private final DefaultComboBoxModel model_predio;
     
     /**
      * Creates new form DescadastrarRecurso
      * @param back
+     * @param r
      */
     public DescadastrarRecurso(Background back) {
         this.back = back;
+        model_tipo = new DefaultComboBoxModel(criaStringArrayModel_Tipo());
+        model_predio = new DefaultComboBoxModel(criaStringArrayModel_Predios());
         initComponents();
     }
     
@@ -37,6 +44,60 @@ public class DescadastrarRecurso extends AbstractJPanel {
         ScrolExcluirRec.setEnabled(false);
         BotaoListaRecExcRec.setEnabled(false);
         BotaoGoDiagConfRec.setEnabled(false);
+    }
+    
+    private List<Tipo> buscaTipos() {
+        List<Tipo> tipos = null;
+        try {
+            tipos = r.listaTipos();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return tipos;
+    }
+
+    private List<Predio> buscaPredios() {
+        List<Predio> predios = null;
+        try {
+            predios = r.listaPredios();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return predios;
+    }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Tipo(){
+        List<Tipo> tipos = buscaTipos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Tipo tp : tipos){
+            strings.add(tp.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Predios(){
+        List<Predio> predios = buscaPredios();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Predio cs : predios){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
     }
     
     private void resetaTela(){
@@ -231,7 +292,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         });
 
         CBTiposExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBTiposExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório" }));
+        CBTiposExcluirRec.setModel(model_tipo);
         CBTiposExcluirRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBTiposExcluirRecActionPerformed(evt);
@@ -239,7 +300,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         });
 
         CBPredioExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBPredioExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
+        CBPredioExcluirRec.setModel(model_predio);
         CBPredioExcluirRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioExcluirRecActionPerformed(evt);
@@ -277,8 +338,8 @@ public class DescadastrarRecurso extends AbstractJPanel {
                 .addComponent(CBPredioExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(LabelTipoTelaExcluirRec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CBTiposExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CBTiposExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -325,6 +386,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDescadastrarRecurso");
         back.habilitaTelaDescadastrarSelecao();
+        this.modified = false;
         resetaTela();
         back.desabilitaTelaDescadastrarRecurso();
     }//GEN-LAST:event_BotaoRetFromDescRecActionPerformed
@@ -349,9 +411,10 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private void BotaoListaRecExcRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListaRecExcRecActionPerformed
         // Botao Lista Recursos para Excluir
         try {
-            String predio = CBPredioExcluirRec.getSelectedItem().toString();
-            String tipo = CBTiposExcluirRec.getSelectedItem().toString();
-            RegrasNegocio r = new RegrasNegocio();
+            String predio_name = CBPredioExcluirRec.getSelectedItem().toString();
+            String tipo_name = CBTiposExcluirRec.getSelectedItem().toString();
+            Predio predio = new Predio(predio_name);
+            Tipo tipo = new Tipo(tipo_name);
             List<Recurso> lista = r.listaRecursos(predio, tipo);
             if (lista.isEmpty()) {
                 DefaultTableModel model = (DefaultTableModel) TabelaExcluirRec.getModel();
@@ -376,6 +439,24 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_BotaoListaRecExcRecActionPerformed
 
     private void CBTiposExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTiposExcluirRecActionPerformed
+        if (!this.modified) {
+            List<Tipo> tipos = buscaTipos();
+            String select = CBTiposExcluirRec.getItemAt(0);
+            if (!tipos.isEmpty()) {
+                
+                CBTiposExcluirRec.removeAllItems();
+                CBTiposExcluirRec.addItem(select);
+                for (Tipo tp : tipos) {
+                    CBTiposExcluirRec.addItem(tp.getNome());
+                }
+                this.modified = true;
+            }
+            else{
+                CBTiposExcluirRec.removeAllItems();
+                CBTiposExcluirRec.addItem(select);
+                this.modified = true;
+            }
+        }
         //ComboBox Tipo Excluir Recurso
         String campo = CBPredioExcluirRec.getSelectedItem().toString();
         if ((campo.equalsIgnoreCase("SELECIONE"))) {
@@ -393,6 +474,24 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_CBTiposExcluirRecActionPerformed
 
     private void CBPredioExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioExcluirRecActionPerformed
+        if (!this.modified) {
+            List<Predio> predios = buscaPredios();
+            String select = CBPredioExcluirRec.getItemAt(0);
+            if (!predios.isEmpty()) {
+                
+                CBPredioExcluirRec.removeAllItems();
+                CBPredioExcluirRec.addItem(select);
+                for (Predio pd : predios) {
+                    CBPredioExcluirRec.addItem(pd.getNome());
+                }
+                this.modified = true;
+            }
+            else{
+                CBPredioExcluirRec.removeAllItems();
+                CBPredioExcluirRec.addItem(select);
+                this.modified = true;
+            }
+        }
         //ComboBox Predio Excluir Recurso
         String campo = CBPredioExcluirRec.getSelectedItem().toString();
         if ((campo.equalsIgnoreCase("SELECIONE"))) {
@@ -409,13 +508,14 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private void BotaoDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescRecActionPerformed
         // Botao Descadastra Recurso
         try {
-            RegrasNegocio r = new RegrasNegocio();
             Recurso rec = new Recurso();
             rec.setNome(LabelNome_BDDialogConfExcRec.getText());
-            rec.setPredio(LabelPredio_BDDialogConfExcRec.getText());
-            rec.setTipo(LabelTipo_BDDialogConfExcRec.getText());
+            Predio predio = new Predio(LabelPredio_BDDialogConfExcRec.getText());
+            rec.setPredio(predio);
+            Tipo tipo = new Tipo(LabelTipo_BDDialogConfExcRec.getText());
+            rec.setTipo(tipo);
             r.excluirRecurso(rec);
-            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Recurso excluído com sucesso!");
             DialogConfExcRec.setVisible(false);
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);

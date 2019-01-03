@@ -3,16 +3,23 @@ package Telas.split;
 import javax.swing.JOptionPane;
 import negocio.*;
 import bancodados.Log;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import objetos.Curso;
 
 public class CadastroUsuario extends AbstractJPanel {
 
     private final Background back;
+    private final DefaultComboBoxModel model;
 
     public CadastroUsuario(Background back) {
+        super();
         this.back = back;
-        initComponents();
+        model = new DefaultComboBoxModel(criaStringArrayModel());  //Gera novo model
+        initComponents(); //Model sera inserido via initComp
     }
-    
+
     private void limpaCampos_CadUsuario() {
         TF_NomeCadUsr.setText("");
         TF_NUSPCadUsr.setText("");
@@ -20,6 +27,33 @@ public class CadastroUsuario extends AbstractJPanel {
         TF_TelfCadUsr.setText("");
         CBCursoCadUsr.setSelectedIndex(0);
         CBCargoCadUsr.setSelectedIndex(0);
+    }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel(){
+        List<Curso> cursos = buscaCursos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Curso cs : cursos){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    private List<Curso> buscaCursos() {
+        List<Curso> c = null;
+        try {
+            c = r.listaCursos();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return c;
     }
 
     /**
@@ -74,7 +108,7 @@ public class CadastroUsuario extends AbstractJPanel {
         CBCargoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Coordenador", "Professor" }));
 
         CBCursoCadUsr.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "BTC", "LCN", "EFS", "GER", "GA", "GPP", "LZT", "MKT", "OBS", "SI", "TM" }));
+        CBCursoCadUsr.setModel(model);
         CBCursoCadUsr.setToolTipText("");
         CBCursoCadUsr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +221,25 @@ public class CadastroUsuario extends AbstractJPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBCursoCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadUsrActionPerformed
-        // TODO add your handling code here:
+        //Se for falso, entra e executa a primeira insercao
+        if (!this.modified) {
+            List<Curso> cursos = buscaCursos();
+            String select = CBCursoCadUsr.getItemAt(0);
+            if (!cursos.isEmpty()) {
+                
+                CBCursoCadUsr.removeAllItems();
+                CBCursoCadUsr.addItem(select);
+                for (Curso cr : cursos) {
+                    CBCursoCadUsr.addItem(cr.getNome());
+                }
+                this.modified = true;
+            }
+            else{
+                CBCursoCadUsr.removeAllItems();
+                CBCursoCadUsr.addItem(select);
+                this.modified = true;
+            }
+        }
     }//GEN-LAST:event_CBCursoCadUsrActionPerformed
 
     private void TF_NomeCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NomeCadUsrActionPerformed
@@ -202,6 +254,7 @@ public class CadastroUsuario extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastraUsuario");
         limpaCampos_CadUsuario();
+        this.modified = false;
         back.habilitaTelaSelecaoCadastro();
         back.desabilitaTelaCadastroUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -209,7 +262,6 @@ public class CadastroUsuario extends AbstractJPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         try {
-            RegrasNegocio r = new RegrasNegocio();
             System.out.println("BotaoCadastrarUsuario");
             String nome = TF_NomeCadUsr.getText();
             if (!back.valida.verificaTexto(nome)) {
@@ -232,7 +284,9 @@ public class CadastroUsuario extends AbstractJPanel {
                 return;
             }
 
-            String curso = CBCursoCadUsr.getSelectedItem().toString();
+            String curso_name = CBCursoCadUsr.getSelectedItem().toString();
+            Curso curso = new Curso(curso_name);
+
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             if (cargo.equalsIgnoreCase("COORDENADOR")) {
                 if (!r.verificaQuantCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else
@@ -241,7 +295,7 @@ public class CadastroUsuario extends AbstractJPanel {
                     limpaCampos_CadUsuario();
                 } else {
                     JOptionPane.showMessageDialog(null, "Já existem dois "
-                        + "coordenadores deste curso!");
+                            + "coordenadores deste curso!");
                 }
             } else {
                 r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);
