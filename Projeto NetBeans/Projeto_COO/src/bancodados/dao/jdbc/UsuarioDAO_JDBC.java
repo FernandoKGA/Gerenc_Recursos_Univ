@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import objetos.Usuario;
 import bancodados.dao.UsuarioDAO;
+import objetos.Curso;
 
 /**
  *
@@ -37,7 +38,7 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
                 pstmt.setString(3, usuario.getEmail());
                 pstmt.setString(4, usuario.getTelefone());
                 pstmt.setString(5, usuario.getCargo());
-                pstmt.setString(6, usuario.getCurso());
+                pstmt.setString(6, usuario.getCurso().getNome());
                 pstmt.execute();
             } else {
                 JOptionPane.showMessageDialog(null, "Esse Número USP já foi cadastrado!");
@@ -65,12 +66,13 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
             if (rs.next()) {
                 //baseado na ordem do SQL
 
-                String id_usuario = rs.getString(1);
+                int id_usuario = rs.getInt(1);
                 String nome = rs.getString(2);
                 String nusp = rs.getString(3);
                 String email = rs.getString(4);
                 String cargo = rs.getString(5);
-                String curso = rs.getString(6);
+                String curso_name = rs.getString(6);
+                Curso curso = new Curso(curso_name);
                 String telefone = rs.getString(7);
                 usuario = new Usuario();
                 usuario.setCargo(cargo);
@@ -96,8 +98,8 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
 
     @Override
     public LinkedList<Usuario> lista() throws Banco_de_DadosException {
+        
         LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
-        abreConexao();
         preparaComandoSQL("select * from USUARIO");
 
         try {
@@ -109,7 +111,8 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
                 String telefone = rs.getString(4);
                 String email = rs.getString(5);
                 String cargo = rs.getString(6);
-                String curso = rs.getString(7);
+                String curso_name = rs.getString(7);
+                Curso curso = new Curso(curso_name);
                 Usuario usuario = new Usuario();
                 usuario.setNome(nome);
                 usuario.setNUSP(NUSP);
@@ -142,12 +145,12 @@ public class UsuarioDAO_JDBC extends ConectorDAO_JDBC implements UsuarioDAO {
     }
 
     @Override
-    public boolean verificaQuantCoordenador(String curso) throws Banco_de_DadosException {
+    public boolean verificaQuantCoordenador(Curso curso) throws Banco_de_DadosException {
         try {
             abreConexao();
             preparaComandoSQL("SELECT COUNT(nome) FROM USUARIO WHERE CURSO=? AND CARGO="
                     + "'COORDENADOR'");
-            pstmt.setString(1, curso);
+            pstmt.setString(1, curso.getNome());
             rs = pstmt.executeQuery();
             if (rs != null) {
                 while (rs.next()) {

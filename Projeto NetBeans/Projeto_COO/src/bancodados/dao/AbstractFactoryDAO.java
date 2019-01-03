@@ -9,12 +9,18 @@ import bancodados.Banco_de_DadosException;
 
 /**
  *
- * @author ferna
+ * @author fernando-karchiloff
  */
 public interface AbstractFactoryDAO {
+    public TipoDAO createTipoDAO() throws Banco_de_DadosException;
+    
+    public CursoDAO createCursoDAO() throws Banco_de_DadosException;
+    
+    public PredioDAO createPredioDAO() throws Banco_de_DadosException;
+    
+    public UsuarioDAO createUsuarioDAO() throws Banco_de_DadosException;
+    
     public RecursoDAO createRecursoDAO() throws Banco_de_DadosException;
     
     public ReservaDAO createReservaDAO() throws Banco_de_DadosException;
-    
-    public UsuarioDAO createUsuarioDAO() throws Banco_de_DadosException;
 }

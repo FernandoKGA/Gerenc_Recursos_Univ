@@ -13,6 +13,12 @@ public class Tipo {
     
     private int id_tipo;
     private String nome;
+    
+    public Tipo(){}
+    
+    public Tipo(String nome){
+        this.nome = nome;
+    }
 
     public int getId_tipo() {
         return id_tipo;

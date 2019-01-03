@@ -13,6 +13,12 @@ public class Predio {
     
     private int id_predio;
     private String nome;
+    
+    public Predio(){}
+    
+    public Predio(String nome){
+        this.nome = nome;
+    }
 
     public int getId_predio() {
         return id_predio;

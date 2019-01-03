@@ -13,6 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import objetos.Recurso;
 import bancodados.dao.RecursoDAO;
+import objetos.Curso;
+import objetos.Predio;
+import objetos.Tipo;
 
 /**
  *
@@ -31,8 +34,8 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
 
         try {
             pstmt.setString(1, recurso.getNome());
-            pstmt.setString(2, recurso.getPredio());
-            pstmt.setString(3, recurso.getTipo());
+            pstmt.setString(2, recurso.getPredio().getNome());
+            pstmt.setString(3, recurso.getTipo().getNome());
             pstmt.execute();
         } catch (SQLException e) {
             Log.gravaLog(e);
@@ -49,12 +52,11 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
             preparaComandoSQL("insert into Recurso (nome, predio, tipo, curso) values (?, ?, ?, ?)");
 
             pstmt.setString(1, r.getNome());
-            pstmt.setString(2, r.getPredio());
-            pstmt.setString(3, r.getTipo()); //que obviamente vai ser LABORATORIO
-            System.out.println(r.getCurso());
-            pstmt.setString(4, r.getCurso());
+            pstmt.setString(2, r.getPredio().getNome());
+            pstmt.setString(3, r.getTipo().getNome()); //que obviamente vai ser LABORATORIO
+            System.out.println(r.getCurso().getNome());
+            pstmt.setString(4, r.getCurso().getNome());
             pstmt.execute();
-            fechaConexao();
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Erro ao setar os parâmetros da consulta.");
@@ -65,28 +67,30 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
 
 
     @Override
-    public Recurso busca(String nome, String predio, String tipo) throws Banco_de_DadosException {
-    Recurso r = null;
+    public Recurso busca(String nome, Predio predio, Tipo tipo) throws Banco_de_DadosException {
+        Recurso r = null;
         try {
             preparaComandoSQL("SELECT IDRECURSO FROM RECURSO "
                     + "WHERE NOME=? AND PREDIO=? AND TIPO=?");
             pstmt.setString(1, nome);
-            pstmt.setString(2, predio);
-            pstmt.setString(3, tipo);
+            pstmt.setString(2, predio.getNome());
+            pstmt.setString(3, tipo.getNome());
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                String idrecurso = rs.getString(1);
+                int idRecurso = rs.getInt(1);
                 r = new Recurso();
                 r.setNome(nome);
                 r.setPredio(predio);
                 r.setTipo(tipo);
-                r.setId_Recurso(idrecurso);
+                r.setId_Recurso(idRecurso);
                 System.out.println("BUSCA RECURSO_DAOJDBC: " + r.getId_Recurso());
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
         }
+        fechaConexao();
+        
         return r;
     }
 
@@ -103,13 +107,18 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
                 String tipo = rs.getString(3);
                 r = new Recurso();
                 r.setNome(nome);
-                r.setPredio(predio);
-                r.setTipo(tipo);
+                Predio pred = new Predio(predio);
+                r.setPredio(pred);
+                Tipo t = new Tipo(tipo);
+                r.setTipo(t);
+                r.setId_Recurso(idRecurso);
             }
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
         }
+        fechaConexao();
+        
         return r;
     }
 
@@ -117,48 +126,54 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
     public List<Recurso> listaTodos() throws Banco_de_DadosException {
     List<Recurso> recursos = new ArrayList<>();
         try {
-            abreConexao();
             preparaComandoSQL("SELECT * FROM RECURSO");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                String recNome = rs.getString(2); //nome
-                String recPredio = rs.getString(3); //predio
-                String recTipo = rs.getString(4);  //tipo
+                int idRecurso = rs.getInt(1);
+                String nome = rs.getString(2); //nome
+                String predio = rs.getString(3); //predio
+                String tipo = rs.getString(4);  //tipo
                 Recurso r = new Recurso();
-                r.setNome(recNome);
-                r.setPredio(recPredio);
-                r.setTipo(recTipo);
+                r.setNome(nome);
+                Predio pred = new Predio(predio);
+                r.setPredio(pred);
+                Tipo t = new Tipo(tipo);
+                r.setTipo(t);
+                r.setId_Recurso(idRecurso);
                 recursos.add(r);
             }
-            fechaConexao();
+            
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
         }
+        fechaConexao();
+        
         return recursos;    
     }
 
     @Override
-    public List<Recurso> lista(String predio, String tipo) throws Banco_de_DadosException {
+    public List<Recurso> lista(Predio predio, Tipo tipo) throws Banco_de_DadosException {
         List<Recurso> recursos = new LinkedList<>();
         try {
             preparaComandoSQL("SELECT NOME,IDRECURSO,CURSO FROM RECURSO WHERE PREDIO = ? AND TIPO = ?");
             System.out.println(predio);
-            pstmt.setString(1, predio);
-            pstmt.setString(2, tipo);
+            pstmt.setString(1, predio.getNome());
+            pstmt.setString(2, tipo.getNome());
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 String nome = rs.getString(1); //nome
-                String idrecurso = rs.getString(2); //idrecurso
-                String curso = rs.getString(3);
+                int idRecurso = rs.getInt(2); //idrecurso
+                String curso_nome = rs.getString(3);
+                Curso curso = new Curso(curso_nome);
                 Recurso r = new Recurso();
                 r.setNome(nome);
-                r.setId_Recurso(idrecurso);
+                r.setId_Recurso(idRecurso);
                 r.setPredio(predio);
                 r.setTipo(tipo);
                 r.setCurso(curso);
                 if(r.getCurso() != null){
-                    System.out.println("TEM UM CURSO: " + r.getCurso());
+                    System.out.println("TEM UM CURSO: " + r.getCurso().getNome());
                 }
                 recursos.add(r);
             }
@@ -166,6 +181,8 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler o resultado da consulta.");
         }
+        fechaConexao();
+        
         return recursos;   
     }
 
@@ -175,11 +192,14 @@ public class RecursoDAO_JDBC extends ConectorDAO_JDBC implements RecursoDAO{
         preparaComandoSQL("DELETE FROM  RECURSO WHERE NOME=? AND PREDIO=? AND TIPO=?");
         try {
             pstmt.setString(1, recurso.getNome());
-            pstmt.setString(2, recurso.getPredio());
-            pstmt.setString(3, recurso.getTipo());
+            pstmt.setString(2, recurso.getPredio().getNome());
+            pstmt.setString(3, recurso.getTipo().getNome());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             Log.gravaLog(e);
-            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");    }
-    }
+            throw new Banco_de_DadosException("Problemas ao ler os parâmtros da consulta.");    
+        }
+        fechaConexao();
+    }   
+    
 }

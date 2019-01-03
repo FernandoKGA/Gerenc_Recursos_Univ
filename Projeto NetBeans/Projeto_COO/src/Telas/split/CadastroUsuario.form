@@ -181,19 +181,8 @@
           <Font name="SansSerif" size="12" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="12">
+          <StringArray count="1">
             <StringItem index="0" value="Selecione"/>
-            <StringItem index="1" value="BTC"/>
-            <StringItem index="2" value="LCN"/>
-            <StringItem index="3" value="EFS"/>
-            <StringItem index="4" value="GER"/>
-            <StringItem index="5" value="GA"/>
-            <StringItem index="6" value="GPP"/>
-            <StringItem index="7" value="LZT"/>
-            <StringItem index="8" value="MKT"/>
-            <StringItem index="9" value="OBS"/>
-            <StringItem index="10" value="SI"/>
-            <StringItem index="11" value="TM"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>

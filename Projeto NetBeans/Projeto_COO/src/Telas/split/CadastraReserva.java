@@ -79,6 +79,44 @@ public class CadastraReserva extends AbstractJPanel {
         }
     }
             
+    private List<Tipo> buscaTipos() {
+        List<Tipo> tipos = null;
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            tipos = r.listaTipos();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return tipos;
+    }
+
+    private List<Predio> buscaPredios() {
+        List<Predio> predios = null;
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            predios = r.listaPredios();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return predios;
+    }
+
+    private List<Curso> buscaCursos() {
+        List<Curso> c = null;
+        try {
+            RegrasNegocio r = new RegrasNegocio();
+            c = r.listaCursos();
+
+        } catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+
+        return c;
+    }
             
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

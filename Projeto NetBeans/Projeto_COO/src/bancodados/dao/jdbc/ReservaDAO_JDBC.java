@@ -39,8 +39,8 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             pstmt.setString(1, reserva.getHoraInicio());
             pstmt.setString(2, reserva.getHoraFim());
             pstmt.setString(3, reserva.getData());
-            pstmt.setString(4, reserva.getRecurso().getId_Recurso());
-            pstmt.setString(5, reserva.getUsuario().getId_Usuario());
+            pstmt.setString(4, Integer.toString(reserva.getRecurso().getId_Recurso()));
+            pstmt.setString(5, Integer.toString(reserva.getUsuario().getId_Usuario()));
             pstmt.setBoolean(6, false);
             pstmt.execute();
             fechaConexao();
@@ -64,21 +64,22 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
                 r.setData(rs.getString(4));
 
                 Recurso rc = new Recurso();
-                rc.setId_Recurso(rs.getString(5));
+                rc.setId_Recurso(rs.getInt(5));
 
                 Usuario u = new Usuario();
-                u.setId_Usuario(rs.getString(6));
+                u.setId_Usuario(rs.getInt(6));
 
                 r.setRecurso(rc);
                 r.setUsuario(u);
 
                 resultado.add(r);
-            }
-            fechaConexao();
+            }    
         } catch (SQLException e) {
             Log.gravaLog(e);
             throw new Banco_de_DadosException("Problemas ao ler os parâmetros da consulta.");
         }
+        fechaConexao();
+        
         return resultado;
     }
 
@@ -90,7 +91,7 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             usuariodao = new UsuarioDAO_JDBC();
             Usuario u = usuariodao.busca(nUSP);
             if (u != null) {
-                int idu = Integer.parseInt(u.getId_Usuario());
+                int idu = u.getId_Usuario();
                 preparaComandoSQL("SELECT * FROM RESERVA WHERE ID_USUARIO = ? AND DATA > NOW()");
                 pstmt.setInt(1, idu);
                 rs = pstmt.executeQuery();
@@ -125,7 +126,7 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             pstmt.setString(1, reserva.getData());
             pstmt.setString(2, reserva.getHoraInicio());
             pstmt.setString(3, reserva.getHoraFim());
-            pstmt.setString(4, reserva.getRecurso().getId_Recurso());
+            pstmt.setString(4, Integer.toString(reserva.getRecurso().getId_Recurso()));
             pstmt.execute();
             fechaConexao();
         } catch (SQLException e) {
@@ -146,8 +147,8 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             abreConexao();
             usuariodao = new UsuarioDAO_JDBC();
             Usuario u = usuariodao.busca(numeroUSP);
-            if (u.getId_Usuario() != null) {
-                int idu = Integer.parseInt(u.getId_Usuario());
+            if (u.getId_Usuario() != 0) {
+                int idu = u.getId_Usuario();
                 preparaComandoSQL("SELECT * FROM RESERVA WHERE "
                         + "ID_USUARIO = ? AND MONTH(DATA) = ?");
                 pstmt.setInt(1, idu);
@@ -179,7 +180,7 @@ public class ReservaDAO_JDBC extends ConectorDAO_JDBC implements ReservaDAO {
             abreConexao();
             preparaComandoSQL("SELECT * FROM RESERVA WHERE DATA = ? AND ID_RECURSO = ?");
             pstmt.setString(1, data_ftf);
-            pstmt.setString(2, rec.getId_Recurso());
+            pstmt.setString(2, Integer.toString(rec.getId_Recurso()));
             rs = pstmt.executeQuery();
             if (rs != null) {
                 while (rs.next()) {

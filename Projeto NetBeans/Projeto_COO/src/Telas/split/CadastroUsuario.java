@@ -3,6 +3,8 @@ package Telas.split;
 import javax.swing.JOptionPane;
 import negocio.*;
 import bancodados.Log;
+import java.util.List;
+import objetos.Curso;
 
 public class CadastroUsuario extends AbstractJPanel {
 
@@ -22,6 +24,19 @@ public class CadastroUsuario extends AbstractJPanel {
         CBCargoCadUsr.setSelectedIndex(0);
     }
 
+    private List<Curso> buscaCursos(){
+        List<Curso> c = null;
+        try{
+            RegrasNegocio r = new RegrasNegocio();
+            c = r.listaCursos();
+            
+        }
+        catch (RegrasNegocioException e) {
+            Log.gravaLog(e);
+        }
+        
+        return c;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +89,7 @@ public class CadastroUsuario extends AbstractJPanel {
         CBCargoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Coordenador", "Professor" }));
 
         CBCursoCadUsr.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "BTC", "LCN", "EFS", "GER", "GA", "GPP", "LZT", "MKT", "OBS", "SI", "TM" }));
+        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
         CBCursoCadUsr.setToolTipText("");
         CBCursoCadUsr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +202,15 @@ public class CadastroUsuario extends AbstractJPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBCursoCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadUsrActionPerformed
-        // TODO add your handling code here:
+        List<Curso> cursos = buscaCursos();
+        if(!cursos.isEmpty()){
+            for (int i = 1; i < CBCursoCadUsr.getItemCount(); i++){
+                CBCursoCadUsr.removeItemAt(i);
+            }
+            for (Curso cr : cursos){
+                CBCursoCadUsr.addItem(cr.getNome());
+            }
+        }
     }//GEN-LAST:event_CBCursoCadUsrActionPerformed
 
     private void TF_NomeCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NomeCadUsrActionPerformed
@@ -232,7 +255,9 @@ public class CadastroUsuario extends AbstractJPanel {
                 return;
             }
 
-            String curso = CBCursoCadUsr.getSelectedItem().toString();
+            String curso_name = CBCursoCadUsr.getSelectedItem().toString();
+            Curso curso = new Curso(curso_name);
+            
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             if (cargo.equalsIgnoreCase("COORDENADOR")) {
                 if (!r.verificaQuantCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else

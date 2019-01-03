@@ -13,14 +13,6 @@ public class Recurso {
     private Predio predio;
     private Curso curso;
     
-    private enum Tipos {
-        SALA, LABORATÓRIO, AUDITÓRIO 
-    } 
-
-    private enum Predios {
-        CB,I1,I3,I5,M7,A2,INCUB 
-    } 
-
     public Recurso() {
     }
     
