@@ -9,14 +9,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 
 public class CadastraReserva extends AbstractJPanel {
 
     private final Background back;
+    private final DefaultComboBoxModel model_tipo;
+    private final DefaultComboBoxModel model_predio;
     
     public CadastraReserva(Background back) {
         this.back = back;
+        model_tipo = new DefaultComboBoxModel(criaStringArrayModel_Tipo());
+        model_predio = new DefaultComboBoxModel(criaStringArrayModel_Predios());
         initComponents();
     }
 
@@ -116,6 +121,36 @@ public class CadastraReserva extends AbstractJPanel {
         }
 
         return c;
+    }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Tipo(){
+        List<Tipo> tipos = buscaTipos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Tipo tp : tipos){
+            strings.add(tp.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Predios(){
+        List<Predio> predios = buscaPredios();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Predio cs : predios){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
     }
             
     @SuppressWarnings("unchecked")
@@ -240,14 +275,14 @@ public class CadastraReserva extends AbstractJPanel {
 
         SeparadorCadResv.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        CBPredioCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBPredioCadResv.setModel(model_predio);
         CBPredioCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioCadResvActionPerformed(evt);
             }
         });
 
-        CBTipoCadResv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBTipoCadResv.setModel(model_tipo);
         CBTipoCadResv.setPreferredSize(new java.awt.Dimension(70, 20));
         CBTipoCadResv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,13 +473,22 @@ public class CadastraReserva extends AbstractJPanel {
     }//GEN-LAST:event_jRadioButton12ActionPerformed
 
     private void CBPredioCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioCadResvActionPerformed
-        List<Predio> predios = buscaPredios();
-        if (!predios.isEmpty()) {
-            for (int i = 1; i < CBPredioCadResv.getItemCount(); i++) {
-                CBPredioCadResv.removeItemAt(i);
+        if (!this.modified) {
+            List<Predio> predios = buscaPredios();
+            String select = CBPredioCadResv.getItemAt(0);
+            if (!predios.isEmpty()) {
+                
+                CBPredioCadResv.removeAllItems();
+                CBPredioCadResv.addItem(select);
+                for (Predio pd : predios) {
+                    CBPredioCadResv.addItem(pd.getNome());
+                }
+                this.modified = true;
             }
-            for (Predio pd : predios) {
-                CBPredioCadResv.addItem(pd.getNome());
+            else{
+                CBPredioCadResv.removeAllItems();
+                CBPredioCadResv.addItem(select);
+                this.modified = true;
             }
         }
         // TODO add your handling code here:
@@ -465,13 +509,22 @@ public class CadastraReserva extends AbstractJPanel {
     }//GEN-LAST:event_CBPredioCadResvActionPerformed
 
     private void CBTipoCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTipoCadResvActionPerformed
-        List<Tipo> tipos = buscaTipos();
-        if (!tipos.isEmpty()) {
-            for (int i = 1; i < CBTipoCadResv.getItemCount(); i++) {
-                CBTipoCadResv.removeItemAt(i);
+        if (!this.modified) {
+            List<Tipo> tipos = buscaTipos();
+            String select = CBTipoCadResv.getItemAt(0);
+            if (!tipos.isEmpty()) {
+                
+                CBTipoCadResv.removeAllItems();
+                CBTipoCadResv.addItem(select);
+                for (Tipo tp : tipos) {
+                    CBTipoCadResv.addItem(tp.getNome());
+                }
+                this.modified = true;
             }
-            for (Tipo tp : tipos) {
-                CBTipoCadResv.addItem(tp.getNome());
+            else{
+                CBTipoCadResv.removeAllItems();
+                CBTipoCadResv.addItem(select);
+                this.modified = true;
             }
         }
         // TODO add your handling code here:
@@ -542,6 +595,7 @@ public class CadastraReserva extends AbstractJPanel {
     private void BotaoRetFromTelaCadResvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaCadResvActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastraReserva");
+        this.modified = false;
         back.habilitaTelaSelecaoCadastro();
         back.desabilitaTelaCadastraReserva();
     }//GEN-LAST:event_BotaoRetFromTelaCadResvActionPerformed

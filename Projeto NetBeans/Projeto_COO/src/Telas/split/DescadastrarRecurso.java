@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
 import negocio.*;
 import objetos.*;
 import bancodados.Log;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -20,6 +22,8 @@ import javax.swing.table.TableRowSorter;
 public class DescadastrarRecurso extends AbstractJPanel {
 
     private final Background back;
+    private final DefaultComboBoxModel model_tipo;
+    private final DefaultComboBoxModel model_predio;
     
     /**
      * Creates new form DescadastrarRecurso
@@ -27,6 +31,8 @@ public class DescadastrarRecurso extends AbstractJPanel {
      */
     public DescadastrarRecurso(Background back) {
         this.back = back;
+        model_tipo = new DefaultComboBoxModel(criaStringArrayModel_Tipo());
+        model_predio = new DefaultComboBoxModel(criaStringArrayModel_Predios());
         initComponents();
     }
     
@@ -63,6 +69,36 @@ public class DescadastrarRecurso extends AbstractJPanel {
         }
 
         return predios;
+    }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Tipo(){
+        List<Tipo> tipos = buscaTipos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Tipo tp : tipos){
+            strings.add(tp.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Predios(){
+        List<Predio> predios = buscaPredios();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Predio cs : predios){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
     }
     
     private void resetaTela(){
@@ -257,7 +293,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         });
 
         CBTiposExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBTiposExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Sala", "Laboratório", "Auditório" }));
+        CBTiposExcluirRec.setModel(model_tipo);
         CBTiposExcluirRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBTiposExcluirRecActionPerformed(evt);
@@ -265,7 +301,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         });
 
         CBPredioExcluirRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBPredioExcluirRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I1", "I3", "I5", "A2", "A3", "CB", "INCUB" }));
+        CBPredioExcluirRec.setModel(model_predio);
         CBPredioExcluirRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioExcluirRecActionPerformed(evt);
@@ -303,8 +339,8 @@ public class DescadastrarRecurso extends AbstractJPanel {
                 .addComponent(CBPredioExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(LabelTipoTelaExcluirRec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CBTiposExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CBTiposExcluirRec, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -351,6 +387,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaDescadastrarRecurso");
         back.habilitaTelaDescadastrarSelecao();
+        this.modified = false;
         resetaTela();
         back.desabilitaTelaDescadastrarRecurso();
     }//GEN-LAST:event_BotaoRetFromDescRecActionPerformed
@@ -404,13 +441,22 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_BotaoListaRecExcRecActionPerformed
 
     private void CBTiposExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTiposExcluirRecActionPerformed
-        List<Tipo> tipos = buscaTipos();
-        if (!tipos.isEmpty()) {
-            for (int i = 1; i < CBTiposExcluirRec.getItemCount(); i++) {
-                CBTiposExcluirRec.removeItemAt(i);
+        if (!this.modified) {
+            List<Tipo> tipos = buscaTipos();
+            String select = CBTiposExcluirRec.getItemAt(0);
+            if (!tipos.isEmpty()) {
+                
+                CBTiposExcluirRec.removeAllItems();
+                CBTiposExcluirRec.addItem(select);
+                for (Tipo tp : tipos) {
+                    CBTiposExcluirRec.addItem(tp.getNome());
+                }
+                this.modified = true;
             }
-            for (Tipo tp : tipos) {
-                CBTiposExcluirRec.addItem(tp.getNome());
+            else{
+                CBTiposExcluirRec.removeAllItems();
+                CBTiposExcluirRec.addItem(select);
+                this.modified = true;
             }
         }
         //ComboBox Tipo Excluir Recurso
@@ -430,13 +476,22 @@ public class DescadastrarRecurso extends AbstractJPanel {
     }//GEN-LAST:event_CBTiposExcluirRecActionPerformed
 
     private void CBPredioExcluirRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioExcluirRecActionPerformed
-        List<Predio> predios = buscaPredios();
-        if (!predios.isEmpty()) {
-            for (int i = 1; i < CBPredioExcluirRec.getItemCount(); i++) {
-                CBPredioExcluirRec.removeItemAt(i);
+        if (!this.modified) {
+            List<Predio> predios = buscaPredios();
+            String select = CBPredioExcluirRec.getItemAt(0);
+            if (!predios.isEmpty()) {
+                
+                CBPredioExcluirRec.removeAllItems();
+                CBPredioExcluirRec.addItem(select);
+                for (Predio pd : predios) {
+                    CBPredioExcluirRec.addItem(pd.getNome());
+                }
+                this.modified = true;
             }
-            for (Predio pd : predios) {
-                CBPredioExcluirRec.addItem(pd.getNome());
+            else{
+                CBPredioExcluirRec.removeAllItems();
+                CBPredioExcluirRec.addItem(select);
+                this.modified = true;
             }
         }
         //ComboBox Predio Excluir Recurso

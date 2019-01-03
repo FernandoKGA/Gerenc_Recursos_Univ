@@ -3,18 +3,23 @@ package Telas.split;
 import javax.swing.JOptionPane;
 import negocio.*;
 import bancodados.Log;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import objetos.Curso;
 
 public class CadastroUsuario extends AbstractJPanel {
 
     private final Background back;
+    private final DefaultComboBoxModel model;
 
     public CadastroUsuario(Background back) {
+        super();
         this.back = back;
-        initComponents();
+        model = new DefaultComboBoxModel(criaStringArrayModel());  //Gera novo model
+        initComponents(); //Model sera inserido via initComp
     }
-    
+
     private void limpaCampos_CadUsuario() {
         TF_NomeCadUsr.setText("");
         TF_NUSPCadUsr.setText("");
@@ -23,20 +28,35 @@ public class CadastroUsuario extends AbstractJPanel {
         CBCursoCadUsr.setSelectedIndex(0);
         CBCargoCadUsr.setSelectedIndex(0);
     }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel(){
+        List<Curso> cursos = buscaCursos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Curso cs : cursos){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
 
-    private List<Curso> buscaCursos(){
+    private List<Curso> buscaCursos() {
         List<Curso> c = null;
-        try{
+        try {
             RegrasNegocio r = new RegrasNegocio();
             c = r.listaCursos();
-            
-        }
-        catch (RegrasNegocioException e) {
+
+        } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
         }
-        
+
         return c;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,7 +109,7 @@ public class CadastroUsuario extends AbstractJPanel {
         CBCargoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Coordenador", "Professor" }));
 
         CBCursoCadUsr.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCursoCadUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBCursoCadUsr.setModel(model);
         CBCursoCadUsr.setToolTipText("");
         CBCursoCadUsr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,13 +222,23 @@ public class CadastroUsuario extends AbstractJPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBCursoCadUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadUsrActionPerformed
-        List<Curso> cursos = buscaCursos();
-        if(!cursos.isEmpty()){
-            for (int i = 1; i < CBCursoCadUsr.getItemCount(); i++){
-                CBCursoCadUsr.removeItemAt(i);
+        //Se for falso, entra e executa a primeira insercao
+        if (!this.modified) {
+            List<Curso> cursos = buscaCursos();
+            String select = CBCursoCadUsr.getItemAt(0);
+            if (!cursos.isEmpty()) {
+                
+                CBCursoCadUsr.removeAllItems();
+                CBCursoCadUsr.addItem(select);
+                for (Curso cr : cursos) {
+                    CBCursoCadUsr.addItem(cr.getNome());
+                }
+                this.modified = true;
             }
-            for (Curso cr : cursos){
-                CBCursoCadUsr.addItem(cr.getNome());
+            else{
+                CBCursoCadUsr.removeAllItems();
+                CBCursoCadUsr.addItem(select);
+                this.modified = true;
             }
         }
     }//GEN-LAST:event_CBCursoCadUsrActionPerformed
@@ -225,6 +255,7 @@ public class CadastroUsuario extends AbstractJPanel {
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastraUsuario");
         limpaCampos_CadUsuario();
+        this.modified = false;
         back.habilitaTelaSelecaoCadastro();
         back.desabilitaTelaCadastroUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -257,7 +288,7 @@ public class CadastroUsuario extends AbstractJPanel {
 
             String curso_name = CBCursoCadUsr.getSelectedItem().toString();
             Curso curso = new Curso(curso_name);
-            
+
             String cargo = CBCargoCadUsr.getSelectedItem().toString();
             if (cargo.equalsIgnoreCase("COORDENADOR")) {
                 if (!r.verificaQuantCoordenador(curso)) {   //Retorna true para caso tenham dois, e assim cai no else
@@ -266,7 +297,7 @@ public class CadastroUsuario extends AbstractJPanel {
                     limpaCampos_CadUsuario();
                 } else {
                     JOptionPane.showMessageDialog(null, "Já existem dois "
-                        + "coordenadores deste curso!");
+                            + "coordenadores deste curso!");
                 }
             } else {
                 r.cadastraUsuario(nome, nUSP, email, telefone, curso, cargo);

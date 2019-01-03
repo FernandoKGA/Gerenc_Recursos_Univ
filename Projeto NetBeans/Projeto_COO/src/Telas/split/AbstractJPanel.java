@@ -13,6 +13,12 @@ import java.awt.Component;
  */
 public abstract class AbstractJPanel extends javax.swing.JPanel{
     
+    protected boolean modified;
+    
+    public AbstractJPanel(){
+        modified = true;
+    }
+    
     public void desabilitaVisibilidade(){
         this.setVisible(false);
         Component[] array = this.getComponents();

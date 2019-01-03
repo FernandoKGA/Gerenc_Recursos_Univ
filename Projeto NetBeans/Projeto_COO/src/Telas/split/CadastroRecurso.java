@@ -9,7 +9,9 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import negocio.*;
 import bancodados.Log;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import objetos.Curso;
 import objetos.Predio;
 import objetos.Tipo;
@@ -24,9 +26,15 @@ public class CadastroRecurso extends AbstractJPanel {
      * Creates new form CadastraRecurso
      */
     private final Background back;
+    private final DefaultComboBoxModel model_tipo;
+    private final DefaultComboBoxModel model_predio;
+    private final DefaultComboBoxModel model_curso;
 
     public CadastroRecurso(Background back) {
         this.back = back;
+        model_tipo = new DefaultComboBoxModel(criaStringArrayModel_Tipo());
+        model_predio = new DefaultComboBoxModel(criaStringArrayModel_Predios());
+        model_curso = new DefaultComboBoxModel(criaStringArrayModel_Cursos());
         initComponents();
     }
 
@@ -86,6 +94,51 @@ public class CadastroRecurso extends AbstractJPanel {
 
         return c;
     }
+    
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Tipo(){
+        List<Tipo> tipos = buscaTipos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Tipo tp : tipos){
+            strings.add(tp.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Predios(){
+        List<Predio> predios = buscaPredios();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Predio cs : predios){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
+
+    //Cria e mantem estatico as strings
+    private String[] criaStringArrayModel_Cursos(){
+        List<Curso> cursos = buscaCursos();
+        ArrayList<String> strings = new ArrayList<>();
+        String select = "Selecione";
+        strings.add(select);
+        for (Curso cs : cursos){
+            strings.add(cs.getNome());
+        }
+        String[] string_array = new String[strings.size()];
+        string_array = strings.toArray(string_array);
+        
+        return string_array;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,7 +179,7 @@ public class CadastroRecurso extends AbstractJPanel {
         LabelCursoCadRec.setText("Espec. Curso");
 
         CBTipoCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBTipoCadRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBTipoCadRec.setModel(model_tipo);
         CBTipoCadRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBTipoCadRecActionPerformed(evt);
@@ -134,7 +187,7 @@ public class CadastroRecurso extends AbstractJPanel {
         });
 
         CBPredioCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBPredioCadRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBPredioCadRec.setModel(model_predio);
         CBPredioCadRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBPredioCadRecActionPerformed(evt);
@@ -142,7 +195,7 @@ public class CadastroRecurso extends AbstractJPanel {
         });
 
         CBCursoCadRec.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        CBCursoCadRec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        CBCursoCadRec.setModel(model_curso);
         CBCursoCadRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBCursoCadRecActionPerformed(evt);
@@ -232,13 +285,22 @@ public class CadastroRecurso extends AbstractJPanel {
 
     private void CBTipoCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTipoCadRecActionPerformed
         // Ativa ou desativa o ComboBox "curso" de acordo com o valor
-        List<Tipo> tipos = buscaTipos();
-        if (!tipos.isEmpty()) {
-            for (int i = 1; i < CBTipoCadRec.getItemCount(); i++) {
-                CBTipoCadRec.removeItemAt(i);
+        if (!this.modified) {
+            List<Tipo> tipos = buscaTipos();
+            String select = CBTipoCadRec.getItemAt(0);
+            if (!tipos.isEmpty()) {
+                
+                CBTipoCadRec.removeAllItems();
+                CBTipoCadRec.addItem(select);
+                for (Tipo tp : tipos) {
+                    CBTipoCadRec.addItem(tp.getNome());
+                }
+                this.modified = true;
             }
-            for (Tipo tp : tipos) {
-                CBTipoCadRec.addItem(tp.getNome());
+            else{
+                CBTipoCadRec.removeAllItems();
+                CBTipoCadRec.addItem(select);
+                this.modified = true;
             }
         }
         System.out.println("Telas.Telas.jComboBox4ActionPerformed()");
@@ -254,25 +316,43 @@ public class CadastroRecurso extends AbstractJPanel {
     }//GEN-LAST:event_CBTipoCadRecActionPerformed
 
     private void CBPredioCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPredioCadRecActionPerformed
-        List<Predio> predios = buscaPredios();
-        if (!predios.isEmpty()) {
-            for (int i = 1; i < CBPredioCadRec.getItemCount(); i++) {
-                CBPredioCadRec.removeItemAt(i);
+        if (!this.modified) {
+            List<Predio> predios = buscaPredios();
+            String select = CBPredioCadRec.getItemAt(0);
+            if (!predios.isEmpty()) {
+                
+                CBPredioCadRec.removeAllItems();
+                CBPredioCadRec.addItem(select);
+                for (Predio pd : predios) {
+                    CBPredioCadRec.addItem(pd.getNome());
+                }
+                this.modified = true;
             }
-            for (Predio pd : predios) {
-                CBPredioCadRec.addItem(pd.getNome());
+            else{
+                CBPredioCadRec.removeAllItems();
+                CBPredioCadRec.addItem(select);
+                this.modified = true;
             }
         }
     }//GEN-LAST:event_CBPredioCadRecActionPerformed
 
     private void CBCursoCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCursoCadRecActionPerformed
-        List<Curso> cursos = buscaCursos();
-        if (!cursos.isEmpty()) {
-            for (int i = 1; i < CBCursoCadRec.getItemCount(); i++) {
-                CBCursoCadRec.removeItemAt(i);
+        if (!this.modified) {
+            List<Curso> cursos = buscaCursos();
+            String select = CBCursoCadRec.getItemAt(0);
+            if (!cursos.isEmpty()) {
+                
+                CBCursoCadRec.removeAllItems();
+                CBCursoCadRec.addItem(select);
+                for (Curso cr : cursos) {
+                    CBCursoCadRec.addItem(cr.getNome());
+                }
+                this.modified = true;
             }
-            for (Curso pd : cursos) {
-                CBCursoCadRec.addItem(pd.getNome());
+            else{
+                CBCursoCadRec.removeAllItems();
+                CBCursoCadRec.addItem(select);
+                this.modified = true;
             }
         }
     }//GEN-LAST:event_CBCursoCadRecActionPerformed
@@ -280,6 +360,7 @@ public class CadastroRecurso extends AbstractJPanel {
     private void BotaoRetFromTelaCadRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRetFromTelaCadRecActionPerformed
         // TODO add your handling code here:
         System.out.println("BotaoRetFromTelaCadastroRecurso");
+        this.modified = false;
         back.habilitaTelaSelecaoCadastro();
         back.desabilitaTelaCadastroRecurso();
     }//GEN-LAST:event_BotaoRetFromTelaCadRecActionPerformed
