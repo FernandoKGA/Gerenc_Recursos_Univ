@@ -1,13 +1,19 @@
 package Telas.split;
 
+import bancodados.Log;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import negocio.RegrasNegocio;
+import negocio.RegrasNegocioException;
 
 public class Background extends JFrame {
     
     private Container background;
     private final Dimension tamanhoJanela = new java.awt.Dimension(420,340);
+    private RegrasNegocio r;
     Validador valida = new Validador();
 
     public Background() {
@@ -16,6 +22,12 @@ public class Background extends JFrame {
     }
     
     private void iniciaTelas() {
+        try {
+            r = new RegrasNegocio();
+        } catch (RegrasNegocioException ex) {
+            Log.gravaLog(ex);
+            ex.printStackTrace();
+        }
         
         //Opcoes do Container
         background = getContentPane();
@@ -63,7 +75,7 @@ public class Background extends JFrame {
         desabilitaTelaDescadastrarUsuario();
         desabilitaTelaDesmarcarReserva();
     }
-    
+
     //Menu
     Menu TelaMenu = new Menu(this);
     

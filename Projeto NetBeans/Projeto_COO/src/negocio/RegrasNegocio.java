@@ -181,6 +181,7 @@ public class RegrasNegocio extends RegrasNegocioException {
     
     public List<Predio> listaPredios() throws RegrasNegocioException{
         try{
+            System.out.println("listando");
             return fachadaDAO.listaPredios();
         }
         catch (Banco_de_DadosException e) {

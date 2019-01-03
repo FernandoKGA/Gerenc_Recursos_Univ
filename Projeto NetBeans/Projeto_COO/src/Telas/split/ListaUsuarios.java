@@ -33,7 +33,6 @@ public class ListaUsuarios extends AbstractJPanel {
     
     private void listaUsuario(JTable tb) {
         try {
-            RegrasNegocio r = new RegrasNegocio();
             List<Usuario> lista = r.listaUsuarios();
             DefaultTableModel model = (DefaultTableModel) tb.getModel();
             //equivalente a clearTable();

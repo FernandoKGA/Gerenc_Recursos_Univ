@@ -33,7 +33,6 @@ public class ListaRecursos extends AbstractJPanel {
     
     private void listaRecursos() {
         try {
-            RegrasNegocio r = new RegrasNegocio();
             List<Recurso> lista = r.listaRecursos();
             if (lista != null) {
                 DefaultTableModel model = (DefaultTableModel) TabelaListaRec.getModel();

@@ -318,7 +318,6 @@ public class DesmarcarReserva extends AbstractJPanel {
         // Botao Buscar Reservas do Usuario para excluir
         List<Reserva> listaReservas = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             //NAO USAR .getSelectedText()!!!!!!!
             String numeroUSP = TF_NUSP_DesmResv.getText();
             if (back.valida.verificaNUSP(numeroUSP)) {
@@ -389,7 +388,6 @@ public class DesmarcarReserva extends AbstractJPanel {
         //String LabelRec_BDDiagConfDesmResv.getText();
         String hora = LabelHora_BDDiagConfDesmResv.getText();
         try {
-            RegrasNegocio r = new RegrasNegocio();
             String numeroUSP = getTF_NUSP_DesmResv();   //Nao deveria ter uma variavel que guardasse?
             List<Reserva> lista_reserva = r.listaReservasDoUsuario(numeroUSP);
             //Gambiarra para achar a reserva (como fazer isso melhor???)

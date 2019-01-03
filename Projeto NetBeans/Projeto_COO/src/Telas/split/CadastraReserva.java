@@ -87,7 +87,6 @@ public class CadastraReserva extends AbstractJPanel {
     private List<Tipo> buscaTipos() {
         List<Tipo> tipos = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             tipos = r.listaTipos();
 
         } catch (RegrasNegocioException e) {
@@ -100,11 +99,11 @@ public class CadastraReserva extends AbstractJPanel {
     private List<Predio> buscaPredios() {
         List<Predio> predios = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             predios = r.listaPredios();
 
         } catch (RegrasNegocioException e) {
             Log.gravaLog(e);
+            e.printStackTrace();
         }
 
         return predios;
@@ -113,7 +112,6 @@ public class CadastraReserva extends AbstractJPanel {
     private List<Curso> buscaCursos() {
         List<Curso> c = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             c = r.listaCursos();
 
         } catch (RegrasNegocioException e) {
@@ -547,7 +545,6 @@ public class CadastraReserva extends AbstractJPanel {
             LabelPredioCadResv.setEnabled(false);
             CBPredioCadResv.setEnabled(false);
             try {
-                RegrasNegocio r = new RegrasNegocio();
                 Predio predio = new Predio(predio_name);
                 Tipo tipo = new Tipo(tipo_name);
                 List<Recurso> lista = r.listaRecursos(predio, tipo);
@@ -636,7 +633,6 @@ public class CadastraReserva extends AbstractJPanel {
 
                             try {
                                 Recurso recurso = null;
-                                RegrasNegocio r = new RegrasNegocio();
                                 Usuario usuario = r.buscaUsuario(nUSP);
                                 Predio predio = new Predio(predio_name);
                                 Tipo tipo = new Tipo(tipo_name);

@@ -47,7 +47,6 @@ public class CadastroUsuario extends AbstractJPanel {
     private List<Curso> buscaCursos() {
         List<Curso> c = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             c = r.listaCursos();
 
         } catch (RegrasNegocioException e) {
@@ -263,7 +262,6 @@ public class CadastroUsuario extends AbstractJPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         try {
-            RegrasNegocio r = new RegrasNegocio();
             System.out.println("BotaoCadastrarUsuario");
             String nome = TF_NomeCadUsr.getText();
             if (!back.valida.verificaTexto(nome)) {

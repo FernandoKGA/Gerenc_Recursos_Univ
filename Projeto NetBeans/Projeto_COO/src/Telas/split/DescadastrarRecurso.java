@@ -28,6 +28,7 @@ public class DescadastrarRecurso extends AbstractJPanel {
     /**
      * Creates new form DescadastrarRecurso
      * @param back
+     * @param r
      */
     public DescadastrarRecurso(Background back) {
         this.back = back;
@@ -48,7 +49,6 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private List<Tipo> buscaTipos() {
         List<Tipo> tipos = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             tipos = r.listaTipos();
 
         } catch (RegrasNegocioException e) {
@@ -61,7 +61,6 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private List<Predio> buscaPredios() {
         List<Predio> predios = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             predios = r.listaPredios();
 
         } catch (RegrasNegocioException e) {
@@ -414,7 +413,6 @@ public class DescadastrarRecurso extends AbstractJPanel {
         try {
             String predio_name = CBPredioExcluirRec.getSelectedItem().toString();
             String tipo_name = CBTiposExcluirRec.getSelectedItem().toString();
-            RegrasNegocio r = new RegrasNegocio();
             Predio predio = new Predio(predio_name);
             Tipo tipo = new Tipo(tipo_name);
             List<Recurso> lista = r.listaRecursos(predio, tipo);
@@ -510,7 +508,6 @@ public class DescadastrarRecurso extends AbstractJPanel {
     private void BotaoDescRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDescRecActionPerformed
         // Botao Descadastra Recurso
         try {
-            RegrasNegocio r = new RegrasNegocio();
             Recurso rec = new Recurso();
             rec.setNome(LabelNome_BDDialogConfExcRec.getText());
             Predio predio = new Predio(LabelPredio_BDDialogConfExcRec.getText());

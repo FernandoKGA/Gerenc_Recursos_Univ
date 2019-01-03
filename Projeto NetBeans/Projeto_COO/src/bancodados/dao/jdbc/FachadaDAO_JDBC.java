@@ -110,6 +110,7 @@ public class FachadaDAO_JDBC implements FachadaDAO{
 
     @Override
     public List<Predio> listaPredios() throws Banco_de_DadosException {
+        System.out.println("jdbc");
         return predioDAO.listaTodos();
     }
 

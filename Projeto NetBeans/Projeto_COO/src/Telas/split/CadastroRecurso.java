@@ -59,7 +59,6 @@ public class CadastroRecurso extends AbstractJPanel {
     private List<Tipo> buscaTipos() {
         List<Tipo> tipos = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             tipos = r.listaTipos();
 
         } catch (RegrasNegocioException e) {
@@ -72,7 +71,6 @@ public class CadastroRecurso extends AbstractJPanel {
     private List<Predio> buscaPredios() {
         List<Predio> predios = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             predios = r.listaPredios();
 
         } catch (RegrasNegocioException e) {
@@ -85,7 +83,6 @@ public class CadastroRecurso extends AbstractJPanel {
     private List<Curso> buscaCursos() {
         List<Curso> c = null;
         try {
-            RegrasNegocio r = new RegrasNegocio();
             c = r.listaCursos();
 
         } catch (RegrasNegocioException e) {
@@ -375,7 +372,6 @@ public class CadastroRecurso extends AbstractJPanel {
             System.out.println(curso_name);
         }
         try {
-            RegrasNegocio r = new RegrasNegocio();
             if (!back.valida.verificaTextoNumeros(nome)) {
                 JOptionPane.showMessageDialog(null, "Nome contém caracteres inválidos!");
                 return;

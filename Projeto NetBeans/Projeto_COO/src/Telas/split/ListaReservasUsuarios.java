@@ -143,7 +143,6 @@ public class ListaReservasUsuarios extends AbstractJPanel {
     private void BotaoBusca_ListResvUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBusca_ListResvUsrActionPerformed
         try {
             //Tenta criar uma List baseado no nUSP
-            RegrasNegocio r = new RegrasNegocio();
             String nUSP = TF_NUSP_ListResvUsr.getText();
             if (back.valida.verificaNUSP(nUSP)) {
                 List<Reserva> lista = r.listaReservasDoUsuario(TF_NUSP_ListResvUsr.getText());
